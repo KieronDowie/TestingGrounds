@@ -3,9 +3,6 @@ var url = require('url');
 var fs = require('fs');
 var io = require('socket.io')(http);
 
-//Openshift port and ip
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 //Enums
 var Type = {
@@ -246,8 +243,8 @@ var server = http.createServer(function(req,res)
 	}
 
 });
-server.listen(server_port, server_ip_address,function(){
-		console.log('Listening on '+server_ip_address,+':'+server_port+'...');
+server.listen(5000, function(){
+		console.log('Listening on port 5000...');
 });
 
 //Server variables
