@@ -243,8 +243,9 @@ var server = http.createServer(function(req,res)
 	}
 
 });
-server.listen(5000, function(){
-		console.log('Listening on port 5000...');
+var port = process.env.PORT || 5000;
+server.listen(port, function(){
+		console.log('Listening on port '+port+'...');
 });
 
 //Server variables
