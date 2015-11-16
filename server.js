@@ -261,7 +261,6 @@ var playernames = [];
 var dcd = [];
 
 io.listen(server);
-ping();
 io.on('connection', function(socket){
 	var ip=getIp(socket);
 	console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
