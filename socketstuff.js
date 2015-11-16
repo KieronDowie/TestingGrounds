@@ -535,9 +535,6 @@ socket.on(Type.ROLEUPDATE,function(send){
 		button.html('Release');
 	}
 });
-socket.on('connect_error', function (err) {
-    $('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
-});
 socket.on(Type.ACCEPT,function()
 {
 	connectAttempt = 0;
@@ -545,10 +542,8 @@ socket.on(Type.ACCEPT,function()
 });
 socket.on('disconnect',function()
 {
-	console.log('dc');
 	if (connectAttempt <10 )
 	{
-		console.log('Attempting to connect... '+connectAttempt);
 		if ($('.blocker').length == 0)
 		{
 			var blocker = $('<div class="blocker"></div>');

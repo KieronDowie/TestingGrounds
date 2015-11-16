@@ -306,7 +306,7 @@ io.on('connection', function(socket){
 			}
 		}
 	}
-	/*else if (dcd[ip]) //Rejoining after a dc
+	else if (dcd[ip]) //Rejoining after a dc
 	{
 		//Send the list of names in the game to the returning player.
 		var namelist = [];
@@ -366,7 +366,7 @@ io.on('connection', function(socket){
 		{
 			players[mod].s.emit(Type.ROLEUPDATE,send);
 		}
-	}*/
+	}
 	else
 	{
 		socket.disconnect();
