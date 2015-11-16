@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Testing Grounds</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/jquery-2.1.4.min.js"></script>
+  <script src="/playscript.js"></script>
+  <script src="/socketstuff.js"></script> 
+  <link href='playstyle.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	<header><ul><li>Pregame</li><li>Roles</li><li>Mod time</li><li>Day</li><li>Voting</li><li>Trial</li><li>Verdict</li>
+	<li>Last words</li><li>Night</li></li></ul><div id='clock'></div></header>
+	<ul id='main'>
+	
+	</ul>
+	<ul id='userlist'></ul>
+	<div id='inputarea'><input type='text' id='c' onKeyDown='checkKey(event)'/><div class='willbutton' onclick="openWill()">WILL</div></div>
+	<div id="will"><div id='closewill' onclick='closeWill()'></div><textarea id='willcontent'></textarea></div>
+</body>
+</html>
