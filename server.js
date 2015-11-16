@@ -372,12 +372,6 @@ io.on('connection', function(socket){
 	{
 		socket.disconnect();
 	}
-	//Socket Events
-	socket.on(Type.PONG,function()
-	{
-		players[socket.id].ping = true;
-		players[i].fault = 0;
-	});
 	socket.on(Type.MSG,function(msg)
 	{
 		msg=sanitize(msg);
@@ -675,32 +669,6 @@ function sanitize(msg)
   msg=msg.replace(/\'/g,"&#39;");
   msg=msg.replace(/:/g,"&#58;");
   return msg;
-}
-//--Pinging functions
-function ping()
-{
-	for (i in players)
-	{
-		players[i].ping=false;
-		players[i].s.emit(Type.PING);
-	}
-	setTimeout(checkPing,4000);
-}
-function checkPing()
-{
-	for (i in players)
-	{
-		if (!players[i].ping) //No reply after 4 seconds. Fault.
-		{
-			console.log('No reply from '+players[i].name+' in 4 seconds.');
-			players[i].fault++;
-			if (players[i].fault>=3)
-			{
-				players[i].s.disconnect();
-			}
-		}
-	}
-	setTimeout(ping,0);
 }
 //Getting players
 function getPlayerByName(name)
