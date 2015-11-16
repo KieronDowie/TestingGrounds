@@ -243,7 +243,7 @@ var server = http.createServer(function(req,res)
 	}
 
 });
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 server.listen(port, function(){
 		console.log('Listening on port '+port+'...');
 });
@@ -375,8 +375,8 @@ io.on('connection', function(socket){
 	//Socket Events
 	socket.on(Type.PONG,function()
 	{
-		//players[socket.id].ping = true;
-		//players[i].fault = 0;
+		players[socket.id].ping = true;
+		players[i].fault = 0;
 	});
 	socket.on(Type.MSG,function(msg)
 	{
