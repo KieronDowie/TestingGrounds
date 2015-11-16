@@ -51,6 +51,9 @@ var phase = Phase.PREGAME;
 var mod = undefined;
 var ontrial = undefined;
 var apass = 'anewbeginning';
+//Hearbeats
+io.set('heartbeat timeout', 5); 
+io.set('heartbeat interval', 11);
 //Start the timer.
 var timer = Timer();
 timer.tick();
