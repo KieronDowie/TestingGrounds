@@ -86,8 +86,28 @@ function modInterface()
 				$(this).html('Jail');
 			}	
 		});
+		var bm= $('<div class="controlbutton blackmailbutton">Blackmail</div>');
+		bm.click(function()
+		{
+			var index = $('.blackmailbutton, .unblackmailbutton').index($(this))
+			socket.emit(Type.TOGGLE,users[index],'blackmailed');
+			if ($(this).hasClass('blackmailbutton'))
+			{
+				$(this).removeClass('blackmailbutton');
+				$(this).addClass('unblackmailbutton');
+				$(this).html('Unblackmail');
+			}
+			else
+			{
+				$(this).removeClass('unblackmailbutton');
+				$(this).addClass('blackmailbutton');
+				$(this).html('Blackmail');
+			}	
+		});
+		
 		info.append(jail);
 		info.append(kill);
+		info.append(bm);
 		
 		//Adding bottom row
 		var modcontrols = $('<div class="modcontrols"></div>');
@@ -210,6 +230,18 @@ socket.on(Type.JOIN,function(name)
 				$(this).html('Jail');
 			}	
 		});
+		var will = $('<div class="controlbutton modwillbutton">W</div>');
+		var more = $('<div class="controlbutton more"></div>');
+		more.click(function()
+		{
+			openModList(this);
+		});
+		will.click(function()
+		{
+			//TODO
+		});
+		info.append(more);
+		info.append(will);
 		info.append(jail);
 		info.append(kill);
 		//Adding bottom row

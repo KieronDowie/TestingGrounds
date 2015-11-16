@@ -18,7 +18,6 @@ window.onblur = function()
 }
 function openWill()
 {
-	console.log('opening will...');
 	$('#will').show();
 }
 function closeWill()
@@ -185,4 +184,71 @@ function addMessage(msg, type)
 	//Scroll down.
 	var goto = $("#main")[0].scrollHeight;
 	$("#main").animate({scrollTop:goto});
+}
+function openModList(targ)
+{
+	$('#morelist').remove();
+	var actions = {
+		'Blackmail':function()
+		{
+			var button = this.parentNode.parentNode;
+			var li = button.parentNode.parentNode;
+			var index = $('#userlist li').index(li);
+			socket.emit(Type.TOGGLE,users[index],'blackmail');
+		},
+		'Seance':function()
+		{
+			console.log('seance!');
+		}
+	};
+	var notifications = {
+		'Roleblocked':function()
+		{
+			console.log('seance!');
+		},
+		'Healed':function()
+		{
+			console.log('blackmail!');
+		},
+		'Attacked(immune)':function()
+		{
+			console.log('seance!');
+		},
+		'Target immune':function()
+		{
+			console.log('seance!');
+		},
+		'Witched':function()
+		{
+			console.log('seance!');
+		},
+		'Shot by Vet':function()
+		{
+			console.log('You were shot by the Veteran you visited!');
+		},
+		'Vet shot':function()
+		{
+			console.log('You shot someone that visited you!');
+		}
+	};
+	var list = $('<ul id="morelist"></ul>');
+	list.css('top',targ.getBoundingClientRect().bottom);
+	//Actions
+	list.append($('<li class="morelistheading">Actions</li>'));
+	for (i in actions)
+	{
+		var tmp = $('<li class="morelistitem">'+i+'</li>');
+		tmp.click(actions[i]);
+		list.append(tmp);
+	}
+	//Prenots
+	list.append($('<li class="morelistheading">Notifications</li>'));
+	for (i in notifications)
+	{
+		var tmp = $('<li class="morelistitem">'+i+'</li>');
+		tmp.click(actions[i]);
+		list.append(tmp);
+	}
+	//Append
+	$(targ).append(list);
 }

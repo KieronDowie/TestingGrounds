@@ -569,6 +569,19 @@ io.on('connection', function(socket){
 							player.s.emit(Type.SYSTEM,'You can no longer hear whispers.');
 						}
 					break;				
+					case 'blackmail': 
+						player.blackmailed = !player.blackmailed;
+						if (player.blackmailed)
+						{
+							player.s.emit(Type.SYSTEM,'Someone threatened to reveal your secrets. You are blackmailed!');
+							players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
+						}
+						else
+						{
+							player.s.emit(Type.SYSTEM,'You are no longer blackmailed.');
+							players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
+						}
+					break;				
 					default: 
 						socket.emit(Type.SYSTEM,'Invalid chat selection. Did you break something?');
 					break;	
@@ -907,6 +920,7 @@ function Player(socket,name,ip)
 			role:'NoRole',
 			alive:true,
 			mayor:undefined,
+			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
 			votes:0,
@@ -946,41 +960,49 @@ function Player(socket,name,ip)
 					case 'w':
 						if (phase >= Phase.DAY && phase <= Phase.LASTWORDS)
 						{
-							if (c.length > 2)
+							if (this.blackmailed)
 							{
-								if (playernames[c[1]])
+								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
+							}
+							else
+							{
+								
+								if (c.length > 2)
 								{
-									//Valid player name.
-									var msg = c.slice();
-									msg.splice(0,2);
-									msg=msg.join(' ');
-									this.whisper(msg,players[playernames[c[1]]]);
-								}
-								else if (!isNaN(c[1])) //It's a number.
-								{
-									//Get the numbered player.
-									var target = getPlayerByNumber(c[1]);
-									if (target)
+									if (playernames[c[1]])
 									{
-										var name = target.name;
+										//Valid player name.
 										var msg = c.slice();
 										msg.splice(0,2);
 										msg=msg.join(' ');
-										this.whisper(msg,target);
+										this.whisper(msg,players[playernames[c[1]]]);
+									}
+									else if (!isNaN(c[1])) //It's a number.
+									{
+										//Get the numbered player.
+										var target = getPlayerByNumber(c[1]);
+										if (target)
+										{
+											var name = target.name;
+											var msg = c.slice();
+											msg.splice(0,2);
+											msg=msg.join(' ');
+											this.whisper(msg,target);
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+										}
 									}
 									else
 									{
-										this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+										socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
 									}
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
+									socket.emit(Type.SYSTEM,'The syntax of this command is \'/w name message\'.');
 								}
-							}
-							else
-							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/w name message\'.');
 							}
 						}
 						else
@@ -1266,7 +1288,14 @@ function Player(socket,name,ip)
 						}
 						else if (this.alive)
 						{
-							io.emit(Type.MSG,this.name,msg);
+							if (this.blackmailed)
+							{
+								socket.emit(Type.SYSTEM,'You are blackmailed.');
+							}
+							else
+							{
+								io.emit(Type.MSG,this.name,msg);
+							}
 						}
 						else //Deadchat
 						{
@@ -1282,7 +1311,14 @@ function Player(socket,name,ip)
 						{							
 							if (ontrial == this.s.id)
 							{
-								io.emit(Type.MSG,this.name,msg);
+								if (this.blackmailed)
+								{
+									io.emit(Type.MSG,this.name,'I am blackmailed.');
+								}
+								else
+								{
+									io.emit(Type.MSG,this.name,msg);
+								}
 							}
 							else
 							{
@@ -1342,7 +1378,14 @@ function Player(socket,name,ip)
 						}
 						else if (ontrial == this.s.id)
 						{
-							io.emit(Type.MSG,this.name,msg);
+							if (this.blackmailed)
+							{
+								socket.emit(Type.SYSTEM,'You are blackmailed.');
+							}
+							else
+							{
+								io.emit(Type.MSG,this.name,msg);
+							}
 						}
 						else
 						{
