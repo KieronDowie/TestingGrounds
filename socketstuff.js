@@ -535,6 +535,9 @@ socket.on(Type.ROLEUPDATE,function(send){
 		button.html('Release');
 	}
 });
+socket.on('connect_error', function (err) {
+    //$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
+});
 socket.on(Type.ACCEPT,function()
 {
 	connectAttempt = 0;
