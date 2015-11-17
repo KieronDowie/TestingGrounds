@@ -50,7 +50,7 @@ function checkKey(e)
 		socket.emit(Type.MSG,msg);
 	}	
 	//Limit length
-	if ($('#c').val().length > 200)
+	if ($('#c').val().length >= 200)
 	{
 		$('#c').val($('#c').val().substring(0,199));
 	}
@@ -64,6 +64,9 @@ function addMessage(msg, type)
 	switch (type)
 	{
 		case 'msg':
+			$('#main').append('<li>'+msg+'</li>');
+		break;
+		case 'rolecard':
 			$('#main').append('<li>'+msg+'</li>');
 		break;
 		case 'system':
@@ -187,68 +190,79 @@ function addMessage(msg, type)
 }
 function openModList(targ)
 {
-	$('#morelist').remove();
-	var actions = {
-		'Blackmail':function()
-		{
-			var button = this.parentNode.parentNode;
-			var li = button.parentNode.parentNode;
-			var index = $('#userlist li').index(li);
-			socket.emit(Type.TOGGLE,users[index],'blackmail');
-		},
-		'Seance':function()
-		{
-			console.log('seance!');
-		}
-	};
-	var notifications = {
-		'Roleblocked':function()
-		{
-			console.log('seance!');
-		},
-		'Healed':function()
-		{
-			console.log('blackmail!');
-		},
-		'Attacked(immune)':function()
-		{
-			console.log('seance!');
-		},
-		'Target immune':function()
-		{
-			console.log('seance!');
-		},
-		'Witched':function()
-		{
-			console.log('seance!');
-		},
-		'Shot by Vet':function()
-		{
-			console.log('You were shot by the Veteran you visited!');
-		},
-		'Vet shot':function()
-		{
-			console.log('You shot someone that visited you!');
-		}
-	};
-	var list = $('<ul id="morelist"></ul>');
-	list.css('top',targ.getBoundingClientRect().bottom);
-	//Actions
-	list.append($('<li class="morelistheading">Actions</li>'));
-	for (i in actions)
+	if ($(targ).hasClass('more'))
 	{
-		var tmp = $('<li class="morelistitem">'+i+'</li>');
-		tmp.click(actions[i]);
-		list.append(tmp);
+		var alreadyOpen = (targ.children.length > 0);
+		$('#morelist').remove();
+		if (!alreadyOpen)
+		{
+			var actions = {
+				'Blackmail':function()
+				{
+					var button = this.parentNode.parentNode;
+					var li = button.parentNode.parentNode;
+					var index = $('#userlist li').index(li);
+					socket.emit(Type.TOGGLE,users[index],'blackmail');
+				},
+				'Seance':function()
+				{
+					console.log('seance!');
+				}
+			};
+			var notifications = {
+				'Roleblocked':function()
+				{
+					console.log('seance!');
+				},
+				'Healed':function()
+				{
+					console.log('blackmail!');
+				},
+				'Attacked(immune)':function()
+				{
+					console.log('seance!');
+				},
+				'Target immune':function()
+				{
+					console.log('seance!');
+				},
+				'Witched':function()
+				{
+					console.log('seance!');
+				},
+				'Shot by Vet':function()
+				{
+					console.log('You were shot by the Veteran you visited!');
+				},
+				'Vet shot':function()
+				{
+					console.log('You shot someone that visited you!');
+				}
+			};
+			var list = $('<ul id="morelist"></ul>');
+			list.css('top',targ.getBoundingClientRect().bottom);
+			//Actions
+			list.append($('<li class="morelistheading">Actions</li>'));
+			for (i in actions)
+			{
+				var tmp = $('<li class="morelistitem">'+i+'</li>');
+				tmp.click(actions[i]);
+				list.append(tmp);
+			}
+			//Prenots
+			list.append($('<li class="morelistheading">Notifications</li>'));
+			for (i in notifications)
+			{
+				var tmp = $('<li class="morelistitem">'+i+'</li>');
+				tmp.click(actions[i]);
+				list.append(tmp);
+			}
+			//Append
+			$(targ).append(list);
+		}
 	}
-	//Prenots
-	list.append($('<li class="morelistheading">Notifications</li>'));
-	for (i in notifications)
-	{
-		var tmp = $('<li class="morelistitem">'+i+'</li>');
-		tmp.click(actions[i]);
-		list.append(tmp);
-	}
-	//Append
-	$(targ).append(list);
+}
+function openUserWill(e)
+{
+	
 }

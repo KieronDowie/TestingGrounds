@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
+var roles = require('./roleinfo');
 var io = require('socket.io')(http, {'heartbeat timeout':5,'heartbeat interval':11});
 //Enums
 var Type = {
@@ -30,7 +31,10 @@ var Type = {
 	SETMOD:24,
 	SWITCH:25,
 	ACCEPT:26,
-	ROLEUPDATE:27
+	ROLEUPDATE:27,
+	DENY:28,
+	KICK:29,
+	ROLECARD:30
 };
 
 var Phase = {
@@ -49,6 +53,8 @@ var phase = Phase.PREGAME;
 var mod = undefined;
 var ontrial = undefined;
 var apass = 'anewbeginning';
+//Banlist
+var banlist = [];
 //Start the timer.
 var timer = Timer();
 timer.tick();
@@ -261,113 +267,123 @@ var dcd = [];
 io.listen(server);
 io.on('connection', function(socket){
 	var ip=getIp(socket);
-	console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
-	if (players[ip])
+	if (banlist.indexOf(ip) != -1)
 	{
-		//Player is already connected, wtf, do nothing.
-		console.log('already connected');
-	}
-	else if (joining[ip])
-	{
-		//If the player is first, set them as the mod.
-		if (Object.keys(players).length==0)
-		{
-			mod = socket.id;
-		}
-		//Send the list of names in the game to the new arrival
-		var namelist = [];
-		//Send the roles of any dead players
-		for (i in playernums)
-		{
-			var p={};
-			p.name = players[playernums[i]].name;
-			if (!players[playernums[i]].alive)
-			{
-				p.role = players[playernums[i]].role;
-			}
-			namelist.push(p);
-		}
-		socket.emit(Type.ROOMLIST,namelist);
-		var name = joining[ip];
-		delete joining[ip];
-		players[socket.id]= Player(socket,name,ip);
-		//Inform everyone of the new arrival.
-		io.emit(Type.JOIN,name);
-		//Tell the new arrival what phase it is.
-		socket.emit(Type.SETPHASE,phase);
-		//Inform the new arrival of any devs present.
-		for (i in players)
-		{
-			if (players[i].dev)
-			{
-				socket.emit(Type.SETDEV,players[i].name);
-			}
-		}
-	}
-	else if (dcd[ip]) //Rejoining after a dc
-	{
-		//Send the list of names in the game to the returning player.
-		var namelist = [];
-		//Send the roles of any dead players
-		for (i in players)
-		{
-			var p={};
-			p.name = players[i].name;
-			if (!players[i].alive)
-			{
-				p.role = players[i].role;
-			}
-			namelist.push(p);
-		}
-		//Welcome back!
-		players[socket.id]=dcd[ip];
-		//Replace the old socket.
-		players[socket.id].s = socket;
-		//Reset ping.
-		players[socket.id].ping = true;
-		players[socket.id].faults = 0;
-		playernums.push(socket.id);
-		playernames[players[socket.id].name] = socket.id;
-		socket.emit(Type.ROOMLIST,namelist);
-		//Delete old value in the dcd array
-		delete dcd[ip];
-		
-		socket.emit(Type.ACCEPT);
-		socket.emit(Type.SYSTEM,'You have reconnected.');
-		//If the player is first, set them as the mod.
-		if (Object.keys(players).length==0)
-		{
-			mod = socket.id;
-		}
-		var name = players[socket.id].name;
-		//Inform everyone of the new arrival.
-		io.emit(Type.JOIN,name);
-		//Tell the new arrival what phase it is.
-		socket.emit(Type.SETPHASE,phase);
-		
-		var send = {};
-		
-		for (i in players[socket.id].chats)
-		{
-			if (players[socket.id].chats[i])
-			{
-				send[i] = players[socket.id].chats[i];
-			}
-		}
-		//Exceptions
-		send.name = players[socket.id].name;
-		send.alive = players[socket.id].alive;
-		send.spy = players[socket.id].hearwhispers;
-		send.mayor = (players[socket.id].mayor !== undefined);
-		send.role = players[socket.id].role;
-		if (players[mod])
-		{
-			players[mod].s.emit(Type.ROLEUPDATE,send);
-		}
+		socket.emit(Type.SYSTEM,'This ip is banned. If you believe this to be in error, contact <a href="http://www.blankmediagames.com/phpbb/memberlist.php?mode=viewprofile&u=422145">KittenLicks</a> at the Town of Salem forums.');
+		socket.emit(Type.KICK);
+		console.log('Connection attempt from banned ip: '+ip);
+		socket.disconnect();
 	}
 	else
 	{
-		socket.disconnect();
+		console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
+		if (players[ip])
+		{
+			//Player is already connected, wtf, do nothing.
+			console.log('already connected');
+		}
+		else if (joining[ip])
+		{
+			//If the player is first, set them as the mod.
+			if (Object.keys(players).length==0)
+			{
+				mod = socket.id;
+			}
+			//Send the list of names in the game to the new arrival
+			var namelist = [];
+			//Send the roles of any dead players
+			for (i in playernums)
+			{
+				var p={};
+				p.name = players[playernums[i]].name;
+				if (!players[playernums[i]].alive)
+				{
+					p.role = players[playernums[i]].role;
+				}
+				namelist.push(p);
+			}
+			socket.emit(Type.ROOMLIST,namelist);
+			var name = joining[ip];
+			delete joining[ip];
+			players[socket.id]= Player(socket,name,ip);
+			//Inform everyone of the new arrival.
+			io.emit(Type.JOIN,name);
+			//Tell the new arrival what phase it is.
+			socket.emit(Type.SETPHASE,phase);
+			//Inform the new arrival of any devs present.
+			for (i in players)
+			{
+				if (players[i].dev)
+				{
+					socket.emit(Type.SETDEV,players[i].name);
+				}
+			}
+		}
+		else if (dcd[ip]) //Rejoining after a dc
+		{
+			//Send the list of names in the game to the returning player.
+			var namelist = [];
+			//Send the roles of any dead players
+			for (i in players)
+			{
+				var p={};
+				p.name = players[i].name;
+				if (!players[i].alive)
+				{
+					p.role = players[i].role;
+				}
+				namelist.push(p);
+			}
+			//Welcome back!
+			players[socket.id]=dcd[ip];
+			//Replace the old socket.
+			players[socket.id].s = socket;
+			//Reset ping.
+			players[socket.id].ping = true;
+			players[socket.id].faults = 0;
+			playernums.push(socket.id);
+			playernames[players[socket.id].name] = socket.id;
+			socket.emit(Type.ROOMLIST,namelist);
+			//Delete old value in the dcd array
+			delete dcd[ip];
+			
+			socket.emit(Type.ACCEPT);
+			socket.emit(Type.SYSTEM,'You have reconnected.');
+			//If the player is first, set them as the mod.
+			if (Object.keys(players).length==0)
+			{
+				mod = socket.id;
+			}
+			var name = players[socket.id].name;
+			//Inform everyone of the new arrival.
+			io.emit(Type.JOIN,name);
+			//Tell the new arrival what phase it is.
+			socket.emit(Type.SETPHASE,phase);
+			
+			var send = {};
+			
+			for (i in players[socket.id].chats)
+			{
+				if (players[socket.id].chats[i])
+				{
+					send[i] = players[socket.id].chats[i];
+				}
+			}
+			//Exceptions
+			send.name = players[socket.id].name;
+			send.alive = players[socket.id].alive;
+			send.spy = players[socket.id].hearwhispers;
+			send.mayor = (players[socket.id].mayor !== undefined);
+			send.role = players[socket.id].role;
+			if (players[mod])
+			{
+				players[mod].s.emit(Type.ROLEUPDATE,send);
+			}
+		}
+		else
+		{
+			socket.disconnect();
+		}
 	}
 	socket.on(Type.MSG,function(msg)
 	{
@@ -399,7 +415,15 @@ io.on('connection', function(socket){
 		else
 		{
 			players[playernames[name]].role = role;
-			players[playernames[name]].s.emit(Type.SYSTEM,'Your role is '+role);
+			if (roles.hasRolecard(role))
+			{
+				var rolecard = roles.getRoleCard(role);
+				players[playernames[name]].s.emit(Type.ROLECARD,rolecard);
+			}
+			else
+			{
+				players[playernames[name]].s.emit(Type.SYSTEM,'Your role is '+role);
+			}
 		}
 	});
 	socket.on(Type.SETPHASE,function(p){
@@ -573,7 +597,7 @@ io.on('connection', function(socket){
 						player.blackmailed = !player.blackmailed;
 						if (player.blackmailed)
 						{
-							player.s.emit(Type.SYSTEM,'Someone threatened to reveal your secrets. You are blackmailed!');
+							player.s.emit(Type.PRENOT,'BLACKMAIL');
 							players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
 						}
 						else
@@ -1146,8 +1170,20 @@ function Player(socket,name,ip)
 							socket.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
+					case 'role':
+						c.splice(0,1);						
+						var rolename = c.join(' '); 
+						if (roles.hasRolecard(rolename))
+						{
+							socket.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
+						}
+					break;
 					case 'kick':
-						if (c.length == 2)
+						if (c.length >= 2)
 						{
 							if (this.dev)
 							{
@@ -1160,7 +1196,14 @@ function Player(socket,name,ip)
 								else if (tokick)
 								{
 									tokick.s.emit(Type.SYSTEM,'You have been kicked from the game!');
-									io.emit(Type.HIGHLIGHT,tokick.name+' has been kicked by '+this.name+'!');
+									var reason = '';
+									if (c.length > 2)
+									{
+										c.splice(0,2);
+										reason = ' Reason: '+c.join(' ');
+									}
+									io.emit(Type.HIGHLIGHT,tokick.name+' has been kicked by '+this.name+'!'+reason);
+									tokick.s.emit(Type.KICK);
 									tokick.s.disconnect();
 								}
 								else
@@ -1175,7 +1218,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'The syntax of this command is \'/kick user\'.');
+							socket.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
 						}
 					break;
 					case 'msg':

@@ -6,6 +6,7 @@ var users = [];
 var mod = false;
 //Connect attempts
 var connectAttempt = 0;
+var kicked = false;
 //Enums
 var Type = {
 	PING:0,
@@ -34,11 +35,10 @@ var Type = {
 	SETMOD:24,
 	SWITCH:25,
 	ACCEPT:26,
-	ROLEUPDATE:27
-};
-//Make absolutely sure the socket closes when leaving
-window.onbeforeunload = function(e) {
-  socket.disconnect();
+	ROLEUPDATE:27,
+	DENY:28,
+	KICK:29,
+	ROLECARD:30
 };
 function modInterface()
 {
@@ -86,28 +86,21 @@ function modInterface()
 				$(this).html('Jail');
 			}	
 		});
-		var bm= $('<div class="controlbutton blackmailbutton">Blackmail</div>');
-		bm.click(function()
+		var will = $('<div class="controlbutton modwillbutton">W</div>');
+		var more = $('<div class="controlbutton more"></div>');
+		more.click(function()
 		{
-			var index = $('.blackmailbutton, .unblackmailbutton').index($(this))
-			socket.emit(Type.TOGGLE,users[index],'blackmailed');
-			if ($(this).hasClass('blackmailbutton'))
-			{
-				$(this).removeClass('blackmailbutton');
-				$(this).addClass('unblackmailbutton');
-				$(this).html('Unblackmail');
-			}
-			else
-			{
-				$(this).removeClass('unblackmailbutton');
-				$(this).addClass('blackmailbutton');
-				$(this).html('Blackmail');
-			}	
+			openModList(this);
+		});
+		will.click(function()
+		{
+			openUserWill(this);
 		});
 		
+		info.append(more);
+		info.append(will);
 		info.append(jail);
 		info.append(kill);
-		info.append(bm);
 		
 		//Adding bottom row
 		var modcontrols = $('<div class="modcontrols"></div>');
@@ -232,13 +225,13 @@ socket.on(Type.JOIN,function(name)
 		});
 		var will = $('<div class="controlbutton modwillbutton">W</div>');
 		var more = $('<div class="controlbutton more"></div>');
-		more.click(function()
+		more.click(function(e)
 		{
-			openModList(this);
+			openModList(e.target);
 		});
-		will.click(function()
+		will.click(function(e)
 		{
-			//TODO
+			openUserWill(e.target);
 		});
 		info.append(more);
 		info.append(will);
@@ -385,6 +378,10 @@ socket.on(Type.TOGGLELIVING,function(p)
 		}
 	}	
 });
+socket.on(Type.KICK,function()
+{
+	kicked = true;
+});
 socket.on(Type.SETPHASE,function(phase,silent)
 {
 	//Remove any remaining voting interfaces
@@ -469,14 +466,41 @@ socket.on(Type.PRENOT,function(notification)
 		case 'DEAD':			
 			addMessage({msg:'You have died!',styling:'dying'},'prenot');
 		break;
+		case 'BLACKMAIL':
+			addMessage({msg:'Someone threatened to reveal your secrets. You are blackmailed!',styling:'dying'},'prenot');
+		break;
+		case 'TARGETIMMUNE':
+			addMessage({msg:'Your target was immune to your attack!',styling:'dying'},'prenot');
+		break;
+		case 'IMMUNE':
+			addMessage({msg:'You were attacked, but you are immune at night!',styling:'dying'},'prenot');
+		break;
+		case 'JESTER':
+			addMessage({msg:'The jester will have his revenge from the grave!',styling:'dying'},'prenot');
+		break;
+		case 'HAUNT':
+			addMessage({msg:'<Death from guilt here>',styling:'dying'},'prenot');
+		break;
+		case 'SHOTVET':
+			addMessage({msg:'You were shot by the Veteran you visited!',styling:'dying'},'prenot');
+		break;
+		case 'RB':
+			addMessage({msg:'You were roleblocked!',styling:'dying'},'prenot');
+		break;
 		case 'REVIVE':
 			addMessage({msg:'You were revived!',styling:'reviving'},'prenot');
+		break;
+		case 'HEAL':
+			addMessage({msg:'You were attacked but someone nursed you back to health!',styling:'reviving'},'prenot');
 		break;
 		case 'JAILED':
 			addMessage({msg:'You were hauled off to jail!',styling:'jailing'},'prenot');
 		break;
 		case 'JAILING':
 			addMessage({msg:'You hauled your target off to jail!',styling:'jailing'},'prenot');
+		break;		
+		case 'FULLMOON':
+			addMessage({msg:'There is a full moon out tonight.',styling:'moon'},'prenot');
 		break;
 	}
 });
@@ -534,6 +558,10 @@ socket.on(Type.SETDEV,function(name)
 	$($('.name')[index]).addClass('dev');
 	$($('.num')[index]).addClass('dev');
 });
+socket.on(Type.ROLECARD,function(card)
+{
+	addMessage(card,'rolecard');
+});
 socket.on(Type.WILL,function(will)
 {
 	addMessage(will,'will');
@@ -577,42 +605,45 @@ socket.on(Type.ACCEPT,function()
 });
 socket.on('disconnect',function()
 {
-	if (connectAttempt <10 )
+	if (!kicked)
 	{
-		if ($('.blocker').length == 0)
+		if (connectAttempt <10 )
 		{
-			var blocker = $('<div class="blocker"></div>');
-			var kitteh = $('<img src="http://media.giphy.com/media/zwmeWxShpVVyU/giphy.gif">');
-			kitteh.on('error',function()
+			if ($('.blocker').length == 0)
 			{
-				//Problem with the giphy gif, load from server.
-				this.src = 'dancingkitteh.gif';
-			});
-			var notify = $('<div class="alert"></div>');
-			notify.append($('<h3>You have disconnected!</h3>'));
-			notify.append(kitteh);
-			notify.append($('<p id="try">Please wait while this dancing kitty reconnects you... <p id="count"></p></p>'));
-			blocker.append(notify);
-			$('body').append(blocker);
-		}
-		if (connectAttempt == 0)
-		{
-			socket.connect();
-			connectAttempt++;
-			$('#count').html(connectAttempt+'/10');
-		}
-		else if (connectAttempt < 10)
-		{
-			setTimeout(function()
+				var blocker = $('<div class="blocker"></div>');
+				var kitteh = $('<img src="http://media.giphy.com/media/zwmeWxShpVVyU/giphy.gif">');
+				kitteh.on('error',function()
+				{
+					//Problem with the giphy gif, load from server.
+					this.src = 'dancingkitteh.gif';
+				});
+				var notify = $('<div class="alert"></div>');
+				notify.append($('<h3>You have disconnected!</h3>'));
+				notify.append(kitteh);
+				notify.append($('<p id="try">Please wait while this dancing kitty reconnects you... <p id="count"></p></p>'));
+				blocker.append(notify);
+				$('body').append(blocker);
+			}
+			if (connectAttempt == 0)
 			{
 				socket.connect();
 				connectAttempt++;
 				$('#count').html(connectAttempt+'/10');
-			},1000);
+			}
+			else if (connectAttempt < 10)
+			{
+				setTimeout(function()
+				{
+					socket.connect();
+					connectAttempt++;
+					$('#count').html(connectAttempt+'/10');
+				},1000);
+			}
 		}
-	}
-	else
-	{
-		$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
+		else
+		{
+			$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
+		}
 	}
 });
