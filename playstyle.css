@@ -30,6 +30,50 @@ header
 	width:100%;
 	padding-left:5px;
 }
+#rolelist
+{
+	position:absolute;
+	top:5%;
+	right:21%;
+	left:50%;
+	bottom:5%;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#rolelist li
+{
+	height:6%;
+	width:100%;
+	padding:0;
+	margin:0;
+	background:white;
+	border: 1px solid black;
+}
+#rolelist li .top, #rolelist li .bottom
+{
+	width:100%;
+	height:50%;
+	display:flex;
+}
+#rolelist li .top
+{
+	text-align:center;
+	background:grey;
+}
+#rolelist li .bottom
+{
+	display:flex
+}
+#rolelist li .bottom .myrole,#rolelist li .bottom .person
+{
+	width:50%;
+	text-align:center;
+}
+#rolelist li .bottom .myrole
+{
+	border-left:1px solid grey;
+}
 header ul
 {
 	list-style:none;
@@ -83,6 +127,10 @@ header ul li
     position:relative;
     padding:20px;
     padding-top:10px;
+}
+.rolecard h2
+{
+	text-align:center;
 }
 .rolecard .aligntext
 {
@@ -160,6 +208,19 @@ header ul li
 	border:1px solid black;
 	margin:-1px;
 }
+.rolealignment
+{
+	margin-left:auto;
+	height:100%;
+}
+.rolealignmentedit
+{
+	height:100%;
+	box-sizing: border-box;  
+	margin:0;
+	padding:0;
+	text-align:center;
+}
 .votebutton:hover
 {
 	background:#A39827;
@@ -209,7 +270,7 @@ header ul li
 	width:2%;
 	border: 1px solid black;
 	border-radius: 8px;
-	float:left;
+	float:right;
 	background: #8B6914;
 	color: white;
 	font-size:10px;
@@ -221,6 +282,29 @@ header ul li
 {
 	background:#E1D45B;
 	color:black;
+}
+#rolelistbutton
+{
+	background-image: url('list.png');
+	background-size: 100% 100%;
+	height:30px;
+	width:27px;
+	float:left;
+}
+#rolelistbutton:hover
+{
+	background-color:yellow;
+}
+.editbutton
+{
+	height:10px;
+	width:10px;
+	margin-top:auto;
+	margin-bottom:auto;
+	background:url('edit.png');
+	background-size:100% 100%;
+	margin-right:auto;
+	cursor:pointer;
 }
 .will
 {
@@ -446,8 +530,10 @@ header ul li
 	text-align:center;
 	cursor:default;
 	color:black;
-	background:orange;
-
+}
+.more:hover
+{
+	background:#B8B8B8;
 }
 #morelist
 {

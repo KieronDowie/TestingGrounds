@@ -12,12 +12,12 @@
 
 <body>
 	<header><ul><li>Pregame</li><li>Roles</li><li>Mod time</li><li>Day</li><li>Voting</li><li>Trial</li><li>Verdict</li>
-	<li>Last words</li><li>Night</li></li></ul><div id='clock'></div></header>
+	<li>Last words</li><li>Night</li></li></ul><div class='willbutton' onclick="openWill()">WILL</div><div id='clock'></div></header>
 	<ul id='main'>
 	
 	</ul>
 	<ul id='userlist'></ul>
-	<div id='inputarea'><input type='text' id='c' onKeyDown='checkKey(event)'/><div class='willbutton' onclick="openWill()">WILL</div></div>
+	<div id='inputarea'><input type='text' id='c' onKeyDown='checkKey(event)'/></div>
 	<div id="will"><div id='closewill' onclick='closeWill()'></div><textarea id='willcontent'></textarea></div>
 </body>
 </html>

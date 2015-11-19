@@ -1,4 +1,23 @@
 mod = false;
+var current_rolelist = [
+	"Town Investigative",
+	"Town Protective",
+	"Random Town",
+	"Random Town",
+	"Random Town ",
+	"Godfather",
+	"Random Mafia",
+	"Neutral Evil",
+	"Town Support",
+	"Random Mafia",
+	"Town Killing",
+	"Neutral Killing",
+	"Town Power",
+	"Neutral Benign",
+	"Any"
+];
+var rolelist_names = [];
+var rolelist_result = [];
 $(document).ready(function(){	
 	$('header ul li').on('click',function(e)
 	{
@@ -199,10 +218,8 @@ function openModList(targ)
 			var actions = {
 				'Blackmail':function()
 				{
-					var button = this.parentNode.parentNode;
-					var li = button.parentNode.parentNode;
-					var index = $('#userlist li').index(li);
-					socket.emit(Type.TOGGLE,users[index],'blackmail');
+					var name = $(this.parentNode).attr('name');
+					socket.emit(Type.TOGGLE,name,'blackmail');
 				},
 				'Seance':function()
 				{
@@ -212,23 +229,24 @@ function openModList(targ)
 			var notifications = {
 				'Roleblocked':function()
 				{
-					console.log('seance!');
+					console.log('rbd!');
 				},
 				'Healed':function()
 				{
-					console.log('blackmail!');
+					var name = $(this.parentNode).attr('name');
+					socket.emit(Type.PRENOT,name,'HEAL');
 				},
 				'Attacked(immune)':function()
 				{
-					console.log('seance!');
+					console.log('attacked!');
 				},
 				'Target immune':function()
 				{
-					console.log('seance!');
+					console.log('immune!');
 				},
 				'Witched':function()
 				{
-					console.log('seance!');
+					console.log('witched!');
 				},
 				'Shot by Vet':function()
 				{
@@ -240,6 +258,12 @@ function openModList(targ)
 				}
 			};
 			var list = $('<ul id="morelist"></ul>');
+			//Set name
+			var li = targ.parentNode.parentNode;
+			var index = $('#userlist li').index(li);
+			var name = users[index];
+			list.attr('name',name);
+			
 			list.css('top',targ.getBoundingClientRect().bottom);
 			//Actions
 			list.append($('<li class="morelistheading">Actions</li>'));
@@ -254,7 +278,7 @@ function openModList(targ)
 			for (i in notifications)
 			{
 				var tmp = $('<li class="morelistitem">'+i+'</li>');
-				tmp.click(actions[i]);
+				tmp.click(notifications[i]);
 				list.append(tmp);
 			}
 			//Append
@@ -262,7 +286,102 @@ function openModList(targ)
 		}
 	}
 }
+function openRolelist()
+{
+	if ($('#rolelist').length > 0)
+	{
+		$('#rolelist').remove();
+	}
+	else
+	{
+		var rolelist = $('<ul id="rolelist"></ul>');
+		var roll = $('<button>Roll!</button>');
+		roll.click(function()
+		{
+			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1));
+		});
+		var setRoles = $('<button>Set Roles</button>');
+		setRoles.click(function()
+		{
+			for (i = 1; i < users.length; i++)
+			{
+				var index = rolelist_names.indexOf($('.name')[i].innerHTML);
+				$($('.role')[i]).val(rolelist_result[index]);
+				$($('.role')[i]).css('background','green');
+				$('.role')[i].old = rolelist_result[index];
+			}
+			socket.emit(Type.SETROLESBYLIST,rolelist_result,rolelist_names);
+		});
+		var controls = $('<li></li>');
+		controls.append(roll);
+		controls.append(setRoles);
+		rolelist.append(controls); 
+		for (var i = 1; i< users.length; i++)
+		{
+			var top = $('<div class="top"></div>');
+			top.append($('<span class="rolealignment">'+formatAlignment(current_rolelist[i-1])+'</span>'));
+			var edit = $('<div class="editbutton"></div>');
+			edit.click(function()
+			{
+				var p = this.parentNode;
+				var align = $($(p).children('.rolealignment')[0]);
+				var val = '';
+				
+				align.children('span').each(function()
+				{
+					val += this.innerHTML+' ';
+				});
+				val=val.trim();
+				var editing = $('<input class="rolealignmentedit" type="text" value="'+val+'"></input>');
+				align.html(editing);
+				
+				editing.keydown(function(e)
+				{
+					if (e.keyCode == 13) //Enter
+					{
+						var li = this.parentNode.parentNode.parentNode;
+						var index = $('#rolelist li').index(li);
+						current_rolelist[index-1] = this.value;
+						console.log(current_rolelist);
+						var newrole = formatAlignment(this.value);
+						$(this.parentNode).html(newrole);
+					}
+				});
+			});
+			top.append(edit);
+			var bot = $('<div class="bottom"><span class="person"></span><span class="myrole"></span></div>');
+			var li = $('<li></li>');
+			li.append(top);
+			li.append(bot);
+			rolelist.append(li);
+		}
+		$('body').append(rolelist);
+	}
+}
 function openUserWill(e)
 {
 	
+}
+function formatAlignment(str)
+{                       
+	//colors
+	var towncolor="#19FF19";
+	var mafiacolor="red";
+	var randcolor="#42C0FB";
+	var neutcolor='lightgrey';
+	var hilitecolor="orange";
+	str=str.replace(/[Tt]own/,"<span style='color:"+towncolor+"'>Town</span>");
+	str=str.replace(/[Ii]nvestigative/,"<span style='color:"+randcolor+"'>Investigative</span>");
+	str=str.replace(/[Ss]upport/,"<span style='color:"+randcolor+"'>Support</span>");
+	str=str.replace(/[Pp]rotective/,"<span style='color:"+randcolor+"'>Protective</span>");
+	str=str.replace(/[Pp]ower/,"<span style='color:"+randcolor+"'>Power</span>");
+	str=str.replace(/[Rr]andom/,"<span style='color:"+randcolor+"'>Random</span>");
+	str=str.replace(/[Kk]illing/,"<span style='color:"+randcolor+"'>Killing</span>");
+	str=str.replace(/[Mm]afia/,"<span style='color:"+mafiacolor+"'>Mafia</span>");
+	str=str.replace(/[Dd]eception/,"<span style='color:"+randcolor+"'>Deception</span>");
+	str=str.replace(/[Ee]vil/,"<span style='color:"+randcolor+"'>Evil</span>");
+	str=str.replace(/[Bb]enign/,"<span style='color:"+randcolor+"'>Benign</span>");
+	str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");
+	str=str.replace(/[Aa]ny/,"<span style='color:white'>Any</span>");
+	return str;      
 }

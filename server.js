@@ -34,7 +34,9 @@ var Type = {
 	ROLEUPDATE:27,
 	DENY:28,
 	KICK:29,
-	ROLECARD:30
+	ROLECARD:30,
+	ROLL:31,
+	SETROLESBYLIST:32
 };
 
 var Phase = {
@@ -212,6 +214,8 @@ var server = http.createServer(function(req,res)
 		case '/will.png':
 		case '/willicon.png':
 		case '/button.png':
+		case '/list.png':
+		case '/edit.png':
 			fs.readFile(__dirname + '/images/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -404,7 +408,31 @@ io.on('connection', function(socket){
 		{
 			players[socket.id].message(msg);
 		}
-	});	
+	});
+	socket.on(Type.PRENOT,function(name,prenot)
+	{
+		var player = getPlayerByName(name);
+		switch (prenot)
+		{
+			case 'HEAL':
+				players[mod].s.emit(Type.SYSTEM,name+' was attacked and healed.');
+			break;
+		}
+		player.s.emit(Type.PRENOT,prenot);
+	});
+	socket.on(Type.ROLL,function(rolelist)
+	{
+		var result = roles.sortRoles(rolelist);
+		var names = Object.keys(playernames);
+		names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
+		shuffleArray(names);
+		//Format the roles
+		for (i in result)
+		{
+			result[i] = roles.formatAlignment(result[i]);
+		}
+		socket.emit(Type.ROLL,result,names);
+	});
 	socket.on(Type.SETROLE,function(name,role)
 	{
 		role = sanitize(role);
@@ -414,15 +442,28 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			players[playernames[name]].role = role;
-			if (roles.hasRolecard(role))
+			var p = getPlayerByName(name);
+			p.setRole(role);
+		}
+	});
+	socket.on(Type.SETROLESBYLIST,function(roles,names){
+		for (i in names)
+		{
+			if (roles[i].length > 16)
 			{
-				var rolecard = roles.getRoleCard(role);
-				players[playernames[name]].s.emit(Type.ROLECARD,rolecard);
+				socket.emit(Type.SYSTEM,'Invalid rolelist! Role name cannot be more than 16 characters: '+roles[i]);
+				break;
+			}
+			var p = getPlayerByName(names[i]);
+			if (p)
+			{
+				roles[i] = sanitize(roles[i]);
+				p.setRole(roles[i]);
 			}
 			else
 			{
-				players[playernames[name]].s.emit(Type.SYSTEM,'Your role is '+role);
+				socket.emit(Type.SYSTEM,'Invalid rolelist! Could not find player: '+names[i]);
+				break;
 			}
 		}
 	});
@@ -926,6 +967,16 @@ function Timer()
 		}
 	}
 }
+//Durstenfeld shuffle
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 //--Player object
 function Player(socket,name,ip)
 {
@@ -957,6 +1008,18 @@ function Player(socket,name,ip)
 				medium:false
 			},
 			//Player functions
+			setRole:function(role){
+				this.role = role;
+				if (roles.hasRolecard(role))
+				{
+					var rolecard = roles.getRoleCard(role);
+					this.s.emit(Type.ROLECARD,rolecard);
+				}
+				else
+				{
+					this.s.emit(Type.SYSTEM,'Your role is '+role);
+				}
+			},
 			dc:function(){
 				//Store the player's info in case they rejoin.
 				dcStore(this);

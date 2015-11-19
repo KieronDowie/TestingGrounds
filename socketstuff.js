@@ -38,7 +38,9 @@ var Type = {
 	ROLEUPDATE:27,
 	DENY:28,
 	KICK:29,
-	ROLECARD:30
+	ROLECARD:30,
+	ROLL:31,
+	SETROLESBYLIST:32
 };
 function modInterface()
 {
@@ -48,6 +50,16 @@ function modInterface()
 		var num = (x==0)?'MOD':x;
 		var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[x]+'</span></div>');
 		$('#userlist li')[x].innerHTML='';
+		//Add in a rolelist button if it is does not already exist
+		if ($('#rolelistbutton').length == 0)
+		{
+			var rlbutton = $('<div id="rolelistbutton"></div>');
+			rlbutton.click(function()
+			{
+				openRolelist();
+			});
+			$('#inputarea').append(rlbutton);
+		}
 		//Addition to the top row
 		var kill = $('<div class="controlbutton killbutton">Kill</div>');
 		kill.click(function()
@@ -87,7 +99,7 @@ function modInterface()
 			}	
 		});
 		var will = $('<div class="controlbutton modwillbutton">W</div>');
-		var more = $('<div class="controlbutton more"></div>');
+		var more = $('<div class="controlbutton more">v</div>');
 		more.click(function()
 		{
 			openModList(this);
@@ -177,6 +189,12 @@ socket.on(Type.JOIN,function(name)
 		num='MOD';
 		//Player is first. They are mod.
 		mod=true;
+		//Add in a rolelist button
+		var rlbutton = $('<div id="rolelistbutton"></div>');
+		rlbutton.click(function()
+		{
+			openRolelist();
+		});
 	}
 	//Top row, normal users.
 	var li = $('<li></li>');
@@ -184,7 +202,8 @@ socket.on(Type.JOIN,function(name)
 	
 	//Bottom row
 	if (mod)
-	{
+	{		
+		$('#inputarea').append(rlbutton);
 		//Addition to the top row
 		var kill = $('<div class="controlbutton killbutton">Kill</div>');
 		kill.click(function()
@@ -224,7 +243,7 @@ socket.on(Type.JOIN,function(name)
 			}	
 		});
 		var will = $('<div class="controlbutton modwillbutton">W</div>');
-		var more = $('<div class="controlbutton more"></div>');
+		var more = $('<div class="controlbutton more">v</div>');
 		more.click(function(e)
 		{
 			openModList(e.target);
@@ -603,6 +622,18 @@ socket.on(Type.ACCEPT,function()
 	connectAttempt = 0;
 	$('.blocker').remove();
 });
+socket.on(Type.ROLL,function(result,names)
+{
+	rolelist_result = [];
+	for (i in result)
+	{
+		$($('.person')[i]).html(names[i]);
+		$($('.myrole')[i]).html(result[i]);
+		rolelist_result.push($(result[i]).html());
+	}
+	
+	rolelist_names = names;
+1});
 socket.on('disconnect',function()
 {
 	if (!kicked)
