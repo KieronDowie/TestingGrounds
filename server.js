@@ -59,6 +59,7 @@ var mod = undefined;
 var ontrial = undefined;
 var apass = 'anewbeginning';
 var prev_rolled;
+var testTime = new Date(2015,10,21,20);
 //Banlist
 var banlist = [];
 //Start the timer.
@@ -136,6 +137,21 @@ var server = http.createServer(function(req,res)
 				res.writeHead(302, {"Location": "/"}); //Send em home
 				res.end();
 			}
+		break;
+		case '/time':
+			//Calculate time until the test.
+			var now=new Date().getTime();
+			var timeToTest = testTime.getTime() - now;
+			timeToTest = timeToTest / 1000; //To seconds.
+			if (timeToTest > 0)
+			{
+				res.write(timeToTest+'');
+			}
+			else
+			{
+				res.write('now');
+			}
+			res.end();
 		break;
 		case '/namecheck':
 			var name = url.parse(req.url).query;
@@ -782,7 +798,7 @@ function nameTaken(name)
 }
 function nameCheck(name)
 {
-	return ( name.length != 0 && name.length<=16 &&  /[a-z]/i.test(name) && /^[a-z0-9-_]+$/i.test(name));
+	return ( name.length != 0 && name.length<=20 &&  /[a-z]/i.test(name) && /^[a-z0-9-_]+$/i.test(name));
 }
 function sanitize(msg)
 {

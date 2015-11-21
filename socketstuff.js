@@ -201,11 +201,23 @@ socket.on(Type.JOIN,function(name)
 	}
 	//Top row, normal users.
 	var li = $('<li></li>');
-	var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+name+'</span></div>');
-	
+	var info = $('<div class="info"></div>');
+	var name = $('<span class="name">'+name+'</span>');
+	var num = $('<span class="num">'+num+'</span>');
+	info.append(num);
+	info.append(name);
 	//Bottom row
 	if (mod)
 	{		
+		if ($('#userlist').children().length == 0)
+		{
+			name.css('max-width','80px');
+		}
+		else
+		{
+			name.css('max-width','100px');
+		}
+		
 		$('#inputarea').append(rlbutton);
 		//Addition to the top row
 		var kill = $('<div class="controlbutton killbutton">Kill</div>');

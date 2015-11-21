@@ -578,11 +578,12 @@ header ul li
 .num
 {
 	padding-left:5px;
-	height:50%;
+	float:left;
 }
 .name
 {
-	height:50%;
+	float:left;
+	overflow:hidden;
 }
 .setroles
 {

@@ -26,7 +26,7 @@ html,body
 {
 	display:inline-block;
 	display:flex;
-	height:34em;
+	height:33em;
 }
 #container>div
 {
@@ -88,6 +88,19 @@ h1
 	color:#381705;
 	text-align:center;
 }
+.unit
+{
+	font-size:12px;
+	float:right;
+}
+.nowtesting
+{
+	font-family: 'Merriweather', serif;
+	font-size:2.7em;
+	margin-left:auto;
+	margin-right:auto;
+	color:green;
+}
 .rolecard
 {
 	background:url("http://i.imgur.com/SB1069d.jpg");
@@ -135,4 +148,16 @@ footer img
 {
 	margin:0;
 	padding:0;
+}
+footer .tgsig input, footer .tgsig p
+{
+	display:inline;
+	margin-left: 10px;
+}
+footer .tgsig p
+{
+}
+footer .tgsig input
+{
+	width:200px;
 }
