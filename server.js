@@ -2,7 +2,7 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var roles = require('./roleinfo');
-var io = require('socket.io')(http, {'pingTimeout': 10000, 'pingInterval':5000});
+var io = require('socket.io')(http, {'pingInterval': 2000, 'pingTimeout': 5000});
 //Enums
 var Type = {
 	PING:0,
@@ -297,6 +297,10 @@ var dcd = [];
 
 io.listen(server);
 io.on('connection', function(socket){
+	socket.on('packet',function(type,data)
+	{
+		console.log('Packet: '+type+' : '+data);	
+	});
 	var ip=getIp(socket);
 	if (banlist.indexOf(ip) != -1)
 	{
