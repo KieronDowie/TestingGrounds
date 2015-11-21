@@ -88,7 +88,7 @@ function tick()
 		var clock = $('#clock');
 		for (i in current)
 		{
-			clock.children()[i].innerHTML = current[i]+'<span class="unit">'+units[i]+'</span>';
+			clock.children()[i].innerHTML = formatTime(current[i])+'<span class="unit">'+units[i]+'</span>';
 		}
 	}
 	setTimeout(tick,1000);
@@ -106,4 +106,12 @@ function getTime(time)
 	time = time / 24; //days
 	var days = time;
 	return [days,hours,minutes,seconds];
+}
+function formatTime(num)
+{
+	if (num < 10)
+	{
+		num = '0'+num;
+	}
+	return num;
 }
