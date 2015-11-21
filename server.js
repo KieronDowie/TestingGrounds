@@ -2,7 +2,7 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var roles = require('./roleinfo');
-var io = require('socket.io')(http, {'pingInterval': 10000});
+var io = require('socket.io')(http, {'pingInterval': 10000, 'pingInterval':5000});
 //Enums
 var Type = {
 	PING:0,
