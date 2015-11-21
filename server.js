@@ -59,7 +59,12 @@ var mod = undefined;
 var ontrial = undefined;
 var apass = 'anewbeginning';
 var prev_rolled;
-var testTime = new Date(2015,10,21,20);
+var testTime = new Date( //GMT
+2015 //Years
+,10, //Month
+21, //Hours
+18 //Minutes
+); 
 //Banlist
 var banlist = [];
 //Start the timer.
