@@ -24,8 +24,9 @@ html,body
 }
 #container
 {
+	display:inline-block;
 	display:flex;
-	height:80%;
+	height:34em;
 }
 #container>div
 {
