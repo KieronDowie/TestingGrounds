@@ -109,9 +109,10 @@ function getTime(time)
 }
 function formatTime(num)
 {
-	if (num < 10)
+	if ((num+'').length == 1)
 	{
 		num = '0'+num;
 	}
+	console.log(num);
 	return num;
 }
