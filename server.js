@@ -63,7 +63,7 @@ var prev_rolled;
 var testTime = new Date( //GMT
 2015 //Years
 ,10, //Month
-21, //Hours
+22, //Hours
 18 //Minutes
 ); 
 //Banlist
