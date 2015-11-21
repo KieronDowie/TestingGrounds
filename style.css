@@ -1,27 +1,44 @@
+html,body
+{
+	margin:0;
+	padding:0;
+	background:white;
+	height:100%;
+	width:100%;
+}
+#inputcontainer
+{
+	display:flex;
+}
+#inputcontainer form
+{
+	margin-left:auto;
+	margin-right:auto;
+}
+#inputcontainer #entername
+{
+	width:300px;
+	height:20px;
+	line-height:20px;
+	font-size:20px;
+}
 #container
 {
-	width:200px;
-	height:100px;
-	border:1px solid black;
-	background:grey;
-	border-radius:8px;
-	margin-left:auto;
-	margin-right:auto;
+	display:flex;
+	height:80%;
 }
-#container #entername
+#container>div
 {
-	display:block;
-	margin-top:20px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-bottom:0px;
+	flex-grow:1;
+	height:100%;
 }
-#container #send
+#container #mid
 {
-	display:block;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top:0px;
+	text-align:center;
+}
+#container #last
+{
+	width:60%;
 }
 #error
 {
@@ -29,4 +46,92 @@
 	margin:0;
 	padding:0;
 	color:red;
+}
+h1
+{
+	font-family: 'Merriweather', serif;
+	font-size: 30px;
+	text-align:center;
+}
+#container>div:first-child
+{
+	width:60%;
+}
+#mid h1
+{
+	font-size: 2.5em;
+	text-align:center;
+	margin-top:80px;
+}
+#mid>p
+{
+	font-family: 'Merriweather', serif;
+	font-size:16px;
+}
+#mid #clock
+{
+	display:flex;
+	border: 3px solid #5E4300;
+	width: 400px;
+	height:50px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10px;
+	background: #A4A03E;
+}
+#mid #clock div
+{
+	flex-grow:1;
+	border-left:1px solid #5E4300;
+	font-size:2.7em;
+	color:#381705;
+	text-align:center;
+}
+.rolecard
+{
+	background:url("http://i.imgur.com/SB1069d.jpg");
+	background-size: 100% 100%;
+	height: 373px;
+    width: 267px;
+    text-shadow: 0px 4px 6px #191919;
+    color:white;
+    position:relative;
+    padding:20px;
+    padding-top:10px;
+}
+.rolecard h2
+{
+	text-align:center;
+}
+.rolecard .aligntext
+{
+    float: left;
+}
+.rolecard .abilities
+{
+	float: left;
+    width: 100%;
+}
+.goal
+{
+	display: block;
+    color: white;
+    position: absolute;
+    left: 27px;
+    bottom: 20px;
+}
+footer
+{
+	margin-bottom:0;
+	padding:0;
+	text-align:center;
+}
+footer p
+{
+	margin-bottom:5px;
+}
+footer img
+{
+	margin:0;
+	padding:0;
 }

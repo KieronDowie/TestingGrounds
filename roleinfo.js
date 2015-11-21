@@ -318,7 +318,7 @@ var roles=[
 					rolename:"executioner",
 					alignment:"neutral evil",
 					abilities:'Trick the Town into lynching your target.',
-					attributes:['Your target is <u>insert name here</u>.',
+					attributes:['Your target is <u>NAMEOFTARGET</u>.',
 'If your target is killed at night you will become a jester.'],
 					goal:"Get your target lynched at any cost.",
 					color:"grey"

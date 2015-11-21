@@ -36,7 +36,10 @@ var Type = {
 	KICK:29,
 	ROLECARD:30,
 	ROLL:31,
-	SETROLESBYLIST:32
+	SETROLESBYLIST:32,
+	MASSROLEUPDATE:33,
+	SHOWLIST:34,
+	SHOWALLROLES:35
 };
 
 var Phase = {
@@ -55,6 +58,7 @@ var phase = Phase.PREGAME;
 var mod = undefined;
 var ontrial = undefined;
 var apass = 'anewbeginning';
+var prev_rolled;
 //Banlist
 var banlist = [];
 //Start the timer.
@@ -216,6 +220,8 @@ var server = http.createServer(function(req,res)
 		case '/button.png':
 		case '/list.png':
 		case '/edit.png':
+		case '/accept.png':
+		case '/roll.png':
 			fs.readFile(__dirname + '/images/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -281,13 +287,17 @@ io.on('connection', function(socket){
 	else
 	{
 		console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
-		if (players[ip])
+		if (joining[ip])
 		{
-			//Player is already connected, wtf, do nothing.
-			console.log('already connected');
-		}
-		else if (joining[ip])
-		{
+			var alt = false;
+			//Check if the person is an alt.
+			for (i in players)
+			{
+				if (ip == players[i].ip)
+				{
+					alt = players[i].name;
+				}
+			}
 			//If the player is first, set them as the mod.
 			if (Object.keys(players).length==0)
 			{
@@ -312,6 +322,10 @@ io.on('connection', function(socket){
 			players[socket.id]= Player(socket,name,ip);
 			//Inform everyone of the new arrival.
 			io.emit(Type.JOIN,name);
+			if (alt) //Inform everyone of the alt.
+			{
+				io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
+			}
 			//Tell the new arrival what phase it is.
 			socket.emit(Type.SETPHASE,phase);
 			//Inform the new arrival of any devs present.
@@ -447,25 +461,60 @@ io.on('connection', function(socket){
 		}
 	});
 	socket.on(Type.SETROLESBYLIST,function(roles,names){
-		for (i in names)
+		if (socket.id == mod)
 		{
-			if (roles[i].length > 16)
+			prev_rolled = roles;
+			for (i in names)
 			{
-				socket.emit(Type.SYSTEM,'Invalid rolelist! Role name cannot be more than 16 characters: '+roles[i]);
-				break;
-			}
-			var p = getPlayerByName(names[i]);
-			if (p)
-			{
-				roles[i] = sanitize(roles[i]);
-				p.setRole(roles[i]);
-			}
-			else
-			{
-				socket.emit(Type.SYSTEM,'Invalid rolelist! Could not find player: '+names[i]);
-				break;
+				if (roles[i].length > 16)
+				{
+					socket.emit(Type.SYSTEM,'Invalid rolelist! Role name cannot be more than 16 characters: '+roles[i]);
+					break;
+				}
+				var p = getPlayerByName(names[i]);
+				if (p)
+				{
+					roles[i] = sanitize(roles[i]);
+					p.setRole(roles[i]);
+				}
+				else
+				{
+					socket.emit(Type.SYSTEM,'Invalid rolelist! Could not find player: '+names[i]);
+					break;
+				}
 			}
 		}
+		else
+		{
+			socket.emit(Type.SYSTEM,"Only the mod can do that.");
+		}
+	});
+	socket.on(Type.SHOWLIST,function(list)
+	{
+		if (socket.id == mod)
+		{
+			for (i in list)
+			{
+				list[i] = sanitize(list[i]);
+				list[i] = roles.formatAlignment(list[i]);
+			}
+			io.emit(Type.SHOWLIST,list);
+		}
+	});
+	socket.on(Type.SHOWALLROLES,function()
+	{
+		var c = 0;
+		var list = [];
+		for (i in players)
+		{
+			if (players[i].s.id != mod)
+			{
+				
+				list.push({name:players[i].name, role:roles.formatAlignment(players[i].role)});
+				c++;
+			}
+		}
+		io.emit(Type.SHOWALLROLES,list);
 	});
 	socket.on(Type.SETPHASE,function(p){
 		if (mod==socket.id && p>=0 && p< Object.keys(Phase).length)
@@ -977,6 +1026,31 @@ function shuffleArray(array) {
     }
     return array;
 }
+//Send all info about players to the new mod
+function sendPlayerInfo()
+{
+	var final = [];
+	for (j in players)
+	{
+		var send = {};
+		for (i in players[j].chats)
+		{
+			if (players[j].chats[i])
+			{
+				send[i] = players[j].chats[i];
+			}			
+		}
+		//Exceptions
+		send.name = players[j].name;
+		send.alive = players[j].alive;
+		send.spy = players[j].hearwhispers;
+		send.mayor = (players[j].mayor !== undefined);
+		send.role = players[j].role;
+		
+		final.push(send);
+	}
+	players[mod].s.emit(Type.MASSROLEUPDATE,final);
+}
 //--Player object
 function Player(socket,name,ip)
 {
@@ -1033,6 +1107,7 @@ function Player(socket,name,ip)
 					{
 						mod = getPlayerByNumber(0).s.id;
 						players[mod].s.emit(Type.SETMOD,true);
+						sendPlayerInfo();
 					}
 				}
 			},
@@ -1127,6 +1202,7 @@ function Player(socket,name,ip)
 										var temp = playernums[a];
 										playernums[a] = playernums[b];
 										playernums[b] = temp;
+										sendPlayerInfo();
 									}
 								}
 								else if (!isNaN(c[1])) //It's a number.
@@ -1355,7 +1431,6 @@ function Player(socket,name,ip)
 					to.s.emit(Type.WHISPER,{from:this.name, msg:msg});
 					this.s.emit(Type.WHISPER,{to:to.name,msg:msg});
 					players[mod].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
-					//SLOW
 					for (i in players)
 					{
 						if (players[i].hearwhispers)

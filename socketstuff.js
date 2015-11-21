@@ -40,7 +40,10 @@ var Type = {
 	KICK:29,
 	ROLECARD:30,
 	ROLL:31,
-	SETROLESBYLIST:32
+	SETROLESBYLIST:32,
+	MASSROLEUPDATE:33,
+	SHOWLIST:34,
+	SHOWALLROLES:35
 };
 function modInterface()
 {
@@ -614,6 +617,39 @@ socket.on(Type.ROLEUPDATE,function(send){
 		button.html('Release');
 	}
 });
+socket.on(Type.MASSROLEUPDATE,function(people){
+	for (j in people)
+	{
+		var send = people[j];
+		var index = users.indexOf(send.name);
+		for (i in send)
+		{
+			if ($('.'+i+'button')[index] && send[i])
+			{
+				var button = $($('.'+i+'button')[index]);
+				button.addClass(i+'buttondown');
+				button.removeClass(i+'button');		
+			}
+		}
+		if (send.role)
+		{
+			$($('.role')[index]).val(send.role);
+			$('.role')[index].style.background = 'green';
+		}
+		if (!send.alive)
+		{
+			var button = $($('.killbutton')[index]);
+			button.addClass('revivebutton');
+			button.html('Revive');
+		}
+		if (send.jailed)
+		{
+			var button = $($('.jailbutton')[index]);
+			button.addClass('releasebutton');
+			button.html('Release');
+		}
+	}
+});
 socket.on('connect_error', function (err) {
     //$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
 });
@@ -634,6 +670,15 @@ socket.on(Type.ROLL,function(result,names)
 	
 	rolelist_names = names;
 1});
+socket.on(Type.SHOWLIST,function(list)
+{
+	console.log(list);
+	addMessage(list,'rolelist');	
+});
+socket.on(Type.SHOWALLROLES,function(list)
+{
+	addMessage(list,'allroles');	
+});
 socket.on('disconnect',function()
 {
 	if (!kicked)

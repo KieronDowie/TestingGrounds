@@ -199,6 +199,26 @@ function addMessage(msg, type)
 				$('#main').append('<li><div class="will">'+msg+'</div></li>');
 			}
 		break;
+		case 'allroles':
+			var list = $('<ul class="allroleslist"></ul>');
+			for (i in msg)
+			{
+				list.append('<li class="displaylistitem allroles"><div class="innerlistitem">'+msg[i].name+'</div><div class="innerlistitem">'+msg[i].role+'</div></li>');
+			}
+			var li = $('<li></li>');
+			li.append(list);
+			$('#main').append(li);
+		break;
+		case 'rolelist':
+			var list = $('<ul class="displaylist"></ul>');
+			for (i in msg)
+			{
+				list.append('<li class="displaylistitem">'+msg[i]+'</li>');
+			}
+			var li = $('<li></li>');
+			li.append(list);
+			$('#main').append(li);
+		break;
 		default:
 			alert('Bad message type!');
 		break;
@@ -295,12 +315,22 @@ function openRolelist()
 	else
 	{
 		var rolelist = $('<ul id="rolelist"></ul>');
-		var roll = $('<button>Roll!</button>');
+		var roll = $('<div class="roll"></div>');
 		roll.click(function()
 		{
 			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1));
 		});
-		var setRoles = $('<button>Set Roles</button>');
+		var showList = $('<div class="showlist">Show List</div>');
+		showList.click(function()
+		{
+			socket.emit(Type.SHOWLIST,current_rolelist.slice(0,users.length-1));
+		});
+		var showRoles = $('<div class="showroles">Show Roles</div>');
+		showRoles.click(function()
+		{
+			socket.emit(Type.SHOWALLROLES);
+		});
+		var setRoles = $('<div class="setroles"></div>');
 		setRoles.click(function()
 		{
 			for (i = 1; i < users.length; i++)
@@ -312,9 +342,13 @@ function openRolelist()
 			}
 			socket.emit(Type.SETROLESBYLIST,rolelist_result,rolelist_names);
 		});
-		var controls = $('<li></li>');
+		var controls = $('<li class="rolelistcontrols"></li>');
+		
 		controls.append(roll);
+		controls.append(showList)
+		controls.append(showRoles);
 		controls.append(setRoles);
+		
 		rolelist.append(controls); 
 		for (var i = 1; i< users.length; i++)
 		{
@@ -323,15 +357,12 @@ function openRolelist()
 			var edit = $('<div class="editbutton"></div>');
 			edit.click(function()
 			{
+				var li = this.parentNode.parentNode;
+				var index = $('#rolelist li').index(li);
 				var p = this.parentNode;
 				var align = $($(p).children('.rolealignment')[0]);
-				var val = '';
+				var val = current_rolelist[index-1];
 				
-				align.children('span').each(function()
-				{
-					val += this.innerHTML+' ';
-				});
-				val=val.trim();
 				var editing = $('<input class="rolealignmentedit" type="text" value="'+val+'"></input>');
 				align.html(editing);
 				
@@ -342,7 +373,6 @@ function openRolelist()
 						var li = this.parentNode.parentNode.parentNode;
 						var index = $('#rolelist li').index(li);
 						current_rolelist[index-1] = this.value;
-						console.log(current_rolelist);
 						var newrole = formatAlignment(this.value);
 						$(this.parentNode).html(newrole);
 					}

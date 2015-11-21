@@ -25,7 +25,7 @@ header
 	overflow-y:auto;
 	overflow-x:hidden;
 }
-#main li
+#main>li
 {
 	width:100%;
 	padding-left:5px;
@@ -584,6 +584,66 @@ header ul li
 {
 	height:50%;
 }
+.setroles
+{
+	background: url('accept.png'), linear-gradient(#f9f9f9, #e9e9e9);
+	background-size: 100% 100%;
+	height:100%;
+	flex-grow:1;
+	cursor:pointer;
+}
+.roll
+{
+	background: url('roll.png'), linear-gradient(#f9f9f9, #e9e9e9);
+	background-size: 100% 100%;
+	height:100%;
+	flex-grow:1;
+	cursor:pointer;
+}
+.roll:hover
+{
+	background: url('roll.png'), linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	background-size: 100% 100%;
+}
+.setroles:hover
+{
+	-moz-filter: brightness(1.5);
+	-webkit-filter: brightness(1.5);
+	-o-filter: brightness(1.5);
+	-ms-filter: brightness(1.5);
+	filter: brightness(1.5);
+}
+.showroles, .showlist
+{
+	height:80%;
+	flex-grow:2;
+	text-align:center;
+	background:linear-gradient(#f9f9f9, #e9e9e9);
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	margin-top:auto;
+	margin-bottom:auto;
+	vertical-align:middle;
+	cursor:pointer;
+	font-weight:bold;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	border:1px solid #dcdcdc;
+	padding-top:6px;
+}
+.showroles:hover, .showlist:hover
+{
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	background-color:#e9e9e9;
+}
+.showroles:active, .showlist:active
+{
+	background:#CACACA;
+}
+.rolelistcontrols
+{
+	display:flex;
+}
 /*--Verdicts--*/
 .verdictinterface
 {
@@ -687,4 +747,48 @@ header ul li
 .abstain
 {
 	color:cyan;
+}
+/*Rolelist*/
+.displaylist
+{	
+	width:150px;
+	border: 2px solid #604605;
+	list-style:none;
+	background: #846007;
+	padding:0;
+	margin:0;
+}
+.displaylistitem
+{
+	padding:0;
+	margin:0;
+	width:100%;
+	height:20px;
+	border-bottom: 1px solid #5E470D;
+	text-align:center;
+}
+.displaylistitem:last-child
+{
+	border:none;
+}
+.allroles
+{
+	display:flex;
+}
+.allroleslist
+{	
+	width:300px;
+	border: 2px solid #604605;
+	list-style:none;
+	background: #846007;
+	padding:0;
+	margin:0;
+}
+.innerlistitem
+{
+	display:inline-block;
+	width:50%;
+	height:100%;
+	border-right: 1px solid #5E470D;
+	float:left;
 }
