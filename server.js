@@ -71,7 +71,9 @@ var banlist = [];
 //Start the timer.
 var timer = Timer();
 timer.tick();
-
+timer.ping();
+//Let the pinging begin
+ping();
 var server = http.createServer(function(req,res)
 {
 	var path = url.parse(req.url).pathname;
@@ -379,8 +381,8 @@ io.on('connection', function(socket){
 			//Replace the old socket.
 			players[socket.id].s = socket;
 			//Reset ping.
-			players[socket.id].ping = true;
-			players[socket.id].faults = 0;
+			players[socket.id].ping = 0;
+			
 			playernums.push(socket.id);
 			playernames[players[socket.id].name] = socket.id;
 			socket.emit(Type.ROOMLIST,namelist);
@@ -780,6 +782,10 @@ io.on('connection', function(socket){
 			}
 		}
 	});
+	socket.on(Type.PONG,function()
+	{
+		players[socket.id].ping = players[socket.id].pingTime;
+	});
 	socket.on('disconnect',function()
 	{
 		io.emit(Type.LEAVE,players[socket.id].name);
@@ -1013,6 +1019,16 @@ function Timer()
 				timer.tick();
 			},1000);
 		},
+		ping: function(){
+			for (i in players)
+			{
+				if (players[i].ping == -1)
+				{
+					players[i].pingTime+=10;
+				}
+			}
+			setTimeout(timer.ping,10);
+		},
 		setPhase: function(num){
 			if (num == Phase.TRIAL)
 			{
@@ -1034,6 +1050,30 @@ function Timer()
 			}
 		}
 	}
+}
+//Pinging functions
+function ping()
+{
+	for (i in players)
+	{
+		players[i].ping = -1;
+		players[i].pingTime = 0;
+		players[i].s.emit(Type.PING);
+	}
+	setTimeout(checkPing,10000);
+}
+function checkPing()
+{
+	for (i in players)
+	{
+		if (players[i].ping == -1)
+		{
+			//Player did not reply after 10 seconds. Disconnected.
+			console.log('DCd:'+players[i].name);
+		}
+		console.log(players[i].name+': '+players[i].ping);
+	}
+	setTimeout(ping,0);
 }
 //Durstenfeld shuffle
 function shuffleArray(array) {
@@ -1083,7 +1123,8 @@ function Player(socket,name,ip)
 			dev:false,
 			ip:ip, 
 			will:'',
-			ping:true,
+			ping:0,
+			pingTime:0,
 			fault:0,
 			role:'NoRole',
 			alive:true,

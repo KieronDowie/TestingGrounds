@@ -180,7 +180,7 @@ socket.on(Type.HIGHLIGHT,function(msg)
 });
 socket.on(Type.PING,function()
 {
-		socket.emit(Type.PONG);
+	socket.emit(Type.PONG);
 });
 socket.on(Type.JOIN,function(name, reconnect)
 {
