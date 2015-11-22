@@ -43,7 +43,8 @@ var Type = {
 	SETROLESBYLIST:32,
 	MASSROLEUPDATE:33,
 	SHOWLIST:34,
-	SHOWALLROLES:35
+	SHOWALLROLES:35,
+	LATENCIES:36
 };
 function modInterface()
 {
@@ -689,6 +690,20 @@ socket.on(Type.ROLL,function(result,names)
 	
 	rolelist_names = names;
 1});
+socket.on(Type.LATENCIES,function(p)
+{
+	if (typeof p == "number")
+	{
+		addMessage('Ping: '+p+'ms','system');
+	}
+	else
+	{
+		for (i in p)
+		{
+			addMessage(i+': '+p[i]+'ms','system');
+		}
+	}
+});
 socket.on(Type.SHOWLIST,function(list)
 {
 	console.log(list);

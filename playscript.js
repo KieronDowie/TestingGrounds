@@ -16,6 +16,7 @@ var current_rolelist = [
 	"Neutral Benign",
 	"Any"
 ];
+//Globals
 var rolelist_names = [];
 var rolelist_result = [];
 $(document).ready(function(){	

@@ -40,7 +40,8 @@ var Type = {
 	SETROLESBYLIST:32,
 	MASSROLEUPDATE:33,
 	SHOWLIST:34,
-	SHOWALLROLES:35
+	SHOWALLROLES:35,
+	LATENCIES:36
 };
 
 var Phase = {
@@ -1066,7 +1067,6 @@ function checkPing()
 {
 	for (i in players)
 	{
-		console.log(players[i].name+': '+players[i].ping);
 		if (players[i].ping == -1)
 		{
 			//Player did not reply after 10 seconds. Disconnected.
@@ -1418,6 +1418,21 @@ function Player(socket,name,ip)
 						else
 						{
 							socket.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
+						}
+					break;
+					case 'ping':
+						if (this.dev)
+						{
+							var ping = {};
+							for (i in players)
+							{
+								ping[players[i].name] = players[i].ping;
+							}
+							socket.emit(Type.LATENCIES,ping);
+						}
+						else
+						{
+							socket.emit(Type.LATENCIES,this.ping);
 						}
 					break;
 					case 'msg':
