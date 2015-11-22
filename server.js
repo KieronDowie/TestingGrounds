@@ -1069,7 +1069,7 @@ function checkPing()
 		if (players[i].ping == -1)
 		{
 			//Player did not reply after 10 seconds. Disconnected.
-			console.log('DCd:'+players[i].name);
+			players[i].s.disconnet();
 		}
 		console.log(players[i].name+': '+players[i].ping);
 	}
