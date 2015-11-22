@@ -113,6 +113,5 @@ function formatTime(num)
 	{
 		num = '0'+num;
 	}
-	console.log(num);
 	return num;
 }

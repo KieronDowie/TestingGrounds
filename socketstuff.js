@@ -182,10 +182,17 @@ socket.on(Type.PING,function()
 {
 		socket.emit(Type.PONG);
 });
-socket.on(Type.JOIN,function(name)
+socket.on(Type.JOIN,function(name, reconnect)
 {
 	users.push(name);
-	addMessage(name+' has joined.','system');
+	if (reconnect)
+	{
+		addMessage(name+' has reconnected.','system');
+	}
+	else
+	{
+		addMessage(name+' has joined.','system');
+	}
 	var num = $('#userlist').children().length;
 	if (num==0)
 	{
@@ -335,7 +342,7 @@ socket.on(Type.LEAVE,function(name)
 {
 	addMessage(name +' has left.','system');
 	var index = users.indexOf(name);
-	$('#userlist').children()[index].remove();
+	$($('#userlist').children()[index]).remove();
 	//Recalculate the numbering.
 	var nums = $('.num');
 	for (var i = index; i < nums.length; i++ )

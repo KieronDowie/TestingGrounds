@@ -63,7 +63,7 @@ var prev_rolled;
 var testTime = new Date( //GMT
 2015 //Years
 ,10, //Month
-21, //Day
+22, //Day
 19 //Hours
 ); 
 //Banlist
@@ -298,10 +298,6 @@ var dcd = [];
 
 io.listen(server);
 io.on('connection', function(socket){
-	socket.on('packet',function(type,data)
-	{
-		console.log('Packet: '+type+' : '+data);	
-	});
 	var ip=getIp(socket);
 	if (banlist.indexOf(ip) != -1)
 	{
@@ -400,7 +396,7 @@ io.on('connection', function(socket){
 			}
 			var name = players[socket.id].name;
 			//Inform everyone of the new arrival.
-			io.emit(Type.JOIN,name);
+			io.emit(Type.JOIN,name,true);
 			//Tell the new arrival what phase it is.
 			socket.emit(Type.SETPHASE,phase);
 			
@@ -579,9 +575,6 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.VOTE,function(name)
 	{
-		console.log(name);
-		console.log(getPlayerByName(name));
-		
 		if (phase != Phase.VOTING)
 		{
 			socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
