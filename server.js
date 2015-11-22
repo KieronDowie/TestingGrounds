@@ -1066,12 +1066,12 @@ function checkPing()
 {
 	for (i in players)
 	{
+		console.log(players[i].name+': '+players[i].ping);
 		if (players[i].ping == -1)
 		{
 			//Player did not reply after 10 seconds. Disconnected.
 			players[i].s.disconnect();
 		}
-		console.log(players[i].name+': '+players[i].ping);
 	}
 	setTimeout(ping,0);
 }
