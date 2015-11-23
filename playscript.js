@@ -1,4 +1,4 @@
-mod = false;
+wmod = false;
 var current_rolelist = [
 	"Town Investigative",
 	"Town Protective",
@@ -38,7 +38,14 @@ window.onblur = function()
 }
 function openWill()
 {
-	$('#will').show();
+	if ($('#will').css('display') == 'none')
+	{
+		$('#will').show();
+	}
+	else
+	{
+		closeWill();
+	}
 }
 function closeWill()
 {
