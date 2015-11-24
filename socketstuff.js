@@ -363,12 +363,12 @@ socket.on(Type.LEAVE,function(name)
 });
 socket.on(Type.SETMOD,function(val)
 {
-	if (val)
+	if (val && !mod)
 	{
 		mod = true;
 		modInterface();
 	}
-	else
+	else if (mod)
 	{
 		mod = false;
 		for (i = 0; i < users.length; i++)

@@ -397,6 +397,11 @@ io.on('connection', function(socket){
 			if (Object.keys(players).length==0)
 			{
 				mod = socket.id;
+				socket.emit(Type.SETMOD,true);
+			}
+			else
+			{
+				socket.emit(Type.SETMOD,false);
 			}
 			var name = players[socket.id].name;
 			//Inform everyone of the new arrival.
