@@ -47,6 +47,7 @@ function openWill()
 		closeWill();
 	}
 }
+
 function closeWill()
 {
 	$('#will').hide();
@@ -398,7 +399,9 @@ function openRolelist()
 }
 function openUserWill(e)
 {
-	
+	var li = e.parentNode.parentNode;
+	var index = $('#userlist').children().index(li);
+	socket.emit(Type.GETWILL,index);
 }
 function formatAlignment(str)
 {                       

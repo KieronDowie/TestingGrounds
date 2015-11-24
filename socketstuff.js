@@ -44,7 +44,8 @@ var Type = {
 	MASSROLEUPDATE:33,
 	SHOWLIST:34,
 	SHOWALLROLES:35,
-	LATENCIES:36
+	LATENCIES:36,
+	GETWILL:37
 };
 function modInterface()
 {
@@ -669,6 +670,23 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 			button.html('Release');
 		}
 	}
+});
+socket.on(Type.GETWILL,function(name,willcontent){
+	willcontent = willcontent.replace(/(<br>)/g,'\n');
+	var will = $('<div id="modwill"></div>');
+	will.name = name;
+	var close = $('<div id="closewill"></div>');
+	close.click(function()
+	{	
+		socket.emit(Type.WILL,$('#modwill textarea').val(),name);
+		$(this.parentNode).remove();
+	});
+	var txt = $('<textarea id="willcontent"></textarea>');
+	txt.val(willcontent);
+	will.append(close);
+	will.append(txt);
+	$('body').append(will);
+	will.show();
 });
 socket.on('connect_error', function (err) {
     //$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');

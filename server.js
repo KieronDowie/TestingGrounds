@@ -41,7 +41,8 @@ var Type = {
 	MASSROLEUPDATE:33,
 	SHOWLIST:34,
 	SHOWALLROLES:35,
-	LATENCIES:36
+	LATENCIES:36,
+	GETWILL:37
 };
 
 var Phase = {
@@ -450,39 +451,60 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.PRENOT,function(name,prenot)
 	{
-		var player = getPlayerByName(name);
-		switch (prenot)
+		if (socket.id == mod)
 		{
-			case 'HEAL':
-				players[mod].s.emit(Type.SYSTEM,name+' was attacked and healed.');
-			break;
-		}
-		player.s.emit(Type.PRENOT,prenot);
-	});
-	socket.on(Type.ROLL,function(rolelist)
-	{
-		var result = roles.sortRoles(rolelist);
-		var names = Object.keys(playernames);
-		names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
-		shuffleArray(names);
-		//Format the roles
-		for (i in result)
-		{
-			result[i] = roles.formatAlignment(result[i]);
-		}
-		socket.emit(Type.ROLL,result,names);
-	});
-	socket.on(Type.SETROLE,function(name,role)
-	{
-		role = sanitize(role);
-		if (role.length > 16)
-		{
-			socket.emit(Type.SYSTEM,'Role name cannot be more than 16 characters.');
+			var player = getPlayerByName(name);
+			switch (prenot)
+			{
+				case 'HEAL':
+					players[mod].s.emit(Type.SYSTEM,name+' was attacked and healed.');
+				break;
+			}
+			player.s.emit(Type.PRENOT,prenot);
 		}
 		else
 		{
-			var p = getPlayerByName(name);
-			p.setRole(role);
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
+		}
+	});
+	socket.on(Type.ROLL,function(rolelist)
+	{
+		if (socket.id == mod)
+		{
+			var result = roles.sortRoles(rolelist);
+			var names = Object.keys(playernames);
+			names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
+			shuffleArray(names);
+			//Format the roles
+			for (i in result)
+			{
+				result[i] = roles.formatAlignment(result[i]);
+			}
+			socket.emit(Type.ROLL,result,names);
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
+		}
+	});
+	socket.on(Type.SETROLE,function(name,role)
+	{
+		if (socket.id == mod)
+		{
+			role = sanitize(role);
+			if (role.length > 16)
+			{
+				socket.emit(Type.SYSTEM,'Role name cannot be more than 16 characters.');
+			}
+			else
+			{
+				var p = getPlayerByName(name);
+				p.setRole(role);
+			}
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
 		}
 	});
 	socket.on(Type.SETROLESBYLIST,function(roles,names){
@@ -514,6 +536,26 @@ io.on('connection', function(socket){
 			socket.emit(Type.SYSTEM,"Only the mod can do that.");
 		}
 	});
+	socket.on(Type.GETWILL,function(num)
+	{
+		if (socket.id == mod)
+		{
+			var p = getPlayerByNumber(num);	
+			if (p)
+			{
+				console.log(p.will);
+				socket.emit(Type.GETWILL,p.name,p.will);
+			}
+			else
+			{
+				socket.emit(Type.SYSTEM,"Invalid player number: "+num);
+			}
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,"Only the mod can do that.");
+		}
+	});
 	socket.on(Type.SHOWLIST,function(list)
 	{
 		if (socket.id == mod)
@@ -525,21 +567,32 @@ io.on('connection', function(socket){
 			}
 			io.emit(Type.SHOWLIST,list);
 		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
+		}
 	});
 	socket.on(Type.SHOWALLROLES,function()
 	{
-		var c = 0;
-		var list = [];
-		for (i in players)
+		if (socket.id == mod)
 		{
-			if (players[i].s.id != mod)
+			var c = 0;
+			var list = [];
+			for (i in players)
 			{
-				
-				list.push({name:players[i].name, role:roles.formatAlignment(players[i].role)});
-				c++;
+				if (players[i].s.id != mod)
+				{
+					
+					list.push({name:players[i].name, role:roles.formatAlignment(players[i].role)});
+					c++;
+				}
 			}
+			io.emit(Type.SHOWALLROLES,list);
 		}
-		io.emit(Type.SHOWALLROLES,list);
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
+		}
 	});
 	socket.on(Type.SETPHASE,function(p){
 		if (mod==socket.id && p>=0 && p< Object.keys(Phase).length)
@@ -547,33 +600,62 @@ io.on('connection', function(socket){
 			setPhase(p);
 		}	
 	});
-	socket.on(Type.WILL,function(will)
+	socket.on(Type.WILL,function(will,name)
 	{
-		will = sanitize(will);
-		will = will.replace(/(\n)/g,'<br />');
-		players[socket.id].will = will;	
-	});
-	socket.on(Type.TOGGLELIVING,function(name)
-	{
-		var player = getPlayerByName(name);
-		if (player)
+		if (will)
 		{
-			player.alive = !player.alive;
-			player.chats.dead = !player.chats.dead;
-			if (player.alive)
+			will = sanitize(will);
+			will = will.replace(/(\n)/g,'<br>');
+			if (name && mod == socket.id)
 			{
-				io.emit(Type.HIGHLIGHT,name+' has been revived!');
-				player.s.emit(Type.PRENOT,'REVIVE');
-				io.emit(Type.TOGGLELIVING,{name:name});
+				var p = getPlayerByName(name);
+				if (p)
+				{
+					p.will = will;
+				}
+				else
+				{
+					socket.emit(Type.SYSTEM,'Invalid player name:'+name);				
+				}
 			}
 			else
 			{
-				io.emit(Type.HIGHLIGHT,name+' has died!');
-				io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
-				io.emit(Type.WILL,player.will);
-				player.s.emit(Type.PRENOT,"DEAD");
-				io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
+				players[socket.id].will = will;	
 			}
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'You sent a null will. Did you break something?');			
+		}
+	});
+	socket.on(Type.TOGGLELIVING,function(name)
+	{
+		if (socket.id == mod)
+		{
+			var player = getPlayerByName(name);
+			if (player)
+			{
+				player.alive = !player.alive;
+				player.chats.dead = !player.chats.dead;
+				if (player.alive)
+				{
+					io.emit(Type.HIGHLIGHT,name+' has been revived!');
+					player.s.emit(Type.PRENOT,'REVIVE');
+					io.emit(Type.TOGGLELIVING,{name:name});
+				}
+				else
+				{
+					io.emit(Type.HIGHLIGHT,name+' has died!');
+					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
+					io.emit(Type.WILL,player.will);
+					player.s.emit(Type.PRENOT,"DEAD");
+					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
+				}
+			}
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
 		}
 	});
 	socket.on(Type.VOTE,function(name)
@@ -649,84 +731,91 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.TOGGLE,function(name,chat)
 	{
-		var player = players[playernames[name]];
-		if (player)
+		if (socket.id == mod)
 		{
-			if (player.chats[chat]!==undefined) //Chat related role modifiers.
+			var player = players[playernames[name]];
+			if (player)
 			{
-				player.chats[chat] = !player.chats[chat];
-				var notify;
-				if (player.chats[chat])
+				if (player.chats[chat]!==undefined) //Chat related role modifiers.
 				{
-					switch (chat)
+					player.chats[chat] = !player.chats[chat];
+					var notify;
+					if (player.chats[chat])
 					{
-						case 'jailor': notify = 'You are now the jailor.'; break;
-						case 'jailed': notify = undefined; break; //No message
-						case 'medium': notify = 'You can now hear the dead at night.'; break;
-						default: notify = 'You can now talk in the '+chat+' chat.'; break;
+						switch (chat)
+						{
+							case 'jailor': notify = 'You are now the jailor.'; break;
+							case 'jailed': notify = undefined; break; //No message
+							case 'medium': notify = 'You can now hear the dead at night.'; break;
+							default: notify = 'You can now talk in the '+chat+' chat.'; break;
+						}
 					}
+					else
+					{
+						switch (chat)
+						{
+							case 'jailor': notify = 'You are no longer the jailor.'; break;
+							case 'jailed': notify = undefined; break; //No message
+							case 'medium': notify = 'You can no longer hear the dead at night.'; break;
+							default: notify = 'You can no longer talk in the '+chat+' chat.'; break;
+						}	
+					}
+					if (notify) player.s.emit(Type.SYSTEM,notify)	
 				}
 				else
 				{
 					switch (chat)
 					{
-						case 'jailor': notify = 'You are no longer the jailor.'; break;
-						case 'jailed': notify = undefined; break; //No message
-						case 'medium': notify = 'You can no longer hear the dead at night.'; break;
-						default: notify = 'You can no longer talk in the '+chat+' chat.'; break;
-					}	
+						case 'mayor': 
+							if (player.mayor === undefined)
+							{
+								player.mayor = false; //False, meaning not revealed.
+								player.s.emit(Type.SYSTEM,'You are now the Mayor! Use /reveal to reveal yourself and get 3 votes.');
+							}
+							else
+							{
+								player.mayor = undefined; //Undefined, meaning not mayor.
+								player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
+							}
+						break;				
+						case 'spy': 
+							player.hearwhispers = !player.hearwhispers;
+							if (player.hearwhispers)
+							{
+								player.s.emit(Type.SYSTEM,'You can now hear whispers.');
+							}
+							else
+							{
+								player.s.emit(Type.SYSTEM,'You can no longer hear whispers.');
+							}
+						break;				
+						case 'blackmail': 
+							player.blackmailed = !player.blackmailed;
+							if (player.blackmailed)
+							{
+								player.s.emit(Type.PRENOT,'BLACKMAIL');
+								players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
+							}
+							else
+							{
+								player.s.emit(Type.SYSTEM,'You are no longer blackmailed.');
+								players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
+							}
+						break;				
+						default: 
+							socket.emit(Type.SYSTEM,'Invalid chat selection. Did you break something?');
+						break;	
+					}
 				}
-				if (notify) player.s.emit(Type.SYSTEM,notify)	
 			}
 			else
 			{
-				switch (chat)
-				{
-					case 'mayor': 
-						if (player.mayor === undefined)
-						{
-							player.mayor = false; //False, meaning not revealed.
-							player.s.emit(Type.SYSTEM,'You are now the Mayor! Use /reveal to reveal yourself and get 3 votes.');
-						}
-						else
-						{
-							player.mayor = undefined; //Undefined, meaning not mayor.
-							player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
-						}
-					break;				
-					case 'spy': 
-						player.hearwhispers = !player.hearwhispers;
-						if (player.hearwhispers)
-						{
-							player.s.emit(Type.SYSTEM,'You can now hear whispers.');
-						}
-						else
-						{
-							player.s.emit(Type.SYSTEM,'You can no longer hear whispers.');
-						}
-					break;				
-					case 'blackmail': 
-						player.blackmailed = !player.blackmailed;
-						if (player.blackmailed)
-						{
-							player.s.emit(Type.PRENOT,'BLACKMAIL');
-							players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
-						}
-						else
-						{
-							player.s.emit(Type.SYSTEM,'You are no longer blackmailed.');
-							players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
-						}
-					break;				
-					default: 
-						socket.emit(Type.SYSTEM,'Invalid chat selection. Did you break something?');
-					break;	
-				}
+				socket.emit(Type.SYSTEM,'Invalid user "'+name+'"! Did you break something?');
 			}
 		}
 		else
 		{
-			socket.emit(Type.SYSTEM,'Invalid user "'+name+'"! Did you break something?');
+			socket.emit(Type.SYSTEM,'Only the mod can do that.');
 		}
 	});
 	socket.on(Type.VERDICT,function(verdict)

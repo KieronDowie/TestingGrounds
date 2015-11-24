@@ -317,7 +317,7 @@ header ul li
 	padding-left:10px;
 	padding-top:10px;
 }
-#will
+#will, #modwill
 {
 	background:url("will.png");	
 	background-size:100% 100%;
@@ -328,7 +328,7 @@ header ul li
 	right:20%;
 	bottom:10%;
 }
-#will textarea
+#will textarea, #modwill textarea
 {
 	background-color:transparent;
 	border-style:none;
@@ -343,7 +343,7 @@ header ul li
 	margin-top:10%;
 	resize:none;
 }
-#will div
+#will div, #modwill div
 {
 	border:black 1px solid;
 	display:block;	
@@ -356,7 +356,7 @@ header ul li
 	background-size:100%,100%;
 	border:black 1px solid;
 }
-#will div:hover
+#will div:hover, #modwill div:hover
 {
 	box-shadow: 0 0 2px yellow;
 }
