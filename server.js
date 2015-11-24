@@ -658,7 +658,7 @@ io.on('connection', function(socket){
 					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
 					var show = sanitize(player.will);
 					show = show.replace(/(\n)/g,'<br />');
-					io.emit(Type.WILL,player.will);
+					io.emit(Type.WILL,show);
 					player.s.emit(Type.PRENOT,"DEAD");
 					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
 				}
