@@ -672,7 +672,6 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 	}
 });
 socket.on(Type.GETWILL,function(name,willcontent){
-	willcontent = willcontent.replace(/(<br>)/g,'\n');
 	var will = $('<div id="modwill"></div>');
 	will.name = name;
 	var close = $('<div id="closewill"></div>');
