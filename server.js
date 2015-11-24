@@ -393,6 +393,9 @@ io.on('connection', function(socket){
 			
 			socket.emit(Type.ACCEPT);
 			socket.emit(Type.SYSTEM,'You have reconnected.');
+			var name = players[socket.id].name;
+			//Inform everyone of the new arrival.
+			io.emit(Type.JOIN,name,true);
 			//If the player is first, set them as the mod.
 			if (Object.keys(players).length==0)
 			{
@@ -403,9 +406,6 @@ io.on('connection', function(socket){
 			{
 				socket.emit(Type.SETMOD,false);
 			}
-			var name = players[socket.id].name;
-			//Inform everyone of the new arrival.
-			io.emit(Type.JOIN,name,true);
 			//Tell the new arrival what phase it is.
 			socket.emit(Type.SETPHASE,phase);
 			
@@ -504,7 +504,14 @@ io.on('connection', function(socket){
 			else
 			{
 				var p = getPlayerByName(name);
-				p.setRole(role);
+				if (p)
+				{
+					p.setRole(role);
+				}
+				else
+				{
+					socket.emit(Type.SYSTEM,'Invalid name "'+name+'", did you break something?');
+				}
 			}
 		}
 		else
@@ -1238,7 +1245,12 @@ function Player(socket,name,ip)
 			//Player functions
 			setRole:function(role){
 				this.role = role;
-				if (roles.hasRolecard(role))
+				if (role.trim().length == 0)
+				{
+					this.role = 'NoRole';
+					this.s.emit(Type.System,'Your role has been removed.');
+				}
+				else if (roles.hasRolecard(role))
 				{
 					var rolecard = roles.getRoleCard(role);
 					this.s.emit(Type.ROLECARD,rolecard);

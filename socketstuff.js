@@ -376,7 +376,8 @@ socket.on(Type.SETMOD,function(val)
 			var num = i==0?'MOD':i;
 			//Top row, normal users.
 			var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
-			console.log(num+': '+users[i]);
+			console.log(users);
+			console.log(i);
 			$('#userlist li')[i].innerHTML='';
 			$($('#userlist li')[i]).append(info);
 		}		
@@ -388,6 +389,7 @@ socket.on(Type.SYSTEM,function(msg)
 });
 socket.on(Type.ROOMLIST,function(list)
 {
+	users = [];
 	$('#userlist').empty();
 	for (i in list)
 	{
