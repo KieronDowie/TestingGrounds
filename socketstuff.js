@@ -712,7 +712,6 @@ socket.on(Type.ROLL,function(result,names)
 			rolelist_result.push(result[i]);
 		}
 	}
-	console.log(rolelist_result+'XXXX');
 	rolelist_names = names;
 1});
 socket.on(Type.LATENCIES,function(p)

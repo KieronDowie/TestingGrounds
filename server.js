@@ -615,7 +615,6 @@ io.on('connection', function(socket){
 	{
 		if (will)
 		{
-			will = sanitize(will);
 			will = will.replace(/(\n)/g,'<br>');
 			if (name && mod == socket.id)
 			{
@@ -658,7 +657,7 @@ io.on('connection', function(socket){
 				{
 					io.emit(Type.HIGHLIGHT,name+' has died!');
 					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
-					io.emit(Type.WILL,player.will);
+					io.emit(Type.WILL,sanitize(player.will));
 					player.s.emit(Type.PRENOT,"DEAD");
 					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
 				}
