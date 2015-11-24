@@ -555,7 +555,6 @@ io.on('connection', function(socket){
 			var p = getPlayerByNumber(num);	
 			if (p)
 			{
-				console.log(p.will);
 				socket.emit(Type.GETWILL,p.name,p.will);
 			}
 			else

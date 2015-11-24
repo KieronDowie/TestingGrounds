@@ -376,8 +376,6 @@ socket.on(Type.SETMOD,function(val)
 			var num = i==0?'MOD':i;
 			//Top row, normal users.
 			var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
-			console.log(users);
-			console.log(i);
 			$('#userlist li')[i].innerHTML='';
 			$($('#userlist li')[i]).append(info);
 		}		
@@ -705,9 +703,15 @@ socket.on(Type.ROLL,function(result,names)
 	{
 		$($('.person')[i]).html(names[i]);
 		$($('.myrole')[i]).html(result[i]);
-		rolelist_result.push($(result[i]).html());
+		if ($(result[i]).html() !== undefined)
+		{
+			rolelist_result.push($(result[i]).html());
+		}
+		else
+		{
+			rolelist_result.push(result[i]);
+		}
 	}
-	
 	rolelist_names = names;
 1});
 socket.on(Type.LATENCIES,function(p)
@@ -726,7 +730,6 @@ socket.on(Type.LATENCIES,function(p)
 });
 socket.on(Type.SHOWLIST,function(list)
 {
-	console.log(list);
 	addMessage(list,'rolelist');	
 });
 socket.on(Type.SHOWALLROLES,function(list)
