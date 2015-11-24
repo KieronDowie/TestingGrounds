@@ -349,7 +349,6 @@ function openRolelist()
 				$($('.role')[i]).css('background','green');
 				$('.role')[i].old = rolelist_result[index];
 			}
-			console.log(rolelist_result);
 			socket.emit(Type.SETROLESBYLIST,rolelist_result,rolelist_names);
 		});
 		var controls = $('<li class="rolelistcontrols"></li>');
