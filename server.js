@@ -985,6 +985,14 @@ function setPhase(p)
 	{
 		clearVotes();
 	}
+	if (p == Phase.ROLES)
+	{
+		for (i in players)
+		{
+			players[i].confirm = false;
+		}
+		
+	}
 }
 //--IP functions
 function getIp(socket)
@@ -1152,6 +1160,32 @@ function Timer()
 		}
 	}
 }
+function showConfirms()
+{
+	var c = 0;
+	var unconfirmed = [];
+	for (i in players)
+	{
+		if (players[i].confirm)
+		{
+			c++;
+		}
+		else if (mod != players[i].s.id)
+		{
+			unconfirmed.push(players[i].name);
+		}
+	}
+	var total = (Object.keys(players).length-1);
+	if (c < total)
+	{
+		io.emit(Type.SYSTEM,c+'/'+total+' players confirmed.');
+		io.emit(Type.SYSTEM,'Unconfirmed: '+unconfirmed.join(', '));
+	}
+	else
+	{
+		io.emit(Type.SYSTEM,'All players confirmed.');
+	}
+}
 //Pinging functions
 function ping()
 {
@@ -1232,6 +1266,7 @@ function Player(socket,name,ip)
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
+			confirm:false,
 			votes:0,
 			verdict:0, //0 for abstain, -1 for guilty, 1 for inno
 			chats:{
@@ -1484,6 +1519,25 @@ function Player(socket,name,ip)
 						else
 						{
 							socket.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
+						}
+					break;
+					case 'confirm':
+						if (phase == Phase.ROLES)
+						{
+							if (mod != this.s.id)
+							{
+								this.confirm = true;
+								io.emit(Type.SYSTEM,this.name+' has confirmed.');
+								showConfirms();
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'The mod cannot use this command.');
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
 						}
 					break;
 					case 'kick':
