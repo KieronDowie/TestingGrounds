@@ -461,9 +461,42 @@ io.on('connection', function(socket){
 			var player = getPlayerByName(name);
 			switch (prenot)
 			{
-				case 'HEAL':
-					players[mod].s.emit(Type.SYSTEM,name+' was attacked and healed.');
-				break;
+			 case 'HEAL':
+				players[mod].s.emit(Type.SYSTEM,name+' was attacked and healed.');
+			 break;
+			 case 'DEAD':         
+				players[mod].s.emit(Type.SYSTEM,name+' was killed.');
+			 break;
+			 case 'DOUSE':         
+				players[mod].s.emit(Type.SYSTEM,name+' was doused.');
+			 break;
+			 case 'BLACKMAIL':
+				players[mod].s.emit(Type.SYSTEM,name+' was blackmailed.');
+			 break;
+			 case 'TARGETIMMUNE':
+				players[mod].s.emit(Type.SYSTEM,name+' attacked an immune target.');
+			 break;
+			 case 'IMMUNE':
+				players[mod].s.emit(Type.SYSTEM,name+' was attacked but immune.');
+			 break;
+			 case 'SHOTVET':
+				players[mod].s.emit(Type.SYSTEM,name+' was shot by a Veteran.');
+			 break;
+			 case 'VETSHOT':
+				players[mod].s.emit(Type.SYSTEM,name+' attacked a visitor.');
+			 break;
+			 case 'RB':
+				players[mod].s.emit(Type.SYSTEM,name+' was roleblocked.');
+			 break;
+			 case 'WITCHED':
+				players[mod].s.emit(Type.SYSTEM,name+' was controlled.');
+			 break;
+			 case 'REVIVE':
+				players[mod].s.emit(Type.SYSTEM,name+' was revived.');
+			 break;
+			 case 'JAILED':
+				players[mod].s.emit(Type.SYSTEM,name+' was hauled off to jail.');
+			 break;
 			}
 			player.s.emit(Type.PRENOT,prenot);
 		}

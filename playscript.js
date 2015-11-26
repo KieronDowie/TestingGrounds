@@ -258,32 +258,43 @@ function openModList(targ)
 			var notifications = {
 				'Roleblocked':function()
 				{
-					console.log('rbd!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'RB');
 				},
-				'Healed':function()
+				'Attacked(Healed)':function()
 				{
-					var name = $(this.parentNode).attr('name');
-					socket.emit(Type.PRENOT,name,'HEAL');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'HEAL');
 				},
-				'Attacked(immune)':function()
+				'Attacked(Immune)':function()
 				{
-					console.log('attacked!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'IMMUNE');
+				},
+				'Doused':function()
+				{
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'DOUSE');
 				},
 				'Target immune':function()
 				{
-					console.log('immune!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'TARGETIMMUNE');
 				},
 				'Witched':function()
 				{
-					console.log('witched!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'WITCHED');
 				},
 				'Shot by Vet':function()
 				{
-					console.log('You were shot by the Veteran you visited!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'SHOTVET');
 				},
 				'Vet shot':function()
 				{
-					console.log('You shot someone that visited you!');
+				   var name = $(this.parentNode).attr('name');
+				   socket.emit(Type.PRENOT,name,'VETSHOT');
 				}
 			};
 			var list = $('<ul id="morelist"></ul>');

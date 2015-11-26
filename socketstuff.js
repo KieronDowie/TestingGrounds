@@ -505,47 +505,53 @@ socket.on(Type.SWITCH,function(name1,name2)
 socket.on(Type.PRENOT,function(notification)
 {
 	switch (notification)
-	{
-		case 'DEAD':			
-			addMessage({msg:'You have died!',styling:'dying'},'prenot');
-		break;
-		case 'BLACKMAIL':
-			addMessage({msg:'Someone threatened to reveal your secrets. You are blackmailed!',styling:'dying'},'prenot');
-		break;
-		case 'TARGETIMMUNE':
-			addMessage({msg:'Your target was immune to your attack!',styling:'dying'},'prenot');
-		break;
-		case 'IMMUNE':
-			addMessage({msg:'You were attacked, but you are immune at night!',styling:'dying'},'prenot');
-		break;
-		case 'JESTER':
-			addMessage({msg:'The jester will have his revenge from the grave!',styling:'dying'},'prenot');
-		break;
-		case 'HAUNT':
-			addMessage({msg:'<Death from guilt here>',styling:'dying'},'prenot');
-		break;
-		case 'SHOTVET':
-			addMessage({msg:'You were shot by the Veteran you visited!',styling:'dying'},'prenot');
-		break;
-		case 'RB':
-			addMessage({msg:'You were roleblocked!',styling:'dying'},'prenot');
-		break;
-		case 'REVIVE':
-			addMessage({msg:'You were revived!',styling:'reviving'},'prenot');
-		break;
-		case 'HEAL':
-			addMessage({msg:'You were attacked but someone nursed you back to health!',styling:'reviving'},'prenot');
-		break;
-		case 'JAILED':
-			addMessage({msg:'You were hauled off to jail!',styling:'jailing'},'prenot');
-		break;
-		case 'JAILING':
-			addMessage({msg:'You hauled your target off to jail!',styling:'jailing'},'prenot');
-		break;		
-		case 'FULLMOON':
-			addMessage({msg:'There is a full moon out tonight.',styling:'moon'},'prenot');
-		break;
-	}
+   {
+      case 'DEAD':         
+         addMessage({msg:'You have died!',styling:'dying'},'prenot');
+      break;
+      case 'BLACKMAIL':
+         addMessage({msg:'Someone threatened to reveal your secrets. You are blackmailed!',styling:'dying'},'prenot');
+      break;
+      case 'DOUSE':
+         addMessage({msg:'You were doused!',styling:'dying'},'prenot');
+      break;
+      case 'TARGETIMMUNE':
+         addMessage({msg:'Your target was immune to your attack!',styling:'dying'},'prenot');
+      break;
+      case 'IMMUNE':
+         addMessage({msg:'You were attacked, but you are immune at night!',styling:'dying'},'prenot');
+      break;
+      case 'JESTER':
+         addMessage({msg:'The jester will have their revenge from the grave!',styling:'dying'},'prenot');
+      break;
+      case 'SHOTVET':
+         addMessage({msg:'You were shot by the Veteran you visited!',styling:'dying'},'prenot');
+      break;
+      case 'VETSHOT':
+         addMessage({msg:'You shot someone who visited you!',styling:'dying'},'prenot');
+      break;
+      case 'RB':
+         addMessage({msg:'You were roleblocked!',styling:'dying'},'prenot');
+      break;
+      case 'WITCHED':
+         addMessage({msg:'You were controlled by a Witch!',styling:'dying'},'prenot');
+      break;
+      case 'REVIVE':
+         addMessage({msg:'You were revived!',styling:'reviving'},'prenot');
+      break;
+      case 'HEAL':
+         addMessage({msg:'You were attacked but someone nursed you back to health!',styling:'reviving'},'prenot');
+      break;
+      case 'JAILED':
+         addMessage({msg:'You were hauled off to jail!',styling:'jailing'},'prenot');
+      break;
+      case 'JAILING':
+         addMessage({msg:'You hauled your target off to jail!',styling:'jailing'},'prenot');
+      break;     
+      case 'FULLMOON':
+         addMessage({msg:'There is a full moon out tonight.',styling:'moon'},'prenot');
+      break;
+   }
 });
 socket.on(Type.VOTE,function(voter,msg,voted,prev)
 {
