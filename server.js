@@ -613,7 +613,7 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.WILL,function(will,name)
 	{
-		if (will)
+		if (will !== undefined && will !== null)
 		{
 			if (name && mod == socket.id)
 			{
