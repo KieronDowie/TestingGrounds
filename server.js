@@ -755,7 +755,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are now the jailor.'; break;
+							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': notify = 'You can now hear the dead at night.'; break;
 							default: notify = 'You can now talk in the '+chat+' chat.'; break;
@@ -1267,6 +1267,7 @@ function Player(socket,name,ip)
 			hearwhispers:false,
 			votingFor:undefined,
 			confirm:false,
+			executing:false,
 			votes:0,
 			verdict:0, //0 for abstain, -1 for guilty, 1 for inno
 			chats:{
@@ -1507,6 +1508,40 @@ function Player(socket,name,ip)
 						else
 						{
 							socket.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
+						}
+					break;
+					case 'exe': case 'execute': case 'x':
+						if (!this.chats.jailor)
+						{
+							socket.emit(Type.SYSTEM,'You need to be the Jailor to use this.');
+						}
+						else if (phase != Phase.NIGHT)
+						{
+							socket.emit(Type.SYSTEM,'You can only use this at night.');
+						}
+						else
+						{
+							var found = false;
+							var msg = this.executing? 'The Jailor has changed his mind.':'The Jailor has decided to execute you.';
+							var jmsg = this.executing? 'You have changed your mind.':'You have decided to execute your prisoner.';			
+							for (i in players)
+							{
+								if (players[i].chats.jailed)
+								{
+									found = true;
+									players[i].s.emit(Type.SYSTEM,msg);
+									socket.emit(Type.SYSTEM,jmsg);
+									players[mod].s.emit(Type.SYSTEM,this.executing?this.name+' has changed their mind.':this.name+' has decided to execute '+players[i].name+'.');
+								}
+							}
+							if (found)
+							{
+								this.executing = !this.executing;
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'You do not have a prisoner to execute!');
+							}
 						}
 					break;
 					case 'role':
