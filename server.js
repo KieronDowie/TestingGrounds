@@ -1522,17 +1522,21 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'confirm':
-						if (phase == Phase.ROLES)
+						if (mod == this.s.id)
 						{
-							if (mod != this.s.id)
+							socket.emit(Type.SYSTEM,'The mod cannot use this command.');
+						}
+						else if (phase == Phase.ROLES)
+						{						
+							if (this.confirm)
+							{
+								socket.emit(Type.SYSTEM,'You have already confirmed.');
+							}
+							else
 							{
 								this.confirm = true;
 								io.emit(Type.SYSTEM,this.name+' has confirmed.');
 								showConfirms();
-							}
-							else
-							{
-								socket.emit(Type.SYSTEM,'The mod cannot use this command.');
 							}
 						}
 						else
