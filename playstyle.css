@@ -173,8 +173,8 @@ header ul li
 }
 .dev
 {
-	text-shadow: 0 0 10px #FFF840, 0 0 20px #FFBF00, 0 0 30px #7F7703;
-	color:#4A4E00;
+	font-weight:bold;
+	color:#38832B;
 }
 #inputarea
 {
