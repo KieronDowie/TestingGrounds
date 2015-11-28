@@ -1675,7 +1675,7 @@ function Player(socket,name,ip)
 									{
 										player.s.emit(Type.HEY);
 										player.s.emit(Type.SYSTEM,'ALERT!');
-										players[mod].s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
+										this.s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
 									}
 									else
 									{
@@ -1687,7 +1687,7 @@ function Player(socket,name,ip)
 									var player = getPlayerByNumber(parseInt(c[1]));
 									player.s.emit(Type.HEY); 	
 									player.s.emit(Type.SYSTEM,'ALERT!');
-									players[mod].s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
+									this.s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
 								}
 								else
 								{									
