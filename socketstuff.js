@@ -384,6 +384,14 @@ socket.on(Type.SETMOD,function(val)
 			var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
 			$('#userlist li')[i].innerHTML='';
 			$($('#userlist li')[i]).append(info);
+		}
+		if ($('#rolelist').length != 0)
+		{
+			$('#rolelist').remove();
+		}		
+		if ($('#rolelistbutton').length != 0)
+		{
+			$('#rolelistbutton').remove();
 		}		
 	}
 });
