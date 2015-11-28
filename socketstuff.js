@@ -7,6 +7,8 @@ var mod = false;
 //Connect attempts
 var connectAttempt = 0;
 var kicked = false;
+//Notify sound
+var hey = new Audio('ping.wav');
 //Enums
 var Type = {
 	PING:0,
@@ -45,7 +47,8 @@ var Type = {
 	SHOWLIST:34,
 	SHOWALLROLES:35,
 	LATENCIES:36,
-	GETWILL:37
+	GETWILL:37,
+	HEY:38
 };
 function modInterface()
 {
@@ -183,6 +186,9 @@ socket.on(Type.HIGHLIGHT,function(msg)
 socket.on(Type.PING,function()
 {
 	socket.emit(Type.PONG);
+});
+socket.on(Type.HEY,function(){
+	hey.play();
 });
 socket.on(Type.JOIN,function(name, reconnect)
 {

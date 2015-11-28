@@ -90,8 +90,12 @@ function tick()
 		{
 			clock.children()[i].innerHTML = formatTime(current[i])+'<span class="unit">'+units[i]+'</span>';
 		}
+		setTimeout(tick,1000);
 	}
-	setTimeout(tick,1000);
+	else
+	{
+		$('#clock').html('<span class="nowtesting">NOW TESTING</span>');
+	}
 }
 function getTime(time)
 {

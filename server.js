@@ -42,7 +42,8 @@ var Type = {
 	SHOWLIST:34,
 	SHOWALLROLES:35,
 	LATENCIES:36,
-	GETWILL:37
+	GETWILL:37,
+	HEY:38
 };
 
 var Phase = {
@@ -235,7 +236,6 @@ var server = http.createServer(function(req,res)
 				}
 			});
 		break;
-		
 		case '/maf.png':
 		case '/mayor.png':
 		case '/med.png':
@@ -270,6 +270,20 @@ var server = http.createServer(function(req,res)
 				}
 				else{
 					res.writeHead(200, {"Content-Type": "text/gif"});
+					res.write(data, "utf8");
+					res.end();
+				}
+			});
+		break;
+		case '/ping.wav':
+			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
+				if (error){
+					res.writeHead(404);
+					res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+					res.end();
+				}
+				else{
+					res.writeHead(200, {"Content-Type": "text/wav"});
 					res.write(data, "utf8");
 					res.end();
 				}
@@ -1361,8 +1375,7 @@ function Player(socket,name,ip)
 								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
 							}
 							else
-							{
-								
+							{	
 								if (c.length > 2)
 								{
 									if (playernames[c[1]])
@@ -1417,7 +1430,6 @@ function Player(socket,name,ip)
 							{
 								if (playernames[c[1]])
 								{
-									
 									//Valid player name.
 									players[mod].s.emit(Type.SETMOD,false);
 									if (players[playernames[c[1]]].s.id == this.s.id)
@@ -1651,6 +1663,47 @@ function Player(socket,name,ip)
 							socket.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
 						}
 					break;
+					case 'alert':
+						if (c.length >= 2)
+						{
+							if (this.dev)
+							{
+								if (isNaN(c[1])) //Name
+								{
+									var player = getPlayerByName(c[1]);
+									if (player)
+									{
+										player.s.emit(Type.HEY);
+										player.s.emit(Type.SYSTEM,'ALERT!');
+										players[mod].s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
+									}
+									else
+									{
+										socket.emit(Type.SYSTEM,'Cannot find player \''+c[1]+'\'');
+									}
+								}
+								else if (parseInt(c[1]) >= 0 && parseInt(c[1]) < Object.keys(players).length) //Number
+								{
+									var player = getPlayerByNumber(parseInt(c[1]));
+									player.s.emit(Type.HEY); 	
+									player.s.emit(Type.SYSTEM,'ALERT!');
+									players[mod].s.emit(Type.SYSTEM,'You sent an alert to '+player.name+'.');
+								}
+								else
+								{									
+									socket.emit(Type.SYSTEM,'Cannot find user number '+c[1]+'.');
+								}
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'You do not have the correct permissions to use this command.');
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'The syntax of this command is \'/alert user \'.');
+						}
+					break;
 					case 'ping':
 						if (this.dev)
 						{
@@ -1747,7 +1800,6 @@ function Player(socket,name,ip)
 					//Public whispering message
 					io.emit(Type.WHISPER,{from:this.name,to:to.name});
 				}
-
 			},
 			message:function(msg)
 			{
