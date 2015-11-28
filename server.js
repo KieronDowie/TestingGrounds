@@ -693,7 +693,7 @@ io.on('connection', function(socket){
 			{
 				if (mod == player.s.id)
 				{
-					this.s.emit(Type.SYSTEM,'Do not kill the mod. Do not. I am not fixing this right now. -Kitteh.');
+					socket.emit(Type.SYSTEM,'Do not kill the mod. Do not. I am not fixing this right now. -Kitteh.');
 				}
 				else
 				{
