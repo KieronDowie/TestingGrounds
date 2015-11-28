@@ -691,23 +691,30 @@ io.on('connection', function(socket){
 			var player = getPlayerByName(name);
 			if (player)
 			{
-				player.alive = !player.alive;
-				player.chats.dead = !player.chats.dead;
-				if (player.alive)
+				if (mod == player.s.id)
 				{
-					io.emit(Type.HIGHLIGHT,name+' has been revived!');
-					player.s.emit(Type.PRENOT,'REVIVE');
-					io.emit(Type.TOGGLELIVING,{name:name});
+					this.s.emit(Type.SYSTEM,'Do not kill the mod. Do not. I am not fixing this right now. -Kitteh.');
 				}
 				else
 				{
-					io.emit(Type.HIGHLIGHT,name+' has died!');
-					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
-					var show = sanitize(player.will);
-					show = show.replace(/(\n)/g,'<br />');
-					io.emit(Type.WILL,show);
-					player.s.emit(Type.PRENOT,"DEAD");
-					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
+					player.alive = !player.alive;
+					player.chats.dead = !player.chats.dead;
+					if (player.alive)
+					{
+						io.emit(Type.HIGHLIGHT,name+' has been revived!');
+						player.s.emit(Type.PRENOT,'REVIVE');
+						io.emit(Type.TOGGLELIVING,{name:name});
+					}
+					else
+					{
+						io.emit(Type.HIGHLIGHT,name+' has died!');
+						io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
+						var show = sanitize(player.will);
+						show = show.replace(/(\n)/g,'<br />');
+						io.emit(Type.WILL,show);
+						player.s.emit(Type.PRENOT,"DEAD");
+						io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
+					}
 				}
 			}
 		}
