@@ -765,7 +765,7 @@ io.on('connection', function(socket){
 						players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
 						player.votes+=3; //Add 3 votes to the new person		
 					}
-					else
+					else if (players[prev])
 					{
 						players[prev].votes--; //subtract a vote from the person that was being voted.		
 						player.votes++; //Add a vote to the new person			
