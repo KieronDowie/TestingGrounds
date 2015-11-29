@@ -405,73 +405,72 @@ header ul li
    box-shadow: rgba(0,0,0,1) 0 1px 0;
    text-shadow: rgba(0,0,0,.4) 0 1px 0;
    text-decoration: none;
-   
-    background: white;
+   background: white;
 }
 /*----Buttons----*/
 .mafiabutton {
    background: url('maf.png'), linear-gradient(#c40e0e, #d66565);
-   background-size:100%;
+   background-size: 100% 100%
   }
 .mafiabutton:hover {
    background: url('maf.png'), #b51a1a;
-   background-size:100%;
+   background-size:100% 100%;
    }
 .mafiabuttondown {
 	background: url('maf.png'), #FF0000;
-	background-size:100%;
+	background-size:100% 100%;
 }
 .jailorbutton {
    background: #919191;
    background: url('jailor.png'), linear-gradient(#303030,#919191);
-   background-size:100%;
+   background-size:100% 100%;
  }
 .jailorbutton:hover {
    background: url('jailor.png'), #505050;
-   background-size:100%;
+   background-size:100% 100%;
  }
 .jailorbuttondown {
    background: url('jailor.png'), #B7B7B7;
-   background-size:100%;
+   background-size:100% 100%;
 }
 .spybutton {
    background: #65a9d7;
-   background: url('spy.png'), linear-gradient(#3e779d, #65a9d7);
-   background-size:100%;
+   background: url('spy.png'), linear-gradient(#306284, #3A92CD);
+   background-size:100% 100%;
   }
 .spybutton:hover {
    background:url('spy.png'),#0448A9;
-   background-size:100%;
+   background-size:100% 100%;
 }
 .spybuttondown {
-   background:url('spy.png'),#0069FF;
-   background-size:100%;
+   background:url('spy.png'), cyan;
+   background-size:100% 100%;
 }
 .mayorbutton {
    background: #1ccf00;
-   background: url('mayor.png'), linear-gradient(#107d06, #1ccf00);
-   background-size:100%;
+   background: url('mayor.png'), linear-gradient(#087700, #419B33);
+   background-size:100% 100%;
  }
 .mayorbutton:hover {
    background: url('mayor.png'), #208500;
-   background-size:100%;
+   background-size:100% 100%;
 }
 .mayorbuttondown {
-   background: url('mayor.png'), #3EFF00;
-   background-size:100%;
+   background: url('mayor.png'), lime;
+   background-size:100% 100%;
 }
 .mediumbutton {
    background: #7a941e;
    background: url('med.png'), linear-gradient(#453d0a, #7a941e);
-   background-size:100%;
+   background-size:100% 100%;
 }
 .mediumbutton:hover {
    background: url('med.png'),#3A4518;
-   background-size:100%;
+   background-size:100% 100%;
 }
 .mediumbuttondown {
-   background: url('med.png'), #789A0B;
-   background-size:100%;
+   background: url('med.png'), yellow;
+   background-size:100% 100%;
 }
 .killbutton
 {
@@ -572,12 +571,15 @@ header ul li
 .num
 {
 	padding-left:5px;
+	margin-right:5px;
 	float:left;
+	font-weight:bold;
 }
 .name
 {
 	float:left;
 	overflow:hidden;
+	text-overflow:ellipsis;
 }
 .setroles
 {

@@ -66,7 +66,7 @@ var prev_rolled;
 var testTime = new Date( //GMT
 2015 //Years
 ,10, //Month
-28, //Day
+29, //Day
 19 //Hours
 ); 
 //Banlist
@@ -1478,6 +1478,7 @@ function Player(socket,name,ip)
 											var temp = playernums[a];
 											playernums[a] = playernums[b];
 											playernums[b] = temp;
+											sendPlayerInfo();
 										}
 										else
 										{

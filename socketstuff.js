@@ -58,6 +58,7 @@ function modInterface()
 		var num = (x==0)?'MOD':x;
 		var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[x]+'</span></div>');
 		$('#userlist li')[x].innerHTML='';
+		$('#userlist li')[x].className='';
 		//Add in a rolelist button if it is does not already exist
 		if ($('#rolelistbutton').length == 0)
 		{
@@ -377,13 +378,25 @@ socket.on(Type.SETMOD,function(val)
 	else if (mod)
 	{
 		mod = false;
+		var buttons = $('.killbutton, .revivebutton');
+		var roles = $('.role');
 		for (i = 0; i < users.length; i++)
 		{
 			var num = i==0?'MOD':i;
-			//Top row, normal users.
-			var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
+			if ($(buttons[i]).hasClass('killbutton'))
+			{
+				//Top row, normal users.
+				var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
+			}
+			else
+			{
+				var role = roles[i].value==''?'NoRole':roles[i].value;
+				var info = '<div><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div><div>'+role+'</div>';
+				$($('#userlist li')[i]).addClass('deadplayer');
+			}
 			$('#userlist li')[i].innerHTML='';
 			$($('#userlist li')[i]).append(info);
+			
 		}
 		if ($('#rolelist').length != 0)
 		{
@@ -659,35 +672,40 @@ socket.on(Type.ROLEUPDATE,function(send){
 	}
 });
 socket.on(Type.MASSROLEUPDATE,function(people){
-	for (j in people)
+	if (mod)
 	{
-		var send = people[j];
-		var index = users.indexOf(send.name);
-		for (i in send)
+		for (j in people)
 		{
-			if ($('.'+i+'button')[index] && send[i])
+			var send = people[j];
+			var index = users.indexOf(send.name);
+			for (i in send)
 			{
-				var button = $($('.'+i+'button')[index]);
-				button.addClass(i+'buttondown');
-				button.removeClass(i+'button');		
+				if ($('.'+i+'button')[index] && send[i])
+				{
+					var button = $($('.'+i+'button')[index]);
+					button.addClass(i+'buttondown');
+					button.removeClass(i+'button');		
+				}
 			}
-		}
-		if (send.role)
-		{
-			$($('.role')[index]).val(send.role);
-			$('.role')[index].style.background = 'green';
-		}
-		if (!send.alive)
-		{
-			var button = $($('.killbutton')[index]);
-			button.addClass('revivebutton');
-			button.html('Revive');
-		}
-		if (send.jailed)
-		{
-			var button = $($('.jailbutton')[index]);
-			button.addClass('releasebutton');
-			button.html('Release');
+			if (send.role)
+			{
+				$($('.role')[index]).val(send.role);
+				$('.role')[index].style.background = 'green';
+			}
+			if (!send.alive)
+			{
+				var button = $($('.killbutton')[index]);
+				button.addClass('revivebutton');
+				button.removeClass('killbutton');
+				button.html('Revive');
+			}
+			if (send.jailed)
+			{
+				var button = $($('.jailbutton')[index]);
+				button.addClass('releasebutton');
+				button.removeClass('jailbutton');
+				button.html('Release');
+			}
 		}
 	}
 });
