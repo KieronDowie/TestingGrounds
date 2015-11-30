@@ -382,13 +382,13 @@ io.on('connection', function(socket){
 			//Send the list of names in the game to the returning player.
 			var namelist = [];
 			//Send the roles of any dead players
-			for (i in players)
+			for (i in playernums)
 			{
 				var p={};
-				p.name = players[i].name;
-				if (!players[i].alive)
+				p.name = players[playernums[i]].name;
+				if (!players[playernums[i]].alive)
 				{
-					p.role = players[i].role;
+					p.role = players[playernums[i]].role;
 				}
 				namelist.push(p);
 			}
@@ -401,6 +401,7 @@ io.on('connection', function(socket){
 			
 			playernums.push(socket.id);
 			playernames[players[socket.id].name] = socket.id;
+			
 			socket.emit(Type.ROOMLIST,namelist);
 			//Delete old value in the dcd array
 			delete dcd[ip];
@@ -725,74 +726,7 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.VOTE,function(name)
 	{
-		if (phase != Phase.VOTING)
-		{
-			socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
-		}
-		else if (!players[socket.id].alive)
-		{
-			socket.emit(Type.SYSTEM,'You need to be alive to vote.');
-		}
-		else
-		{
-			var player = getPlayerByName(name);
-			
-			if (player)
-			{
-				if (name == players[socket.id].name)
-				{
-					socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
-				}
-				else if (players[socket.id].votingFor == player.s.id) //Same person, cancel vote.
-				{
-					var prev = player.name;
-					if (players[socket.id].mayor)
-					{
-						players[players[socket.id].votingFor].votes-=3;	
-					}
-					else
-					{
-						players[players[socket.id].votingFor].votes--; //subtract a vote from the person that was being voted.
-					}
-					io.emit(Type.VOTE,players[socket.id].name,' has cancelled their vote.','',prev);
-					players[socket.id].votingFor = undefined;
-				}
-				else if (players[socket.id].votingFor) //Previous voter
-				{
-					var prev = players[socket.id].votingFor;
-					if (players[socket.id].mayor)
-					{
-						players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
-						player.votes+=3; //Add 3 votes to the new person		
-					}
-					else if (players[prev])
-					{
-						players[prev].votes--; //subtract a vote from the person that was being voted.		
-						player.votes++; //Add a vote to the new person			
-					}					
-					io.emit(Type.VOTE,players[socket.id].name,' has changed their vote to ',player.name,players[prev].name);
-					players[socket.id].votingFor = player.s.id;					
-				}
-				else
-				{ 
-					io.emit(Type.VOTE,players[socket.id].name,' has voted for ',player.name);
-					players[socket.id].votingFor = player.s.id;
-					if (players[socket.id].mayor)
-					{	
-						player.votes+=3;
-					}
-					else
-					{
-						player.votes++;
-					}
-				}
-				trialCheck(player);
-			}
-			else
-			{
-				socket.emit(Type.SYSTEM,'"'+name+'" is not a valid player. Did you break something?');
-			}
-		}
+		players[socket.id].vote(name);
 	});
 	socket.on(Type.TOGGLE,function(name,chat)
 	{
@@ -1366,6 +1300,83 @@ function Player(socket,name,ip)
 					}
 				}
 			},
+			vote:function(name){
+				if (phase != Phase.VOTING)
+		{
+			socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
+		}
+		else if (!players[socket.id].alive)
+		{
+			socket.emit(Type.SYSTEM,'You need to be alive to vote.');
+		}
+		else
+		{
+			var player = getPlayerByName(name);
+			if (player)
+			{
+				if (name == players[socket.id].name)
+				{
+					socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
+				}
+				else if (name == players[mod].name)
+				{
+					socket.emit(Type.SYSTEM,'You cannot vote for the mod.');
+				}
+				else if (this.s.id == mod)
+				{
+					socket.emit(Type.SYSTEM,'The mod cannot vote.');
+				}
+				else if (players[socket.id].votingFor == player.s.id) //Same person, cancel vote.
+				{
+					var prev = player.name;
+					if (players[socket.id].mayor)
+					{
+						players[players[socket.id].votingFor].votes-=3;	
+					}
+					else
+					{
+						players[players[socket.id].votingFor].votes--; //subtract a vote from the person that was being voted.
+					}
+					io.emit(Type.VOTE,players[socket.id].name,' has cancelled their vote.','',prev);
+					players[socket.id].votingFor = undefined;
+				}
+				else if (players[socket.id].votingFor) //Previous voter
+				{
+					var prev = players[socket.id].votingFor;
+					if (players[socket.id].mayor)
+					{
+						players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
+						player.votes+=3; //Add 3 votes to the new person		
+					}
+					else if (players[prev])
+					{
+						players[prev].votes--; //subtract a vote from the person that was being voted.		
+						player.votes++; //Add a vote to the new person			
+					}					
+					io.emit(Type.VOTE,players[socket.id].name,' has changed their vote to ',player.name,players[prev].name);
+					players[socket.id].votingFor = player.s.id;					
+				}
+				else
+				{ 
+					io.emit(Type.VOTE,players[socket.id].name,' has voted for ',player.name);
+					players[socket.id].votingFor = player.s.id;
+					if (players[socket.id].mayor)
+					{	
+						player.votes+=3;
+					}
+					else
+					{
+						player.votes++;
+					}
+				}
+				trialCheck(player);
+			}
+			else
+			{
+				socket.emit(Type.SYSTEM,'"'+name+'" is not a valid player.');
+			}
+		}
+			},
 			clear:function(){
 				delete dcd[this.ip];
 			},
@@ -1513,6 +1524,23 @@ function Player(socket,name,ip)
 							msg=msg.join(' ');
 							players[mod].s.emit(Type.MOD,{from:this.name,msg:msg});
 							this.s.emit(Type.MOD,{to:'Mod',msg:msg});
+						}
+					break;
+					case 'vote':
+						if (c.length == 2)
+						{
+							if (isNaN(c[1]))
+							{
+								this.vote(c[1]);
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'This command only accepts names, and is only to be used if the voting interface is not working.');
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'The syntax of this command is \'/vote name\'');
 						}
 					break;
 					case 'dev':
