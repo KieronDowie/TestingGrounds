@@ -1327,7 +1327,7 @@ function Timer()
 }
 function loadPassword()
 {
-	db.query('SELECT * FROM Password',function(err,result)
+	db.query('SELECT * FROM "Password"',function(err,result)
 	{
 		if (err)
 		{
