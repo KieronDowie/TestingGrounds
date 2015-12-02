@@ -4,31 +4,8 @@ var fs = require('fs');
 var roles = require('./roleinfo');
 var Server = require('socket.io');
 var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
-//Mysql database
-var pg = require('pg');
-console.log('Connecting to MySQL database...');
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
+var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
-
-database.connect(function(err) {
-	if(err)
-	{
-		console.log('Could not connect!');
-		throw err;
-	}
-	else
-	{
-		console.log('Connected!');
-	}
-});
 
 //Enums
 var Type = {
@@ -220,10 +197,11 @@ var server = http.createServer(function(req,res)
 			if ( isVerified( getIpReq(req) ) )
 			{
 				var u_pass = url.parse(req.url).query;
-				var s_pass = database.escape(u_pass);
+				//var s_pass = database.escape(u_pass);
+				var s_pass = u_pass;
 				var statement = "UPDATE `Password` SET `password`="+s_pass;
 				console.log(statement);
-				database.query(statement);
+				db.query(statement);
 				res.end();
 				loadPassword();
 			}
@@ -236,7 +214,7 @@ var server = http.createServer(function(req,res)
 		case '/MCP/playerList':
 			if ( isVerified( getIpReq(req) ) )
 			{
-				database.query('SELECT * FROM Players',function(err,rows,fields)
+				db.query('SELECT * FROM Players',function(err,rows,fields)
 				{
 					if (err) 
 					{	
@@ -1348,7 +1326,7 @@ function Timer()
 }
 function loadPassword()
 {
-	database.query('SELECT * FROM Password',function(err,rows,fields)
+	db.query('SELECT * FROM Password',function(err,rows,fields)
 	{
 		if (err)
 		{
