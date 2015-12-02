@@ -1337,7 +1337,7 @@ function loadPassword()
 		else
 		{
 			apass = result.rows[0].password;
-			console.log('Loaded password.');
+			console.log('Password is: '+apass);
 		}
 	});
 }
