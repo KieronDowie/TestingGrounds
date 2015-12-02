@@ -70,8 +70,8 @@ loadPassword();
 var prev_rolled;
 var testTime = new Date( //GMT
 2015 //Years
-,10, //Month
-29, //Day
+,11, //Month
+5, //Day
 19 //Hours
 ); 
 //Banlist
