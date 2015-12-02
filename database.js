@@ -1,19 +1,36 @@
 //Mysql database
 var pg = require('pg');
-console.log('Connecting to MySQL database...');
+var mysql = require('mysql');
 
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
+var connection;
 
 module.exports = {
+	connect:function(){
+		
+		/*var connectString = process.env.DATABASE_URL || 'localhost';
+		var client = new pg.Client(connectString);
+		client.connect();*/
+		var db_config = {
+			host: 'ec2-23-23-199-181.compute-1.amazonaws.com',
+			user: 'aubtmwsueljmlo',
+			port: 5432,
+			password: 'NgGgFPZeIadarZo81gp-1EKN93',
+			database: 'd80g2kksssndck'
+		};
+		console.log('Connecting to MySQL database...');
+		connection = mysql.createConnection(db_config);
+		connection.connect(function(err){
+			if (err) 
+			{
+				throw err;
+			}
+			else
+			{
+				console.log('Connected!');
+			}
+		});
+	},
 	query: function(query, callback){
-		console.log(query);
+		connection.query(query,callback);
 	}
 };

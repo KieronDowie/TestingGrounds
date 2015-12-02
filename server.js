@@ -7,6 +7,7 @@ var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
 var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 
+db.connect();
 //Enums
 var Type = {
 	PING:0,
