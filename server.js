@@ -4,6 +4,32 @@ var fs = require('fs');
 var roles = require('./roleinfo');
 var Server = require('socket.io');
 var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
+//Mysql database
+var pg = require('pg');
+console.log('Connecting to MySQL database...');
+pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+  client
+    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
+    });
+});
+var verified = []; //List of ips that are verified to use the MCP.
+
+database.connect(function(err) {
+	if(err)
+	{
+		console.log('Could not connect!');
+		throw err;
+	}
+	else
+	{
+		console.log('Connected!');
+	}
+});
+
 //Enums
 var Type = {
 	PING:0,
@@ -61,7 +87,8 @@ var Phase = {
 var phase = Phase.PREGAME;
 var mod = undefined;
 var ontrial = undefined;
-var apass = 'anewbeginning';
+var apass;
+loadPassword();
 var prev_rolled;
 var testTime = new Date( //GMT
 2015 //Years
@@ -96,6 +123,145 @@ var server = http.createServer(function(req,res)
 					res.end();
 				}
 			});
+		break;
+		case '/MCP':
+			if (req.method == 'POST')
+			{	
+				var pass;
+				req.on('data', function(p) {
+					pass=p.toString();
+					pass=pass.substring(5,pass.length); //Drop the preceding 'pass='
+				});			
+				req.on('end', function() {	
+					//Check the password.
+					if (pass == apass)
+					{
+						var ip = getIpReq(req);
+						if (!verified[ip])
+						{
+							verified[ip] = setTimeout(function(){
+								//Connection expired.
+								expireVerification(ip);
+							},5*60*1000);
+						}
+						fs.readFile(__dirname + '/MCP/mod.html', function(error, data){
+							if (error){
+								res.writeHead(404);
+								res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+								res.end();
+							}
+							else{
+								res.writeHead(200, {"Content-Type": "text/html"});
+								res.write(data, "utf8");
+								res.end();
+							}
+						});
+					}
+					else
+					{
+						fs.readFile(__dirname + '/modpass.html', function(error, data){
+							if (error){
+								res.writeHead(404);
+								res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+								res.end();
+							}
+							else{
+								res.writeHead(200, {"Content-Type": "text/html"});
+								res.write(data, "utf8");
+								res.end();
+							}
+						});
+					}
+				});
+				
+			}
+			else
+			{
+				fs.readFile(__dirname + '/modpass.html', function(error, data){
+					if (error){
+						res.writeHead(404);
+						res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+						res.end();
+					}
+					else{
+						res.writeHead(200, {"Content-Type": "text/html"});
+						res.write(data, "utf8");
+						res.end();
+					}
+				});
+			}
+		break;
+		case '/MCP/Password':
+		case '/MCP/Players':
+		case '/MCP/Roles':
+		case '/MCP/Banlist':
+			if ( isVerified( getIpReq(req) ) )
+			{
+				fs.readFile(__dirname + path + '.html', function(error, data){
+					if (error){
+						res.writeHead(404);
+						res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+						res.end();
+					}
+					else{
+						res.writeHead(200, {"Content-Type": "text/html"});
+						res.write(data, "utf8");
+						res.end();
+					}
+				});
+			}
+			else
+			{
+				res.write('You do not have permission to access this page.');
+				res.end();
+			}
+		break;
+		case '/MCP/setPass':
+			if ( isVerified( getIpReq(req) ) )
+			{
+				var u_pass = url.parse(req.url).query;
+				var s_pass = database.escape(u_pass);
+				var statement = "UPDATE `Password` SET `password`="+s_pass;
+				console.log(statement);
+				database.query(statement);
+				res.end();
+				loadPassword();
+			}
+			else
+			{
+				res.write('You do not have permission to access this page.');
+				res.end();
+			}
+		break;
+		case '/MCP/playerList':
+			if ( isVerified( getIpReq(req) ) )
+			{
+				database.query('SELECT * FROM Players',function(err,rows,fields)
+				{
+					if (err) 
+					{	
+						res.write('ERROR','utf8');
+						res.end();
+					}
+					else
+					{
+						res.writeHead(200, {"Content-Type": "text/xml"});
+						var send = '<?xml version="1.0" encoding="UTF-8"?><response>';
+						for (i in rows)
+						{
+							send+='<name>'+rows[i].name+'</name>';
+						}
+						send+='</response>';
+						res.write(send);
+						res.end();
+					}
+				});
+			}
+			else
+			{
+				res.write('You do not have permission to access this page.');
+				res.end();
+			}
 		break;
 		case '/play':
 			if (req.method == 'POST')
@@ -207,6 +373,8 @@ var server = http.createServer(function(req,res)
 		case '/socketstuff.js':
 		case '/script.js':
 		case '/playscript.js':
+		case '/MCP/modscript.js':
+		case '/MCP/passscript.js':
 		case '/jquery-2.1.4.min.js':
 			fs.readFile(__dirname + path, function(error, data){
 				if (error){
@@ -223,6 +391,7 @@ var server = http.createServer(function(req,res)
 		break;
 		case '/style.css':
 		case '/playstyle.css':
+		case '/MCP/modstyle.css':
 			fs.readFile(__dirname + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -327,57 +496,23 @@ io.on('connection', function(socket){
 	else
 	{
 		console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
-		if (joining[ip])
+		//Check if the person is an alt.
+		var alt = false;
+		for (i in players)
 		{
-			var alt = false;
-			//Check if the person is an alt.
-			for (i in players)
+			if (ip == players[i].ip)
 			{
-				if (ip == players[i].ip)
+				if (alt)
+				{
+					alt+=' and '+players[i].name;
+				}
+				else
 				{
 					alt = players[i].name;
 				}
 			}
-			//If the player is first, set them as the mod.
-			if (Object.keys(players).length==0)
-			{
-				mod = socket.id;
-			}
-			//Send the list of names in the game to the new arrival
-			var namelist = [];
-			//Send the roles of any dead players
-			for (i in playernums)
-			{
-				var p={};
-				p.name = players[playernums[i]].name;
-				if (!players[playernums[i]].alive)
-				{
-					p.role = players[playernums[i]].role;
-				}
-				namelist.push(p);
-			}
-			socket.emit(Type.ROOMLIST,namelist);
-			var name = joining[ip];
-			delete joining[ip];
-			players[socket.id]= Player(socket,name,ip);
-			//Inform everyone of the new arrival.
-			io.emit(Type.JOIN,name);
-			if (alt) //Inform everyone of the alt.
-			{
-				io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
-			}
-			//Tell the new arrival what phase it is.
-			socket.emit(Type.SETPHASE,phase);
-			//Inform the new arrival of any devs present.
-			for (i in players)
-			{
-				if (players[i].dev)
-				{
-					socket.emit(Type.SETDEV,players[i].name);
-				}
-			}
 		}
-		else if (dcd[ip]) //Rejoining after a dc
+		if (dcd[ip] && !alt) //Rejoining after a dc
 		{
 			//Send the list of names in the game to the returning player.
 			var namelist = [];
@@ -403,8 +538,6 @@ io.on('connection', function(socket){
 			playernames[players[socket.id].name] = socket.id;
 			
 			socket.emit(Type.ROOMLIST,namelist);
-			//Delete old value in the dcd array
-			delete dcd[ip];
 			
 			socket.emit(Type.ACCEPT);
 			socket.emit(Type.SYSTEM,'You have reconnected.');
@@ -444,8 +577,50 @@ io.on('connection', function(socket){
 				players[mod].s.emit(Type.ROLEUPDATE,send);
 			}
 		}
+		else if (joining[ip])
+		{
+			//If the player is first, set them as the mod.
+			if (Object.keys(players).length==0)
+			{
+				mod = socket.id;
+			}
+			//Send the list of names in the game to the new arrival
+			var namelist = [];
+			//Send the roles of any dead players
+			for (i in playernums)
+			{
+				var p={};
+				p.name = players[playernums[i]].name;
+				if (!players[playernums[i]].alive)
+				{
+					p.role = players[playernums[i]].role;
+				}
+				namelist.push(p);
+			}
+			socket.emit(Type.ROOMLIST,namelist);
+			var name = joining[ip];
+			delete joining[ip];
+			players[socket.id]= Player(socket,name,ip);
+			//Inform everyone of the new arrival.
+			io.emit(Type.JOIN,name);
+			if (alt) //Inform everyone of the alt.
+			{
+				io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
+			}
+			//Tell the new arrival what phase it is.
+			socket.emit(Type.SETPHASE,phase);
+			//Inform the new arrival of any devs present.
+			for (i in players)
+			{
+				if (players[i].dev)
+				{
+					socket.emit(Type.SETDEV,players[i].name);
+				}
+			}
+		}
 		else
 		{
+			console.log(dcd);
 			socket.disconnect();
 		}
 	}
@@ -1045,6 +1220,29 @@ function dcStore(p)
 		},5*60*1000); // 5 minutes.
 	}
 }
+function isVerified(ip)
+{
+	if (verified[ip])
+	{
+		//Reset timeout.
+		clearTimeout(verified[ip]);
+		verified[ip]=setTimeout(function(){
+			expireVerification(ip);
+		},5*60*1000);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+function expireVerification(ip)
+{
+	if (verified[ip])
+	{
+		delete verified[ip];f
+	}
+}
 //--Timer object
 
 function Timer() 
@@ -1147,6 +1345,22 @@ function Timer()
 			}
 		}
 	}
+}
+function loadPassword()
+{
+	database.query('SELECT * FROM Password',function(err,rows,fields)
+	{
+		if (err)
+		{
+			console.log('Could not load password.');
+			throw err;
+		}	
+		else
+		{
+			apass = rows[0].password;
+			console.log('Loaded password.');
+		}
+	});
 }
 function showConfirms()
 {
