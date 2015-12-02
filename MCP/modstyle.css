@@ -1,0 +1,50 @@
+html,body
+{
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+ul
+{
+	width:10%;
+	height:100%;
+	float:left;
+	background:#939393;
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+ul li
+{
+	width:100%;
+	height:20px;
+	padding-top:10px;
+}
+ul li a
+{
+	color:white;
+	text-decoration:none;
+	margin-left:25px;
+}
+ul li a:hover
+{
+	text-decoration:underline;
+}
+#main
+{
+	width:80%;
+	height:100%;
+	float:left;
+	padding: 30px;
+}
+p
+{
+	display:inline-block;
+	margin-left:40px;
+}
+#password
+{
+	display:inline-block;
+	margin-left:5px;
+}
