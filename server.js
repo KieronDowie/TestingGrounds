@@ -200,7 +200,7 @@ var server = http.createServer(function(req,res)
 				var u_pass = url.parse(req.url).query;
 				//var s_pass = database.escape(u_pass);
 				var s_pass = u_pass;
-				var statement = "UPDATE `Password` SET `password`="+s_pass;
+				var statement = 'UPDATE "Password" SET "password"=\''+s_pass+"'";
 				console.log(statement);
 				db.query(statement,function(){});
 				res.end();
