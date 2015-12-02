@@ -202,7 +202,7 @@ var server = http.createServer(function(req,res)
 				var s_pass = u_pass;
 				var statement = "UPDATE `Password` SET `password`="+s_pass;
 				console.log(statement);
-				db.query(statement);
+				db.query(statement,function(){});
 				res.end();
 				loadPassword();
 			}
@@ -215,7 +215,7 @@ var server = http.createServer(function(req,res)
 		case '/MCP/playerList':
 			if ( isVerified( getIpReq(req) ) )
 			{
-				db.query('SELECT * FROM Players',function(err,rows,fields)
+				db.query('SELECT * FROM Players',function(err,result)
 				{
 					if (err) 
 					{	
@@ -226,7 +226,7 @@ var server = http.createServer(function(req,res)
 					{
 						res.writeHead(200, {"Content-Type": "text/xml"});
 						var send = '<?xml version="1.0" encoding="UTF-8"?><response>';
-						for (i in rows)
+						for (i in result.rows)
 						{
 							send+='<name>'+rows[i].name+'</name>';
 						}
@@ -1327,7 +1327,7 @@ function Timer()
 }
 function loadPassword()
 {
-	db.query('SELECT * FROM Password',function(err,rows,fields)
+	db.query('SELECT * FROM Password',function(err,result)
 	{
 		if (err)
 		{
@@ -1336,7 +1336,7 @@ function loadPassword()
 		}	
 		else
 		{
-			apass = rows[0].password;
+			apass = result.rows[0].password;
 			console.log('Loaded password.');
 		}
 	});
