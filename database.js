@@ -1,19 +1,17 @@
-//Mysql database
 var pg = require('pg');
-var mysql = require('mysql');
 
 var client;
 
 module.exports = {
 	connect:function(){
-		var connectString = process.env.DATABASE_URL || 'localhost';
+		var connectString = process.env.DATABASE_URL || "postgres://aubtmwsueljmlo:NgGgFPZeIadarZo81gp-1EKN93@ec2-23-23-199-181.compute-1.amazonaws.com:5432/d80g2kksssndck?ssl=true";
 		client = new pg.Client(connectString);
 		client.connect();	
 	},
-	query: function(query, callback){
+	query: function(query, params, callback){
 		if (client)
 		{
-			client.query(query,callback);
+			client.query(query,params, callback);
 		}
 	}
 };

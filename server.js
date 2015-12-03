@@ -169,7 +169,7 @@ var server = http.createServer(function(req,res)
 				});
 			}
 		break;
-		case '/MCP/Password':
+		case '/MCP/Admin':
 		case '/MCP/Players':
 		case '/MCP/Roles':
 		case '/MCP/Banlist':
@@ -197,14 +197,55 @@ var server = http.createServer(function(req,res)
 		case '/MCP/setPass':
 			if ( isVerified( getIpReq(req) ) )
 			{
-				var u_pass = url.parse(req.url).query;
-				//var s_pass = database.escape(u_pass);
-				var s_pass = u_pass;
-				var statement = 'UPDATE "Password" SET "password"=\''+s_pass+"'";
-				console.log(statement);
-				db.query(statement,function(){});
+				var pass = url.parse(req.url).query;
+				var statement = 'UPDATE details SET "password"=$1';
+				db.query(statement,[pass]);
 				res.end();
-				loadPassword();
+				apass = pass;
+			}
+			else
+			{
+				res.write('You do not have permission to access this page.');
+				res.end();
+			}
+		break;
+		case '/MCP/setDate':
+			if ( isVerified( getIpReq(req) ) )
+			{
+				var datetime = url.parse(req.url).query;
+				//Make sure the date is in the correct format.
+				console.log(datetime);
+				var sides = datetime.split('-');
+				var date = sides[0].split('/');
+				var time = sides[1];
+				var valid = true;
+				var error = '';
+				for (i in date)
+				{
+					if (isNaN(date[i]) || !(date[i].length == 2 || (i==2 && date[i].length == 4)))
+					{
+						valid = false;
+						error = date[i];
+						break;
+					}
+				}
+				if (!/\d\d:\d\d/.test(time))
+				{
+					valid = false;
+					error = time;
+				}
+				if (valid)
+				{
+					var statement = 'UPDATE details SET "date"=\''+datetime+'\'';
+					db.query(statement);
+					res.write('success');
+					loadDate();
+				}
+				else
+				{
+					res.write(error+' is not formatted correctly.');
+				}
+				res.end();
 			}
 			else
 			{
@@ -355,6 +396,7 @@ var server = http.createServer(function(req,res)
 		case '/MCP/modscript.js':
 		case '/MCP/passscript.js':
 		case '/jquery-2.1.4.min.js':
+		case '/glDatePicker.min.js':
 			fs.readFile(__dirname + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -371,6 +413,9 @@ var server = http.createServer(function(req,res)
 		case '/style.css':
 		case '/playstyle.css':
 		case '/MCP/modstyle.css':
+		case '/MCP/calstyles/glDatePicker.default.css':
+		case '/MCP/calstyles/glDatePicker.darkneon.css':
+		case '/MCP/calstyles/glDatePicker.flatwhite.css':
 			fs.readFile(__dirname + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -1325,9 +1370,26 @@ function Timer()
 		}
 	}
 }
+function loadDate()
+{
+	db.query('SELECT * FROM details',function(err,result)
+	{
+		if (err)
+		{
+			console.log('Could not load date.');
+			throw err;
+		}	
+		else
+		{
+			datetime = result.rows[0].date;
+			var sides = datetime.split('-');
+			
+		}
+	});
+}
 function loadPassword()
 {
-	db.query('SELECT * FROM "Password"',function(err,result)
+	db.query('SELECT * FROM details',function(err,result)
 	{
 		if (err)
 		{
