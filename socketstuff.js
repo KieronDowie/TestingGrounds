@@ -370,6 +370,7 @@ socket.on(Type.LEAVE,function(name)
 });
 socket.on(Type.SETMOD,function(val)
 {
+	console.log(val);
 	if (val && !mod)
 	{
 		mod = true;
@@ -436,8 +437,8 @@ socket.on(Type.TOGGLELIVING,function(p)
 	if (!mod)
 	{
 		var index = users.indexOf(p.name);
-		index = index==0?'MOD':index;
 		var li = $('#userlist').children()[index];
+		index = index==0?'MOD':index;
 		if (p.role)
 		{
 			li.outerHTML = '<li class="deadplayer"><div><span class="num">'+index+'</span><span class="name">'+p.name+'</span></div><div><span>'+p.role+'</span></div></li>';

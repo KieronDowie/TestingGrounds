@@ -68,12 +68,8 @@ var ontrial = undefined;
 var apass;
 loadPassword();
 var prev_rolled;
-var testTime = new Date( //GMT
-2015 //Years
-,11, //Month
-5, //Day
-19 //Hours
-); 
+var testTime;
+loadDate();
 //Banlist
 var banlist = [];
 //Start the timer.
@@ -89,18 +85,26 @@ var server = http.createServer(function(req,res)
 	switch (path)
 	{
 		case '/':
-			fs.readFile(__dirname + '/index.html', function(error, data){
-				if (error){
-					res.writeHead(404);
-					res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
-					res.end();
-				}
-				else{
-					res.writeHead(200, {"Content-Type": "text/html"});
-					res.write(data, "utf8");
-					res.end();
-				}
-			});
+			if (testTime && apass)
+			{
+				fs.readFile(__dirname + '/index.html', function(error, data){
+					if (error){
+						res.writeHead(404);
+						res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+						res.end();
+					}
+					else{
+						res.writeHead(200, {"Content-Type": "text/html"});
+						res.write(data, "utf8");
+						res.end();
+					}
+				});
+			}
+			else
+			{
+				res.write('<h1>Server is busy loading... Please wait a few minutes then refresh the page.</h1>');
+				res.end();
+			}
 		break;
 		case '/MCP':
 			if (req.method == 'POST')
@@ -551,6 +555,16 @@ io.on('connection', function(socket){
 				}
 				namelist.push(p);
 			}
+			//If the player is first, set them as the mod.
+			if (Object.keys(players).length==0)
+			{
+				mod = socket.id;
+				socket.emit(Type.SETMOD,true);
+			}
+			else
+			{
+				socket.emit(Type.SETMOD,false);
+			}
 			//Welcome back!
 			players[socket.id]=dcd[ip];
 			//Replace the old socket.
@@ -568,16 +582,6 @@ io.on('connection', function(socket){
 			var name = players[socket.id].name;
 			//Inform everyone of the new arrival.
 			io.emit(Type.JOIN,name,true);
-			//If the player is first, set them as the mod.
-			if (Object.keys(players).length==0)
-			{
-				mod = socket.id;
-				socket.emit(Type.SETMOD,true);
-			}
-			else
-			{
-				socket.emit(Type.SETMOD,false);
-			}
 			//Tell the new arrival what phase it is.
 			socket.emit(Type.SETPHASE,phase);
 			
@@ -891,30 +895,23 @@ io.on('connection', function(socket){
 			var player = getPlayerByName(name);
 			if (player)
 			{
-				if (mod == player.s.id)
+				player.alive = !player.alive;
+				player.chats.dead = !player.chats.dead;
+				if (player.alive)
 				{
-					socket.emit(Type.SYSTEM,'Do not kill the mod. Do not. I am not fixing this right now. -Kitteh.');
+					io.emit(Type.HIGHLIGHT,name+' has been revived!');
+					player.s.emit(Type.PRENOT,'REVIVE');
+					io.emit(Type.TOGGLELIVING,{name:name});
 				}
 				else
 				{
-					player.alive = !player.alive;
-					player.chats.dead = !player.chats.dead;
-					if (player.alive)
-					{
-						io.emit(Type.HIGHLIGHT,name+' has been revived!');
-						player.s.emit(Type.PRENOT,'REVIVE');
-						io.emit(Type.TOGGLELIVING,{name:name});
-					}
-					else
-					{
-						io.emit(Type.HIGHLIGHT,name+' has died!');
-						io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
-						var show = sanitize(player.will);
-						show = show.replace(/(\n)/g,'<br />');
-						io.emit(Type.WILL,show);
-						player.s.emit(Type.PRENOT,"DEAD");
-						io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
-					}
+					io.emit(Type.HIGHLIGHT,name+' has died!');
+					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
+					var show = sanitize(player.will);
+					show = show.replace(/(\n)/g,'<br />');
+					io.emit(Type.WILL,show);
+					player.s.emit(Type.PRENOT,"DEAD");
+					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
 				}
 			}
 		}
@@ -1383,7 +1380,15 @@ function loadDate()
 		{
 			datetime = result.rows[0].date;
 			var sides = datetime.split('-');
-			
+			var date = sides[0].split('/');
+			var time = sides[1].split(':');
+			testTime = new Date( //GMT
+				parseInt(date[2]), //Years
+				parseInt(date[1])-1, //Month
+				parseInt(date[0]), //Day
+				parseInt(time[0]), //Hours
+				parseInt(time[1])//Minutes
+			); 
 		}
 	});
 }
@@ -1728,7 +1733,7 @@ function Player(socket,name,ip)
 								{
 									//Get the numbered player.
 									var target = getPlayerByNumber(c[1]);
-									if (target)
+									if (target != -1)
 									{
 										var name = target.name;
 										if (target.s.id != this.s.id)

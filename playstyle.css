@@ -24,7 +24,7 @@ header
 	list-style:none;
 	overflow-y:auto;
 	overflow-x:hidden;
-	font-family:Arial;
+	
 }
 #main>li
 {
@@ -399,6 +399,7 @@ header ul li
 {
 	width:10%;
 	float:left;
+	font-family:Arial;
 }
 .controlbutton
 {
