@@ -1369,7 +1369,7 @@ function Timer()
 	}
 }
 function formatData(data){
-	var date = addZero(testTime.getDay())+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
+	var date = addZero(testTime.getDay()-1)+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
 	data = data.replace('%date%',date);
 	var time = addZero(testTime.getHours())+':'+addZero(testTime.getMinutes());
 	data = data.replace('%time%',time);
