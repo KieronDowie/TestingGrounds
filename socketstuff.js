@@ -370,7 +370,6 @@ socket.on(Type.LEAVE,function(name)
 });
 socket.on(Type.SETMOD,function(val)
 {
-	console.log(val);
 	if (val && !mod)
 	{
 		mod = true;
@@ -673,6 +672,7 @@ socket.on(Type.ROLEUPDATE,function(send){
 	}
 });
 socket.on(Type.MASSROLEUPDATE,function(people){
+	console.log(people);
 	if (mod)
 	{
 		for (j in people)
@@ -695,7 +695,8 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 			}
 			if (!send.alive)
 			{
-				var button = $($('.killbutton')[index]);
+				console.log(j);
+				var button = $($('.killbutton, .revivebutton')[index]);
 				button.addClass('revivebutton');
 				button.removeClass('killbutton');
 				button.html('Revive');
