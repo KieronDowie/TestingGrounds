@@ -48,3 +48,9 @@ p
 	display:inline-block;
 	margin-left:5px;
 }
+.container
+{
+	border: 1px solid #8A8A8A;
+	border-radius:8px;
+	width:calc(100% - 20px);
+}

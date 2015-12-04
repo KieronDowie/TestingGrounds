@@ -1,6 +1,8 @@
 $(document).ready(function()
 {
-	$('#date').glDatePicker();
+	$('#date').glDatePicker({
+		dowNames:['M','T','W','T','F','S','S']
+	});
 	$('#datesubmit').click(function()
 	{
 		var send = $('#date').val()+'-'+$('#time').val();

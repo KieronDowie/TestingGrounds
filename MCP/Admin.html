@@ -17,14 +17,21 @@
 		<li><a href='#'>Banlist</a></li>
 	</ul>
 	<div id='main'>
-		<p>Password: </p>
-		<input id="password" type="password">
-		<input type="button" value="Submit" id='submit'>
-		<p>Date:</p>
-		<input id="date">
-		<p>Time:</p>
-		<input id="time">
-		<input type="button" value="Submit" id='datesubmit'>
+		<h3>Admin password</h3>
+		<div class='container'>
+			<p>Password: </p>
+			<input id="password" type="password">
+			<input type="button" value="Submit" id='submit'>
+		</div>
+		<h3>Time of next test</h3>
+		<div class='container'>
+			<p>Time:</p>
+			<input id="time" value="%time%">
+			<br />
+			<p>Date:</p>
+			<input id="date" value="%date%">
+			<input type="button" value="Submit" id='datesubmit'>
+		</div>
 	</div>
 </body>
 </html>

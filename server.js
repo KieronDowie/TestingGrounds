@@ -179,7 +179,7 @@ var server = http.createServer(function(req,res)
 		case '/MCP/Banlist':
 			if ( isVerified( getIpReq(req) ) )
 			{
-				fs.readFile(__dirname + path + '.html', function(error, data){
+				fs.readFile(__dirname + path + '.html', 'utf-8',function(error, data){
 					if (error){
 						res.writeHead(404);
 						res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
@@ -187,6 +187,7 @@ var server = http.createServer(function(req,res)
 					}
 					else{
 						res.writeHead(200, {"Content-Type": "text/html"});
+						data = formatData(data);
 						res.write(data, "utf8");
 						res.end();
 					}
@@ -1366,6 +1367,21 @@ function Timer()
 			}
 		}
 	}
+}
+function formatData(data){
+	var date = addZero(testTime.getDay())+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
+	data = data.replace('%date%',date);
+	var time = addZero(testTime.getHours())+':'+addZero(testTime.getMinutes());
+	data = data.replace('%time%',time);
+	return data;
+}
+function addZero(num)
+{
+	if ((num+'').length == 1)
+	{
+		num = '0'+num;
+	}
+	return num;
 }
 function loadDate()
 {
