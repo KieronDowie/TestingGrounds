@@ -317,6 +317,7 @@ header ul li
 	background: #D8DE73;
 	padding-left:10px;
 	padding-top:10px;
+	overflow:hidden;
 }
 #will, #modwill
 {
