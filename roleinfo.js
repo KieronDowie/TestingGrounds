@@ -188,11 +188,11 @@ var roles=[
 			{      
 					rolename:"nightmarer",
 					alignment:"mafia support",
-					abilities:'Make someone have a "Nightmare" about someone, making them too scared to visit that person at night.',
-					attributes:['You may make your target have a "nightmare" about someone, making them too scared to visit that person at night.',
-								'If a person has a nightmare, they will be notified that they had a Nightmare and who it is about.',
-								'If you make a player have a nightmare about another player, they will not be able to visit that player until the nightmarer makes you have a nightmare about someone else.',
-								'All nightmares will go away if the nightmarer dies or gets promoted to mafioso.'
+					abilities:'Make someone have a nightmare about someone each night.',
+					attributes:['Your target will be too scared to visit the person they have a nightmare about.',
+								'Targets are told who the nightmare is about.',
+								'Your target will be unable to visit the person until you give them a different nightmare.',								
+								'All nightmares end if the nightmarer dies or is promoted.'
 					],
 					goal:mafiagoal,
 					color:mafiacolor
