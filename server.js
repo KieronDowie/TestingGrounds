@@ -1588,7 +1588,7 @@ function Player(socket,name,ip)
 		else
 		{
 			var player = getPlayerByName(name);
-			if (player)
+			if (player && players[socket.id])
 			{
 				if (name == players[socket.id].name)
 				{
