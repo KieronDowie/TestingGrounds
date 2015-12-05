@@ -649,8 +649,7 @@ socket.on(Type.ROLEUPDATE,function(send){
 		if ($('.'+i+'button')[index] && send[i])
 		{
 			var button = $($('.'+i+'button')[index]);
-			button.addClass(i+'buttondown');
-			button.removeClass(i+'button');		
+			button.addClass(i+'buttondown');	
 		}
 	}
 	if (send.role)
