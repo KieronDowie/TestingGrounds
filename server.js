@@ -570,6 +570,8 @@ io.on('connection', function(socket){
 			players[socket.id]=dcd[ip];
 			//Replace the old socket.
 			players[socket.id].s = socket;
+			//Temporary
+			console.log(players[socket.id]);
 			//Reset ping.
 			players[socket.id].ping = 0;
 			
@@ -1578,80 +1580,80 @@ function Player(socket,name,ip)
 			},
 			vote:function(name){
 				if (phase != Phase.VOTING)
-		{
-			socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
-		}
-		else if (!players[socket.id].alive)
-		{
-			socket.emit(Type.SYSTEM,'You need to be alive to vote.');
-		}
-		else
-		{
-			var player = getPlayerByName(name);
-			if (player && players[socket.id])
-			{
-				if (name == players[socket.id].name)
 				{
-					socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
+					socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
 				}
-				else if (name == players[mod].name)
+				else if (!players[socket.id].alive)
 				{
-					socket.emit(Type.SYSTEM,'You cannot vote for the mod.');
-				}
-				else if (this.s.id == mod)
-				{
-					socket.emit(Type.SYSTEM,'The mod cannot vote.');
-				}
-				else if (players[socket.id].votingFor == player.s.id) //Same person, cancel vote.
-				{
-					var prev = player.name;
-					if (players[socket.id].mayor)
-					{
-						players[players[socket.id].votingFor].votes-=3;	
-					}
-					else
-					{
-						players[players[socket.id].votingFor].votes--; //subtract a vote from the person that was being voted.
-					}
-					io.emit(Type.VOTE,players[socket.id].name,' has cancelled their vote.','',prev);
-					players[socket.id].votingFor = undefined;
-				}
-				else if (players[socket.id].votingFor) //Previous voter
-				{
-					var prev = players[socket.id].votingFor;
-					if (players[socket.id].mayor)
-					{
-						players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
-						player.votes+=3; //Add 3 votes to the new person		
-					}
-					else if (players[prev])
-					{
-						players[prev].votes--; //subtract a vote from the person that was being voted.		
-						player.votes++; //Add a vote to the new person			
-					}					
-					io.emit(Type.VOTE,players[socket.id].name,' has changed their vote to ',player.name,players[prev].name);
-					players[socket.id].votingFor = player.s.id;					
+					socket.emit(Type.SYSTEM,'You need to be alive to vote.');
 				}
 				else
-				{ 
-					io.emit(Type.VOTE,players[socket.id].name,' has voted for ',player.name);
-					players[socket.id].votingFor = player.s.id;
-					if (players[socket.id].mayor)
-					{	
-						player.votes+=3;
+				{
+					var player = getPlayerByName(name);
+					if (player && players[socket.id])
+					{
+						if (name == players[socket.id].name)
+						{
+							socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
+						}
+						else if (name == players[mod].name)
+						{
+							socket.emit(Type.SYSTEM,'You cannot vote for the mod.');
+						}
+						else if (this.s.id == mod)
+						{
+							socket.emit(Type.SYSTEM,'The mod cannot vote.');
+						}
+						else if (players[socket.id].votingFor == player.s.id) //Same person, cancel vote.
+						{
+							var prev = player.name;
+							if (players[socket.id].mayor)
+							{
+								players[players[socket.id].votingFor].votes-=3;	
+							}
+							else
+							{
+								players[players[socket.id].votingFor].votes--; //subtract a vote from the person that was being voted.
+							}
+							io.emit(Type.VOTE,players[socket.id].name,' has cancelled their vote.','',prev);
+							players[socket.id].votingFor = undefined;
+						}
+						else if (players[socket.id].votingFor) //Previous voter
+						{
+							var prev = players[socket.id].votingFor;
+							if (players[socket.id].mayor)
+							{
+								players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
+								player.votes+=3; //Add 3 votes to the new person		
+							}
+							else if (players[prev])
+							{
+								players[prev].votes--; //subtract a vote from the person that was being voted.		
+								player.votes++; //Add a vote to the new person			
+							}					
+							io.emit(Type.VOTE,players[socket.id].name,' has changed their vote to ',player.name,players[prev].name);
+							players[socket.id].votingFor = player.s.id;					
+						}
+						else
+						{ 
+							io.emit(Type.VOTE,players[socket.id].name,' has voted for ',player.name);
+							players[socket.id].votingFor = player.s.id;
+							if (players[socket.id].mayor)
+							{	
+								player.votes+=3;
+							}
+							else
+							{
+								player.votes++;
+							}
+						}
+						trialCheck(player);
 					}
 					else
 					{
-						player.votes++;
+						socket.emit(Type.SYSTEM,'"'+name+'" is not a valid player.');
 					}
 				}
-				trialCheck(player);
-			}
-			else
-			{
-				socket.emit(Type.SYSTEM,'"'+name+'" is not a valid player.');
-			}
-		}
 			},
 			clear:function(){
 				delete dcd[this.ip];
