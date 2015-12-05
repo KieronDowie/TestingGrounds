@@ -541,6 +541,7 @@ io.on('connection', function(socket){
 				}
 			}
 		}
+		console.log(joining[ip].name+', '+dcd[ip].name);
 		if ( dcd[ip] && !alt && (!joining[ip] || (joining[ip] && joining[ip].name == dcd[ip].name) ) ) //Rejoining after a dc
 		{
 			//Send the list of names in the game to the returning player.
