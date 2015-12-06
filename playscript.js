@@ -85,6 +85,8 @@ function checkKey(e)
 }
 function addMessage(msg, type)
 {
+	//Check if scrolled to bottom.
+	var atBottom = ( 10 +$('#main').scrollTop() + $('#main').prop('offsetHeight') >= $('#main').prop('scrollHeight'));
 	if (!isActive)
 	{
 		highlightTitle();
@@ -247,9 +249,12 @@ function addMessage(msg, type)
 			alert('Bad message type!');
 		break;
 	}
-	//Scroll down.
-	var goto = $("#main")[0].scrollHeight;
-	$("#main").animate({scrollTop:goto});
+	if (atBottom)
+	{
+		//Scroll down.
+		var end = $("#main").prop('scrollHeight');
+		$("#main").prop('scrollTop',end);
+	}
 }
 function openModList(targ)
 {
