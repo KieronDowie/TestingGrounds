@@ -1583,16 +1583,16 @@ function Player(socket,name,ip)
 				{
 					socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
 				}
-				else if (!players[socket.id].alive)
+				else if (!this.alive)
 				{
 					socket.emit(Type.SYSTEM,'You need to be alive to vote.');
 				}
 				else
 				{
 					var player = getPlayerByName(name);
-					if (player && players[socket.id])
+					if (player)
 					{
-						if (name == players[socket.id].name)
+						if (name == this.name)
 						{
 							socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
 						}
@@ -1604,24 +1604,24 @@ function Player(socket,name,ip)
 						{
 							socket.emit(Type.SYSTEM,'The mod cannot vote.');
 						}
-						else if (players[socket.id].votingFor == player.s.id) //Same person, cancel vote.
+						else if (this.votingFor == player.s.id) //Same person, cancel vote.
 						{
 							var prev = player.name;
-							if (players[socket.id].mayor)
+							if (this.mayor)
 							{
-								players[players[socket.id].votingFor].votes-=3;	
+								players[this.votingFor].votes-=3;	
 							}
 							else
 							{
-								players[players[socket.id].votingFor].votes--; //subtract a vote from the person that was being voted.
+								players[this.votingFor].votes--; //subtract a vote from the person that was being voted.
 							}
-							io.emit(Type.VOTE,players[socket.id].name,' has cancelled their vote.','',prev);
-							players[socket.id].votingFor = undefined;
+							io.emit(Type.VOTE,this.name,' has cancelled their vote.','',prev);
+							this.votingFor = undefined;
 						}
-						else if (players[socket.id].votingFor) //Previous voter
+						else if (this.votingFor) //Previous voter
 						{
-							var prev = players[socket.id].votingFor;
-							if (players[socket.id].mayor)
+							var prev = this.votingFor;
+							if (this.mayor)
 							{
 								players[prev].votes-=3; //subtract 3 votes from the person that was being voted.		
 								player.votes+=3; //Add 3 votes to the new person		
@@ -1631,14 +1631,14 @@ function Player(socket,name,ip)
 								players[prev].votes--; //subtract a vote from the person that was being voted.		
 								player.votes++; //Add a vote to the new person			
 							}					
-							io.emit(Type.VOTE,players[socket.id].name,' has changed their vote to ',player.name,players[prev].name);
-							players[socket.id].votingFor = player.s.id;					
+							io.emit(Type.VOTE,this.name,' has changed their vote to ',player.name,players[prev].name);
+							this.votingFor = player.s.id;					
 						}
 						else
 						{ 
-							io.emit(Type.VOTE,players[socket.id].name,' has voted for ',player.name);
-							players[socket.id].votingFor = player.s.id;
-							if (players[socket.id].mayor)
+							io.emit(Type.VOTE,this.name,' has voted for ',player.name);
+							this.votingFor = player.s.id;
+							if (this.mayor)
 							{	
 								player.votes+=3;
 							}
