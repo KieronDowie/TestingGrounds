@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
 	$('#date').glDatePicker({
-		dowNames:['M','T','W','T','F','S','S']
+		dowNames:['S','M','T','W','T','F','S']
 	});
 	$('#datesubmit').click(function()
 	{

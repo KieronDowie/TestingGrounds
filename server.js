@@ -1264,7 +1264,7 @@ function expireVerification(ip)
 {
 	if (verified[ip])
 	{
-		delete verified[ip];f
+		delete verified[ip];
 	}
 }
 //--Timer object
@@ -1371,8 +1371,9 @@ function Timer()
 	}
 }
 function formatData(data){
-	var date = addZero(testTime.getDay()-1)+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
+	var date = addZero(testTime.getDate()+1)+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
 	data = data.replace('%date%',date);
+	console.log(testTime.getDay());
 	var time = addZero(testTime.getHours())+':'+addZero(testTime.getMinutes());
 	data = data.replace('%time%',time);
 	return data;
