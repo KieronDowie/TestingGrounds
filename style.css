@@ -71,6 +71,7 @@ h1
 }
 #mid #clock
 {
+	display:inline-block;
 	display:flex;
 	border: 3px solid #5E4300;
 	width: 400px;

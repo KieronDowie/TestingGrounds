@@ -185,7 +185,7 @@ var roles=[
 					goal:mafiagoal,
 					color:mafiacolor
 			},*/
-			{      
+			/*ROLEIDEANIGHTMARE{      
 					rolename:"nightmarer",
 					alignment:"mafia support",
 					abilities:'Make someone have a nightmare about someone each night.',
@@ -196,7 +196,7 @@ var roles=[
 					],
 					goal:mafiagoal,
 					color:mafiacolor
-			},
+			},*/
 			{      
 					rolename:"blackmailer",
 					alignment:"mafia support",
@@ -344,6 +344,19 @@ var roles=[
 'Your victim will know they are being controlled.'],
 					goal:"Survive to see the Town lose the game.",
 					color:"purple"
+			},
+			//ROLEIDEANECRO
+			{      
+					rolename:"necromancer",
+					alignment:"neutral evil",
+					abilities:'Select one dead person to necromance back to life, allowing you to use their ability once.',
+					attributes:['You cannot revive a Jailor.',
+					'On odd nights you use the ability and on full moons you choose to necromance.',
+					'You cannot use the same body twice.',
+					'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
+					],
+					goal:mafiagoal,
+					color:mafiacolor
 			},
 			{      
 					rolename:"survivor",
