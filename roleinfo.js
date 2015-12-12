@@ -355,8 +355,8 @@ var roles=[
 					'You cannot use the same body twice.',
 					'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
 					],
-					goal:mafiagoal,
-					color:mafiacolor
+					goal:'Kill the town.',
+					color:'black'
 			},
 			{      
 					rolename:"survivor",
