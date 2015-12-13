@@ -355,7 +355,7 @@ var roles=[
 					'You cannot use the same body twice.',
 					'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
 					],
-					goal:'Kill the town.',
+					goal:'Survive to see the town lose the game.',
 					color:'black'
 			},
 			{      
