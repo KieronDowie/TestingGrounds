@@ -2226,12 +2226,17 @@ function Player(socket,name,ip)
 						}
 					break;
 					case Phase.LASTWORDS:
+					
 						if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
+						else if (!this.alive)
+						{							
+							this.specMessage(msg,{dead:true,medium:true});
+						}
 						else if (ontrial == this.s.id)
-						{
+						{					
 							if (this.blackmailed)
 							{
 								socket.emit(Type.SYSTEM,'You are blackmailed.');
