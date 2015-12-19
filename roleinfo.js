@@ -27,6 +27,17 @@ var roles=[
 					color:towncolor
 			},
 			{      
+					rolename:"scientist",
+					alignment:"town investigative",
+					abilities:'Take a fingerprint sample of one person each night.',
+					attributes:['Compare their sample to the test subject from the previous night, comparing alignment supertype (Town, Mafia, Neutral).',
+					'You will recieve a result of \'Same\' or \'Different\'',
+					'You may not sample yourself.',
+					'You may not sample a revealed mayor.'],
+					goal:towngoal,
+					color:towncolor
+			},
+			{      
 					rolename:"lookout",
 					alignment:"town investigative",
 					abilities:'Watch one person at night to see who visits them.',
@@ -345,7 +356,7 @@ var roles=[
 					goal:"Survive to see the Town lose the game.",
 					color:"purple"
 			},
-			//ROLEIDEANECRO
+			/*ROLEIDEANECRO
 			{      
 					rolename:"necromancer",
 					alignment:"neutral evil",
@@ -357,7 +368,7 @@ var roles=[
 					],
 					goal:'Survive to see the town lose the game.',
 					color:'black'
-			},
+			},*/
 			{      
 					rolename:"survivor",
 					alignment:"neutral benign",
