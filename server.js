@@ -2233,7 +2233,7 @@ function Player(socket,name,ip)
 						}
 						else if (!this.alive)
 						{							
-							this.specMessage(msg,{dead:true,medium:true});
+							this.specMessage(msg,{dead:true});
 						}
 						else if (ontrial == this.s.id)
 						{					
