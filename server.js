@@ -1870,6 +1870,46 @@ function Player(socket,name,ip)
 							socket.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
+					case 't': case 'target':
+						if (!this.chats.mafia)
+						{
+							this.s.emit(Type.SYSTEM,'Only mafia can use this command.');
+						}
+						else if (this.jailed)
+						{
+							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
+						}
+						else if (phase != Phase.NIGHT)
+						{
+							this.s.emit(Type.SYSTEM,'You can only use this command at night.');
+						}
+						else
+						{	
+							if (c.length<2)
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /target name');
+							}
+							else
+							{
+								if (isNaN(c[1]))
+								{
+									var p = getPlayerByName(c[1]);
+								}
+								else
+								{
+									var p = getPlayerByNumber(c[1]);															
+								}
+								if (p != -1)
+								{
+									this.specMessage(p.name+'</b>',{mafia:true},'<b>'+this.name+'('+this.role+') is targeting:');
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'Invalid selection: '+c[1]);
+								}
+							}
+						}
+					break;
 					case 'exe': case 'execute': case 'x':
 						if (!this.chats.jailor)
 						{
@@ -1909,11 +1949,11 @@ function Player(socket,name,ip)
 						var rolename = c.join(' '); 
 						if (roles.hasRolecard(rolename))
 						{
-							socket.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+							this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
+							this.s.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
 						}
 					break;
 					case 'confirm':
@@ -2027,11 +2067,11 @@ function Player(socket,name,ip)
 							{
 								ping[players[i].name] = players[i].ping;
 							}
-							socket.emit(Type.LATENCIES,ping);
+							this.s.emit(Type.LATENCIES,ping);
 						}
 						else
 						{
-							socket.emit(Type.LATENCIES,this.ping);
+							this.s.emit(Type.LATENCIES,this.ping);
 						}
 					break;
 					case 'msg':
