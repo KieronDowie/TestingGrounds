@@ -1142,6 +1142,7 @@ function setPhase(p)
 		//Special beginning of night messages.
 		for (i in players)
 		{
+			//Jailed player
 			if (players[i].chats.jailed)
 			{
 				players[i].s.emit(Type.PRENOT,'JAILED');
@@ -1157,6 +1158,11 @@ function setPhase(p)
 						players[j].s.emit(Type.SYSTEM,players[i].name+' was hauled off to jail.');
 					}
 				}
+			}
+			//Mafia target info, else if because you do not recieve it if you are jailed.
+			else if (players[i].chats.mafia)
+			{
+				players[i].s.emit(Type.SYSTEM,'Use "/target name" or "/t name" to send in your night action.');
 			}
 		}	
 	}
@@ -1890,28 +1896,22 @@ function Player(socket,name,ip)
 						}
 						else
 						{	
-							if (c.length<2)
+							var str = c.slice(1,c.length).join(' ');
+							if (isNaN(str))
 							{
-								this.s.emit(Type.SYSTEM,'The syntax of this command is /target name');
+								var p = {name:str};
 							}
 							else
 							{
-								if (isNaN(c[1]))
-								{
-									var p = getPlayerByName(c[1]);
-								}
-								else
-								{
-									var p = getPlayerByNumber(c[1]);															
-								}
-								if (p && p != -1)
-								{
-									this.target(p.name);
-								}
-								else
-								{
-									this.s.emit(Type.SYSTEM,'Invalid selection: '+c[1]);
-								}
+								var p = getPlayerByNumber(parseInt(str));															
+							}
+							if (p != -1)
+							{
+								this.target(p.name);
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'Invalid selection: '+c[1]);
 							}
 						}
 					break;

@@ -157,8 +157,8 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
-			var str = msg.name+'('+msg.role+') is now targeting '+msg.target+'.';
-			$('#main').append('<li><span class="mod"><b>'+str+'</b></span></li>');
+			var str = msg.name+'('+msg.role+') is now targeting <b>'+msg.target+'</b>.';
+			$('#main').append('<li><span class="mod">'+str+'</span></li>');
 		break;
 		case 'custom':	
 			$('#main').append('<li><span class="'+msg.styling+'">'+msg.name+': '+msg.msg+'</span></li>');
