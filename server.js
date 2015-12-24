@@ -48,7 +48,8 @@ var Type = {
 	LATENCIES:36,
 	GETWILL:37,
 	HEY:38,
-	TARGET:39
+	TARGET:39,
+	DISGUISE:40
 };
 
 var Phase = {
@@ -1725,6 +1726,68 @@ function Player(socket,name,ip)
 						else
 						{
 							socket.emit(Type.SYSTEM,'You can only whisper during the day.');
+						}
+					break;
+					case 'disguise':
+						if (mod == this.s.id)
+						{
+							if (c.length==3)
+							{
+								//Disguiser
+								var first = undefined;
+								if (isNaN(c[1]))
+								{
+									first = getPlayerByName(c[1]);
+								}
+								else
+								{
+									first = getPlayerByNumber(c[1]);
+								}
+								//Target 
+								var second = undefined;
+								if (isNaN(c[2]))
+								{
+									second = getPlayerByName(c[2]);
+								}
+								else
+								{
+									second = getPlayerByNumber(c[2]);
+								}
+								if (first && second && first != -1 && second != -1)
+								{
+									socket.emit(Type.SYSTEM,first.name+' disguised as '+second.name+'.');
+									first.s.emit(Type.HIGHLIGHT,'You successfully disguised!');
+									second.s.emit(Type.HIGHLIGHT,'A disguiser stole your identity!');
+									//Swap names in the playernames
+									console.log(playernames);
+									var temp = playernames[first.name];
+									playernames[first.name] = second.s.id;
+									playernames[second.name] = temp;
+									//Swap names
+									var temp = first.name;
+									first.name = second.name;
+									second.name = temp;
+									//Swap numbers
+									var one = playernums.indexOf(first.s.id);
+									var two = playernums.indexOf(second.s.id);
+									var temp = playernums[one];
+									playernums[one] = playernums[two];
+									playernums[two] = temp;
+									sendPlayerInfo();
+								}
+								else
+								{
+									socket.emit(Type.SYSTEM,'Invalid players!');
+								}
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'The syntax of this command is /disguise disguiser target');
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
 					case 'givemod':

@@ -51,6 +51,22 @@ var Type = {
 	HEY:38,
 	TARGET:39
 };
+function clearAllInfo()
+{
+	var all = $('.controlbutton');
+	for (var i=0; i<all.length;i++)
+	{
+		var classes = all[i].className.split(' ');
+		for (x in classes)
+		{
+			if (classes[x].indexOf('buttondown') != -1)
+			{
+				classes[x] = '';
+			}
+		}
+		all[i].className = classes.join(' ');
+	}
+}
 function modInterface()
 {
 	for (x = 0; x < users.length; x++)
@@ -678,6 +694,7 @@ socket.on(Type.ROLEUPDATE,function(send){
 socket.on(Type.MASSROLEUPDATE,function(people){
 	if (mod)
 	{
+		clearAllInfo();
 		for (j in people)
 		{
 			var send = people[j];
