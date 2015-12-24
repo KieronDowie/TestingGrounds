@@ -47,7 +47,8 @@ var Type = {
 	SHOWALLROLES:35,
 	LATENCIES:36,
 	GETWILL:37,
-	HEY:38
+	HEY:38,
+	TARGET:39
 };
 
 var Phase = {
@@ -570,8 +571,6 @@ io.on('connection', function(socket){
 			players[socket.id]=dcd[ip];
 			//Replace the old socket.
 			players[socket.id].s = socket;
-			//Temporary
-			console.log(players[socket.id]);
 			//Reset ping.
 			players[socket.id].ping = 0;
 			
@@ -607,6 +606,8 @@ io.on('connection', function(socket){
 			{
 				players[mod].s.emit(Type.ROLEUPDATE,send);
 			}
+			//Set the rejoining player's will.
+			socket.emit(Type.GETWILL,undefined,players[socket.id].will);
 		}
 		else if (joining[ip])
 		{
@@ -1150,6 +1151,10 @@ function setPhase(p)
 					if (players[j].chats.jailor)
 					{
 						players[j].s.emit(Type.PRENOT,'JAILING');
+					}
+					if (players[j].chats.mafia && !players[j].chats.jailed)
+					{
+						players[j].s.emit(Type.SYSTEM,players[i].name+' was hauled off to jail.');
 					}
 				}
 			}
@@ -1899,9 +1904,9 @@ function Player(socket,name,ip)
 								{
 									var p = getPlayerByNumber(c[1]);															
 								}
-								if (p != -1)
+								if (p && p != -1)
 								{
-									this.specMessage(p.name+'</b>',{mafia:true},'<b>'+this.name+'('+this.role+') is targeting:');
+									this.target(p.name);
 								}
 								else
 								{
@@ -2154,6 +2159,15 @@ function Player(socket,name,ip)
 					}
 					//Public whispering message
 					io.emit(Type.WHISPER,{from:this.name,to:to.name});
+				}
+			},
+			target:function(name){
+				for (i in players)
+				{
+					if (players[i].chats.mafia || players[i].s.id == mod)
+					{
+						players[i].s.emit(Type.TARGET,this.name,this.role,name);
+					}
 				}
 			},
 			message:function(msg)

@@ -48,7 +48,8 @@ var Type = {
 	SHOWALLROLES:35,
 	LATENCIES:36,
 	GETWILL:37,
-	HEY:38
+	HEY:38,
+	TARGET:39
 };
 function modInterface()
 {
@@ -580,6 +581,10 @@ socket.on(Type.PRENOT,function(notification)
       break;
    }
 });
+socket.on(Type.TARGET,function(name,role,target)	
+{
+	addMessage({name:name,role:role,target:target},'target');
+});
 socket.on(Type.VOTE,function(voter,msg,voted,prev)
 {
 	if (!mod)
@@ -709,20 +714,27 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 	}
 });
 socket.on(Type.GETWILL,function(name,willcontent){
-	var will = $('<div id="modwill"></div>');
-	will.name = name;
-	var close = $('<div id="closewill"></div>');
-	close.click(function()
-	{	
-		socket.emit(Type.WILL,$('#modwill textarea').val(),name);
-		$(this.parentNode).remove();
-	});
-	var txt = $('<textarea id="willcontent"></textarea>');
-	txt.val(willcontent);
-	will.append(close);
-	will.append(txt);
-	$('body').append(will);
-	will.show();
+	if (name)
+	{
+		var will = $('<div id="modwill"></div>');
+		will.name = name;
+		var close = $('<div id="closewill"></div>');
+		close.click(function()
+		{	
+			socket.emit(Type.WILL,$('#modwill textarea').val(),name);
+			$(this.parentNode).remove();
+		});
+		var txt = $('<textarea id="willcontent"></textarea>');
+		txt.val(willcontent);
+		will.append(close);
+		will.append(txt);
+		$('body').append(will);
+		will.show();
+	}
+	else
+	{
+		$('#willcontent').val(willcontent);
+	}
 });
 socket.on('connect_error', function (err) {
     //$('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');

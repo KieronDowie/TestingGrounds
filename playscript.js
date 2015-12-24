@@ -156,6 +156,10 @@ function addMessage(msg, type)
 				alert('malformed message!');
 			}
 		break;
+		case 'target':
+			var str = msg.name+'('+msg.role+') is now targeting '+msg.target+'.';
+			$('#main').append('<li><span class="mod"><b>'+str+'</b></span></li>');
+		break;
 		case 'custom':	
 			$('#main').append('<li><span class="'+msg.styling+'">'+msg.name+': '+msg.msg+'</span></li>');
 		break;
