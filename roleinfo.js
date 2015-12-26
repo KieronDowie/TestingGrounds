@@ -26,6 +26,7 @@ var roles=[
 					goal:towngoal,
 					color:towncolor
 			},
+			/*ROLEIDEASCIENTIST
 			{      
 					rolename:"scientist",
 					alignment:"town investigative",
@@ -36,7 +37,7 @@ var roles=[
 					'You may not sample a revealed mayor.'],
 					goal:towngoal,
 					color:towncolor
-			},
+			},*/
 			{      
 					rolename:"lookout",
 					alignment:"town investigative",
@@ -196,7 +197,8 @@ var roles=[
 					goal:mafiagoal,
 					color:mafiacolor
 			},*/
-			/*ROLEIDEANIGHTMARE{      
+			/*ROLEIDEANIGHTMARE*/
+			{      
 					rolename:"nightmarer",
 					alignment:"mafia support",
 					abilities:'Make someone have a nightmare about someone each night.',
@@ -207,7 +209,7 @@ var roles=[
 					],
 					goal:mafiagoal,
 					color:mafiacolor
-			},*/
+			},
 			{      
 					rolename:"blackmailer",
 					alignment:"mafia support",
