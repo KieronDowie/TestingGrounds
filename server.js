@@ -2026,7 +2026,7 @@ function Player(socket,name,ip)
 								{
 									var p = getPlayerByNumber(parseInt(str));															
 								}
-								if (p != -1)
+								if (p && p != -1)
 								{
 									io.emit(Type.HUG,this.name,p.name);
 								}
@@ -2260,7 +2260,10 @@ function Player(socket,name,ip)
 				{
 					to.s.emit(Type.WHISPER,{from:this.name, msg:msg});
 					this.s.emit(Type.WHISPER,{to:to.name,msg:msg});
-					players[mod].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
+					if (phase != Phase.PREGAME)
+					{
+						players[mod].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
+					}
 					for (i in players)
 					{
 						if (players[i].hearwhispers && phase != Phase.PREGAME)
