@@ -1161,7 +1161,7 @@ function setPhase(p)
 				}
 			}
 			//Mafia target info, else if because you do not recieve it if you are jailed.
-			else if (players[i].chats.mafia)
+			else if (players[i].chats.mafia && players[i].alive)
 			{
 				players[i].s.emit(Type.SYSTEM,'Use "/target name" or "/t name" to send in your night action.');
 			}
@@ -2020,7 +2020,14 @@ function Player(socket,name,ip)
 								var str = c[1];
 								if (isNaN(str))
 								{
-									var p = getPlayerByName(str);
+									if (str.toLowerCase() == 'everyone')
+									{
+										var p = {name:str+'!'};
+									}
+									else
+									{
+										var p = getPlayerByName(str);
+									}
 								}
 								else
 								{
@@ -2029,6 +2036,10 @@ function Player(socket,name,ip)
 								if (p && p != -1)
 								{
 									io.emit(Type.HUG,this.name,p.name);
+									if (this.name == p.name)
+									{
+										io.emit(Type.SYSTEM,'Is someone feeling lonely?');
+									}
 								}
 								else
 								{
