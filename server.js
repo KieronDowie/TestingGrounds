@@ -1949,7 +1949,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'Only mafia can use this command.');
 						}
-						else if (this.jailed)
+						else if (this.chats.jailed)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
