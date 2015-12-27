@@ -49,7 +49,7 @@ var Type = {
 	GETWILL:37,
 	HEY:38,
 	TARGET:39,
-	DISGUISE:40
+	HUG:40
 };
 
 var Phase = {
@@ -1677,9 +1677,9 @@ function Player(socket,name,ip)
 				{
 					case 'whisper':
 					case 'w':
-						if (phase >= Phase.DAY && phase <= Phase.LASTWORDS)
+						if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME)
 						{
-							if (this.blackmailed)
+							if (this.blackmailed && phase != Phase.PREGAME)
 							{
 								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
 							}
@@ -2012,16 +2012,64 @@ function Player(socket,name,ip)
 							}
 						}
 					break;
-					case 'role':
-						c.splice(0,1);						
-						var rolename = c.join(' '); 
-						if (roles.hasRolecard(rolename))
+					case 'hug':
+						if (phase == Phase.PREGAME)
 						{
-							this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+							if (c.length == 2)
+							{
+								var str = c[1];
+								if (isNaN(str))
+								{
+									var p = getPlayerByName(str);
+								}
+								else
+								{
+									var p = getPlayerByNumber(parseInt(str));															
+								}
+								if (p != -1)
+								{
+									io.emit(Type.HUG,this.name,p.name);
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'Invalid selection: '+c[1]);
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /hug name.');
+							}
 						}
 						else
 						{
-							this.s.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
+							this.s.emit(Type.SYSTEM,'Sorry! Please keep your hugs to pregame.');
+						}
+					break;
+					case 'role':
+						if (c.length == 1)
+						{
+							//Return own role.
+							if (this.role != 'NoRole')
+							{
+								this.s.emit(Type.SYSTEM,'You do not have a role.');
+							}
+							else
+							{
+								this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+							}
+						}
+						else
+						{
+							c.splice(0,1);						
+							var rolename = c.join(' '); 
+							if (roles.hasRolecard(rolename))
+							{
+								this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,"'"+rolename+"' could not be found.");
+							}
 						}
 					break;
 					case 'confirm':
@@ -2143,7 +2191,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'msg':
-						if (mod==socket.id)
+						if (mod==this.s.id)
 						{
 							if (c.length > 2)
 							{
@@ -2215,13 +2263,16 @@ function Player(socket,name,ip)
 					players[mod].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
 					for (i in players)
 					{
-						if (players[i].hearwhispers)
+						if (players[i].hearwhispers && phase != Phase.PREGAME)
 						{
 							players[i].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
 						}
 					}
 					//Public whispering message
-					io.emit(Type.WHISPER,{from:this.name,to:to.name});
+					if (phase != Phase.PREGAME) //Ingame whisper, not a pregame whisper.
+					{
+						io.emit(Type.WHISPER,{from:this.name,to:to.name});
+					}
 				}
 			},
 			target:function(name){

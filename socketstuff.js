@@ -49,7 +49,8 @@ var Type = {
 	LATENCIES:36,
 	GETWILL:37,
 	HEY:38,
-	TARGET:39
+	TARGET:39,
+	HUG:40
 };
 function clearAllInfo()
 {
@@ -600,6 +601,10 @@ socket.on(Type.PRENOT,function(notification)
 socket.on(Type.TARGET,function(name,role,target)	
 {
 	addMessage({name:name,role:role,target:target},'target');
+});
+socket.on(Type.HUG,function(name,target)	
+{
+	addMessage({name:name,target:target},'hug');
 });
 socket.on(Type.VOTE,function(voter,msg,voted,prev)
 {
