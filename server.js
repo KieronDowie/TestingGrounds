@@ -1953,6 +1953,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
+						else if (!this.alive)
+						{
+							this.s.emit(Type.SYSTEM,'You cannot use this while dead.');
+						}
 						else if (phase != Phase.NIGHT)
 						{
 							this.s.emit(Type.SYSTEM,'You can only use this command at night.');
