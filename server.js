@@ -1699,7 +1699,7 @@ function Player(socket,name,ip)
 									{
 										//Get the numbered player.
 										var target = getPlayerByNumber(c[1]);
-										if (target)
+										if (target != -1)
 										{
 											var name = target.name;
 											var msg = c.slice();
@@ -1955,7 +1955,7 @@ function Player(socket,name,ip)
 						}
 						else if (!this.alive)
 						{
-							this.s.emit(Type.SYSTEM,'You cannot use this while dead.');
+							this.s.emit(Type.SYSTEM,'You cannot use this while deadwhis.');
 						}
 						else if (phase != Phase.NIGHT)
 						{
