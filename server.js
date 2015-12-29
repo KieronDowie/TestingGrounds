@@ -1175,7 +1175,7 @@ function setPhase(p)
 		}
 		else
 		{
-			players[mod].emit(Type.SYSTEM,'No player is currently on trial. Phase is being set back to voting.');
+			players[mod].s.emit(Type.SYSTEM,'No player is currently on trial. Phase is being set back to voting.');
 			p=Phase.VOTING;
 			io.emit(Type.SETPHASE,Phase.VOTING);
 		}
