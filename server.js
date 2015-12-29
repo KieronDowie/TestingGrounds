@@ -1175,7 +1175,7 @@ function setPhase(p)
 		}
 		else
 		{
-			socket.emit(Type.SYSTEM,'No player is currently on trial. Phase is being set back to voting.');
+			players[mod].emit(Type.SYSTEM,'No player is currently on trial. Phase is being set back to voting.');
 			p=Phase.VOTING;
 			io.emit(Type.SETPHASE,Phase.VOTING);
 		}
@@ -2223,7 +2223,7 @@ function Player(socket,name,ip)
 								{
 									//Get the numbered player.
 									var target = getPlayerByNumber(c[1]);
-									if (target)
+									if (target != -1)
 									{
 										var name = target.name;
 										var msg = c.slice();
