@@ -387,7 +387,17 @@ var roles=[
 					'You can\'t choose a unique role.'],
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
-			}                                                      
+			},
+			//ARPITR ROLES 
+			{     
+               rolename:"Paradoxist",
+               alignment:"Neutral Chaos",
+               abilities:'Visit a player to send them backwards in time, roleblocking but also healing them.',
+						'Visiting the same player twice will cut him out of reality, killing him.',
+               attributes:['Your initial time is 8 o\'clock.','Visiting a Town member will send your clock forward 5 hours.','Visiting a member of the Mafia will send your clock forward 3 hours.','Visiting any Neutral role will send your clock backwards 2 hours.'],
+               goal:"Land your clock on 12 o'clock to win",
+               color:"#BF8000"
+},                          
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
