@@ -390,10 +390,9 @@ var roles=[
 			},
 			//ARPITR ROLES 
 			{     
-               rolename:"Paradoxist",
+               rolename:"paradoxist",
                alignment:"Neutral Chaos",
-               abilities:'Visit a player to send them backwards in time, roleblocking but also healing them.',
-						'Visiting the same player twice will cut him out of reality, killing him.',
+               abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
                attributes:['Your initial time is 8 o\'clock.','Visiting a Town member will send your clock forward 5 hours.','Visiting a member of the Mafia will send your clock forward 3 hours.','Visiting any Neutral role will send your clock backwards 2 hours.'],
                goal:"Land your clock on 12 o'clock to win",
                color:"#BF8000"
