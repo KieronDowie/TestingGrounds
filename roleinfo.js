@@ -585,6 +585,7 @@ module.exports = {
                         str=str.replace(/[Dd]eception/,"<span style='color:"+randcolor+"'>Deception</span>");
                         str=str.replace(/[Ee]vil/,"<span style='color:"+randcolor+"'>Evil</span>");
                         str=str.replace(/[Bb]enign/,"<span style='color:"+randcolor+"'>Benign</span>");
+                        str=str.replace(/[Cc]haos/,"<span style='color:"+randcolor+"'>Chaos</span>");
                         str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");      
                 }
                 return str;
