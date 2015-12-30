@@ -395,8 +395,19 @@ var roles=[
                abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
                attributes:['Your initial time is 8 o\'clock.','Visiting a Town member will send your clock forward 5 hours.','Visiting a member of the Mafia will send your clock forward 3 hours.','Visiting any Neutral role will send your clock backwards 2 hours.'],
                goal:"Land your clock on 12 o'clock to win",
-               color:"#BF8000"
-},                          
+               color:"magenta"
+			},
+			{
+                     rolename:"orphan",
+                     alignment:"neutral benign",
+                     abilities:'Become the role of the person who attacked you first.',
+                     attributes:["You are immune the first time you are attacked",
+                     "You will become the role that attacked you.",
+                     "If saved, you become the role of your savior.",
+                     "When taken in, it will be announced that the Orphan was taken in."],
+                     goal:"Get taken in, and help your team win.",
+                     color:"turquoise"
+         },                          
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
