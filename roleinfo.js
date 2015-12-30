@@ -197,7 +197,7 @@ var roles=[
 					goal:mafiagoal,
 					color:mafiacolor
 			},*/
-			/*ROLEIDEANIGHTMARE*/
+			/*ROLEIDEANIGHTMARE
 			{      
 					rolename:"nightmarer",
 					alignment:"mafia support",
@@ -209,7 +209,7 @@ var roles=[
 					],
 					goal:mafiagoal,
 					color:mafiacolor
-			},
+			},*/
 			{      
 					rolename:"blackmailer",
 					alignment:"mafia support",
@@ -316,8 +316,8 @@ var roles=[
 					goal:"Kill everyone who would oppose you.",
 					color:"brown"
 			},
-////ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
-			/*{
+/*ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)*/
+			{
 							rolename:"electrician",
 							alignment:"neutral killing",
 							abilities:'Charge someone each night.',
@@ -330,7 +330,7 @@ var roles=[
 							"Death from electrocution cannot be stopped by night immunity or a bodyguard."],
 							goal:"Live to see everyone electrocuted.",
 							color:"green"
-			},*/
+			},
 			{      
 					rolename:"jester",
 					alignment:"neutral evil",
