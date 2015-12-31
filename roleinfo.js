@@ -415,8 +415,8 @@ var roles=[
                      attributes:["Godfather or Mafioso can't attack when you shoot.",
                      "If both Mafioso and Godfather are in game, you become a Random mafia role.",
                      "You are immune to a Bodyguard, Veteran and Lookout.",
-                     "If you target yourself, you will charge your gun and pierce night immunity this night. However you can only do that once.",
-                     "Make Dota happy."],
+                     "You can charge your gun and pierce night immunity one night.",
+                     "You make Dota happy."],
                      goal:mafiagoal,
                      color:mafiacolor
          }                          
