@@ -407,7 +407,19 @@ var roles=[
                      "When taken in, it will be announced that the Orphan was taken in."],
                      goal:"Get taken in, and help your team win.",
                      color:"turquoise"
-         },                          
+         },
+         {
+                     rolename:"sniper",
+                     alignment:"mafia killing",
+                     abilities:'Shoot someone on a non-full moon nights.',
+                     attributes:["Godfather or Mafioso can't attack when you shoot.",
+                     "If both Mafioso and Godfather are in game, you become a Random mafia role.",
+                     "You are immune to a Bodyguard, Veteran and Lookout.",
+                     "If you target yourself, you will charge your gun and pierce night immunity this night. However you can only do that once.",
+                     "Make Dota happy."],
+                     goal:mafiagoal,
+                     color:mafiacolor
+         }                          
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
