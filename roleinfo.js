@@ -389,7 +389,7 @@ var roles=[
 					color:"cyan"
 			},
 			//ARPITR ROLES 
-			{     
+			/*{     
                rolename:"paradoxist",
                alignment:"Neutral Chaos",
                abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
@@ -419,7 +419,7 @@ var roles=[
                      "You make Dota happy."],
                      goal:mafiagoal,
                      color:mafiacolor
-         }                          
+         }     */                     
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
