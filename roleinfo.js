@@ -329,7 +329,7 @@ var roles=[
 							"If every other player is charged, you may kill all charged players."
 							],
 							goal:"Live to see everyone electrocuted.",
-							color:"green"
+							color:"#00FF80"
 			},
 			{      
 					rolename:"jester",
