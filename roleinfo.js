@@ -322,11 +322,11 @@ var roles=[
 							alignment:"neutral killing",
 							abilities:'Charge someone each night.',
 							attributes:["You cannot be killed at night.",
-							"Your target will be notified when they are charged.",
-							"You can silently charge one person.",
+							"Your target will not be notified when they are charged.",
 							"If a person that is charged visits another charged person, both people will die.",
 							"If you charge a person for a second time, that person will die.",
-							"If you have charged all players, you may kill all charged players."
+							"If every other player is charged, the town will be notified.",
+							"If every other player is charged, you may kill all charged players."
 							],
 							goal:"Live to see everyone electrocuted.",
 							color:"green"
