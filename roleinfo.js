@@ -323,11 +323,11 @@ var roles=[
 							abilities:'Charge someone each night.',
 							attributes:["You cannot be killed at night.",
 							"Your target will be notified when they are charged.",
+							"You can silently charge one person.",
 							"If a person that is charged visits another charged person, both people will die.",
-							"You can charge one person without them being notified.",
 							"If you charge a person for a second time, that person will die.",
-							"If you have charged every other player in the game, you may select yourself the following night to kill everyone else.",
-							"Death from electrocution cannot be stopped by night immunity or a bodyguard."],
+							"If you have charged all players, you may kill all charged players."
+							],
 							goal:"Live to see everyone electrocuted.",
 							color:"green"
 			},
