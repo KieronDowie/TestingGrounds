@@ -1153,6 +1153,7 @@ function setPhase(p)
 					if (players[j].chats.jailor)
 					{
 						players[j].s.emit(Type.PRENOT,'JAILING');
+						players[j].executing = false;
 					}
 					if (players[j].chats.mafia && !players[j].chats.jailed && players[i].chats.mafia)
 					{
