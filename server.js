@@ -2071,7 +2071,7 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+								this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role));
 							}
 						}
 						else
