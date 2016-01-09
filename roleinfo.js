@@ -316,7 +316,7 @@ var roles=[
 					goal:"Kill everyone who would oppose you.",
 					color:"brown"
 			},
-/*ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)*/
+/*ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
 			{
 							rolename:"electrician",
 							alignment:"neutral killing",
@@ -330,7 +330,7 @@ var roles=[
 							],
 							goal:"Live to see everyone electrocuted.",
 							color:"#00FF80"
-			},
+			},*/
 			{      
 					rolename:"jester",
 					alignment:"neutral evil",
