@@ -1684,6 +1684,10 @@ function Player(socket,name,ip)
 							{
 								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
 							}
+							else if (!this.alive)
+							{
+								socket.emit(Type.SYSTEM,'You need to be alive to whisper.');
+							}
 							else
 							{	
 								if (c.length > 2)
@@ -1929,6 +1933,10 @@ function Player(socket,name,ip)
 						else if (this.mayor)
 						{
 							socket.emit(Type.SYSTEM,'You have already revealed yourself as the Mayor.');
+						}
+						else if (!this.alive)
+						{
+							socket.emit(Type.SYSTEM,'You must be alive to reveal.');
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS)
 						{
@@ -2271,6 +2279,10 @@ function Player(socket,name,ip)
 				else if (this == to)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot whisper to yourself.');
+				}
+				else if (!to.alive)
+				{
+					this.s.emit(Type.SYSTEM,'You cannot whisper to the dead.');
 				}
 				else
 				{
