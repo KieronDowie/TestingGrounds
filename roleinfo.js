@@ -525,7 +525,7 @@ module.exports = {
                                                 {
                                                         if (splitr[1]==splitelem[0])
                                                         {
-                                                                return true;
+															return (splitelem[1] != 'power') //Prevent Town Power from rolling as random town.
                                                         }
                                                 }
                                         }
