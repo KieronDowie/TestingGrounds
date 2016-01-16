@@ -49,7 +49,8 @@ var Type = {
 	GETWILL:37,
 	HEY:38,
 	TARGET:39,
-	HUG:40
+	HUG:40,
+	ME:41
 };
 
 var Phase = {
@@ -2025,6 +2026,26 @@ function Player(socket,name,ip)
 							}
 						}
 					break;
+					case 'me':
+						if (phase == Phase.PREGAME)
+						{
+							if (c.length < 2)
+							{
+								socket.emit(Type.SYSTEM,'The syntax of this command is \'/me action\'.');
+							}
+							else
+							{
+								var msg = c.slice();
+								msg.splice(0,1);
+								msg=msg.join(' ');
+								io.emit(Type.ME,this.name,msg);
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'Sorry! This command is only available in Pregame.');
+						}
+					break;
 					case 'hug':
 						if (phase == Phase.PREGAME)
 						{
@@ -2258,11 +2279,11 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'Only the mod can use this command. If you are trying to whisper, try \'/w name message\'');
+							this.s.emit(Type.SYSTEM,'Only the mod can use this command. If you are trying to whisper, try \'/w name message\'');
 						}
 					break;
 					default:
-						socket.emit(Type.SYSTEM,'Command not recognized.');
+						this.s.emit(Type.SYSTEM,'Command not recognized.');
 					break;
 				}
 			},

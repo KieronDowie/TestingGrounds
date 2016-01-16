@@ -50,7 +50,8 @@ var Type = {
 	GETWILL:37,
 	HEY:38,
 	TARGET:39,
-	HUG:40
+	HUG:40,
+	ME:41
 };
 function clearAllInfo()
 {
@@ -197,6 +198,10 @@ socket.on(Type.MSG,function(name,msg)
 	{
 		addMessage(name+': '+msg,'msg');
 	}
+});
+socket.on(Type.ME,function(name,msg)
+{
+	addMessage(name+' '+msg,'me');
 });
 socket.on(Type.HIGHLIGHT,function(msg)
 {
