@@ -250,7 +250,7 @@ var roles=[
 					color:mafiacolor
 			},
 //ROLEIDEADRUG (FOR CTRL + F PURPOSES)
-			/*{      
+			{      
 					rolename:"drug dealer",
 					alignment:"mafia deception",
 					abilities:'Choose to drug someone at night.',
@@ -259,7 +259,7 @@ var roles=[
 					],
 					goal:mafiagoal,
 					color:mafiacolor
-			},*/
+			},
 			{      
 					rolename:"framer",
 					alignment:"mafia deception",
