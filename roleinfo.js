@@ -255,7 +255,7 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose to drug someone at night.',
 					attributes:['Drugged targets will get a fake notification of your choice.',
-					'You can choose between dousing, roleblocking, transporting, healed, attacker fought off and witched.',
+					'You can choose between dousing, roleblocking, transporting, healing, guarding and witching.',
 					'Alternatively, you can stop them from getting notifications for that night.'
 //'If there are no kill capable Mafia roles left you will become a Mafioso.'
 					],
@@ -390,6 +390,15 @@ var roles=[
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
 			},
+			//Casual roles
+			{
+					rolename:"citizen",
+					alignment:"town casual",
+					abilities:'Your only ability is your vote.',
+					attributes:['Without the burden of power to weigh you down, you exhibit superior logic and deductive abilities.'],
+					goal:towngoal,
+					color:towncolor
+			},
 			//ARPITR ROLES 
 			/*{     
                rolename:"paradoxist",
@@ -515,7 +524,7 @@ module.exports = {
                         {                                                      
                                 var matches=roles.filter(function(elem)
                                 {
-                                        if (elem.alignment == r[i] || r[i] == "any")
+                                        if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ") != 'casual')) //prevent casual rolling as any
                                         {
                                                 return true;
                                         }
@@ -527,7 +536,10 @@ module.exports = {
                                                 {
                                                         if (splitr[1]==splitelem[0])
                                                         {
-															return (splitelem[1] != 'power') //Prevent Town Power from rolling as random town.
+															if (splitelem[1] != 'power' && splitelem[1] != 'casual') //Prevent Town Power and Town Casual from rolling as random town.
+															{
+																return true;
+															}
                                                         }
                                                 }
                                         }
@@ -593,6 +605,7 @@ module.exports = {
                         str=str.replace(/[Ss]upport/,"<span style='color:"+randcolor+"'>Support</span>");
                         str=str.replace(/[Pp]rotective/,"<span style='color:"+randcolor+"'>Protective</span>");
                         str=str.replace(/[Pp]ower/,"<span style='color:"+randcolor+"'>Power</span>");
+                        str=str.replace(/[Cc]asual/,"<span style='color:"+randcolor+"'>Casual</span>");
                         str=str.replace(/[Rr]andom/,"<span style='color:"+randcolor+"'>Random</span>");
                         str=str.replace(/[Kk]illing/,"<span style='color:"+randcolor+"'>Killing</span>");
                         str=str.replace(/[Mm]afia/,"<span style='color:"+mafiacolor+"'>Mafia</span>");

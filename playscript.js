@@ -457,6 +457,7 @@ function formatAlignment(str)
 	str=str.replace(/[Ss]upport/,"<span style='color:"+randcolor+"'>Support</span>");
 	str=str.replace(/[Pp]rotective/,"<span style='color:"+randcolor+"'>Protective</span>");
 	str=str.replace(/[Pp]ower/,"<span style='color:"+randcolor+"'>Power</span>");
+	str=str.replace(/[Cc]asual/,"<span style='color:"+randcolor+"'>Casual</span>");
 	str=str.replace(/[Rr]andom/,"<span style='color:"+randcolor+"'>Random</span>");
 	str=str.replace(/[Kk]illing/,"<span style='color:"+randcolor+"'>Killing</span>");
 	str=str.replace(/[Mm]afia/,"<span style='color:"+mafiacolor+"'>Mafia</span>");
