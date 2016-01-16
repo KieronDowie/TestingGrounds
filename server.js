@@ -2043,7 +2043,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'Sorry! This command is only available in Pregame.');
+							this.s.emit(Type.SYSTEM,'Sorry! This command is only available in Pregame.');
 						}
 					break;
 					case 'hug':
