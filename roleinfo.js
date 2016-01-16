@@ -255,6 +255,8 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose to drug someone at night.',
 					attributes:['Drugged targets will get a fake notification of your choice.',
+					'You can choose between dousing, roleblocking, transporting, healed, attacker fought off and witched.',
+					'Alternatively, you can stop them from getting notifications for that night.'
 //'If there are no kill capable Mafia roles left you will become a Mafioso.'
 					],
 					goal:mafiagoal,
