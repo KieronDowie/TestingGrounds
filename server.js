@@ -1685,7 +1685,7 @@ function Player(socket,name,ip)
 							{
 								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
 							}
-							else if (!this.alive)
+							else if (!this.alive && phase != Phase.PREGAME)
 							{
 								socket.emit(Type.SYSTEM,'You need to be alive to whisper.');
 							}
@@ -2138,6 +2138,16 @@ function Player(socket,name,ip)
 						else
 						{
 							socket.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
+						}
+					break;
+					case 'ban':
+					if (c.length >= 2)
+						{
+							if (this.dev)
+							{
+								banlist.push(c[1]);
+								socket.emit(Type.SYSTEM, 'You banned the ip: '+c[1]);
+							}
 						}
 					break;
 					case 'kick':
