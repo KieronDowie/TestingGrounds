@@ -654,7 +654,6 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			console.log(dcd);
 			socket.disconnect();
 		}
 	}
@@ -2311,7 +2310,7 @@ function Player(socket,name,ip)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot whisper to yourself.');
 				}
-				else if (!to.alive)
+				else if (!to.alive && phase != Type.PREGAME)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot whisper to the dead.');
 				}
