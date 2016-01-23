@@ -360,7 +360,7 @@ var server = http.createServer(function(req,res)
 		break;
 		case '/namecheck':
 			var name = url.parse(req.url).query;
-			if (name)
+			if (name && typeof name == 'string')
 			{
 				res.writeHead(200, {"Content-Type": "text/plain"});
 				if (nameTaken(name))
@@ -1097,7 +1097,7 @@ function nameTaken(name)
 }
 function nameCheck(name)
 {
-	return ( name.length != 0 && name.length<=20 &&  /[a-z]/i.test(name) && /^[a-z0-9-_]+$/i.test(name));
+	return ( name && typeof name == 'string' && name.length != 0 && name.length<=20 &&  /[a-z]/i.test(name) && /^[a-z0-9-_]+$/i.test(name));
 }
 function sanitize(msg)
 {
