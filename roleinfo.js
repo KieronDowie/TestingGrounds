@@ -250,7 +250,7 @@ var roles=[
 					color:mafiacolor
 			},
 //ROLEIDEADRUG (FOR CTRL + F PURPOSES)
-			{      
+			/*{      
 					rolename:"drug dealer",
 					alignment:"mafia deception",
 					abilities:'Choose to drug someone at night.',
@@ -259,6 +259,15 @@ var roles=[
 					'Alternatively, you can stop them from getting notifications for that night.'
 //'If there are no kill capable Mafia roles left you will become a Mafioso.'
 					],
+					goal:mafiagoal,
+					color:mafiacolor
+			},*/
+			//ROLEIDEAWATCHER
+			{      
+					rolename:"watcher",
+					alignment:"mafia support",
+					abilities:'Watch someone at night to see who visits them.',
+					attributes:[''],
 					goal:mafiagoal,
 					color:mafiacolor
 			},

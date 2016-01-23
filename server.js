@@ -74,7 +74,7 @@ var prev_rolled;
 var testTime;
 loadDate();
 //Banlist
-var banlist = ['178.90.251.72'];
+var banlist = [];
 //Start the timer.
 var timer = Timer();
 timer.tick();
