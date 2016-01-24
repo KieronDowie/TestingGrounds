@@ -2097,9 +2097,13 @@ function Player(socket,name,ip)
 							{
 								this.s.emit(Type.SYSTEM,'You do not have a role.');
 							}
-							else
+							else if (roles.hasRolecard(this.role))
 							{
 								this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role));
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'Your role is '+this.role+'.');
 							}
 						}
 						else
@@ -2310,7 +2314,7 @@ function Player(socket,name,ip)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot whisper to yourself.');
 				}
-				else if (!to.alive && phase != Type.PREGAME)
+				else if (!to.alive && phase != Phase.PREGAME)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot whisper to the dead.');
 				}
