@@ -263,14 +263,14 @@ var roles=[
 					color:mafiacolor
 			},*/
 			//ROLEIDEAWATCHER
-			{      
+			/*{      
 					rolename:"watcher",
 					alignment:"mafia support",
 					abilities:'Watch someone at night to see who visits them.',
 					attributes:[''],
 					goal:mafiagoal,
 					color:mafiacolor
-			},
+			},*/
 			{      
 					rolename:"framer",
 					alignment:"mafia deception",
@@ -398,6 +398,17 @@ var roles=[
 					'You can\'t choose a unique role.'],
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
+			},
+			/*ROLEIDEAAVENGER*/
+			{      
+					rolename:"avenger",
+					alignment:"neutral benign",
+					abilities:'You will clean the first non-chaotic Neutral death OR the latest Town or Mafia death when half of them die and become their role.',
+					attributes:['Your new alignment will be announced to the town.',
+					'This ability also applies to lynches but you CANNOT become a lynched Jester.',
+					'Only you will see the cleaned target\'s role and last will.'],
+					goal:"Take vengeance for someone and complete their objective.",
+					color:"#408080"
 			},
 			//Casual roles
 			{
