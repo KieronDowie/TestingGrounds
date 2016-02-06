@@ -399,7 +399,7 @@ var roles=[
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
 			},
-			/*ROLEIDEAAVENGER*/
+			/*ROLEIDEAAVENGER
 			{      
 					rolename:"avenger",
 					alignment:"neutral benign",
@@ -409,6 +409,29 @@ var roles=[
 					'Only you will see the cleaned target\'s role and last will.'],
 					goal:"Take vengeance for someone and complete their objective.",
 					color:"#408080"
+			},*/
+			/*ROLEIDEABURGLAR*/
+			{      
+					rolename:"burglar",
+					alignment:"neutral evil",
+					abilities:'Choose a person and steal their will at night.',
+					attributes:['You may only steal 3 wills.',
+					'Can only steal wills from Town roles.',
+					'Evil targets will know someone tried to steal their will.',
+					'If you steal someone\'s will the night they die, their will will not show.'],
+					goal:"Manipulate the town into losing.",
+					color:"#292929"
+			},
+			{      
+					rolename:"burglar",
+					alignment:"mafia support",
+					abilities:'Choose a person and steal their will at night.',
+					attributes:['You may only steal 3 wills.',
+					'Can only steal wills from Town roles.',
+					'Evil targets will know someone tried to steal their will.',
+					'If you steal someone\'s will the night they die, their will will not show.'],
+					goal:mafiagoal,
+					color:mafiacolor
 			},
 			//Casual roles
 			{
