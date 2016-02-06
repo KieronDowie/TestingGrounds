@@ -412,7 +412,7 @@ var roles=[
 			},*/
 			/*ROLEIDEABURGLAR*/
 			{      
-					rolename:"burglar",
+					rolename:"thief",
 					alignment:"neutral evil",
 					abilities:'Choose a person and steal their will at night.',
 					attributes:['You may only steal 3 wills.',
