@@ -109,7 +109,7 @@ var roles=[
 					abilities:'Choose two people to transport at night.',
 					attributes:['Transporting two people swaps all targets against them.',
 					'You may transport yourself.',
-					'Your targets will know they were transported.'],
+					'Your targets will NOT know they were transported.'],
 					goal:towngoal,
 					color:towncolor
 			},
