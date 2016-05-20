@@ -10,234 +10,234 @@ var mafiagoal = "Kill anyone that will not submit to the Mafia.";
 
 var roles=[
 			{      
-					rolename:"sheriff",
-					alignment:"town investigative",
-					abilities:'Check one person each night for suspicious activity.',
-					attributes:['You will know if your target is a member of the Mafia, except for the Godfather.',
-					'You will know if your target is a Serial Killer.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"sheriff",
+				alignment:"town investigative",
+				abilities:'Check one person each night for suspicious activity.',
+				attributes:['You will know if your target is a member of the Mafia, except for the Godfather.',
+				'You will know if your target is a Serial Killer.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"investigator",
-					alignment:"town investigative",
-					abilities:'Investigate one person each night for a clue to their role.',
-					attributes:[],
-					goal:towngoal,
-					color:towncolor
+				rolename:"investigator",
+				alignment:"town investigative",
+				abilities:'Investigate one person each night for a clue to their role.',
+				attributes:[],
+				goal:towngoal,
+				color:towncolor
 			},
 			/*ROLEIDEASCIENTIST
 			{      
-					rolename:"scientist",
-					alignment:"town investigative",
-					abilities:'Take a fingerprint sample of one person each night.',
-					attributes:['Compare their sample to the test subject from the previous night, comparing alignment supertype (Town, Mafia, Neutral).',
-					'You will recieve a result of \'Same\' or \'Different\'',
-					'You may not sample yourself.',
-					'You may not sample a revealed mayor.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"scientist",
+				alignment:"town investigative",
+				abilities:'Take a fingerprint sample of one person each night.',
+				attributes:['Compare their sample to the test subject from the previous night, comparing alignment supertype (Town, Mafia, Neutral).',
+				'You will recieve a result of \'Same\' or \'Different\'',
+				'You may not sample yourself.',
+				'You may not sample a revealed mayor.'],
+				goal:towngoal,
+				color:towncolor
 			},*/
 			{      
-					rolename:"lookout",
-					alignment:"town investigative",
-					abilities:'Watch one person at night to see who visits them.',
-					attributes:[],
-					goal:towngoal,
-					color:towncolor
-			},
+			},				rolename:"lookout",
+				alignment:"town investigative",
+				abilities:'Watch one person at night to see who visits them.',
+				attributes:[],
+				goal:towngoal,
+				color:towncolor
+
 //ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
 			/*{      
-					rolename:"shadowalker",
-					alignment:"neutral killing",
-					abilities:'Choose to walk in someone\'s shadow each night',
-					attributes:["When walking in someone's shadow, You will kill whoever they visited.",
-											"Lookouts will only see your target visiting someone and not you.",
-											"If your target stays home or is a non visiting role, they will be attacked directly.",
-											"Lookout will only see you if you do a direct attack on your target.",
-											"If you target a Bodyguard, they will not be able to guard your attacks."],
-					goal:"Kill anyone that would oppose you.",
-					color:'#BF40BF'
+				rolename:"shadowalker",
+				alignment:"neutral killing",
+				abilities:'Choose to walk in someone\'s shadow each night',
+				attributes:["When walking in someone's shadow, You will kill whoever they visited.",
+							"Lookouts will only see your target visiting someone and not you.",
+							"If your target stays home or is a non visiting role, they will be attacked directly.",
+							"Lookout will only see you if you do a direct attack on your target.",
+							"If you target a Bodyguard, they will not be able to guard your attacks."],
+				goal:"Kill anyone that would oppose you.",
+				color:'#BF40BF'
 			},*/
 			{      
-					rolename:"spy",
-					alignment:"town investigative",
-					abilities:'See who the Mafia visit at night.',
-					attributes:['You can hear private messages.',
-	'You will know who the Mafia visit at night.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"spy",
+				alignment:"town investigative",
+				abilities:'See who the Mafia visit at night.',
+				attributes:['You can hear private messages.',
+				'You will know who the Mafia visit at night.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"mayor",
-					alignment:"town power",
-					abilities:'You may reveal yourself as the Mayor of the Town.',
-					attributes:['Once you have revealed yourself as Mayor your vote counts as 3 votes.',
-					'You may not be healed once you have revealed yourself.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"mayor",
+				alignment:"town power",
+				abilities:'You may reveal yourself as the Mayor of the Town.',
+				attributes:['Once you have revealed yourself as Mayor your vote counts as 3 votes.',
+				'You may not be healed once you have revealed yourself.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"escort",
-					alignment:"town support",
-					abilities:'Distract someone each night.',
-					attributes:['Distraction blocks your target from using their role\'s night ability.',
-					'You are immune to role blocks.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"escort",
+				alignment:"town support",
+				abilities:'Distract someone each night.',
+				attributes:['Distraction blocks your target from using their role\'s night ability.',
+				'You are immune to role blocks.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"medium",
-					alignment:"town support",
-					abilities:'When dead speak to a living person at night.',
-					attributes:     ['You will speak to the dead anonymously each night you are alive.',
-					'You may only speak to a living person once.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"medium",
+				alignment:"town support",
+				abilities:'When dead speak to a living person at night.',
+				attributes:     ['You will speak to the dead anonymously each night you are alive.',
+				'You may only speak to a living person once.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"retributionist",
-					alignment:"town power",
-					abilities:'You may revive a dead Town member.',
-					attributes:['You may only resurrect one person.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"retributionist",
+				alignment:"town power",
+				abilities:'You may revive a dead Town member.',
+				attributes:['You may only resurrect one person.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"transporter",
-					alignment:"town support",
-					abilities:'Choose two people to transport at night.',
-					attributes:['Transporting two people swaps all targets against them.',
-					'You may transport yourself.',
-					'Your targets will NOT know they were transported.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"transporter",
+				alignment:"town support",
+				abilities:'Choose two people to transport at night.',
+				attributes:['Transporting two people swaps all targets against them.',
+				'You may transport yourself.',
+				'Your targets will NOT know they were transported.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"doctor",
-					alignment:"town protective",
-					abilities:'Heal one person each night, preventing them from dying.',
-					attributes:['You may only heal yourself once.',
-					'You will know if your target is attacked.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"doctor",
+				alignment:"town protective",
+				abilities:'Heal one person each night, preventing them from dying.',
+				attributes:['You may only heal yourself once.',
+				'You will know if your target is attacked.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"bodyguard",
-					alignment:"town protective",
-					abilities:'Protect one person from death at night.',
-					attributes:['If your target is attacked both you and your attacker will die instead.',
-					'If you successfully protect someone you can still be healed.',
-					'Your counterattack ignores night immunity.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"bodyguard",
+				alignment:"town protective",
+				abilities:'Protect one person from death at night.',
+				attributes:['If your target is attacked both you and your attacker will die instead.',
+				'If you successfully protect someone you can still be healed.',
+				'Your counterattack ignores night immunity.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"vigilante",
-					alignment:"town killing",
-					abilities:'Choose to take justice into your own hands and shoot someone.',
-					attributes:['If you shoot another Town member you will commit suicide over the guilt.',
-					'You can only shoot your gun 3 times.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"vigilante",
+				alignment:"town killing",
+				abilities:'Choose to take justice into your own hands and shoot someone.',
+				attributes:['If you shoot another Town member you will commit suicide over the guilt.',
+				'You can only shoot your gun 3 times.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"veteran",
-					alignment:"town killing",
-					abilities:'Decide if you will go on alert.',
-					attributes:['While on alert you can not be killed at night.',
-					'If anyone visits you while you are on alert they will be shot.',
-					'You can only go on alert 3 times.',
-					'You are immune to role blocks.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"veteran",
+				alignment:"town killing",
+				abilities:'Decide if you will go on alert.',
+				attributes:['While on alert you can not be killed at night.',
+				'If anyone visits you while you are on alert they will be shot.',
+				'You can only go on alert 3 times.',
+				'You are immune to role blocks.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"jailor",
-					alignment:"town power",
-					abilities:'You may choose one person during the day to jail for the night.',
-					attributes:['You may anonymously talk with your prisoner.',
-'You can choose to execute your prisoner.',
-'The jailed target can\'t perform their night ability.',
-'While jailed the prisoner is safe from all attacks.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"jailor",
+				alignment:"town power",
+				abilities:'You may choose one person during the day to jail for the night.',
+				attributes:['You may anonymously talk with your prisoner.',
+				'You can choose to execute your prisoner.',
+				'The jailed target can\'t perform their night ability.',
+				'While jailed the prisoner is safe from all attacks.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{      
-					rolename:"godfather",
-					alignment:"mafia killing",
-					abilities:'Kill someone each night.',
-					attributes:['You can\'t be killed at night.',
-//'If there is a Mafioso he will attack the target instead of you.',
-'You can choose to command your Caporegime member to kill for you instead.',
-'You will appear to be a Town member to the Sheriff.',
-'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"godfather",
+				alignment:"mafia killing",
+				abilities:'Kill someone each night.',
+				attributes:['You can\'t be killed at night.',
+				//'If there is a Mafioso he will attack the target instead of you.',
+				'You can choose to command your Caporegime member to kill for you instead.',
+				'You will appear to be a Town member to the Sheriff.',
+				'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"underboss",
-					alignment:"mafia killing",
-					abilities:'Kill someone each night.',
-					attributes:['You can\'t be killed at night.',
-'If you are role-blocked, your Caporegime member will automatically kill for you.',
-'If you are jailed, your Caporegime member can choose to kill instead of their normal night action.',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"underboss",
+				alignment:"mafia killing",
+				abilities:'Kill someone each night.',
+				attributes:['You can\'t be killed at night.',
+				'If you are role-blocked, your Caporegime member will automatically kill for you.',
+				'If you are jailed, your Caporegime member can choose to kill instead of their normal night action.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			/*{    
-					rolename:"mafioso",
-					alignment:"mafia killing",
-					abilities:'Carry out the Godfather\'s order.',
-					attributes:['You can kill if the Godfather doesn\'t give you orders.',
-'If the Godfather dies you will become the next Godfather.',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"mafioso",
+				alignment:"mafia killing",
+				abilities:'Carry out the Godfather\'s order.',
+				attributes:['You can kill if the Godfather doesn\'t give you orders.',
+				'If the Godfather dies you will become the next Godfather.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},*/
-			/*ROLEIDEANIGHTMARE
+			/*ROLEIDEANIGHTMARER
 			{      
-					rolename:"nightmarer",
-					alignment:"mafia support",
-					abilities:'Make someone have a nightmare about someone each night.',
-					attributes:['Your target will be too scared to visit the person they have a nightmare about.',
-								'Targets are told who the nightmare is about.',
-								'Your target will be unable to visit the person until you give them a different nightmare.',								
-								'All nightmares end if the nightmarer dies or is promoted.'
-					],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"nightmarer",
+				alignment:"mafia support",
+				abilities:'Make someone have a nightmare about someone each night.',
+				attributes:['Your target will be too scared to visit the person they have a nightmare about.',
+							'Targets are told who the nightmare is about.',
+							'Your target will be unable to visit the person until you give them a different nightmare.',								
+							'All nightmares end if the nightmarer dies or is promoted.'
+				],
+				goal:mafiagoal,
+				color:mafiacolor
 			},*/
 			{      
-					rolename:"blackmailer",
-					alignment:"mafia support",
-					abilities:'Choose one person each night to blackmail.',
-					attributes:['Blackmailed targets can not talk during the day.',
-'If there are no kill capable Mafia roles left you will become a Mafioso.',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"blackmailer",
+				alignment:"mafia support",
+				abilities:'Choose one person each night to blackmail.',
+				attributes:['Blackmailed targets can not talk during the day.',
+				'If there are no kill capable Mafia roles left you will become a Mafioso.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"consigliere",
-					alignment:"mafia support",
-					abilities:'Check one person for their exact role each night.',
-					attributes:['If there are no kill capable Mafia roles left you will become a Mafioso.',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"consigliere",
+				alignment:"mafia support",
+				abilities:'Check one person for their exact role each night.',
+				attributes:['If there are no kill capable Mafia roles left you will become a Mafioso.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"consort",
-					alignment:"mafia support",
-					abilities:'Distract someone each night.',
-					attributes:['Distraction blocks your target from using their role\'s night ability.',
-'If there are no kill capable Mafia roles left you will become a Mafioso.',
-'You can talk with the other Mafia at night.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"consort",
+				alignment:"mafia support",
+				abilities:'Distract someone each night.',
+				attributes:['Distraction blocks your target from using their role\'s night ability.',
+				'If there are no kill capable Mafia roles left you will become a Mafioso.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
 					rolename:"disguiser",
@@ -473,7 +473,19 @@ var roles=[
                      "You make Dota happy."],
                      goal:mafiagoal,
                      color:mafiacolor
-         }     */                     
+         }     */    
+		 {
+			rolename:"lost spirit",
+			alignment:"neutral benign",
+			abilities:'look for death each night.',
+			attributes:['the following roles can lift your curse: shooting Vigilante, alerting Veteran, executing Jailor, every Mafia(Killing) role, every Neutral(Killing) role except Arsonist, anyone dying to not suicide',
+						'Immune to ignition', 
+						'Witches roleblock you',
+						'You last will is cleaned upon success',
+						'You will grant you killer unpierceable nightimmunity'],
+			goal:'find a way to lift your curse!',
+			color:"#8080FF"
+		},
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
