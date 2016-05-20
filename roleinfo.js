@@ -432,6 +432,18 @@ var roles=[
 					'If you steal someone\'s will the night they die, their will will not show.'],
 					goal:mafiagoal,
 					color:mafiacolor
+			},    
+			{
+				rolename:"lost spirit",
+				alignment:"neutral benign",
+				abilities:'Look for death each night.',
+				attributes:['Killing roles (except Arsonist) can lift your curse',
+							'Immune to ignition', 
+							'Witches roleblock you',
+							'Your last will is cleaned upon success',
+							'You will grant you killer unpierceable nightimmunity'],
+				goal:'find a way to lift your curse!',
+				color:"#8080FF"
 			},
 			//Casual roles
 			{
@@ -473,19 +485,7 @@ var roles=[
                      "You make Dota happy."],
                      goal:mafiagoal,
                      color:mafiacolor
-         }     */    
-		 {
-			rolename:"lost spirit",
-			alignment:"neutral benign",
-			abilities:'Look for death each night.',
-			attributes:['The following roles can lift your curse: shooting Vigilante, alerting Veteran, executing Jailor, every Mafia(Killing) role, every Neutral(Killing) role except Arsonist, anyone dying to not suicide',
-						'Immune to ignition', 
-						'Witches roleblock you',
-						'Your last will is cleaned upon success',
-						'You will grant you killer unpierceable nightimmunity'],
-			goal:'find a way to lift your curse!',
-			color:"#8080FF"
-		}
+         }     */
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
