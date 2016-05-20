@@ -45,7 +45,15 @@ var roles=[
 				attributes:[],
 				goal:towngoal,
 				color:towncolor
-			},				
+			},	
+			{    
+				rolename:"tracker",
+				alignment:"town investigative",
+				abilities:'Follow one person to see who they visit.',
+				attributes:[],
+				goal:towngoal,
+				color:towncolor
+			},
 				/*rolename:"lookout",
 				alignment:"town investigative",
 				abilities:'Watch one person at night to see who visits them.',
@@ -449,7 +457,7 @@ var roles=[
 							'Witches roleblock you',
 							'Your last will is cleaned upon success',
 							'You will grant you killer unpierceable nightimmunity'],
-				goal:'find a way to lift your curse!',
+				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
 			},
 			//Casual roles
