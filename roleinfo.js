@@ -477,15 +477,15 @@ var roles=[
 		 {
 			rolename:"lost spirit",
 			alignment:"neutral benign",
-			abilities:'look for death each night.',
-			attributes:['the following roles can lift your curse: shooting Vigilante, alerting Veteran, executing Jailor, every Mafia(Killing) role, every Neutral(Killing) role except Arsonist, anyone dying to not suicide',
+			abilities:'Look for death each night.',
+			attributes:['The following roles can lift your curse: shooting Vigilante, alerting Veteran, executing Jailor, every Mafia(Killing) role, every Neutral(Killing) role except Arsonist, anyone dying to not suicide',
 						'Immune to ignition', 
 						'Witches roleblock you',
-						'You last will is cleaned upon success',
+						'Your last will is cleaned upon success',
 						'You will grant you killer unpierceable nightimmunity'],
 			goal:'find a way to lift your curse!',
 			color:"#8080FF"
-		},
+		}
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
  
