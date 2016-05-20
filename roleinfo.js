@@ -38,13 +38,20 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},*/
-			{      
-			},				rolename:"lookout",
+			{    
+				rolename:"lookout",
 				alignment:"town investigative",
 				abilities:'Watch one person at night to see who visits them.',
 				attributes:[],
 				goal:towngoal,
 				color:towncolor
+			},				
+				/*rolename:"lookout",
+				alignment:"town investigative",
+				abilities:'Watch one person at night to see who visits them.',
+				attributes:[],
+				goal:towngoal,
+				color:towncolor*/
 
 //ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
 			/*{      
