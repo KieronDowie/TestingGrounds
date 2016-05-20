@@ -22,7 +22,7 @@ var roles=[
 				rolename:"investigator",
 				alignment:"town investigative",
 				abilities:'Investigate one person each night for a clue to their role.',
-				attributes:[],
+				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
 			},
@@ -42,7 +42,7 @@ var roles=[
 				rolename:"lookout",
 				alignment:"town investigative",
 				abilities:'Watch one person at night to see who visits them.',
-				attributes:[],
+				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
 			},	
@@ -50,7 +50,7 @@ var roles=[
 				rolename:"tracker",
 				alignment:"town investigative",
 				abilities:'Follow one person to see who they visit.',
-				attributes:[],
+				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
 			},
