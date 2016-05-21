@@ -475,7 +475,7 @@ var roles=[
 					abilities:'Your only ability is your vote.',
 					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
 					goal:towngoal,
-					color:towncolor
+					color:mafiacolor
 			},
 			{
 					rolename:"game engine",
