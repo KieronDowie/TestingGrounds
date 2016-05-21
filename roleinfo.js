@@ -456,7 +456,7 @@ var roles=[
 							'Immune to ignition.', 
 							'Witches roleblock you.',
 							'Your last will is cleaned upon success.',
-							'You will grant your killer unpierceable nightimmunity.'],
+							'You will grant your killer unpierceable nightimmunity until the following night.'],
 				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
 			},
@@ -465,7 +465,7 @@ var roles=[
 					alignment:"neutral benign",
 					abilities:'Select someone each night to try to bury them.',
 					attributes:['If the person you selected dies the same night or the next day via lynching, they will be "buried".',
-								'Buried players will count as cleaned',
+								'Buried players have their wills removed',
 								'You will have access to a buried players will and role',
 								'You will join the deathchat, after your goal is fulfilled',
 								'You cannot be killed at night'],
@@ -510,7 +510,15 @@ var roles=[
 					color:"#000000"
 			},
 			{
-					rolename:"afk",
+					rolename:"Kitteh",
+					alignment:"neutral casual",
+					abilities:'Do what you want.',
+					attributes:['"Whatever you wish for'],
+					goal:"See the TG without bugs.",
+					color:"#FFFFFF"
+			},
+			{
+					rolename:"AFK",
 					alignment:"neutral trueEvil",
 					abilities:'Die before the game has started.',
 					attributes:['You have lost automaticly.'],
