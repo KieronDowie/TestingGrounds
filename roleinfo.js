@@ -212,7 +212,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},*/
-			/*ROLEIDEANIGHTMARER
+			// /*ROLEIDEANIGHTMARER
 			{      
 				rolename:"nightmarer",
 				alignment:"mafia support",
@@ -224,7 +224,7 @@ var roles=[
 				],
 				goal:mafiagoal,
 				color:mafiacolor
-			},*/
+			},//*/
 			{      
 				rolename:"blackmailer",
 				alignment:"mafia support",
@@ -426,7 +426,7 @@ var roles=[
 					color:"#408080"
 			},*/
 			/*ROLEIDEABURGLAR*/
-			{      
+			/*{      
 					rolename:"thief",
 					alignment:"neutral evil",
 					abilities:'Choose a person and steal their will at night.',
@@ -447,16 +447,16 @@ var roles=[
 					'If you steal someone\'s will the night they die, their will will not show.'],
 					goal:mafiagoal,
 					color:mafiacolor
-			},    
+			}, **/   
 			{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
 				abilities:'Look for death each night.',
-				attributes:['Killing roles (except Arsonist) can lift your curse',
-							'Immune to ignition', 
-							'Witches roleblock you',
-							'Your last will is cleaned upon success',
-							'You will grant you killer unpierceable nightimmunity'],
+				attributes:['Killing roles (except Arsonist) can lift your curse, but Town(Killing) roles have to use their ability.',
+							'Immune to ignition.', 
+							'Witches roleblock you.',
+							'Your last will is cleaned upon success.',
+							'You will grant your killer unpierceable nightimmunity.'],
 				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
 			},
@@ -468,6 +468,30 @@ var roles=[
 					attributes:['Without the burden of power to weigh you down, you exhibit superior logic and deductive abilities.'],
 					goal:towngoal,
 					color:towncolor
+			},
+			{
+					rolename:"goon",
+					alignment:"mafia casual",
+					abilities:'Your only ability is your vote.',
+					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
+					goal:towngoal,
+					color:towncolor
+			},
+			{
+					rolename:"game engine",
+					alignment:"neutral casual",
+					abilities:'Process the game.',
+					attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
+					goal:"See a fraction win the game.",
+					color:"#000000"
+			},
+			{
+					rolename:"afk",
+					alignment:"neutral trueEvil",
+					abilities:'Die before the game has started.',
+					attributes:['You have lost automaticly.'],
+					goal:"None",
+					color:"#B05F3C"
 			},
 			//ARPITR ROLES 
 			/*{     
