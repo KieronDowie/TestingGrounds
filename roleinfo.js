@@ -46,14 +46,14 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},	
-			{    
+			/*{    
 				rolename:"tracker",
 				alignment:"town investigative",
 				abilities:'Follow one person to see who they visit.',
 				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
-			},
+			},*/
 				/*rolename:"lookout",
 				alignment:"town investigative",
 				abilities:'Watch one person at night to see who visits them.',
