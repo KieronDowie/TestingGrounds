@@ -510,7 +510,7 @@ var roles=[
 					color:"#000000"
 			},
 			{
-					rolename:"Kitteh",
+					rolename:"kitteh",
 					alignment:"neutral casual",
 					abilities:'Do what you want.',
 					attributes:['"Whatever you wish for'],
@@ -518,7 +518,7 @@ var roles=[
 					color:"#FFFFFF"
 			},
 			{
-					rolename:"AFK",
+					rolename:"afk",
 					alignment:"neutral trueEvil",
 					abilities:'Die before the game has started.',
 					attributes:['You have lost automaticly.'],
