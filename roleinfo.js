@@ -460,6 +460,30 @@ var roles=[
 				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
 			},
+			{
+					rolename:"undertaker",
+					alignment:"neutral benign",
+					abilities:'Select someone each night to try to bury them.',
+					attributes:['If the person you selected dies the same night or the next day via lynching, they will be "buried".',
+								'Buried players will count as cleaned',
+								'You will have access to a buried players will and role',
+								'You will join the deathchat, after your goal is fulfilled',
+								'You cannot be killed at night'],
+					goal:"Bury 1-3 people",
+					color:"#739292"
+			},
+			{
+					rolename:"politician",
+					alignment:"neutral evil",
+					abilities:'Bribe one player each night to commandeer their vote during the day.',
+					attributes:['You can choose to use your targets vote or not.',
+								'The person you bribed will be notified that you bribed them.',
+								'You can control them to vote guilty, innocent or abstain',
+								'You can not bribe a revealed Mayor.',
+								'You are able to read whispers.'],
+					goal:"Survive to see the Town lose the game.",
+					color:"#49A9D0"
+			},
 			//Casual roles
 			{
 					rolename:"citizen",
@@ -474,7 +498,7 @@ var roles=[
 					alignment:"mafia casual",
 					abilities:'Your only ability is your vote.',
 					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
-					goal:towngoal,
+					goal:mafiagoal,
 					color:mafiacolor
 			},
 			{
@@ -482,7 +506,7 @@ var roles=[
 					alignment:"neutral casual",
 					abilities:'Process the game.',
 					attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
-					goal:"See a fraction win the game.",
+					goal:"See a faction win the game.",
 					color:"#000000"
 			},
 			{
