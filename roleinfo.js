@@ -677,14 +677,14 @@ module.exports = {
                                         {
                                                 return true;
                                         }
-										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky'))
+										/*else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky'))
 										{
                                                 return true;
                                         }
 										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil'))
 										{
                                                 return true;
-                                        }
+                                        }*/
                                         else if (r[i].split(" ")[0]=="random")
                                         {                                                                      
                                                 var splitr=r[i].split(" ");
@@ -693,7 +693,7 @@ module.exports = {
                                                 {
                                                         if (splitr[1]==splitelem[0])
                                                         {
-															if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
+															if (splitelem[1] != 'power' && splitelem[1] != 'casual')// && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
 															{
 																return true;
 															}
