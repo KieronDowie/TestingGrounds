@@ -54,12 +54,6 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},*/
-				/*rolename:"lookout",
-				alignment:"town investigative",
-				abilities:'Watch one person at night to see who visits them.',
-				attributes:[],
-				goal:towngoal,
-				color:towncolor*/
 
 //ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
 			/*{      
@@ -212,7 +206,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},*/
-			// /*ROLEIDEANIGHTMARER
+			 /*ROLEIDEANIGHTMARER
 			{      
 				rolename:"nightmarer",
 				alignment:"mafia support",
@@ -224,7 +218,7 @@ var roles=[
 				],
 				goal:mafiagoal,
 				color:mafiacolor
-			},//*/
+			},*/
 			{      
 				rolename:"blackmailer",
 				alignment:"mafia support",
@@ -259,8 +253,8 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose a target to disguise yourself as.',
 					attributes:['If your target dies you will appear to be them.',
-'You can only use your night ability three times.',
-'After disguising your name, position and character will be swapped with your targets.'],
+								'You can only use your night ability three times.',
+								'After disguising your name, position and character will be swapped with your targets.'],
 					goal:mafiagoal,
 					color:mafiacolor
 			},
@@ -448,7 +442,7 @@ var roles=[
 					goal:mafiagoal,
 					color:mafiacolor
 			}, **/   
-			{
+			/*{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
 				abilities:'Look for death each night.',
@@ -456,23 +450,36 @@ var roles=[
 							'Immune to ignition.', 
 							'Witches roleblock you.',
 							'Your last will is cleaned upon success.',
+							'You cannot be protected or healed.',
 							'You will grant your killer unpierceable nightimmunity until the following night.'],
 				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
-			},
-			{
+			},*/
+			/*{
 					rolename:"undertaker",
 					alignment:"neutral benign",
 					abilities:'Select someone each night to try to bury them.',
 					attributes:['If the person you selected dies the same night or the next day via lynching, they will be "buried".',
-								'Buried players have their wills removed',
+								//'Buried players have their wills removed',
 								'You will have access to a buried players will and role',
 								'You will join the deathchat, after your goal is fulfilled',
 								'You cannot be killed at night'],
 					goal:"Bury 1-3 people",
 					color:"#739292"
-			},
-			{
+			},*/
+			/*{
+				rolename:"banshee",
+				alignment:"neutral chaos",
+				abilities:'Select 1/4 of the living population to be marked for death.',
+				attributes:['If someone dies without getting marked, you must wait a night before marking again.',
+							'Once you mark everyone, the public will be notified of your existence and will have one day to kill you before you take the win for yourself.',
+							'Targets are not notified of being marked.',
+							'You are night immune.',
+							'You are unique.'],
+				goal:"Live to see everyone die from your fate.",
+				color:"#008080"
+			},*/
+			/*{
 					rolename:"politician",
 					alignment:"neutral evil",
 					abilities:'Bribe one player each night to commandeer their vote during the day.',
@@ -483,7 +490,7 @@ var roles=[
 								'You are able to read whispers.'],
 					goal:"Survive to see the Town lose the game.",
 					color:"#49A9D0"
-			},
+			},*/
 			//Casual roles
 			{
 					rolename:"citizen",
@@ -493,14 +500,14 @@ var roles=[
 					goal:towngoal,
 					color:towncolor
 			},
-			{
+			/*{
 					rolename:"goon",
 					alignment:"mafia casual",
 					abilities:'Your only ability is your vote.',
 					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
 					goal:mafiagoal,
 					color:mafiacolor
-			},
+			},*/
 			{
 					rolename:"game engine",
 					alignment:"neutral casual",
@@ -513,9 +520,9 @@ var roles=[
 					rolename:"kitteh",
 					alignment:"neutral casual",
 					abilities:'Do what you want.',
-					attributes:['"Whatever you wish for'],
+					attributes:['Whatever you wish for'],
 					goal:"See the TG without bugs.",
-					color:"#FFFFFF"
+					color:"#F0FF0F"
 			},
 			{
 					rolename:"afk",
@@ -524,6 +531,22 @@ var roles=[
 					attributes:['You have lost automaticly.'],
 					goal:"None",
 					color:"#B05F3C"
+			},
+			{
+					rolename:"late",
+					alignment:"neutral unlucky",
+					abilities:'Being too late.',
+					attributes:['Please wait patiently for the game to end'],
+					goal:"Wait for a game to start",
+					color:"#FF0F0F"
+			},
+			{
+					rolename:"late :c",
+					alignment:"neutral unlucky",
+					abilities:'Being too late.',
+					attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
+					goal:"Wait for a game to start",
+					color:"#FF0F0F"
 			},
 			//ARPITR ROLES 
 			/*{     
