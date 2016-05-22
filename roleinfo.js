@@ -535,9 +535,9 @@ var roles=[
 			{
 					rolename:"late",
 					alignment:"neutral unlucky",
-					abilities:'Being too late.',
-					attributes:['Please wait patiently for the game to end'],
-					goal:"Wait for a game to start",
+					abilities:'You were too late.',
+					attributes:['Please wait patiently for the current game to end.'],
+					goal:"Wait for a new game to start",
 					color:"#FE00EF"
 			},
 			/*{
@@ -673,8 +673,16 @@ module.exports = {
                         {                                                      
                                 var matches=roles.filter(function(elem)
                                 {
-                                        if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ") != 'casual')) //prevent casual rolling as any
+                                        if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
                                         {
+                                                return true;
+                                        }
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky'))
+										{
+                                                return true;
+                                        }
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil'))
+										{
                                                 return true;
                                         }
                                         else if (r[i].split(" ")[0]=="random")
@@ -685,7 +693,7 @@ module.exports = {
                                                 {
                                                         if (splitr[1]==splitelem[0])
                                                         {
-															if (splitelem[1] != 'power' && splitelem[1] != 'casual') //Prevent Town Power and Town Casual from rolling as random town.
+															if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
 															{
 																return true;
 															}
