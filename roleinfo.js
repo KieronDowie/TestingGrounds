@@ -538,7 +538,7 @@ var roles=[
 					abilities:'Being too late.',
 					attributes:['Please wait patiently for the game to end'],
 					goal:"Wait for a game to start",
-					color:"#FF0F0F"
+					color:"#FF000F"
 			},
 			{
 					rolename:"late :c",
@@ -546,7 +546,7 @@ var roles=[
 					abilities:'Being too late.',
 					attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
 					goal:"Wait for a game to start",
-					color:"#FF0F0F"
+					color:"#FF000F"
 			},
 			//ARPITR ROLES 
 			/*{     
