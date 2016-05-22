@@ -538,7 +538,7 @@ var roles=[
 					abilities:'Being too late.',
 					attributes:['Please wait patiently for the game to end'],
 					goal:"Wait for a game to start",
-					color:"#FEDDEF"
+					color:"#FE00EF"
 			},
 			/*{
 					rolename:"late :c",
