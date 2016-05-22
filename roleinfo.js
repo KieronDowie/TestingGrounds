@@ -538,16 +538,16 @@ var roles=[
 					abilities:'Being too late.',
 					attributes:['Please wait patiently for the game to end'],
 					goal:"Wait for a game to start",
-					color:"#FF000F"
+					color:"#FEDDEF"
 			},
-			{
+			/*{
 					rolename:"late :c",
 					alignment:"neutral unlucky",
 					abilities:'Being too late.',
 					attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
 					goal:"Wait for a game to start",
-					color:"#FF000F"
-			},
+					color:"#FEDDEF"
+			},*/
 			//ARPITR ROLES 
 			/*{     
                rolename:"paradoxist",
