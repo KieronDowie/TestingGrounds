@@ -54,8 +54,20 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-
-//ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
+			{    
+				rolename:"Ghost",
+				alignment:"town protective",
+				abilities:'Roleblock a person and scare away all visiting killers.',
+				attributes:['You know if you have scared away a visitor',
+							'Your target does not know they were protected.',
+							'You will be killed if you protect a Serial Killer or turned Werewolf.',
+							'Killingroles are not counted as visitors for Lookout/Werewolf.',
+							'If you are jailed or visit the Jailor or their prisoner will protect both from any harm.',
+							'The Werewolf will trace your scent after your first encounter and kill you in the second.'],
+				goal:towngoal,
+				color:towncolor
+			},
+			//ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
 			{      
 				rolename:"shadowalker",
 				alignment:"neutral killing",
@@ -567,21 +579,21 @@ var roles=[
 				 "When taken in, it will be announced that the Orphan was taken in."],
 				 goal:"Get taken in, and help your team win.",
 				 color:"turquoise"
-         },
-         /*{
-                     rolename:"sniper",
-                     alignment:"mafia killing",
-                     abilities:'Shoot someone on a non-full moon nights.',
-                     attributes:["Godfather or Mafioso can't attack when you shoot.",
-                     "If both Mafioso and Godfather are in game, you become a Random mafia role.",
-                     "You are immune to a Bodyguard, Veteran and Lookout.",
-                     "You can charge your gun and pierce night immunity one night.",
-                     "You make Dota happy."],
-                     goal:mafiagoal,
-                     color:mafiacolor
-         }     */
+			},
+			/*{
+				 rolename:"sniper",
+				 alignment:"mafia killing",
+				 abilities:'Shoot someone on a non-full moon nights.',
+				 attributes:["Godfather or Mafioso can't attack when you shoot.",
+				 "If both Mafioso and Godfather are in game, you become a Random mafia role.",
+				 "You are immune to a Bodyguard, Veteran and Lookout.",
+				 "You can charge your gun and pierce night immunity one night.",
+				 "You make Dota happy."],
+				 goal:mafiagoal,
+				 color:mafiacolor
+			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee"];
  
 function getAttributes(num)
 {
@@ -658,68 +670,68 @@ function getRoleNum(name)
 {
         for (var i = 0; i < roles.length; i++)
         {
-                if (roles[i].rolename==name)
-                {
-                        return i;
-                }
+			if (roles[i].rolename==name)
+			{
+					return i;
+			}
         }
         return -1;
 }
 module.exports = {
           sortRoles: function(r)
           {
-                        r=lowerAll(r);
-                        for (i=0;i<r.length;i++)
-                        {                                                      
-                                var matches=roles.filter(function(elem)
-                                {
-                                        if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
-                                        {
-                                                return true;
-                                        }
-										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
-										{
-                                                return true;
-                                        }
-										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
-										{
-                                                return true;
-                                        }
-                                        else if (r[i].split(" ")[0]=="random")
-                                        {                                                                      
-                                                var splitr=r[i].split(" ");
-                                                var splitelem=elem.alignment.split(" ");
-                                                if (splitr[1] != undefined && splitelem[0] != undefined)
-                                                {
-                                                        if (splitr[1]==splitelem[0])
-                                                        {
-															if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
-															{
-																return true;
-															}
-                                                        }
-                                                }
-                                        }
-                                        return false;  
-                                });    
-                                if (matches.length>0)
-                                {
-                                        var rand;
-                                        var rn;                                
-                                        do
-                                        {
-                                                rand=randNum(matches.length);
-                                                rn=matches[rand].rolename;     
-                                        }
-                                        while ( unique.indexOf(rn) != -1 && r.indexOf(rn) !=-1 );
-                                        r[i]=rn;
-                                }                              
-                        }
-                        for (i = 0; i < r.length; i++) //Format the roles correctly.
-                        {
-                                r[i]=capitalize(r[i]);
-                        }                                    
-                        return r;
+			r=lowerAll(r);
+			for (i=0;i<r.length;i++)
+			{                                                      
+				var matches=roles.filter(function(elem)
+				{
+					if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
+					{
+							return true;
+					}
+					else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
+					{
+							return true;
+					}
+					else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
+					{
+							return true;
+					}
+					else if (r[i].split(" ")[0]=="random")
+					{                                                                      
+						var splitr=r[i].split(" ");
+						var splitelem=elem.alignment.split(" ");
+						if (splitr[1] != undefined && splitelem[0] != undefined)
+						{
+							if (splitr[1]==splitelem[0])
+							{
+								if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
+								{
+									return true;
+								}
+							}
+						}
+					}
+					return false;  
+				});    
+				if (matches.length>0)
+				{
+					var rand;
+					var rn;                                
+					do
+					{
+							rand=randNum(matches.length);
+							rn=matches[rand].rolename;     
+					}
+					while ( unique.indexOf(rn) != -1 && r.indexOf(rn) !=-1 );
+					r[i]=rn;
+				}                              
+			}
+			for (i = 0; i < r.length; i++) //Format the roles correctly.
+			{
+					r[i]=capitalize(r[i]);
+			}                                    
+			return r;
           },
           hasRolecard: function(name)
           {              
