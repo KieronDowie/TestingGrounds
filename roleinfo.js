@@ -26,7 +26,7 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-			/*ROLEIDEASCIENTIST
+			//ROLEIDEASCIENTIST
 			{      
 				rolename:"scientist",
 				alignment:"town investigative",
@@ -37,7 +37,7 @@ var roles=[
 				'You may not sample a revealed mayor.'],
 				goal:towngoal,
 				color:towncolor
-			},*/
+			},
 			{    
 				rolename:"lookout",
 				alignment:"town investigative",
@@ -46,17 +46,17 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},	
-			/*{    
+			{    
 				rolename:"tracker",
 				alignment:"town investigative",
 				abilities:'Follow one person to see who they visit.',
 				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
-			},*/
+			},
 
 //ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
-			/*{      
+			{      
 				rolename:"shadowalker",
 				alignment:"neutral killing",
 				abilities:'Choose to walk in someone\'s shadow each night',
@@ -67,7 +67,7 @@ var roles=[
 							"If you target a Bodyguard, they will not be able to guard your attacks."],
 				goal:"Kill anyone that would oppose you.",
 				color:'#BF40BF'
-			},*/
+			},
 			{      
 				rolename:"spy",
 				alignment:"town investigative",
@@ -206,7 +206,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},*/
-			 /*ROLEIDEANIGHTMARER
+			 //ROLEIDEANIGHTMARER
 			{      
 				rolename:"nightmarer",
 				alignment:"mafia support",
@@ -218,7 +218,7 @@ var roles=[
 				],
 				goal:mafiagoal,
 				color:mafiacolor
-			},*/
+			},
 			{      
 				rolename:"blackmailer",
 				alignment:"mafia support",
@@ -259,18 +259,18 @@ var roles=[
 					color:mafiacolor
 			},
 //ROLEIDEADRUG (FOR CTRL + F PURPOSES)
-			/*{      
-					rolename:"drug dealer",
-					alignment:"mafia deception",
-					abilities:'Choose to drug someone at night.',
-					attributes:['Drugged targets will get a fake notification of your choice.',
-					'You can choose between dousing, roleblocking, transporting, healing, guarding and witching.',
-					'Alternatively, you can stop them from getting notifications for that night.'
-//'If there are no kill capable Mafia roles left you will become a Mafioso.'
-					],
-					goal:mafiagoal,
-					color:mafiacolor
-			},*/
+			{      
+				rolename:"drug dealer",
+				alignment:"mafia deception",
+				abilities:'Choose to drug someone at night.',
+				attributes:['Drugged targets will get a fake notification of your choice.',
+				'You can choose between dousing, roleblocking, transporting, healing, guarding and witching.',
+				'Alternatively, you can stop them from getting notifications for that night.'
+				//'If there are no kill capable Mafia roles left you will become a Mafioso.'
+				],
+				goal:mafiagoal,
+				color:mafiacolor
+			},
 			//ROLEIDEAWATCHER
 			/*{      
 					rolename:"watcher",
@@ -285,7 +285,7 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose someone to frame at night.',
 					attributes:['If your target is investigated they will appear to be a member of the Mafia.',
-'If there are no kill capable Mafia roles left you will become a Mafioso.'],
+								'If there are no kill capable Mafia roles left you will become a Mafioso.'],
 					goal:mafiagoal,
 					color:mafiacolor
 			},
@@ -294,8 +294,8 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose a person to clean at night.',
 					attributes:['If your target dies their role and last will won\'t be revealed to the Town.',
-'Only you will see the cleaned targets role and last will.',
-'You may only perform 3 cleanings.'],
+								'Only you will see the cleaned targets role and last will.',
+								'You may only perform 3 cleanings.'],
 					goal:mafiagoal,
 					color:mafiacolor
 			},
@@ -304,7 +304,7 @@ var roles=[
 					alignment:"mafia deception",
 					abilities:'Choose a person and rewrite their last will at night',
 					attributes:['If a target dies, their last will is replaced with your forgery.',
-'You may only perform 3 forgeries.'],
+								'You may only perform 3 forgeries.'],
 					goal:mafiagoal,
 					color:mafiacolor
 			},
@@ -313,7 +313,7 @@ var roles=[
 					alignment:"neutral killing",
 					abilities:'Kill someone each night.',
 					attributes:['If you are role blocked you will attack the role blocker instead of your target.',
-'You can not be killed at night.'],
+								'You can not be killed at night.'],
 					goal:"Kill everyone who would oppose you.",
 					color:"blue"
 			},
@@ -322,7 +322,7 @@ var roles=[
 					alignment:"neutral killing",
 					abilities:'Douse someone in gasoline or ignite all doused targets.',
 					attributes:['Death from fire can\'t be prevented by healing or night immunities.',
-'Select yourself to ignite doused people.'],
+								'Select yourself to ignite doused people.'],
 					goal:"Live to see everyone else burn.",
 					color:"orange"
 			},
@@ -331,26 +331,26 @@ var roles=[
 					alignment:"neutral killing",
 					abilities:'Transform into a Werewolf during the full moon.',
 					attributes:['As a Werewolf you can not be killed at night.',
-'As a Werewolf you will attack your victim and anyone that visits them.',
-'Your attack goes through night immunity.'],
+								'As a Werewolf you will attack your victim and anyone that visits them.',
+								'Your attack goes through night immunity.'],
 					goal:"Kill everyone who would oppose you.",
 					color:"brown"
 			},
-/*ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
+			//ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
 			{
-							rolename:"electrician",
-							alignment:"neutral killing",
-							abilities:'Charge someone each night.',
-							attributes:["You cannot be killed at night.",
-							"Your target will not be notified when they are charged.",
-							"If a person that is charged visits another charged person, both people will die.",
-							"If you charge a person for a second time, that person will die.",
-							"If every other player is charged, the town will be notified.",
-							"If every other player is charged, you may kill all charged players."
-							],
-							goal:"Live to see everyone electrocuted.",
-							color:"#00FF80"
-			},*/
+				rolename:"electrician",
+				alignment:"neutral killing",
+				abilities:'Charge someone each night.',
+				attributes:["You cannot be killed at night.",
+				"Your target will not be notified when they are charged.",
+				"If a person that is charged visits another charged person, both people will die.",
+				"If you charge a person for a second time, that person will die.",
+				"If every other player is charged, the town will be notified.",
+				"If every other player is charged, you may kill all charged players."
+				],
+				goal:"Live to see everyone electrocuted.",
+				color:"#00FF80"
+			},
 			{      
 					rolename:"jester",
 					alignment:"neutral evil",
@@ -442,7 +442,7 @@ var roles=[
 					goal:mafiagoal,
 					color:mafiacolor
 			}, **/   
-			/*{
+			{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
 				abilities:'Look for death each night.',
@@ -454,8 +454,8 @@ var roles=[
 							'You will grant your killer unpierceable nightimmunity until the following night.'],
 				goal:"Find a way to lift your curse!",
 				color:"#8080FF"
-			},*/
-			/*{
+			},
+			{
 					rolename:"undertaker",
 					alignment:"neutral benign",
 					abilities:'Select someone each night to try to bury them.',
@@ -466,8 +466,8 @@ var roles=[
 								'You cannot be killed at night'],
 					goal:"Bury 1-3 people",
 					color:"#739292"
-			},*/
-			/*{
+			},
+			{
 				rolename:"banshee",
 				alignment:"neutral chaos",
 				abilities:'Select 1/4 of the living population to be marked for death.',
@@ -478,8 +478,8 @@ var roles=[
 							'You are unique.'],
 				goal:"Live to see everyone die from your fate.",
 				color:"#008080"
-			},*/
-			/*{
+			},
+			{
 					rolename:"politician",
 					alignment:"neutral evil",
 					abilities:'Bribe one player each night to commandeer their vote during the day.',
@@ -490,7 +490,7 @@ var roles=[
 								'You are able to read whispers.'],
 					goal:"Survive to see the Town lose the game.",
 					color:"#49A9D0"
-			},*/
+			},
 			//Casual roles
 			{
 					rolename:"citizen",
@@ -500,14 +500,14 @@ var roles=[
 					goal:towngoal,
 					color:towncolor
 			},
-			/*{
+			{
 					rolename:"goon",
 					alignment:"mafia casual",
 					abilities:'Your only ability is your vote.',
 					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
 					goal:mafiagoal,
 					color:mafiacolor
-			},*/
+			},
 			{
 					rolename:"game engine",
 					alignment:"neutral casual",
@@ -549,7 +549,7 @@ var roles=[
 					color:"#FEDDEF"
 			},*/
 			//ARPITR ROLES 
-			/*{     
+			{     
                rolename:"paradoxist",
                alignment:"Neutral Chaos",
                abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
@@ -558,17 +558,17 @@ var roles=[
                color:"magenta"
 			},
 			{
-                     rolename:"orphan",
-                     alignment:"neutral benign",
-                     abilities:'Become the role of the person who attacked you first.',
-                     attributes:["You are immune the first time you are attacked",
-                     "You will become the role that attacked you.",
-                     "If saved, you become the role of your savior.",
-                     "When taken in, it will be announced that the Orphan was taken in."],
-                     goal:"Get taken in, and help your team win.",
-                     color:"turquoise"
+				 rolename:"orphan",
+				 alignment:"neutral benign",
+				 abilities:'Become the role of the person who attacked you first.',
+				 attributes:["You are immune the first time you are attacked",
+				 "You will become the role that attacked you.",
+				 "If saved, you become the role of your savior.",
+				 "When taken in, it will be announced that the Orphan was taken in."],
+				 goal:"Get taken in, and help your team win.",
+				 color:"turquoise"
          },
-         {
+         /*{
                      rolename:"sniper",
                      alignment:"mafia killing",
                      abilities:'Shoot someone on a non-full moon nights.',
@@ -677,14 +677,14 @@ module.exports = {
                                         {
                                                 return true;
                                         }
-										/*else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky'))
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
 										{
                                                 return true;
                                         }
-										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil'))
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil')
 										{
                                                 return true;
-                                        }*/
+                                        }
                                         else if (r[i].split(" ")[0]=="random")
                                         {                                                                      
                                                 var splitr=r[i].split(" ");
@@ -693,7 +693,7 @@ module.exports = {
                                                 {
                                                         if (splitr[1]==splitelem[0])
                                                         {
-															if (splitelem[1] != 'power' && splitelem[1] != 'casual')// && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
+															if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
 															{
 																return true;
 															}
