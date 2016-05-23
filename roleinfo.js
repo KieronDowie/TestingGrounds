@@ -55,7 +55,7 @@ var roles=[
 				color:towncolor
 			},
 			{    
-				rolename:"Ghost",
+				rolename:"ghost",
 				alignment:"town protective",
 				abilities:'Roleblock a person and scare away all visiting killers.',
 				attributes:['You know if you have scared away a visitor',
@@ -385,23 +385,23 @@ var roles=[
 					alignment:"neutral evil",
 					abilities:'Control someone each night.',
 					attributes:['You can only control targetable actions such as detection and killing.',
-'You can force people to target themselves.',
-'Your victim will know they are being controlled.'],
+								'You can force people to target themselves.',
+								'Your victim will know they are being controlled.'],
 					goal:"Survive to see the Town lose the game.",
 					color:"purple"
 			},
 			/*ROLEIDEANECRO
 			{      
-					rolename:"necromancer",
-					alignment:"neutral evil",
-					abilities:'Select one dead person to necromance back to life, allowing you to use their ability once.',
-					attributes:['You cannot revive a Jailor.',
-					'On odd nights you use the ability and on full moons you choose to necromance.',
-					'You cannot use the same body twice.',
-					'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
-					],
-					goal:'Survive to see the town lose the game.',
-					color:'black'
+				rolename:"necromancer",
+				alignment:"neutral evil",
+				abilities:'Select one dead person to necromance back to life, allowing you to use their ability once.',
+				attributes:['You cannot revive a Jailor.',
+				'On odd nights you use the ability and on full moons you choose to necromance.',
+				'You cannot use the same body twice.',
+				'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
+				],
+				goal:'Survive to see the town lose the game.',
+				color:'black'
 			},*/
 			{      
 					rolename:"survivor",
@@ -422,37 +422,37 @@ var roles=[
 			},
 			/*ROLEIDEAAVENGER
 			{      
-					rolename:"avenger",
-					alignment:"neutral benign",
-					abilities:'You will clean the first non-chaotic Neutral death OR the latest Town or Mafia death when half of them die and become their role.',
-					attributes:['Your new alignment will be announced to the town.',
-					'This ability also applies to lynches but you CANNOT become a lynched Jester.',
-					'Only you will see the cleaned target\'s role and last will.'],
-					goal:"Take vengeance for someone and complete their objective.",
-					color:"#408080"
+				rolename:"avenger",
+				alignment:"neutral benign",
+				abilities:'You will clean the first non-chaotic Neutral death OR the latest Town or Mafia death when half of them die and become their role.',
+				attributes:['Your new alignment will be announced to the town.',
+				'This ability also applies to lynches but you CANNOT become a lynched Jester.',
+				'Only you will see the cleaned target\'s role and last will.'],
+				goal:"Take vengeance for someone and complete their objective.",
+				color:"#408080"
 			},*/
 			/*ROLEIDEABURGLAR*/
 			/*{      
-					rolename:"thief",
-					alignment:"neutral evil",
-					abilities:'Choose a person and steal their will at night.',
-					attributes:['You may only steal 3 wills.',
-					'Can only steal wills from Town roles.',
-					'Evil targets will know someone tried to steal their will.',
-					'If you steal someone\'s will the night they die, their will will not show.'],
-					goal:"Manipulate the town into losing.",
-					color:"#292929"
+				rolename:"thief",
+				alignment:"neutral evil",
+				abilities:'Choose a person and steal their will at night.',
+				attributes:['You may only steal 3 wills.',
+				'Can only steal wills from Town roles.',
+				'Evil targets will know someone tried to steal their will.',
+				'If you steal someone\'s will the night they die, their will will not show.'],
+				goal:"Manipulate the town into losing.",
+				color:"#292929"
 			},
 			{      
-					rolename:"burglar",
-					alignment:"mafia support",
-					abilities:'Choose a person and steal their will at night.',
-					attributes:['You may only steal 3 wills.',
-					'Can only steal wills from Town roles.',
-					'Evil targets will know someone tried to steal their will.',
-					'If you steal someone\'s will the night they die, their will will not show.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"burglar",
+				alignment:"mafia support",
+				abilities:'Choose a person and steal their will at night.',
+				attributes:['You may only steal 3 wills.',
+				'Can only steal wills from Town roles.',
+				'Evil targets will know someone tried to steal their will.',
+				'If you steal someone\'s will the night they die, their will will not show.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			}, **/   
 			{
 				rolename:"lost spirit",
@@ -593,7 +593,7 @@ var roles=[
 				 color:mafiacolor
 			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost"];
  
 function getAttributes(num)
 {
