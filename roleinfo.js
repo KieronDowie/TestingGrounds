@@ -673,15 +673,15 @@ module.exports = {
                         {                                                      
                                 var matches=roles.filter(function(elem)
                                 {
-                                        if (elem.alignment == r[i] || (r[i] == "Any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
+                                        if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
                                         {
                                                 return true;
                                         }
-										else if (r[i] == "Any" && elem.alignment.split(" ")[1] != 'unlucky')
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
 										{
                                                 return true;
                                         }
-										else if (r[i] == "Any" && elem.alignment.split(" ")[1] != 'trueEvil')
+										else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
 										{
                                                 return true;
                                         }
