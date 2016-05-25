@@ -492,73 +492,88 @@ var roles=[
 				color:"#008080"
 			},
 			{
-					rolename:"politician",
-					alignment:"neutral evil",
-					abilities:'Bribe one player each night to commandeer their vote during the day.',
-					attributes:['You can choose to use your targets vote or not.',
-								'The person you bribed will be notified that you bribed them.',
-								'You can control them to vote guilty, innocent or abstain',
-								'You can not bribe a revealed Mayor.',
-								'You are able to read whispers.'],
-					goal:"Survive to see the Town lose the game.",
-					color:"#49A9D0"
+				rolename:"politician",
+				alignment:"neutral evil",
+				abilities:'Bribe one player each night to commandeer their vote during the day.',
+				attributes:['You can choose to use your targets vote or not.',
+							'The person you bribed will be notified that you bribed them.',
+							'You can control them to vote guilty, innocent or abstain',
+							'You can not bribe a revealed Mayor.',
+							'You are able to read whispers.'],
+				goal:"Survive to see the Town lose the game.",
+				color:"#49A9D0"
+			},
+			//Jammys Mystic
+			{
+				rolename:"mystic",
+				alignment:"neutral benign",
+				abilities:'Enchant a player at night.',
+				attributes:['If you are not surviving the day after you enchanted someone, you will disguise as them an clean their body.',
+							'You have access to the cleaned persons will.',
+							'You receive your targets last ability feedback.',
+							'A Janitor will see your will when you successfully took over a players body.',							
+							'You can enchant three times.',
+							'You are immune to roleblocks.',
+							'You are immune to Witches.'],
+				goal:"Possess someone's body and fulfill their win condition.",
+				color:"#BFBF00"
 			},
 			//Casual roles
 			{
-					rolename:"citizen",
-					alignment:"town casual",
-					abilities:'Your only ability is your vote.',
-					attributes:['Without the burden of power to weigh you down, you exhibit superior logic and deductive abilities.'],
-					goal:towngoal,
-					color:towncolor
+				rolename:"citizen",
+				alignment:"town casual",
+				abilities:'Your only ability is your vote.',
+				attributes:['Without the burden of power to weigh you down, you exhibit superior logic and deductive abilities.'],
+				goal:towngoal,
+				color:towncolor
 			},
 			{
-					rolename:"goon",
-					alignment:"mafia casual",
-					abilities:'Your only ability is your vote.',
-					attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"goon",
+				alignment:"mafia casual",
+				abilities:'Your only ability is your vote.',
+				attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{
-					rolename:"game engine",
-					alignment:"neutral casual",
-					abilities:'Process the game.',
-					attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
-					goal:"See a faction win the game.",
-					color:"#000000"
+				rolename:"game engine",
+				alignment:"neutral casual",
+				abilities:'Process the game.',
+				attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
+				goal:"See a faction win the game.",
+				color:"#000000"
 			},
 			{
-					rolename:"kitteh",
-					alignment:"neutral casual",
-					abilities:'Do what you want.',
-					attributes:['Whatever you wish for'],
-					goal:"See the TG without bugs.",
-					color:"#F0FF0F"
+				rolename:"kitteh",
+				alignment:"neutral casual",
+				abilities:'Do what you want.',
+				attributes:['Whatever you wish for'],
+				goal:"See the TG without bugs.",
+				color:"#F0FF0F"
 			},
 			{
-					rolename:"afk",
-					alignment:"neutral trueEvil",
-					abilities:'Die before the game has started.',
-					attributes:['You have lost automaticly.'],
-					goal:"None",
-					color:"#B05F3C"
+				rolename:"afk",
+				alignment:"neutral trueEvil",
+				abilities:'Die before the game has started.',
+				attributes:['You have lost automaticly.'],
+				goal:"None",
+				color:"#B05F3C"
 			},
 			{
-					rolename:"late",
-					alignment:"neutral unlucky",
-					abilities:'You were too late.',
-					attributes:['Please wait patiently for the current game to end.'],
-					goal:"Wait for a new game to start",
-					color:"#FE00EF"
+				rolename:"late",
+				alignment:"neutral unlucky",
+				abilities:'You were too late.',
+				attributes:['Please wait patiently for the current game to end.'],
+				goal:"Wait for a new game to start.",
+				color:"#FE00EF"
 			},
 			/*{
-					rolename:"late :c",
-					alignment:"neutral unlucky",
-					abilities:'Being too late.',
-					attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
-					goal:"Wait for a game to start",
-					color:"#FEDDEF"
+				rolename:"late :c",
+				alignment:"neutral unlucky",
+				abilities:'Being too late.',
+				attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
+				goal:"Wait for a game to start",
+				color:"#FEDDEF"
 			},*/
 			//ARPITR ROLES 
 			{     
@@ -686,16 +701,14 @@ module.exports = {
 				var matches=roles.filter(function(elem)
 				{
 					if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
-					{
-							return true;
-					}
-					else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
-					{
-							return true;
-					}
-					else if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
-					{
-							return true;
+					{							
+						if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
+						{
+							if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
+							{
+								return true;
+							}
+						}
 					}
 					else if (r[i].split(" ")[0]=="random")
 					{                                                                      
