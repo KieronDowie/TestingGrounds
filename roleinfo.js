@@ -511,7 +511,7 @@ var roles=[
 				attributes:['If you are not surviving the day after you enchanted someone, you will disguise as them an clean their body.',
 							'You have access to the cleaned persons will.',
 							'You receive your targets last ability feedback.',
-							'A Janitor will see your will when you successfully took over a players body.',							
+							'A Janitor sees your will displayed.',							
 							'You can enchant three times.',
 							'You are immune to roleblocks.',
 							'You are immune to Witches.'],
