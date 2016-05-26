@@ -58,7 +58,7 @@ var roles=[
 				rolename:"ghost",
 				alignment:"town protective",
 				abilities:'Roleblock a person and scare away all visiting killers.',
-				attributes:['You know if you have scared away a visitor',
+				attributes:['You know if you have scared away a visitor.',
 							'Your target will not be notified.',
 							'You will be killed if you protect a Serial Killer or turned Werewolf.',
 							'Killingroles are not counted as visitors for Lookout/Werewolf.',
@@ -704,7 +704,7 @@ module.exports = {
 					{							
 						if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
 						{
-							if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueevil')
+							if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil')
 							{
 								return true;
 							}
