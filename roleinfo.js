@@ -702,9 +702,9 @@ module.exports = {
 				{
 					if (elem.alignment == r[i] || (r[i] == "any" && elem.alignment.split(" ")[1] != 'casual')) //prevent casual rolling as any
 					{							
-						if (r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
+						if (elem.alignment == r[i] || r[i] == "any" && elem.alignment.split(" ")[1] != 'unlucky')
 						{
-							if (r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil')
+							if (elem.alignment == r[i] || r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil')
 							{
 								return true;
 							}
