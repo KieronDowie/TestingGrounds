@@ -62,7 +62,8 @@ var Phase = {
 	TRIAL:5,
 	VERDICTS:6,
 	LASTWORDS:7,
-	NIGHT:8
+	NIGHT:8,
+	FIRSTDAY:9
 };
 //Game variables
 var phase = Phase.PREGAME;
@@ -1293,7 +1294,8 @@ function Timer()
 			20, //Trial
 			20, //Verdict
 			10, //Last words
-			60 //Night
+			60, //Night
+			30
 			],
 		tock:function(){
 			switch (phase)
@@ -1333,6 +1335,14 @@ function Timer()
 						setPhase(Phase.VOTING);
 					}
 					io.emit(Type.JUDGEMENT,votes,(result<0));
+				break;
+				case Phase.LASTWORDS:
+					//Change to modtime.
+					setPhase(Phase.MODTIME);
+				break;
+				case Phase.FIRSTDAY:
+					//Change to modtime.
+					setPhase(Phase.MODTIME);
 				break;
 			}
 		},
