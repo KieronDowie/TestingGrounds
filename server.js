@@ -2379,6 +2379,7 @@ function Player(socket,name,ip)
 					case Phase.DAY:
 					case Phase.VOTING:
 					case Phase.VERDICTS:
+					case Phase.FIRSTDAY:
 						if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
