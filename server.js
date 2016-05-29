@@ -2305,6 +2305,13 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'Only the mod can use this command. If you are trying to whisper, try \'/w name message\'');
 						}
 					break;
+					case 'afk':
+						io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+						if (phase = Phase.PREGAME)
+						{
+							SetRole(this.name, 'afk')
+						}
+					break;
 					default:
 						this.s.emit(Type.SYSTEM,'Command ' + com + ' not recognized.');
 					break;
