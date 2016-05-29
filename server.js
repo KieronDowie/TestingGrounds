@@ -2308,12 +2308,13 @@ function Player(socket,name,ip)
 					case 'afk':
 						io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
 						if (phase = Phase.PREGAME)
-						{
-							SetRole(this.name, 'afk')
+						{							
+							//SetRole(this.name, 'afk')
+							getPlayerByName(name).setRole('afk')
 						}
 					break;
 					default:
-						this.s.emit(Type.SYSTEM,'Command ' + com + ' not recognized.');
+						this.s.emit(Type.SYSTEM,'Command /' + com + ' not recognized.');
 					break;
 				}
 			},
