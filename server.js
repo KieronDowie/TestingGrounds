@@ -1293,7 +1293,7 @@ function Timer()
 			30, //Voting
 			20, //Trial
 			20, //Verdict
-			10, //Last words
+			15, //Last words
 			60, //Night
 			30 //Day 1
 			],
@@ -1974,7 +1974,7 @@ function Player(socket,name,ip)
 						}
 						else if (!this.alive)
 						{
-							this.s.emit(Type.SYSTEM,'You cannot use this while deadwhis.');
+							this.s.emit(Type.SYSTEM,'You cannot use this while dead.');
 						}
 						else if (phase != Phase.NIGHT)
 						{
@@ -2306,7 +2306,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					default:
-						this.s.emit(Type.SYSTEM,'Command not recognized.');
+						this.s.emit(Type.SYSTEM,'Command ' + com + ' not recognized.');
 					break;
 				}
 			},
