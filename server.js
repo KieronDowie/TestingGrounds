@@ -1948,7 +1948,7 @@ function Player(socket,name,ip)
 						{
 							socket.emit(Type.SYSTEM,'You must be alive to reveal.');
 						}
-						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS)
+						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase.FIRSTDAY)
 						{
 							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Mayor!');
 							this.mayor = true;
