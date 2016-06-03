@@ -2307,7 +2307,7 @@ function Player(socket,name,ip)
 					break;
 					case 'afk':
 						io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
-						if (phase = Phase.PREGAME)
+						if (phase == Phase.PREGAME)
 						{							
 							//SetRole(this.name, 'afk')
 							var p = getPlayerByName(this.name)
