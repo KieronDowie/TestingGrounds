@@ -479,7 +479,7 @@ var roles=[
 					goal:"Bury 1-3 people",
 					color:"#739292"
 			},
-			{
+			/*{
 				rolename:"banshee",
 				alignment:"neutral chaos",
 				abilities:'Select 1/4 of the living population to be marked for death.',
@@ -490,7 +490,7 @@ var roles=[
 							'You are unique.'],
 				goal:"Live to see everyone die from your fate.",
 				color:"#008080"
-			},
+			},*/
 			{
 				rolename:"politician",
 				alignment:"neutral evil",
@@ -499,12 +499,13 @@ var roles=[
 							'The person you bribed will be notified that you bribed them.',
 							'You can control them to vote guilty, innocent or abstain',
 							'You can not bribe a revealed Mayor.',
+							'You are immune to the first non Town attack',
 							'You are able to read whispers.'],
 				goal:"Survive to see the Town lose the game.",
 				color:"#49A9D0"
 			},
 			//Jammys Mystic
-			{
+			/*{
 				rolename:"mystic",
 				alignment:"neutral benign",
 				abilities:'Enchant a player at night.',
@@ -517,7 +518,7 @@ var roles=[
 							'You are immune to Witches.'],
 				goal:"Possess someone's body and fulfill their win condition.",
 				color:"#BFBF00"
-			},
+			},*/
 			//Casual roles
 			{
 				rolename:"citizen",

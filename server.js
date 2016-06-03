@@ -1338,7 +1338,7 @@ function Timer()
 				break;
 				case Phase.LASTWORDS:
 					//Change to modtime.
-					setPhase(Phase.MODTIME);
+					//setPhase(Phase.MODTIME);
 				break;
 				case Phase.FIRSTDAY:
 					//Change to modtime.
@@ -1539,7 +1539,7 @@ function Player(socket,name,ip)
 {
 	//Add to the playernames array, allowing this object to be referenced by name.
 	playernames[name] = socket.id;
-	//Add to the playernums array, allowing this obeject ot be referenced by number.
+	//Add to the playernums array, allowing this object to be referenced by number.
 	playernums.push(socket.id);
 	return {
 			s:socket,
@@ -2310,7 +2310,8 @@ function Player(socket,name,ip)
 						if (phase = Phase.PREGAME)
 						{							
 							//SetRole(this.name, 'afk')
-							getPlayerByName(name).setRole('afk')
+							var p = getPlayerByName(this.name)
+							p.setRole("afk")
 						}
 					break;
 					default:

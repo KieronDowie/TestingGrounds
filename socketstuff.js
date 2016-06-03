@@ -572,7 +572,7 @@ socket.on(Type.PRENOT,function(notification)
          addMessage({msg:'You were attacked, but you are immune at night!',styling:'dying'},'prenot');
       break;
       case 'JESTER':
-         addMessage({msg:'The jester will have their revenge from the grave!',styling:'dying'},'prenot');
+         addMessage({msg:'The Jester will have their revenge from the grave!',styling:'dying'},'prenot');
       break;
       case 'SHOTVET':
          addMessage({msg:'You were shot by the Veteran you visited!',styling:'dying'},'prenot');
@@ -584,7 +584,7 @@ socket.on(Type.PRENOT,function(notification)
          addMessage({msg:'You were roleblocked!',styling:'dying'},'prenot');
       break;
       case 'WITCHED':
-         addMessage({msg:'You were controlled by a Witch!',styling:'dying'},'prenot');
+         addMessage({msg:'You felt a mysterious power dominating you.You were controlled by a Witch!',styling:'dying'},'prenot');
       break;
       case 'REVIVE':
          addMessage({msg:'You were revived!',styling:'reviving'},'prenot');
