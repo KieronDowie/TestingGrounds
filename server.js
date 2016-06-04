@@ -2315,7 +2315,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'back':
-						io.emit('Welcome back '+Type.SYSTEM,this.name+'.');
+						io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
 						if (phase == Phase.PREGAME)
 						{							
 							//SetRole(this.name, '')
