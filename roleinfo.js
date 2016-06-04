@@ -556,7 +556,7 @@ var roles=[
 				rolename:"afk",
 				alignment:"neutral trueEvil",
 				abilities:'Die before the game has started.',
-				attributes:['You have lost automaticly.'],
+				attributes:['You have lost automatically.'],
 				goal:"None",
 				color:"#B05F3C"
 			},
