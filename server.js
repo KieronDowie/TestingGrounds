@@ -2314,6 +2314,15 @@ function Player(socket,name,ip)
 							p.setRole("afk")
 						}
 					break;
+					case 'back':
+						io.emit('Welcome back '+Type.SYSTEM,this.name+'.');
+						if (phase == Phase.PREGAME)
+						{							
+							//SetRole(this.name, '')
+							var p = getPlayerByName(this.name)
+							p.setRole("NoRole")
+						}
+					break;
 					default:
 						this.s.emit(Type.SYSTEM,'Command /' + com + ' not recognized.');
 					break;
