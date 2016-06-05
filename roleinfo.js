@@ -500,7 +500,7 @@ var roles=[
 							'Your target will know who has revived them.',
 							'If you are killed, you will take your puppet with you.'],
 				goal:"Survive to see the town lose the game.",
-				color:"#F0000F"
+				color:"#F0BB0F"
 			},
 			/*{
 				rolename:"banshee",
