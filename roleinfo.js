@@ -493,14 +493,14 @@ var roles=[
 				color:towncolor
 			},
 			{
-				rolename:"Necromancer",
-				alignment:"Neutral Evil",
+				rolename:"necromancer",
+				alignment:"neutral evil",
 				abilities:'You may resurrect a dead evildoer in the disguise of a Townmember once at night.',
 				attributes:['You have a magical shield that protects against one attack.',
 							'Your target will know who has revived them',
 							'If you are killed, you will take your puppet with you'],
-				goal:"Survive to see the town lose the game."
-					color:"#0000F0"
+				goal:"Survive to see the town lose the game.",
+				color:"#0000F0"
 			},
 			/*{
 				rolename:"banshee",
@@ -632,7 +632,7 @@ var roles=[
 				 color:mafiacolor
 			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer"];
  
 function getAttributes(num)
 {
