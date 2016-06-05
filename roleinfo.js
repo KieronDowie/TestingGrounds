@@ -489,8 +489,18 @@ var roles=[
 							'At the beginning of the day a list of drenched people will be show to everyone.',
 							'You can execute only 2 rain dances.',
 							'It cannot rain 2 days in a row.'],
-				goal:towngoal
+				goal:towngoal,
 				color:towncolor
+			},
+			{
+				rolename:"Necromancer",
+				alignment:"Neutral Evil",
+				abilities:'You may resurrect a dead evildoer in the disguise of a Townmember once at night.',
+				attributes:['You have a magical shield that protects against one attack.',
+							'Your target will know who has revived them',
+							'If you are killed, you will take your puppet with you'],
+				goal:"Survive to see the town lose the game."
+					color:"#0000F0"
 			},
 			/*{
 				rolename:"banshee",
