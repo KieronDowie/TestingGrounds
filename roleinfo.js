@@ -497,10 +497,10 @@ var roles=[
 				alignment:"neutral evil",
 				abilities:'You may resurrect a dead evildoer in the disguise of a Townmember once at night.',
 				attributes:['You have a magical shield that protects against one attack.',
-							'Your target will know who has revived them',
-							'If you are killed, you will take your puppet with you'],
+							'Your target will know who has revived them.',
+							'If you are killed, you will take your puppet with you.'],
 				goal:"Survive to see the town lose the game.",
-				color:"#0000F0"
+				color:"#F0000F"
 			},
 			/*{
 				rolename:"banshee",
