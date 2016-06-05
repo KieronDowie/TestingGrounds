@@ -479,6 +479,19 @@ var roles=[
 					goal:"Bury 1-3 people",
 					color:"#739292"
 			},
+			{
+				rolename:"rain dancer",
+				alignment:"town support",
+				abilities:'Decide if you want to make it rain that night.',
+				attributes:['It only rains during the night.',
+							'Everyone will be noticed, if it will rain tonight.',
+							'Everyone that goes outside during a rain will be drenched the next morning.',
+							'At the beginning of the day a list of drenched people will be show to everyone.',
+							'You can execute only 2 rain dances.',
+							'It cannot rain 2 days in a row.'],
+				goal:towngoal
+				color:towncolor
+			},
 			/*{
 				rolename:"banshee",
 				alignment:"neutral chaos",
@@ -487,7 +500,7 @@ var roles=[
 							'Once you mark everyone, the public will be notified of your existence and will have one day to kill you before you take the win for yourself.',
 							'Targets are not notified of being marked.',
 							'You are night immune.',
-							'You are unique.'],
+							//'You are unique.'],
 				goal:"Live to see everyone die from your fate.",
 				color:"#008080"
 			},*/
@@ -505,7 +518,7 @@ var roles=[
 				color:"#49A9D0"
 			},
 			//Jammys Mystic
-			/*{
+			{
 				rolename:"mystic",
 				alignment:"neutral benign",
 				abilities:'Enchant a player at night.',
@@ -518,7 +531,7 @@ var roles=[
 							'You are immune to Witches.'],
 				goal:"Possess someone's body and fulfill their win condition.",
 				color:"#BFBF00"
-			},*/
+			},
 			//Casual roles
 			{
 				rolename:"citizen",
@@ -609,7 +622,7 @@ var roles=[
 				 color:mafiacolor
 			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee"];
  
 function getAttributes(num)
 {
