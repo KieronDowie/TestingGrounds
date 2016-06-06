@@ -502,6 +502,20 @@ var roles=[
 				goal:"Survive to see the town lose the game.",
 				color:"#BBC2A5"
 			},
+			{
+				rolename:"auditor",
+				alignment:"neutral evil",
+				abilities:'Choose one target to audit.',
+				attributes:['You have a one-use scum automatic vest.',
+							'Conversion immune.', 
+							'Audit immune.',
+							'Audited targets are role blocked, and any charges they have are reduced to 0.',
+							'If an audit fails, you will not lose a charge.', 
+							'If you run out of audits, you may still role block',
+							'Mayor will lose his extra votes upon audit'. ],
+				goal:"Survive to see the town lose the game."
+				color:"#BF0080"
+			},
 			/*{
 				rolename:"banshee",
 				alignment:"neutral chaos",
@@ -632,7 +646,7 @@ var roles=[
 				 color:mafiacolor
 			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor"];
  
 function getAttributes(num)
 {
