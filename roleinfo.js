@@ -513,7 +513,7 @@ var roles=[
 							'If an audit fails, you will not lose a charge.', 
 							'If you run out of audits, you may still role block',
 							'Mayor will lose his extra votes upon audit'. ],
-				goal:"Survive to see the town lose the game."
+				goal:"Survive to see the town lose the game.",
 				color:"#BF0080"
 			},
 			/*{
