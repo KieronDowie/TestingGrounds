@@ -512,7 +512,7 @@ var roles=[
 							'Audited targets are role blocked, and any charges they have are reduced to 0.',
 							'If an audit fails, you will not lose a charge.', 
 							'If you run out of audits, you may still role block',
-							'Mayor will lose his extra votes upon audit'. ],
+							'Mayor will lose his extra votes upon audit.' ],
 				goal:"Survive to see the town lose the game.",
 				color:"#BF0080"
 			},
