@@ -284,69 +284,69 @@ var roles=[
 				color:mafiacolor
 			},
 			//ROLEIDEAWATCHER
-			/*{      
-					rolename:"watcher",
-					alignment:"mafia support",
-					abilities:'Watch someone at night to see who visits them.',
-					attributes:[''],
-					goal:mafiagoal,
-					color:mafiacolor
-			},*/
 			{      
-					rolename:"framer",
-					alignment:"mafia deception",
-					abilities:'Choose someone to frame at night.',
-					attributes:['If your target is investigated they will appear to be a member of the Mafia.',
-								'If there are no kill capable Mafia roles left you will become a Mafioso.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"watcher",
+				alignment:"mafia support",
+				abilities:'Watch someone at night to see who visits them.',
+				attributes:[''],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"janitor",
-					alignment:"mafia deception",
-					abilities:'Choose a person to clean at night.',
-					attributes:['If your target dies their role and last will won\'t be revealed to the Town.',
-								'Only you will see the cleaned targets role and last will.',
-								'You may only perform 3 cleanings.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"framer",
+				alignment:"mafia deception",
+				abilities:'Choose someone to frame at night.',
+				attributes:['If your target is investigated they will appear to be a member of the Mafia.',
+							'If there are no kill capable Mafia roles left you will become a Mafioso.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"forger",
-					alignment:"mafia deception",
-					abilities:'Choose a person and rewrite their last will at night',
-					attributes:['If a target dies, their last will is replaced with your forgery.',
-								'You may only perform 3 forgeries.'],
-					goal:mafiagoal,
-					color:mafiacolor
+				rolename:"janitor",
+				alignment:"mafia deception",
+				abilities:'Choose a person to clean at night.',
+				attributes:['If your target dies their role and last will won\'t be revealed to the Town.',
+							'Only you will see the cleaned targets role and last will.',
+							'You may only perform 3 cleanings.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"serial killer",
-					alignment:"neutral killing",
-					abilities:'Kill someone each night.',
-					attributes:['If you are role blocked you will attack the role blocker instead of your target.',
-								'You can not be killed at night.'],
-					goal:"Kill everyone who would oppose you.",
-					color:"blue"
+				rolename:"forger",
+				alignment:"mafia deception",
+				abilities:'Choose a person and rewrite their last will at night',
+				attributes:['If a target dies, their last will is replaced with your forgery.',
+							'You may only perform 3 forgeries.'],
+				goal:mafiagoal,
+				color:mafiacolor
 			},
 			{      
-					rolename:"arsonist",
-					alignment:"neutral killing",
-					abilities:'Douse someone in gasoline or ignite all doused targets.',
-					attributes:['Death from fire can\'t be prevented by healing or night immunities.',
-								'Select yourself to ignite doused people.'],
-					goal:"Live to see everyone else burn.",
-					color:"orange"
+				rolename:"serial killer",
+				alignment:"neutral killing",
+				abilities:'Kill someone each night.',
+				attributes:['If you are role blocked you will attack the role blocker instead of your target.',
+							'You can not be killed at night.'],
+				goal:"Kill everyone who would oppose you.",
+				color:"blue"
 			},
 			{      
-					rolename:"werewolf",
-					alignment:"neutral killing",
-					abilities:'Transform into a Werewolf during the full moon.',
-					attributes:['As a Werewolf you can not be killed at night.',
-								'As a Werewolf you will attack your victim and anyone that visits them.',
-								'Your attack goes through night immunity.'],
-					goal:"Kill everyone who would oppose you.",
-					color:"brown"
+				rolename:"arsonist",
+				alignment:"neutral killing",
+				abilities:'Douse someone in gasoline or ignite all doused targets.',
+				attributes:['Death from fire can\'t be prevented by healing or night immunities.',
+							'Select yourself to ignite doused people.'],
+				goal:"Live to see everyone else burn.",
+				color:"orange"
+			},
+			{      
+				rolename:"werewolf",
+				alignment:"neutral killing",
+				abilities:'Transform into a Werewolf during the full moon.',
+				attributes:['As a Werewolf you can not be killed at night.',
+							'As a Werewolf you will attack your victim and anyone that visits them.',
+							'Your attack goes through night immunity.'],
+				goal:"Kill everyone who would oppose you.",
+				color:"brown"
 			},
 			//ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
 			{
