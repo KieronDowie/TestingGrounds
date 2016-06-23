@@ -1293,7 +1293,7 @@ function Timer()
 			30, //Voting
 			20, //Trial
 			20, //Verdict
-			15, //Last words
+			5, //Last words
 			60, //Night
 			30 //Day 1
 			],
@@ -1338,7 +1338,7 @@ function Timer()
 				break;
 				case Phase.LASTWORDS:
 					//Change to modtime.
-					//setPhase(Phase.MODTIME);
+					setPhase(Phase.MODTIME);
 				break;
 				case Phase.FIRSTDAY:
 					//Change to modtime.
@@ -1384,7 +1384,8 @@ function Timer()
 			}
 			else if (num == Phase.LASTWORDS)
 			{
-				this.buffertime = undefined;
+				this.buffertime = undefined; 
+				this.time = this.phase[num];
 			}
 			else
 			{
