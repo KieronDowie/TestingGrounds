@@ -58,11 +58,11 @@ var roles=[
 				rolename:"ghost",
 				alignment:"town protective",
 				abilities:'Roleblock a person and scare away all visiting killers.',
-				attributes:['You know if you have scared away a visitor.',
-							'Your target will not be notified.',
+				attributes:['You know if you scared away a visitor, but your target does not.',
 							'You will be killed if you protect a Serial Killer or turned Werewolf.',
 							'Killingroles are not counted as visitors for Lookout/Werewolf.',
 							'Visiting the jail protects both.',
+							'You must change targets each night',
 							'The Werewolf will trace your scent after your first encounter and kill you in the second.'],
 				goal:towngoal,
 				color:towncolor
