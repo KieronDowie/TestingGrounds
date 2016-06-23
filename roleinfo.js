@@ -288,7 +288,7 @@ var roles=[
 				rolename:"watcher",
 				alignment:"mafia support",
 				abilities:'Watch someone at night to see who visits them.',
-				attributes:[''],
+				attributes:['You can talk to the Mafia at night.'],
 				goal:mafiagoal,
 				color:mafiacolor
 			},
@@ -496,7 +496,7 @@ var roles=[
 				rolename:"necromancer",
 				alignment:"neutral evil",
 				abilities:'You may resurrect a dead evildoer in the disguise of a Townmember once at night.',
-				attributes:['You have a magical shield that protects against one attack.',
+				attributes:['You have a magical shield that protects against one attack from non town roles.',
 							'Your target will know who has revived them.',
 							'If you are killed, you will take your puppet with you.'],
 				goal:"Survive to see the town lose the game.",
@@ -555,6 +555,16 @@ var roles=[
 							'You are immune to Witches.'],
 				goal:"Possess someone's body and fulfill their win condition.",
 				color:"#BFBF00"
+			},
+			//Jammys Tax Collector
+			{
+				rolename:"tax collector",
+				alignment:"neutral benign",
+				abilities:'Force 1-2 people to pay their taxes to you each night.',
+				attributes:['You will leave town once your goal is completed.',
+							'You cannot be killed at night.'],
+				goal:"Collect tax from every living player.",
+				color:"#4080FF"
 			},
 			//Casual roles
 			{
