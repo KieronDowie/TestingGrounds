@@ -6,6 +6,7 @@ var Server = require('socket.io');
 var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
 var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
+var createdList = []; //He will the rolelist be saved in
 
 db.connect();
 //Enums
@@ -50,7 +51,8 @@ var Type = {
 	HEY:38,
 	TARGET:39,
 	HUG:40,
-	ME:41
+	ME:41,
+	ROLELIST:42
 };
 
 var Phase = {
@@ -734,6 +736,7 @@ io.on('connection', function(socket){
 		if (socket.id == mod)
 		{
 			var result = roles.sortRoles(rolelist);
+			createdList = result
 			var names = Object.keys(playernames);
 			names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
 			shuffleArray(names);
@@ -1072,6 +1075,15 @@ io.on('connection', function(socket){
 				}
 			}
 		}
+	});
+	socket.on(TYPE.ROLELIST, function()
+	{
+		var role;
+		for each (role in createdList)
+		{
+			io.emit(role);
+		}
+		//socket.emit		
 	});
 	socket.on(Type.PONG,function()
 	{
