@@ -1076,15 +1076,15 @@ io.on('connection', function(socket){
 			}
 		}
 	});
-	socket.on(TYPE.ROLELIST, function()
-	{
-		var role;
+	//socket.on(TYPE.ROLELIST, function()
+	//{
+		//var role;
 		//forEach (role in createdList)
 		//{
 		//	io.emit(role);
 		//}
 		//socket.emit		
-	});
+	//});
 	socket.on(Type.PONG,function()
 	{
 		players[socket.id].ping = players[socket.id].pingTime;
