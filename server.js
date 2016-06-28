@@ -1079,7 +1079,7 @@ io.on('connection', function(socket){
 	socket.on(TYPE.ROLELIST, function()
 	{
 		var role;
-		for each (role in createdList)
+		forEach (role in createdList)
 		{
 			io.emit(role);
 		}
