@@ -1079,10 +1079,10 @@ io.on('connection', function(socket){
 	socket.on(TYPE.ROLELIST, function()
 	{
 		var role;
-		forEach (role in createdList)
-		{
-			io.emit(role);
-		}
+		//forEach (role in createdList)
+		//{
+		//	io.emit(role);
+		//}
 		//socket.emit		
 	});
 	socket.on(Type.PONG,function()
