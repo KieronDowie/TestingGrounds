@@ -2341,6 +2341,7 @@ function Player(socket,name,ip)
 						//{ 
   						//	 players[i].s.emit(Type.ROLELIST, createdList);
 						//}
+						break;
 					default:
 						this.s.emit(Type.SYSTEM,'Command /' + com + ' not recognized.');
 					break;
