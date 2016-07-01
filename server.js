@@ -1076,14 +1076,14 @@ io.on('connection', function(socket){
 			}
 		}
 	});
-	//socket.on(TYPE.ROLELIST, function()
-	//{
-		//for (i = 0; i > createdList.Length; i++)
-		//{
-		//	io.emit(createdList(i));
-		//}
-		//socket.emit		
-	//});
+	socket.on(TYPE.ROLELIST, function()
+	{
+		for (role in createdList)
+		{
+			socket.emit(role);
+		}
+		socket.emit		
+	});
 	socket.on(Type.PONG,function()
 	{
 		players[socket.id].ping = players[socket.id].pingTime;
@@ -2335,6 +2335,12 @@ function Player(socket,name,ip)
 							p.setRole("NoRole")
 						}
 					break;
+					case 'rolelist':
+						socket.emit(Type.ROLELIST, createdList);  
+						//for (i in players)
+						//{ 
+  						//	 players[i].s.emit(Type.ROLELIST, createdList);
+						//}
 					default:
 						this.s.emit(Type.SYSTEM,'Command /' + com + ' not recognized.');
 					break;
