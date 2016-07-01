@@ -304,8 +304,8 @@ var server = http.createServer(function(req,res)
 				});
 				
 				req.on('end', function() {	
-					if(players.length <= 15) then
-					{
+					//if(players.length <= 15) then
+					//{
 						//Check if the name is taken before serving the page.
 						if (!nameTaken(playername))
 						{			
@@ -333,12 +333,12 @@ var server = http.createServer(function(req,res)
 								res.write('Invalid name!');
 								res.end();
 							}
-						}			  
-						else
-						{
-							res.write('Sorry, that name was taken!');
-							res.end();
-						}
+						//}			  
+						//else
+						//{
+						//	res.write('Sorry, that name was taken!');
+						//	res.end();
+						//}
 					else
 					{
 						res.Write('Sorry, the server is currently full. Please try again later~');
