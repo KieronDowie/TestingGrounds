@@ -2342,11 +2342,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'rolelist':
-						for (i in createdList)
-						{
-							createdList[i] = sanitize(createdList[i]);
+						//for (i in createdList)
+						//{
+							//createdList[i] = sanitize(createdList[i]);
 							//createdList[i] = roles.formatAlignment(createdList[i]);
-						}
+						//}
 						//socket.emit(Type.SHOWLIST,list);
 						socket.emit(Type.SYSTEM, createdList);  
 						//for (i in players)
