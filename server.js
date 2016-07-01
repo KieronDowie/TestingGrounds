@@ -304,8 +304,8 @@ var server = http.createServer(function(req,res)
 				});
 				
 				req.on('end', function() {	
-					//if(players.length <= 15) then
-					//{
+					if(Object.keys(players).length <= 15)
+					{
 						//Check if the name is taken before serving the page.
 						if (!nameTaken(playername))
 						{			
@@ -333,12 +333,12 @@ var server = http.createServer(function(req,res)
 								res.write('Invalid name!');
 								res.end();
 							}
-						//}			  
-						//else
-						//{
-						//	res.write('Sorry, that name was taken!');
-						//	res.end();
-						//}
+						}			  
+						else
+						{
+							res.write('Sorry, that name was taken!');
+							res.end();
+						}
 					else
 					{
 						res.Write('Sorry, the server is currently full. Please try again later~');
@@ -2345,7 +2345,7 @@ function Player(socket,name,ip)
 						for (i in createdList)
 						{
 							createdList[i] = sanitize(createdList[i]);
-							createdList[i] = roles.formatAlignment(createdList[i]);
+							//createdList[i] = roles.formatAlignment(createdList[i]);
 						}
 						//socket.emit(Type.SHOWLIST,list);
 						socket.emit(Type.SYSTEM, createdList);  
