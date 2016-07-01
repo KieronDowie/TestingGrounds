@@ -304,38 +304,44 @@ var server = http.createServer(function(req,res)
 				});
 				
 				req.on('end', function() {	
-					//Check if the name is taken before serving the page.
-					if (!nameTaken(playername))
-					{			
-						if (nameCheck(playername))	
-						{		
-							var ip = getIpReq(req);
-							console.log('posted ip:'+ip);
-							joining[ip]=playername;
-							//Serve the page.
-							fs.readFile(__dirname + path + '.html', function(error, data){
-								if (error){
-									res.writeHead(404);
-									res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
-									res.end();
-								}
-								else{
-									res.writeHead(200, {"Content-Type": "text/html"});
-									res.write(data, "utf8");
-									res.end();
-								}
-							});
-						}
+					if(players.length <= 15) then
+					{
+						//Check if the name is taken before serving the page.
+						if (!nameTaken(playername))
+						{			
+							if (nameCheck(playername))	
+							{		
+								var ip = getIpReq(req);
+								console.log('posted ip:'+ip);
+								joining[ip]=playername;
+								//Serve the page.
+								fs.readFile(__dirname + path + '.html', function(error, data){
+									if (error){
+										res.writeHead(404);
+										res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
+										res.end();
+									}
+									else{
+										res.writeHead(200, {"Content-Type": "text/html"});
+										res.write(data, "utf8");
+										res.end();
+									}
+								});
+							}
+							else
+							{
+								res.write('Invalid name!');
+								res.end();
+							}
+						}			  
 						else
 						{
-							res.write('Invalid name!');
+							res.write('Sorry, that name was taken!');
 							res.end();
 						}
-					}			  
 					else
 					{
-						res.write('Sorry, that name was taken!');
-						res.end();
+						res.Write('Sorry, the server is currently full. Please try again later~');
 					}
 				});
 				
@@ -2336,6 +2342,12 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'rolelist':
+						for (i in createdList)
+						{
+							createdList[i] = sanitize(createdList[i]);
+							createdList[i] = roles.formatAlignment(createdList[i]);
+						}
+						//socket.emit(Type.SHOWLIST,list);
 						socket.emit(Type.SYSTEM, createdList);  
 						//for (i in players)
 						//{ 
