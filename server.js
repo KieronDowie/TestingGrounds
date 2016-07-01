@@ -339,6 +339,7 @@ var server = http.createServer(function(req,res)
 							res.write('Sorry, that name was taken!');
 							res.end();
 						}
+					}
 					else
 					{
 						res.write('Sorry, the server is currently full. Please try again later~');
