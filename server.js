@@ -2336,7 +2336,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'rolelist':
-						socket.emit(Type.ROLELIST, createdList);  
+						socket.emit(Type.SYSTEM, createdList);  
 						//for (i in players)
 						//{ 
   						//	 players[i].s.emit(Type.ROLELIST, createdList);
