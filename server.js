@@ -736,7 +736,7 @@ io.on('connection', function(socket){
 		if (socket.id == mod)
 		{
 			var result = roles.sortRoles(rolelist);
-			createdList = result
+			createdList = rolelist
 			var names = Object.keys(playernames);
 			names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
 			shuffleArray(names);
