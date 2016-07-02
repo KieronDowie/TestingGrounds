@@ -2344,17 +2344,19 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'rolelist':
-						//for (i in createdList)
-						//{
-							//createdList[i] = sanitize(createdList[i]);
-							//createdList[i] = roles.formatAlignment(createdList[i]);
-						//}
-						//socket.emit(Type.SHOWLIST,list);
-						socket.emit(Type.SYSTEM, createdList);  
-						//for (i in players)
-						//{ 
-  						//	 players[i].s.emit(Type.ROLELIST, createdList);
-						//}
+						if (createdList != undefined)
+						{
+							for (i in createdList)
+							{
+								createdList[i] = sanitize(createdList[i]);
+								createdList[i] = roles.formatAlignment(createdList[i]);
+							}
+							socket.emit(Type.SYSTEM, createdList);
+						}
+						else
+						{
+							socket.emit(Type.SHOWLIST, 'There is currently no rolelist saved:');
+						}
 						break;
 					default:
 						this.s.emit(Type.SYSTEM,'Command /' + com + ' not recognized.');
