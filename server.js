@@ -1213,7 +1213,7 @@ function setPhase(p)
 		{
 			if (players[i].chats.mafia)
 			{
-				mafmembers = mafmembers + " " + player[i].name + " (" + player[i].role + ")";
+				mafmembers = mafmembers + " " + players[i].name + " (" + players[i].role + ")";
 			}			
 		}
 		for (i in players)
