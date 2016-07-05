@@ -1211,14 +1211,14 @@ function setPhase(p)
 		mafmembers = "Your partners in crime are:"
 		for (i in players)
 		{
-			if (player[i].chats.mafia)
+			if (players[i].chats.mafia)
 			{
 				mafmembers = mafmembers + " " + player[i].name + " (" + player[i].role + ")";
 			}			
 		}
 		for (i in players)
 		{
-			if (player[i].chats.mafia)
+			if (players[i].chats.mafia)
 			{
 				players[i].s.emit(Type.SYSTEM, mafmembers);
 			}			
