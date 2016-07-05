@@ -1205,6 +1205,25 @@ function setPhase(p)
 	{
 		clearVotes();
 	}
+	if (p == Phase.FIRSTDAY)
+	{
+		var mafmembers;
+		mafmembers = "Your partners in crime are:"
+		for (i in players)
+		{
+			if (player[i].chats.mafia)
+			{
+				mafmembers = mafmembers + " " + player[i].name + " (" + player[i].role + ")";
+			}			
+		}
+		for (i in players)
+		{
+			if (player[i].chats.mafia)
+			{
+				players[i].s.emit(Type.SYSTEM, mafmembers);
+			}			
+		}
+	}
 	if (p == Phase.ROLES)
 	{
 		for (i in players)
