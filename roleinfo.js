@@ -199,7 +199,7 @@ var roles=[
 				attributes:['You can\'t be killed at night.',
 				//'If there is a Mafioso he will attack the target instead of you.',
 				'You can choose to command your Caporegime member to kill for you instead.',
-				'You will appear to be a Town member to the Sheriff.',
+				'You will appear to be not suspicious to the Sheriff.',
 				//'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
 				'You can talk with the other Mafia at night.'],
 				goal:mafiagoal,
