@@ -200,7 +200,7 @@ var roles=[
 				//'If there is a Mafioso he will attack the target instead of you.',
 				'You can choose to command your Caporegime member to kill for you instead.',
 				'You will appear to be a Town member to the Sheriff.',
-				'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
+				//'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
 				'You can talk with the other Mafia at night.'],
 				goal:mafiagoal,
 				color:mafiacolor
@@ -285,7 +285,8 @@ var roles=[
 				abilities:'Choose to drug someone at night.',
 				attributes:['Drugged targets will get a fake notification of your choice.',
 				'You can choose between dousing, roleblocking, transporting, healing, guarding and witching.',
-				'Alternatively, you can stop them from getting notifications for that night.'
+				'Alternatively, you can stop them from getting notifications for that night.',
+				'You cannot use the same drug in a row.'
 				//'If there are no kill capable Mafia roles left you will become a Mafioso.'
 				],
 				goal:mafiagoal,
