@@ -2374,7 +2374,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SHOWLIST, 'There is currently no rolelist saved:');
+							socket.emit(Type.SYSTEM, 'There is currently no rolelist saved:');
 						}
 						break;
 					default:

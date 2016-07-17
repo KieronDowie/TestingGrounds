@@ -27,7 +27,7 @@ var roles=[
 				color:towncolor
 			},
 			//ROLEIDEASCIENTIST
-			{      
+			/*{      
 				rolename:"scientist",
 				alignment:"town investigative",
 				abilities:'Take a fingerprint sample of one person each night.',
@@ -37,7 +37,7 @@ var roles=[
 				'You may not sample a revealed mayor.'],
 				goal:towngoal,
 				color:towncolor
-			},
+			},*/
 			{    
 				rolename:"lookout",
 				alignment:"town investigative",
@@ -46,7 +46,7 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},	
-			{    
+			/*{    
 				rolename:"tracker",
 				alignment:"town investigative",
 				abilities:'Follow one person to see who they visit.',
@@ -79,7 +79,7 @@ var roles=[
 							"If you target a Bodyguard, they will not be able to guard your attacks."],
 				goal:"Kill anyone that would oppose you.",
 				color:'#BF40BF'
-			},
+			},*/
 			{      
 				rolename:"spy",
 				alignment:"town investigative",
@@ -107,14 +107,14 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-			{      
+			/*{      
 				rolename:"coroner",
 				alignment:"town investigative",
 				abilities:'Choose a dead person at night and know how many people of their alignment voted "Guilty" at the last lynch',
 				attributes:['None'],
 				goal:towngoal,
 				color:towncolor
-			},
+			},*/
 			{      
 				rolename:"medium",
 				alignment:"town support",
@@ -227,7 +227,7 @@ var roles=[
 				color:mafiacolor
 			},*/
 			 //ROLEIDEANIGHTMARER
-			{      
+			/*{      
 				rolename:"nightmarer",
 				alignment:"mafia support",
 				abilities:'Make someone have a nightmare about someone each night.',
@@ -238,7 +238,7 @@ var roles=[
 				],
 				goal:mafiagoal,
 				color:mafiacolor
-			},
+			},*/
 			{      
 				rolename:"blackmailer",
 				alignment:"mafia support",
@@ -279,7 +279,7 @@ var roles=[
 					color:mafiacolor
 			},
 			//ROLEIDEADRUG (FOR CTRL + F PURPOSES)
-			{      
+			/*{      
 				rolename:"drug dealer",
 				alignment:"mafia deception",
 				abilities:'Choose to drug someone at night.',
@@ -291,7 +291,7 @@ var roles=[
 				],
 				goal:mafiagoal,
 				color:mafiacolor
-			},
+			},*/
 			//ROLEIDEAWATCHER
 			{      
 				rolename:"watcher",
@@ -358,7 +358,7 @@ var roles=[
 				color:"brown"
 			},
 			//ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
-			{
+			/*{
 				rolename:"electrician",
 				alignment:"neutral killing",
 				abilities:'Charge someone each night.',
@@ -371,7 +371,7 @@ var roles=[
 				],
 				goal:"Live to see everyone electrocuted.",
 				color:"#00FF80"
-			},
+			},*/
 			{      
 					rolename:"jester",
 					alignment:"neutral evil",
@@ -464,7 +464,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			}, **/   
-			{
+			/*{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
 				abilities:'Look for death each night.',
@@ -525,7 +525,7 @@ var roles=[
 							'Mayor will lose his extra votes upon audit.' ],
 				goal:"Survive to see the town lose the game.",
 				color:"#BF0080"
-			},
+			},*/
 			/*{
 				rolename:"banshee",
 				alignment:"neutral chaos",
@@ -538,7 +538,7 @@ var roles=[
 				goal:"Live to see everyone die from your fate.",
 				color:"#008080"
 			},*/
-			{
+			/*{
 				rolename:"politician",
 				alignment:"neutral evil",
 				abilities:'Bribe one player each night to commandeer their vote during the day.',
@@ -575,7 +575,7 @@ var roles=[
 							'You cannot be killed at night.'],
 				goal:"Collect tax from every living player.",
 				color:"#4080FF"
-			},
+			}, */
 			//Casual roles
 			{
 				rolename:"citizen",
@@ -643,7 +643,7 @@ var roles=[
 				color:"#FEDDEF"
 			},*/
 			//ARPITR ROLES 
-			{     
+			/*{     
                rolename:"paradoxist",
                alignment:"Neutral Chaos",
                abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
@@ -661,7 +661,7 @@ var roles=[
 				 "When taken in, it will be announced that the Orphan was taken in."],
 				 goal:"Get taken in, and help your team win.",
 				 color:"turquoise"
-			},
+			},*/
 			/*{
 				 rolename:"sniper",
 				 alignment:"mafia killing",
