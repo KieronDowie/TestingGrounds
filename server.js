@@ -1343,7 +1343,7 @@ function Timer()
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			60, //Night
+			10, //Night
 			30 //Day 1
 			],
 		tock:function(){
@@ -2453,14 +2453,15 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'rolelist': case 'rl':
-						if (createdList != undefined)
+						var sendArr = [];
+						if (createdList && createdList.length != 0)
 						{
 							for (i in createdList)
 							{
-								createdList[i] = sanitize(createdList[i]);
-								createdList[i] = roles.formatAlignment(createdList[i]);
+								sendArr[i] = sanitize(createdList[i]);
+								sendArr[i] = roles.formatAlignment(createdList[i]);
 							}
-							this.s.emit(Type.SHOWLIST,createdList);
+							this.s.emit(Type.SHOWLIST,sendArr);
 						}
 						else
 						{

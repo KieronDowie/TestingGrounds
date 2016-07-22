@@ -170,6 +170,7 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
+			console.log(msg);
 			if (msg.role)
 			{
 				msg.role = '('+msg.role+') is';
@@ -184,14 +185,7 @@ function addMessage(msg, type)
 			}
 			else
 			{
-				if (msg.role)
-				{
-					var str = msg.name+'('+msg.role+') cancels their targetting.';
-				}
-				else
-				{
-					var str = 'You cancel your targetting.';
-				}
+				var str = 'You cancel your targetting.';
 			}
 			$('#main').append('<li><span class="mod">'+str+'</span></li>');
 		break;

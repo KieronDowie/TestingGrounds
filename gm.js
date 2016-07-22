@@ -381,11 +381,13 @@ module.exports = {
 			var roleInfo = autoRoles[role];
 			if (roleInfo) //If role is automated
 			{
+				console.log(targets[num]);
 				if (Object.keys(targets[num][1]).length != 0) //If they sent in a night action.
 				{
 					var roleAttributes = roleInfo.attributes;
 					//If they are not self targetting, or are allowed to self target anyway. 
 					//Exception variable for witches and transporters.
+					console.log(targets[num]);
 					if (targets[num][1] != num || roleAttributes.SELF || targets[num].targetChanged)
 					{
 						if (roleAttributes.TRANSPORT) //Transport
@@ -468,14 +470,15 @@ module.exports = {
 									addSuggestedMessage('You felt a mysterious power dominating you. You were controlled by a Witch!',t[0]);
 									//Remove the previous target.
 									var prevTarget = targets[t[0]][1];
-									console.log(prevTarget);
-									console.log(beingTargetted);
-									var index = beingTargetted[prevTarget].indexOf(t[0]);
-									beingTargetted[prevTarget].splice(index,1);
+									if (prevTarget.length > 0) //If the player was originally targetting someone.
+									{
+										var index = beingTargetted[prevTarget].indexOf(t[0]);
+										beingTargetted[prevTarget].splice(index,1);
+									}
 									//Change their target.
-									targets[t[0]][1] = t[1];
+									targets[t[0]][1] = [t[1]];
 									//Add a variable allowing them to self target now.
-									targets[j][1][index].targetChanged = true;
+									targets[t[0]].targetChanged = true;
 									//Add reference for new target.
 									if (beingTargetted[t[1]])
 									{
@@ -524,17 +527,23 @@ module.exports = {
 								else
 								{
 									displayTargets[t[0]][3].push('rbd');
-									//Remove the reference to the target.
-									var prevTarget = targets[t[0]][1];
-									var index = beingTargetted[prevTarget].indexOf(t[0]);
-									beingTargetted[prevTarget].splice(index,1);
+									//If they are actually targetting someone
+									if (targets[t[0]][1].length > 0)
+									{
+										//Remove the reference to the target.
+										var prevTarget = targets[t[0]][1];
+										var index = beingTargetted[prevTarget].indexOf(t[0]);
+										beingTargetted[prevTarget].splice(index,1);
+									}
 									//Cancel the target.
-									targets[t[0]][1] = undefined;
+									targets[t[0]][1] = [];
+									//Inform the player they were roleblocked.
+									addSuggestedMessage("Someone occupied your night, you were roleblocked!",t[0]);
 								}
 							}
 							else
 							{
-								//Inform the person and the roleblocker of the failure.
+								//Inform the person of the failure.
 								addSuggestedMessage('Someone tried to roleblock you, but you are immune.',t[0]);
 								//addSuggestedMessage('Your target is immune to roleblocks.',num); 
 							}
@@ -577,22 +586,21 @@ module.exports = {
 							var t = targets[num][1];
 							var person = targets[t[0]];
 							//Check if a person with a KILL is targetting this person.
-							for (j in targets)
+							var visitors = getPeopleTargetting(t[0]);
+							for (j in visitors)
 							{
-								if (targets[j][1].indexOf(t[0]) != -1)
+								var name = visitors[j];
+								var role = getRole(targets[name]);
+								var autorole = autoRoles[role];
+								if (autorole !== undefined)
 								{
-									var role = targets[j][0];
-									var autorole = autoRoles[role];
-									if (autorole !== undefined)
+									var attrib = autorole.attributes;
+									if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL)
 									{
-										var attrib = autorole.attributes;
-										if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL)
-										{
-											//Successful heal!
-											addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
-											addSuggestedMessage('Your target was attacked last night.',num);
-											//Kill is stopped by the corresponding check in its section.
-										}
+										//Successful heal!
+										addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
+										addSuggestedMessage('Your target was attacked last night.',num);
+										//Kill is stopped by the corresponding check in its section.
 									}
 								}
 							}
@@ -638,7 +646,7 @@ module.exports = {
 								}
 								else if (roleAttributes.VIGKILL)
 								{
-									msg =  'You shot by a Vigilante!';
+									msg =  'You were shot by a Vigilante!';
 									announce = 'They were shot by a [town]Vigilante[/town].';
 								}
 								addSuggestedMessage(msg,t[0]);
