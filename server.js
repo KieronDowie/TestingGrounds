@@ -1908,7 +1908,7 @@ function Player(socket,name,ip)
 									{
 										var prevMod = mod;
 										var name = target.name;
-										if (target.s.id != this.s.id)
+										if (target.s.id != prevMod.s.id)
 										{
 											players[mod].s.emit(Type.SETMOD,false);
 											mod = target.s.id;
