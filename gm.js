@@ -392,7 +392,6 @@ module.exports = {
 					{
 						if (roleAttributes.TRANSPORT) //Transport
 						{
-							console.log(beingTargetted);
 							//Ensure two targets were used.
 							var t = targets[num][1];
 							if (t.length == 2 )
@@ -411,7 +410,7 @@ module.exports = {
 										targets[j][1][index] = t[1];
 										displayTargets[j][3].push('transport');
 										//Add a variable allowing them to self target now.
-										targets[j][1][index].targetChanged = true;
+										targets[j].targetChanged = true;
 										//Add reference to the new target.
 										if (beingTargetted[t[1]])
 										{
@@ -628,6 +627,15 @@ module.exports = {
 										attackSuccess = false;
 									}
 								}
+							}
+							//Check for night immunity
+							var role = getRole(targets[t[0]]);
+							if (autoRoles[role].attributes.IMMUNE)
+							{
+								attackSuccess = false;
+								//Inform the person they were attacked, inform the attacker their target was immune.
+								addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
+								addSuggestedMessage('Your target was immune to your attack!',num)
 							}
 							if (attackSuccess)
 							{

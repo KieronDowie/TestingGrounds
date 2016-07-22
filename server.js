@@ -1941,7 +1941,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+							socket.emit(Type.SYSTEM,'You do not have permission to use this command.');
 						}
 					break;
 					case 'mod':
@@ -2465,7 +2465,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM, 'There is currently no rolelist saved:');
+							socket.emit(Type.SYSTEM, 'There is currently no rolelist saved.');
 						}
 						break;
 					default:
