@@ -1339,7 +1339,7 @@ function Timer()
 		buffertime:undefined,
 		phase:[0,0,0, //Pregame, Roles, Modtime.
 			60, //Day
-			30, //Voting
+			9999999999999999, //Voting
 			20, //Trial
 			20, //Verdict
 			5, //Last words
