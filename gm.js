@@ -337,16 +337,14 @@ module.exports = {
 			}
 		}
 		//Sort targets array by priority
-		var orderedTargets = [];
-		for (i in targets)
-		{
-			orderedTargets.push(i);
-		}
+		var orderedTargets = Object.keys(targets);
 		orderedTargets = orderedTargets.sort(function(one, two){
-			var rolename1 = targets[one][0];
-			var rolename2 = targets[two][0];
+			var rolename1 = getRole(targets[one]);
+			var rolename2 = getRole(targets[two]);
 			var role1 = autoRoles[rolename1];
 			var role2 = autoRoles[rolename2];
+			console.log(rolename1);
+			console.log(rolename2);
 			var p1, p2;
 			if (role1 === undefined)
 			{
@@ -374,6 +372,7 @@ module.exports = {
 			}
 			return (p2 > p1);
 		});
+		console.log(orderedTargets);
 		//Loop through roles in priority order.
 		for (i in orderedTargets)
 		{
@@ -382,13 +381,11 @@ module.exports = {
 			var roleInfo = autoRoles[role];
 			if (roleInfo) //If role is automated
 			{
-				console.log(targets[num]);
 				if (Object.keys(targets[num][1]).length != 0) //If they sent in a night action.
 				{
 					var roleAttributes = roleInfo.attributes;
 					//If they are not self targetting, or are allowed to self target anyway. 
 					//Exception variable for witches and transporters.
-					console.log(targets[num]);
 					if (targets[num][1] != num || roleAttributes.SELF || targets[num].targetChanged)
 					{
 						if (roleAttributes.TRANSPORT) //Transport
@@ -841,7 +838,6 @@ module.exports = {
 				displayTargets[num][2] = {auto:false,reason:'Role not in system.'}; //Set the role to not automated.
 			}
 		}
-		console.log(beingTargetted);
 		//Return array of messages to send and actions to take.
 		return {
 			targets: displayTargets,
