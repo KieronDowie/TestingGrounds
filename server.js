@@ -7,7 +7,7 @@ var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
 var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 var createdList = []; //He will the rolelist be saved in
-
+var gm = require('./gm.js');
 db.connect();
 //Enums
 var Type = {
@@ -52,9 +52,17 @@ var Type = {
 	TARGET:39,
 	HUG:40,
 	ME:41,
-	ROLELIST:42
+	ROLELIST:42,
+	AUTOLEVEL:43,
+	SUGGESTIONS:44,
+	SYSSENT:45
 };
-
+var autoLevel = 1;
+/*
+ * 0 = No auto
+ * 1 = Semi auto
+ * 2 = Full auto
+ * */
 var Phase = {
 	PREGAME:0,
 	ROLES:1,
@@ -225,7 +233,6 @@ var server = http.createServer(function(req,res)
 			{
 				var datetime = url.parse(req.url).query;
 				//Make sure the date is in the correct format.
-				console.log(datetime);
 				var sides = datetime.split('-');
 				var date = sides[0].split('/');
 				var time = sides[1];
@@ -312,7 +319,6 @@ var server = http.createServer(function(req,res)
 							if (nameCheck(playername))	
 							{		
 								var ip = getIpReq(req);
-								console.log('posted ip:'+ip);
 								joining[ip]=playername;
 								//Serve the page.
 								fs.readFile(__dirname + path + '.html', function(error, data){
@@ -538,7 +544,6 @@ io.on('connection', function(socket){
 	}
 	else
 	{
-		console.log('connection attempt from '+ip+' / '+joining[ip]); //show name and ip
 		//Check if the person is an alt.
 		var alt = false;
 		for (i in players)
@@ -1160,6 +1165,8 @@ function setPhase(p)
 	io.emit(Type.SETPHASE,phase);
 	if (p == Phase.NIGHT)
 	{
+		//Reset the automod
+		gm.clear();
 		//Special beginning of night messages.
 		for (i in players)
 		{
@@ -1332,7 +1339,7 @@ function Timer()
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			60, //Night
+			10, //Night
 			30 //Day 1
 			],
 		tock:function(){
@@ -1346,6 +1353,19 @@ function Timer()
 				case Phase.NIGHT:
 					//Change to modtime.
 					setPhase(Phase.MODTIME);
+					if (autoLevel > 0)
+					{
+						//Evaluate night actions.
+						var results = gm.evaluate(players,playernames,mod);
+						if (autoLevel == 1) //Semi-auto. Just show the suggestions to the mod.
+						{
+							players[mod].s.emit(Type.SUGGESTIONS, results);
+						}
+						else if (autoLevel == 2) //Full auto, act on all suggestions.
+						{
+							
+						}
+					}
 				break;
 				case Phase.TRIAL:
 					//Change to verdicts.
@@ -1813,7 +1833,6 @@ function Player(socket,name,ip)
 									first.s.emit(Type.HIGHLIGHT,'You successfully disguised!');
 									second.s.emit(Type.HIGHLIGHT,'A disguiser stole your identity!');
 									//Swap names in the playernames
-									console.log(playernames);
 									var temp = playernames[first.name];
 									playernames[first.name] = second.s.id;
 									playernames[second.name] = temp;
@@ -1845,7 +1864,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'givemod':
-						if (mod == this.s.id)
+						if (mod == this.s.id || this.dev)
 						{
 							if (c.length < 2)
 							{
@@ -1857,18 +1876,19 @@ function Player(socket,name,ip)
 								{
 									//Valid player name.
 									players[mod].s.emit(Type.SETMOD,false);
-									if (players[playernames[c[1]]].s.id == this.s.id)
+									if (players[playernames[c[1]]].s.id == players[mod].s.id)
 									{
 										this.s.emit(Type.SYSTEM,'You are already the mod.');
 									}
 									else
 									{
+										var prevMod = mod;
 										mod = players[playernames[c[1]]].s.id;
 										players[mod].s.emit(Type.SETMOD,true);
 										io.emit(Type.HIGHLIGHT,this.name+' gives mod to '+players[mod].name+'.');
-										io.emit(Type.SWITCH,this.name,players[mod].name);
+										io.emit(Type.SWITCH,players[prevMod].name,players[mod].name);
 										//Switch the numbers.
-										var a = playernums.indexOf(this.s.id);
+										var a = playernums.indexOf(players[prevMod].s.id);
 										var b = playernums.indexOf(mod);
 										var temp = playernums[a];
 										playernums[a] = playernums[b];
@@ -1882,6 +1902,7 @@ function Player(socket,name,ip)
 									var target = getPlayerByNumber(c[1]);
 									if (target != -1)
 									{
+										var prevMod = mod;
 										var name = target.name;
 										if (target.s.id != this.s.id)
 										{
@@ -1889,9 +1910,9 @@ function Player(socket,name,ip)
 											mod = target.s.id;
 											players[mod].s.emit(Type.SETMOD,true);
 											io.emit(Type.HIGHLIGHT,this.name+' gives mod to '+players[mod].name+'.');
-											io.emit(Type.SWITCH,this.name,players[mod].name);
+											io.emit(Type.SWITCH,players[prevMod].name,players[mod].name);
 											//Switch the numbers.
-											var a = playernums.indexOf(this.s.id);
+											var a = playernums.indexOf(players[prevMod].s.id);
 											var b = playernums.indexOf(mod);
 											var temp = playernums[a];
 											playernums[a] = playernums[b];
@@ -2003,11 +2024,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 't': case 'target':
-						if (!this.chats.mafia)
+						if (mod == this.s.id)
 						{
-							this.s.emit(Type.SYSTEM,'Only mafia can use this command.');
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.chats.jailed)
+						if (this.chats.jailed)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
@@ -2021,22 +2042,40 @@ function Player(socket,name,ip)
 						}
 						else
 						{	
-							var str = c.slice(1,c.length).join(' ');
-							if (isNaN(str))
+							var args = c.slice(1,c.length);
+							var targets = [];
+							var error = false;
+							if (args.length == 0 || args[0] == '0')
 							{
-								var p = {name:str};
+								//This is a cancel
 							}
 							else
 							{
-								var p = getPlayerByNumber(parseInt(str));															
+								for (i in args)
+								{
+									if (isNaN(args[i]))
+									{
+										var p = getPlayerByName(args[i]);
+									}
+									else
+									{
+										var p = getPlayerByNumber(parseInt(args[i]));															
+									}
+									if (p && p != -1)
+									{
+										targets.push(p.name);
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'Invalid player: '+c[1]);
+										error = true;
+										break;
+									}
+								}
 							}
-							if (p != -1)
+							if (!error)
 							{
-								this.target(p.name);
-							}
-							else
-							{
-								this.s.emit(Type.SYSTEM,'Invalid selection: '+c[1]);
+								this.target(targets);
 							}
 						}
 					break;
@@ -2344,6 +2383,53 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'Only the mod can use this command. If you are trying to whisper, try \'/w name message\'');
 						}
 					break;
+					case 'sys': case 'system':
+						if (mod==this.s.id)
+						{
+							if (c.length > 2)
+							{
+								if (playernames[c[1]])
+								{
+									//Valid player name.
+									var msg = c.slice();
+									msg.splice(0,2);
+									msg=msg.join(' ');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM,msg);
+									this.s.emit(Type.SYSSENT,c[1],msg);
+								}
+								else if (!isNaN(c[1])) //It's a number.
+								{
+									//Get the numbered player.
+									var target = getPlayerByNumber(c[1]);
+									if (target != -1)
+									{
+										var name = target.name;
+										var msg = c.slice();
+										msg.splice(0,2);
+										msg=msg.join(' ');
+										target.s.emit(Type.SYSTEM,msg);
+										this.s.emit(Type.SYSSENT,c[1],msg);
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+									}
+								}
+								else
+								{
+									socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
+								}
+							}
+							else
+							{
+								socket.emit(Type.SYSTEM,'The syntax of this command is \'/system name message\'.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'Only the mod can use this command. If you are trying to whisper, try \'/w name message\'');
+						}
+					break;
 					case 'afk':
 						io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
 						if (phase == Phase.PREGAME)
@@ -2362,7 +2448,7 @@ function Player(socket,name,ip)
 							p.setRole("NoRole")
 						}
 					break;
-					case 'rolelist':
+					case 'rolelist': case 'rl':
 						if (createdList != undefined)
 						{
 							for (i in createdList)
@@ -2370,7 +2456,7 @@ function Player(socket,name,ip)
 								createdList[i] = sanitize(createdList[i]);
 								createdList[i] = roles.formatAlignment(createdList[i]);
 							}
-							socket.emit(Type.SYSTEM, createdList);
+							this.s.emit(Type.SHOWLIST,createdList);
 						}
 						else
 						{
@@ -2422,14 +2508,25 @@ function Player(socket,name,ip)
 					}
 				}
 			},
-			target:function(name){
-				for (i in players)
+			target:function(targets){
+				//Show who the player is targetting to the other mafia, if they are mafia.
+				if (this.chats.mafia)
 				{
-					if (players[i].chats.mafia || players[i].s.id == mod)
+					for (i in players)
 					{
-						players[i].s.emit(Type.TARGET,this.name,this.role,name);
+						if (players[i].chats.mafia || players[i].s.id == mod)
+						{
+							players[i].s.emit(Type.TARGET,this.name,this.role,targets.join(' and '));
+						}
 					}
 				}
+				else
+				{
+					players[mod].s.emit(Type.TARGET,this.name,this.role,targets.join(' and '));
+					this.s.emit(Type.TARGET,'You',undefined,targets.join(' and '));
+				}
+				//Log the night action for review at the end of the night.
+				gm.log(this.name,targets);
 			},
 			message:function(msg)
 			{

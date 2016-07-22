@@ -274,7 +274,8 @@ var roles=[
 					abilities:'Choose a target to disguise yourself as.',
 					attributes:['If your target dies you will appear to be them.',
 								'You can only use your night ability three times.',
-								'After disguising your name, position and character will be swapped with your targets.'],
+								'After disguising your name, position and character will be swapped with your targets.',
+								'The will fitting to the dead characters name will be displayed.'],
 					goal:mafiagoal,
 					color:mafiacolor
 			},

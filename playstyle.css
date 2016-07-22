@@ -75,6 +75,160 @@ header
 {
 	border-left:1px solid grey;
 }
+.automodcontainer
+{
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+	min-height:100px;
+	border: 1px solid black;
+	display:block;
+}
+.automodcontainer header
+{
+	height:30px;
+	width:100%;
+	background: #4B72C4;
+	position: relative;
+}
+.automodcontainer header p
+{
+	left:50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+	text-align:center;
+	margin:0;
+	padding:0;
+	position:absolute;
+	font-weight:bold;
+	font-size: 18px;
+}
+.automodcontainer h2
+{
+	text-align:center;
+	font-family:Arial;
+	font-size:20px;
+}
+.automodcontainer table
+{
+	border: 1px solid black;
+	display:block;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+table tbody
+{
+	display:block;
+}
+.unauto
+{
+	background:pink;
+}
+.transport
+{
+	background: #49D9F8;
+}
+.witched
+{
+	border:1px solid #B133E0;
+}
+.automodcontainer table tr
+{
+	display:block;
+}
+.actiontable, .messagetable
+{
+	width: 80%;
+}
+.automodcontainer table tr:first-child
+{
+	border-bottom:1px solid black;
+	display:block;
+}
+.automodcontainer table tr:first-child td
+{
+	border-bottom:none;
+}
+.automodcontainer table tr td
+{
+	display:block;
+	padding-left:5px;
+	padding-right:5px;
+	float:left;
+	border-right: 1px solid #ADADAD;
+	border-bottom: 1px solid #ADADAD;
+}
+.automodcontainer table tr td:last-child
+{
+	float:none;
+	border-right:none;
+	overflow:auto;
+	width:unset;
+}
+.automodbutton
+{
+	height:20px;
+	width:60px;
+	background:blue;
+	text-align:center;
+	line-height:20px;
+	border: 1px solid #00043D;
+    background: #4B72C4;
+    cursor: pointer;
+    font-family:Arial;
+    font-size:15px;
+    color:#0D1771;
+}
+.automodbutton:hover
+{
+	 background: #8DA9E3;
+}
+.automodbutton:active
+{
+	background:#16387E;
+	color: #8DA9E3
+}
+.actiontable tr td
+{
+	width:30%;
+	height:22px;
+	line-height:22px;
+}
+.messagetable tr td:first-child
+{
+	width: 15%;
+}
+.messagetable tr td
+{
+	width:70%;
+}
+.messagetable tr
+{
+	line-height:22px;
+	overflow:auto;
+}
+.tooltip
+{
+	position: absolute;
+	color:black;
+	background: #FFC0CB;
+	border: 1px solid black;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-radius: 6px;
+	overflow:auto;
+	transform: translate(0, -100%);
+}
+.tooltip p
+{
+	margin:0;
+	padding:0;
+}
 header ul
 {
 	list-style:none;
@@ -115,7 +269,7 @@ header ul li
 }
 .highlight
 {
-	background:yellow;
+	background:#F6FF33;
 }
 .rolecard
 {
@@ -404,7 +558,6 @@ header ul li
 }
 .controlbutton
 {
-   border-radius: 4px;
    box-shadow: rgba(0,0,0,1) 0 1px 0;
    text-shadow: rgba(0,0,0,.4) 0 1px 0;
    text-decoration: none;
@@ -643,6 +796,19 @@ header ul li
 .rolelistcontrols
 {
 	display:flex;
+}
+.extracontrols
+{
+	width:100%;
+	height:50px;
+	border: 1px solid black;
+	border-top: none;
+}
+.extracontrols .options
+{
+	height:100%;
+	float:left;
+	width:50%;
 }
 /*--Verdicts--*/
 .verdictinterface

@@ -111,6 +111,9 @@ function addMessage(msg, type)
 		case 'system':
 			$('#main').append('<li><b>'+msg+'</b></li>');
 		break;
+		case 'automod':
+			$('#main').append('<li>'+msg+'</li>');
+		break;
 		case 'highlight':
 			var changes = ['maf','arso','jester','ww','town','sk','neut'];
 			for (i in changes)
@@ -166,7 +169,29 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
-			var str = msg.name+'('+msg.role+') is now targeting <b>'+msg.target+'</b>.';
+			if (msg.role)
+			{
+				msg.role = '('+msg.role+') is';
+			}
+			else
+			{
+				msg.role = ' are';
+			}
+			if (msg.target != '')
+			{
+				var str = msg.name+msg.role+' now targeting <b>'+msg.target+'</b>.';
+			}
+			else
+			{
+				if (msg.role)
+				{
+					var str = msg.name+'('+msg.role+') cancels their targetting.';
+				}
+				else
+				{
+					var str = 'You cancel your targetting.';
+				}
+			}
 			$('#main').append('<li><span class="mod">'+str+'</span></li>');
 		break;
 		case 'custom':	
@@ -438,6 +463,12 @@ function openRolelist()
 			li.append(bot);
 			rolelist.append(li);
 		}
+		var extraControls = $('<div class="extracontrols"></div>');
+		var optionsPanel = $('<div class="options"></div>');
+		var customRoles = $('<div class="customroles"><p>Custom roles: </p><input type="checkbox" /></div>');
+		extraControls.append(optionsPanel);
+		optionsPanel.append(customRoles);
+		rolelist.append(extraControls);
 		$('body').append(rolelist);
 	}
 }
@@ -470,4 +501,110 @@ function formatAlignment(str)
 	str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");
 	str=str.replace(/[Aa]ny/,"<span style='color:white'>Any</span>");
 	return str;      
+}
+function createTable(cls)
+{
+	var table = {
+		object: $('<table class="'+cls+'"></table>'),
+		body: $('<tbody></tbody>'),
+		addRow:function(data, automated, classes){
+			var tr;
+			if (automated === true)
+			{
+				if (classes)
+				{
+					var classstr = classes.join(' ');
+					tr = $('<tr class="'+classstr+'"></tr>');
+				}
+				else
+				{
+					tr = $('<tr></tr>');
+				}
+			}
+			else
+			{
+				if (classes)
+				{
+					var classstr = classes.join(' ');
+					tr = $('<tr class="unauto '+classstr+'"></tr>');
+				}
+				else
+				{
+					tr = $('<tr class="unauto"></tr>');
+				}
+				//Hover handlers
+				tr.mouseenter(function(e){
+					var tooltip = $('<div class="tooltip"></div>');
+					var p = "<p>Could not automate.</p><p><b>Reason</b>: "+automated.reason+"</p>"
+					tooltip.append(p);
+					$('body').append(tooltip);
+					tooltip.css('top',e.pageY);
+					tooltip.css('left',e.pageX);
+				}).mouseleave(function(){
+					$('.tooltip').remove();
+				}).mousemove(function(e){
+					var tooltip = $('.tooltip');
+					tooltip.css('top',e.pageY);
+					tooltip.css('left',e.pageX);
+				});
+			}
+			for (var i in data)
+			{
+				var td = $('<td></td>');
+				td.append(data[i]);
+				tr.append(td);
+			}
+			this.body.append(tr);
+		}
+	};
+	table.object.append(table.body);
+	return table;
+}
+function chooseAutoButton(info, label)
+{
+	var func;
+	switch (info[0])
+	{
+		/*Messages*/
+		case '<All>':
+			func = function(){
+				socket.emit(Type.MSG,info[1]);
+			};
+		break;
+		/*Actions*/
+		case '<Kill>':
+			func = function(){
+				socket.emit(Type.TOGGLELIVING,info[1]);
+				//Stupid button swapping stuff that I have no idea why I thought was a good idea at the time.
+				var index = users.indexOf(info[1]);
+				var buttons = $('.killbutton, .revivebutton');
+				if ($(buttons[index]).hasClass('killbutton'))
+				{
+					$(buttons[index]).removeClass('killbutton');
+					$(buttons[index]).addClass('revivebutton');
+					$(buttons[index]).html('Revive');
+				}
+				else
+				{
+					$(buttons[index]).removeClass('revivebutton');
+					$(buttons[index]).addClass('killbutton');
+					$(buttons[index]).html('Kill');
+				}
+			};
+		break;
+		case '<Blackmail>':
+			func = function(){
+				socket.emit(Type.TOGGLE,info[1],'blackmail');
+			};
+		break;
+		/*Default is to treat it as a name*/
+		default:
+			func = function(){
+				socket.emit(Type.MSG,'/sys '+info[0]+' '+info[1]);
+			};
+		break;
+	}
+	var button = $('<div class="automodbutton">'+label+'</div>');
+	button.click(func);
+	return button;
 }

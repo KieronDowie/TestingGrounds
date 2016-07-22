@@ -51,7 +51,11 @@ var Type = {
 	HEY:38,
 	TARGET:39,
 	HUG:40,
-	ME:41
+	ME:41,
+	ROLELIST:42,
+	AUTOLEVEL:43,
+	SUGGESTIONS:44,
+	SYSSENT:45
 };
 function clearAllInfo()
 {
@@ -435,6 +439,10 @@ socket.on(Type.SYSTEM,function(msg)
 {
 	addMessage(msg,'system');
 });
+socket.on(Type.SYSSENT,function(to,msg)
+{
+	addMessage('To '+to+': '+msg,'system');
+});
 socket.on(Type.ROOMLIST,function(list)
 {
 	users = [];
@@ -802,6 +810,81 @@ socket.on(Type.LATENCIES,function(p)
 			addMessage(i+': '+p[i]+'ms','system');
 		}
 	}
+});
+socket.on(Type.SUGGESTIONS,function(results){
+	console.log(results);
+	var container = $('<div class="automodcontainer"><header><p>Automod</p></header</div>');
+	//Target list
+	var table = createTable('actiontable');
+	table.addRow(['<b>Name</b>','<b>Role</b>','<b>Target</b>'],true); //Header
+	for (i in results.targets)
+	{
+		var data = [];
+		data.push(i); //Name
+		data.push(results.targets[i][0]); //Role
+		if (results.targets[i][1])
+		{
+			data.push(results.targets[i][1].join(' and ')); //Target
+		}
+		else
+		{
+			data.push('No Action');
+		}
+		table.addRow(data,results.targets[i][2], results.targets[i][3]);
+		data = [];
+	}
+	container.append(table.object);
+	if (results.messages)
+	{
+		//Suggested messages
+		container.append('<h2>Suggested Messages</h2>');
+		var messageTable = createTable('messagetable');
+		messageTable.addRow(['<b>To</b>','<b>Message</b>','<b>Send</b>'],true); //Header
+		data = [];
+		for (i in results.messages)
+		{
+			var to = results.messages[i][0];
+			//Remove the <> surrounding special names like <All>
+			if (to[0] == '<')
+			{
+				to = to.substring(1,to.length-1);
+			}
+			data.push(to); //Name
+			data.push(results.messages[i][1]); //Message
+			//Choose a button action.
+			var button = chooseAutoButton(results.messages[i], 'Send');
+			data.push(button); //Send button
+			messageTable.addRow(data,true);
+			data = [];
+		}
+		container.append(messageTable.object);
+	}
+	if (results.actions)
+	{
+		//Suggested actions
+		container.append('<h2>Suggested Actions</h2>');
+		var actionsTable = createTable('actiontable');
+		actionsTable.addRow(['<b>Action</b>','<b>Player</b>','<b>Act</b>'], true); //Header
+		for (i in results.actions)
+		{
+			var type = results.actions[i][0];
+			//Remove the <> surrounding actions
+			if (type[0] == '<')
+			{
+				type = type.substring(1,type.length-1);
+			}
+			data.push(type); //Type
+			data.push(results.actions[i][1]); //Person
+			//Choose a button action.
+			var label = results.actions[i][0].substring(1,results.actions[i][0].length-1); //Cut off the < > around the action.
+			var button = chooseAutoButton(results.actions[i], label);
+			data.push(button); //Button
+			actionsTable.addRow(data, true);
+			data = [];
+		}
+		container.append(actionsTable.object);
+	}
+	$('#main').append(container);
 });
 socket.on(Type.SHOWLIST,function(list)
 {
