@@ -55,7 +55,8 @@ var Type = {
 	ROLELIST:42,
 	AUTOLEVEL:43,
 	SUGGESTIONS:44,
-	SYSSENT:45
+	SYSSENT:45,
+	CUSTOMROLES:46
 };
 function clearAllInfo()
 {

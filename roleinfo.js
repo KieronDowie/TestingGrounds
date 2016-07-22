@@ -1,3 +1,4 @@
+var customRolesRollable = true;
 //colors
 var towncolor="#19FF19";
 var mafiacolor="red";
@@ -27,7 +28,7 @@ var roles=[
 				color:towncolor
 			},
 			//ROLEIDEASCIENTIST
-			/*{      
+			{      
 				rolename:"scientist",
 				alignment:"town investigative",
 				abilities:'Take a fingerprint sample of one person each night.',
@@ -36,8 +37,9 @@ var roles=[
 				'You may not sample yourself.',
 				'You may not sample a revealed mayor.'],
 				goal:towngoal,
-				color:towncolor
-			},*/
+				color:towncolor,
+				custom:true
+			},
 			{    
 				rolename:"lookout",
 				alignment:"town investigative",
@@ -46,13 +48,14 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},	
-			/*{    
+			{    
 				rolename:"tracker",
 				alignment:"town investigative",
 				abilities:'Follow one person to see who they visit.',
 				attributes:['None'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
+				custom:true
 			},
 			{    
 				rolename:"ghost",
@@ -65,7 +68,8 @@ var roles=[
 							'You must change targets each night',
 							'The Werewolf will trace your scent after your first encounter and kill you in the second.'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
+				custom:true
 			},
 			//ROLEIDEASHADOW (FOR CTRL + F PURPOSES)
 			{      
@@ -78,8 +82,9 @@ var roles=[
 							"Lookout will only see you if you do a direct attack on your target.",
 							"If you target a Bodyguard, they will not be able to guard your attacks."],
 				goal:"Kill anyone that would oppose you.",
-				color:'#BF40BF'
-			},*/
+				color:'#BF40BF',
+				custom:true
+			},
 			{      
 				rolename:"spy",
 				alignment:"town investigative",
@@ -107,14 +112,15 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-			/*{      
+			{      
 				rolename:"coroner",
 				alignment:"town investigative",
 				abilities:'Choose a dead person at night and know how many people of their alignment voted "Guilty" at the last lynch',
 				attributes:['None'],
 				goal:towngoal,
-				color:towncolor
-			},*/
+				color:towncolor,
+				custom:true
+			},
 			{      
 				rolename:"medium",
 				alignment:"town support",
@@ -226,8 +232,8 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},*/
-			 //ROLEIDEANIGHTMARER
-			/*{      
+			//ROLEIDEANIGHTMARER
+			{      
 				rolename:"nightmarer",
 				alignment:"mafia support",
 				abilities:'Make someone have a nightmare about someone each night.',
@@ -237,8 +243,9 @@ var roles=[
 							'All nightmares end if the nightmarer dies or is promoted.'
 				],
 				goal:mafiagoal,
-				color:mafiacolor
-			},*/
+				color:mafiacolor,
+				custom:true
+			},
 			{      
 				rolename:"blackmailer",
 				alignment:"mafia support",
@@ -280,7 +287,7 @@ var roles=[
 					color:mafiacolor
 			},
 			//ROLEIDEADRUG (FOR CTRL + F PURPOSES)
-			/*{      
+			{      
 				rolename:"drug dealer",
 				alignment:"mafia deception",
 				abilities:'Choose to drug someone at night.',
@@ -291,8 +298,9 @@ var roles=[
 				//'If there are no kill capable Mafia roles left you will become a Mafioso.'
 				],
 				goal:mafiagoal,
-				color:mafiacolor
-			},*/
+				color:mafiacolor,
+				custom:true
+			},
 			//ROLEIDEAWATCHER
 			{      
 				rolename:"watcher",
@@ -300,7 +308,8 @@ var roles=[
 				abilities:'Watch someone at night to see who visits them.',
 				attributes:['You can talk to the Mafia at night.'],
 				goal:mafiagoal,
-				color:mafiacolor
+				color:mafiacolor,
+				custom:true
 			},
 			{      
 				rolename:"framer",
@@ -359,7 +368,7 @@ var roles=[
 				color:"brown"
 			},
 			//ROLEIDEAELECTRIC (FOR CTRL + F PURPOSES)
-			/*{
+			{
 				rolename:"electrician",
 				alignment:"neutral killing",
 				abilities:'Charge someone each night.',
@@ -371,8 +380,9 @@ var roles=[
 				"If every other player is charged, you may kill all charged players."
 				],
 				goal:"Live to see everyone electrocuted.",
-				color:"#00FF80"
-			},*/
+				color:"#00FF80",
+				custom:true
+			},
 			{      
 					rolename:"jester",
 					alignment:"neutral evil",
@@ -401,7 +411,7 @@ var roles=[
 					goal:"Survive to see the Town lose the game.",
 					color:"purple"
 			},
-			/*ROLEIDEANECRO
+			/*ROLEIDEANECRO*/
 			{      
 				rolename:"necromancer",
 				alignment:"neutral evil",
@@ -412,8 +422,9 @@ var roles=[
 				'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
 				],
 				goal:'Survive to see the town lose the game.',
-				color:'black'
-			},*/
+				color:'black',
+				custom:true
+			},
 			{      
 					rolename:"survivor",
 					alignment:"neutral benign",
@@ -431,7 +442,7 @@ var roles=[
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
 			},
-			/*ROLEIDEAAVENGER
+			/*ROLEIDEAAVENGER*/
 			{      
 				rolename:"avenger",
 				alignment:"neutral benign",
@@ -440,10 +451,11 @@ var roles=[
 				'This ability also applies to lynches but you CANNOT become a lynched Jester.',
 				'Only you will see the cleaned target\'s role and last will.'],
 				goal:"Take vengeance for someone and complete their objective.",
-				color:"#408080"
-			},*/
+				color:"#408080",
+				custom:true
+			},
 			/*ROLEIDEABURGLAR*/
-			/*{      
+			{      
 				rolename:"thief",
 				alignment:"neutral evil",
 				abilities:'Choose a person and steal their will at night.',
@@ -452,7 +464,8 @@ var roles=[
 				'Evil targets will know someone tried to steal their will.',
 				'If you steal someone\'s will the night they die, their will will not show.'],
 				goal:"Manipulate the town into losing.",
-				color:"#292929"
+				color:"#292929",
+				custom:true
 			},
 			{      
 				rolename:"burglar",
@@ -463,9 +476,10 @@ var roles=[
 				'Evil targets will know someone tried to steal their will.',
 				'If you steal someone\'s will the night they die, their will will not show.'],
 				goal:mafiagoal,
-				color:mafiacolor
-			}, **/   
-			/*{
+				color:mafiacolor,
+				custom:true
+			},
+			{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
 				abilities:'Look for death each night.',
@@ -476,7 +490,8 @@ var roles=[
 							'You cannot be protected or healed.',
 							'You will grant your killer unpierceable nightimmunity until the following night.'],
 				goal:"Find a way to lift your curse!",
-				color:"#8080FF"
+				color:"#8080FF",
+				custom:true
 			},
 			{
 					rolename:"undertaker",
@@ -488,7 +503,8 @@ var roles=[
 								'You will join the deathchat, after your goal is fulfilled',
 								'You cannot be killed at night'],
 					goal:"Bury 1-3 people",
-					color:"#739292"
+					color:"#739292",
+					custom:true
 			},
 			{
 				rolename:"rain dancer",
@@ -501,7 +517,8 @@ var roles=[
 							'You can execute only 2 rain dances.',
 							'It cannot rain 2 days in a row.'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
+				custom:true
 			},
 			{
 				rolename:"necromancer",
@@ -511,7 +528,8 @@ var roles=[
 							'Your target will know who has revived them.',
 							'If you are killed, you will take your puppet with you.'],
 				goal:"Survive to see the town lose the game.",
-				color:"#BBC2A5"
+				color:"#BBC2A5",
+				custom:true
 			},
 			{
 				rolename:"auditor",
@@ -525,9 +543,10 @@ var roles=[
 							'If you run out of audits, you may still role block',
 							'Mayor will lose his extra votes upon audit.' ],
 				goal:"Survive to see the town lose the game.",
-				color:"#BF0080"
-			},*/
-			/*{
+				color:"#BF0080",
+				custom:true
+			},
+			{
 				rolename:"banshee",
 				alignment:"neutral chaos",
 				abilities:'Select 1/4 of the living population to be marked for death.',
@@ -535,11 +554,13 @@ var roles=[
 							'Once you mark everyone, the public will be notified of your existence and will have one day to kill you before you take the win for yourself.',
 							'Targets are not notified of being marked.',
 							'You are night immune.',
-							//'You are unique.'],
+							//'You are unique.'
+							],
 				goal:"Live to see everyone die from your fate.",
-				color:"#008080"
-			},*/
-			/*{
+				color:"#008080",
+				custom:true
+			},
+			{
 				rolename:"politician",
 				alignment:"neutral evil",
 				abilities:'Bribe one player each night to commandeer their vote during the day.',
@@ -550,7 +571,8 @@ var roles=[
 							'You are immune to the first non Town attack',
 							'You are able to read whispers.'],
 				goal:"Survive to see the Town lose the game.",
-				color:"#49A9D0"
+				color:"#49A9D0",
+				custom:true
 			},
 			//Jammys Mystic
 			{
@@ -565,7 +587,8 @@ var roles=[
 							'You are immune to roleblocks.',
 							'You are immune to Witches.'],
 				goal:"Possess someone's body and fulfill their win condition.",
-				color:"#BFBF00"
+				color:"#BFBF00",
+				custom:true
 			},
 			//Jammys Tax Collector
 			{
@@ -575,8 +598,9 @@ var roles=[
 				attributes:['You will leave town once your goal is completed.',
 							'You cannot be killed at night.'],
 				goal:"Collect tax from every living player.",
-				color:"#4080FF"
-			}, */
+				color:"#4080FF",
+				custom:true
+			},
 			//Casual roles
 			{
 				rolename:"citizen",
@@ -584,7 +608,8 @@ var roles=[
 				abilities:'Your only ability is your vote.',
 				attributes:['Without the burden of power to weigh you down, you exhibit superior logic and deductive abilities.'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
+				custom:true
 			},
 			{
 				rolename:"hunter",
@@ -593,7 +618,8 @@ var roles=[
 				attributes:['Upon your lynch, you will be able to kill any player in the game.',
 							'If another Hunter is lynched first, you will miss the hunt, put away your rifle, and become a Citizen.'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
+				custom:true
 			},
 			{
 				rolename:"goon",
@@ -601,7 +627,8 @@ var roles=[
 				abilities:'Your only ability is your vote.',
 				attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
 				goal:mafiagoal,
-				color:mafiacolor
+				color:mafiacolor,
+				custom:true
 			},
 			{
 				rolename:"game engine",
@@ -609,7 +636,8 @@ var roles=[
 				abilities:'Process the game.',
 				attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
 				goal:"See a faction win the game.",
-				color:"#000000"
+				color:"#000000",
+				custom:true
 			},
 			{
 				rolename:"kitteh",
@@ -617,7 +645,8 @@ var roles=[
 				abilities:'Do what you want.',
 				attributes:['Whatever you wish for'],
 				goal:"See the TG without bugs.",
-				color:"#F0FF0F"
+				color:"#F0FF0F",
+				custom:true
 			},
 			{
 				rolename:"afk",
@@ -625,7 +654,8 @@ var roles=[
 				abilities:'Die before the game has started.',
 				attributes:['You have lost automatically.'],
 				goal:"None",
-				color:"#B05F3C"
+				color:"#B05F3C",
+				custom:true
 			},
 			{
 				rolename:"late",
@@ -633,24 +663,18 @@ var roles=[
 				abilities:'You were too late.',
 				attributes:['Please wait patiently for the current game to end.'],
 				goal:"Wait for a new game to start.",
-				color:"#FE00EF"
+				color:"#FE00EF",
+				custom:true
 			},
-			/*{
-				rolename:"late :c",
-				alignment:"neutral unlucky",
-				abilities:'Being too late.',
-				attributes:['Please wait patiently for the game to end', 'Zoroark has given you this role.'],
-				goal:"Wait for a game to start",
-				color:"#FEDDEF"
-			},*/
 			//ARPITR ROLES 
-			/*{     
+			{     
                rolename:"paradoxist",
                alignment:"Neutral Chaos",
                abilities:'Visit a player to send them backwards in time, roleblocking but also healing them. Visting a second time kills them.',
                attributes:['Your initial time is 8 o\'clock.','Visiting a Town member will send your clock forward 5 hours.','Visiting a member of the Mafia will send your clock forward 3 hours.','Visiting any Neutral role will send your clock backwards 2 hours.'],
                goal:"Land your clock on 12 o'clock to win",
-               color:"magenta"
+               color:"magenta",
+				custom:true
 			},
 			{
 				 rolename:"orphan",
@@ -662,8 +686,8 @@ var roles=[
 				 "When taken in, it will be announced that the Orphan was taken in."],
 				 goal:"Get taken in, and help your team win.",
 				 color:"turquoise"
-			},*/
-			/*{
+			},
+			{
 				 rolename:"sniper",
 				 alignment:"mafia killing",
 				 abilities:'Shoot someone on a non-full moon nights.',
@@ -673,8 +697,9 @@ var roles=[
 				 "You can charge your gun and pierce night immunity one night.",
 				 "You make Dota happy."],
 				 goal:mafiagoal,
-				 color:mafiacolor
-			 }*/
+				 color:mafiacolor,
+				custom:true
+			 }
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor"];
  
@@ -774,7 +799,22 @@ module.exports = {
 						{
 							if (elem.alignment == r[i] || r[i] == "any" && elem.alignment.split(" ")[1] != 'trueEvil')
 							{
-								return true;
+								//Ensure custom rolls only roll as any if they are enabled.
+								if (!customRolesRollable)
+								{
+									if (elem.custom)
+									{
+										//Nope! Not rolling
+									}
+									else
+									{
+										return true;
+									}
+								}
+								else
+								{
+									return true;
+								}
 							}
 						}
 					}
@@ -788,7 +828,21 @@ module.exports = {
 							{
 								if (splitelem[1] != 'power' && splitelem[1] != 'casual' && splitelem[1] != 'unlucky' && splitelem[1] != 'trueEvil') //Prevent Town Power and Town Casual from rolling as random town.
 								{
-									return true;
+									if (customRolesRollable)
+									{
+										return true;
+									}
+									else
+									{
+										if (elem.custom)
+										{
+											//Nope!
+										}
+										else
+										{
+											return true;
+										}
+									}
 								}
 							}
 						}
@@ -866,5 +920,8 @@ module.exports = {
                         str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");      
                 }
                 return str;
-        }      
+        },
+        setCustomRoles:function(bool){
+			customRolesRollable = bool;
+		}
 };

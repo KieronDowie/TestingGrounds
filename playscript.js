@@ -20,6 +20,7 @@ var current_rolelist = [
 	"Any"
 ];
 //Globals
+var customRolesRollable = true;
 var rolelist_names = [];
 var rolelist_result = [];
 $(document).ready(function(){	
@@ -465,7 +466,16 @@ function openRolelist()
 		}
 		var extraControls = $('<div class="extracontrols"></div>');
 		var optionsPanel = $('<div class="options"></div>');
-		var customRoles = $('<div class="customroles"><p>Custom roles: </p><input type="checkbox" /></div>');
+		var customRoles = $('<div class="customroles"></div>');
+		var p = $('<p>Custom roles: </p>');
+		var chk = $('<input type="checkbox" />');
+		chk.prop('checked', customRolesRollable)
+		customRoles.append(p);
+		customRoles.append(chk);
+		chk.click(function(){
+			var b = $(this).is(':checked');
+			socket.emit(Type.CUSTOMROLES,b);
+		});
 		extraControls.append(optionsPanel);
 		optionsPanel.append(customRoles);
 		rolelist.append(extraControls);

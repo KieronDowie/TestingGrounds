@@ -803,12 +803,23 @@ header ul li
 	height:50px;
 	border: 1px solid black;
 	border-top: none;
+	background:white;
 }
 .extracontrols .options
 {
 	height:100%;
 	float:left;
 	width:50%;
+	padding: 5px;
+}
+.extracontrols .options .checkbox
+{
+	float:left;
+}
+.extracontrols .options p
+{
+	float:left;
+	margin:0;
 }
 /*--Verdicts--*/
 .verdictinterface

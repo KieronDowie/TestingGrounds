@@ -55,7 +55,8 @@ var Type = {
 	ROLELIST:42,
 	AUTOLEVEL:43,
 	SUGGESTIONS:44,
-	SYSSENT:45
+	SYSSENT:45,
+	CUSTOMROLES:46
 };
 var autoLevel = 1;
 /*
@@ -692,6 +693,9 @@ io.on('connection', function(socket){
 		{
 			players[socket.id].message(msg);
 		}
+	});
+	socket.on(Type.CUSTOMROLES,function(bool){
+		roles.setCustomRoles(bool);
 	});
 	socket.on(Type.PRENOT,function(name,prenot)
 	{
