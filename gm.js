@@ -204,6 +204,7 @@ var autoRoles =
 	'serial killer': {
 		attributes:  {
 			SKKILL:attributes.SKKILL,
+			RBATTACK:attributes.RBATTACK,
 			IMMUNE:attributes.IMMUNE},
 		grouping:'J',
 		alignment:'sk'
@@ -508,11 +509,14 @@ module.exports = {
 								{
 									displayTargets[t[0]][3].push('rbattack');
 									var prevTarget = targets[t[0]][1];
-									//Remove the previous target.
-									var index = beingTargetted[prevTarget].indexOf(t[0]);
-									beingTargetted[prevTarget].splice(index,1);
+									//Remove the reference to the previous target.
+									if (prevTarget.length > 0)
+									{
+										var index = beingTargetted[prevTarget].indexOf(t[0]);
+										beingTargetted[prevTarget].splice(index,1);
+									}
 									//Move the target to the roleblocker.
-									targets[t[0]][1] = num;
+									targets[t[0]][1] = [num];
 									//Add the reference to the new target.
 									if (beingTargetted[num])
 									{
@@ -522,6 +526,8 @@ module.exports = {
 									{
 										beingTargetted[num] = [ t[0] ];
 									}
+									addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
+									addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 								}
 								else
 								{

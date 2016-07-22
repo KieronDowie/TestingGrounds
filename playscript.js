@@ -170,7 +170,6 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
-			console.log(msg);
 			if (msg.role)
 			{
 				msg.role = '('+msg.role+') is';
