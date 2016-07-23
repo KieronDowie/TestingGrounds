@@ -1339,11 +1339,11 @@ function Timer()
 		buffertime:undefined,
 		phase:[0,0,0, //Pregame, Roles, Modtime.
 			60, //Day
-			9999999999999999, //Voting
+			30, //Voting
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			60, //Night
+			10, //Night
 			30 //Day 1
 			],
 		tock:function(){
@@ -1360,7 +1360,7 @@ function Timer()
 					if (autoLevel > 0)
 					{
 						//Evaluate night actions.
-						var results = gm.evaluate(players,playernames,mod);
+						var results = gm.evaluate(players,playernames,mod,roles);
 						if (autoLevel == 1) //Semi-auto. Just show the suggestions to the mod.
 						{
 							players[mod].s.emit(Type.SUGGESTIONS, results);
@@ -1459,7 +1459,6 @@ function Timer()
 function formatData(data){
 	var date = addZero(testTime.getDate()+1)+'/'+addZero(testTime.getMonth()+1)+'/'+testTime.getFullYear();
 	data = data.replace('%date%',date);
-	console.log(testTime.getDay());
 	var time = addZero(testTime.getHours())+':'+addZero(testTime.getMinutes());
 	data = data.replace('%time%',time);
 	return data;

@@ -595,6 +595,16 @@ function chooseAutoButton(info, label)
 				}
 			};
 		break;
+		case '<Set Role>':
+			func = function(){
+				var arr = info[1].split('/');
+				socket.emit(Type.SETROLE,arr[0],arr[1]);
+				//Change the input box
+				var index = users.indexOf(arr[0]);
+				var input = $('.role');
+				$(input[index]).val(arr[1]);
+			}
+		break;
 		case '<Blackmail>':
 			func = function(){
 				socket.emit(Type.TOGGLE,info[1],'blackmail');
