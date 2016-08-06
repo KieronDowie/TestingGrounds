@@ -215,9 +215,34 @@ socket.on(Type.MSG,function(name,msg)
 		addMessage(name+': '+msg,'msg');
 	}
 });
-socket.on(Type.HELP,function(commands){
-
-	var com = $("<div class='helppanel shrink' id='helpListPanel'>This is a test message. General help goes here.</div>");
+socket.on(Type.HELP,function(commands)
+{
+	var helpmsgs = [
+		"The Mod is your friend, ask them if you need further help.",
+		"The Mod does not bite, they are only killing people.",
+		"The Mod can make mistakes, if you believe there has been a mod error, message them using /mod.",
+		"Please keep your last will closed during Modtime.",
+		"You can tell the mod what you would like to do at night using /mod or /target",
+		"Be patient as Modtime can last for a while, depending on the player number and roles in play.",
+		"Read up the standard changes of the Testing Grounds <a href='https://docs.google.com/document/d/1d_a-R-lhKQpQe_fYD3XyBnCx4WQETI9GokBjscB96mk/edit'>here</a>."
+	];
+	var tldrchanges = [
+		"Transporters are silent",
+		"Disguisers display the last will of the ones whose name died (disgusers -> first tartgets --> secodn targets and when the Disguiser dies the one of the third target).",
+		"Blackmailer can read whispers when they did not blackmail in the previous night.",
+		"Orangeandblack5's Investigation results 1.6 are used http://www.blankmediagames.com/phpbb/viewtopic.php?f=27&t=23473 ).",
+		"There is no Mafioso, the Godfather can decide if an other Member should perform the kill.",
+		"If there is no Godfather, the Mafia members can discuss who should kill, but they do not have to kill.",
+		"The Spy cannot read the Mafia chat.",
+		"Retributionist, Jailor and Mayor have the Town(Power) alignment. Town(Power) cannot roll in Random Town."
+	];
+	//Help
+	var helpmsg = "";
+	for (i in helpmsgs)
+	{
+		helpmsg += '<li>'+helpmsgs[i]+"</li>";
+	}
+	var com = $("<div class='helppanel shrink' id='helpListPanel'>"+helpmsg+"</div>");
 	var com2 = $("<div class='helppanel shrink' id='modListPanel'>This is a test message. Modding help goes here.</div>");
 	var com3 = $("<div class='helppanel shrink' id='commandListPanel'></div>");
 	var txt1 = $('<a href="#">General help</a>');

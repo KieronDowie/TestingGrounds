@@ -1799,7 +1799,7 @@ function Player(socket,name,ip)
 							list.dev = clone(commandList.dev);
 						}
 						list.fun = clone(commandList.fun);
-						socket.emit(Type.HELP,list);
+						this.s.emit(Type.HELP,list);
 					break;
 					case 'whisper':
 					case 'w':
@@ -1807,11 +1807,11 @@ function Player(socket,name,ip)
 						{
 							if (this.blackmailed && phase != Phase.PREGAME)
 							{
-								socket.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
+								this.s.emit(Type.SYSTEM,'You cannot whisper while blackmailed.');
 							}
 							else if (!this.alive && phase != Phase.PREGAME)
 							{
-								socket.emit(Type.SYSTEM,'You need to be alive to whisper.');
+								this.s.emit(Type.SYSTEM,'You need to be alive to whisper.');
 							}
 							else
 							{	
@@ -1844,18 +1844,18 @@ function Player(socket,name,ip)
 									}
 									else
 									{
-										socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
+										this.s.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
 									}
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'The syntax of this command is \'/w name message\'.');
+									this.s.emit(Type.SYSTEM,'The syntax of this command is \'/w name message\'.');
 								}
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You can only whisper during the day.');
+							this.s.emit(Type.SYSTEM,'You can only whisper during the day.');
 						}
 					break;
 					case 'disguise':
@@ -1906,17 +1906,17 @@ function Player(socket,name,ip)
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'Invalid players!');
+									this.s.emit(Type.SYSTEM,'Invalid players!');
 								}
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is /disguise disguiser target');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /disguise disguiser target');
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
 					case 'givemod':
@@ -1924,7 +1924,7 @@ function Player(socket,name,ip)
 						{
 							if (c.length < 2)
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/givemod player\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/givemod player\'.');
 							}
 							else
 							{
@@ -1987,19 +1987,19 @@ function Player(socket,name,ip)
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
+									this.s.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
 								}
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You do not have permission to use this command.');
+							this.s.emit(Type.SYSTEM,'You do not have permission to use this command.');
 						}
 					break;
 					case 'mod':
 						if (c.length < 2)
 						{
-							socket.emit(Type.SYSTEM,'The syntax of this command is \'/mod message\'.');
+							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/mod message\'.');
 						}
 						else
 						{
@@ -2015,7 +2015,7 @@ function Player(socket,name,ip)
 						{
 							if (c.length != 1)
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/random\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/random\'.');
 							}
 							else
 							{
@@ -2023,17 +2023,17 @@ function Player(socket,name,ip)
 								if (length > 0)
 								{
 									var randomNumber = Math.floor( Math.random()*length)+1;
-									socket.emit(Type.SYSTEM,'Random player: '+ getPlayerByNumber(randomNumber).name);
+									this.s.emit(Type.SYSTEM,'Random player: '+ getPlayerByNumber(randomNumber).name);
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'Not enough players to use this command.');
+									this.s.emit(Type.SYSTEM,'Not enough players to use this command.');
 								}
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
 					case 'roll':
@@ -2041,18 +2041,18 @@ function Player(socket,name,ip)
 						{
 							if (c.length > 2)
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/roll number\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/roll number\'.');
 							}
 							else
 							{
 								var sides = c[1] ? c[1] : 6; //Specified value or 6.
 								var randomNumber = Math.floor( Math.random()*sides)+1;
-								socket.emit(Type.SYSTEM,'Dice roll ('+sides+' sides): '+randomNumber);
+								this.s.emit(Type.SYSTEM,'Dice roll ('+sides+' sides): '+randomNumber);
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
 					case 'vote':
@@ -2064,12 +2064,12 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'This command only accepts names, and is only to be used if the voting interface is not working.');
+								this.s.emit(Type.SYSTEM,'This command only accepts names, and is only to be used if the voting interface is not working.');
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'The syntax of this command is \'/vote name\'');
+							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/vote name\'');
 						}
 					break;
 					case 'dev':
@@ -2078,17 +2078,17 @@ function Player(socket,name,ip)
 							var password = c[1];
 							if (this.dev)
 							{
-								socket.emit(Type.SYSTEM,'You already have access to the dev commands.');
+								this.s.emit(Type.SYSTEM,'You already have access to the dev commands.');
 							}
 							else if (apass == password)
 							{
-								socket.emit(Type.SYSTEM,'Password accepted. You now have access to dev commands.');
+								this.s.emit(Type.SYSTEM,'Password accepted. You now have access to dev commands.');
 								this.dev=true;
 								io.emit(Type.SETDEV,this.name);
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'Incorrect password!');
+								this.s.emit(Type.SYSTEM,'Incorrect password!');
 							}
 						}
 						else
@@ -2099,15 +2099,15 @@ function Player(socket,name,ip)
 					case 'reveal':
 						if (this.mayor === undefined)
 						{
-							socket.emit(Type.SYSTEM,'...but you aren\'t the Mayor.');
+							this.s.emit(Type.SYSTEM,'...but you aren\'t the Mayor.');
 						}
 						else if (this.mayor)
 						{
-							socket.emit(Type.SYSTEM,'You have already revealed yourself as the Mayor.');
+							this.s.emit(Type.SYSTEM,'You have already revealed yourself as the Mayor.');
 						}
 						else if (!this.alive)
 						{
-							socket.emit(Type.SYSTEM,'You must be alive to reveal.');
+							this.s.emit(Type.SYSTEM,'You must be alive to reveal.');
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 						{
@@ -2121,7 +2121,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
+							this.s.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
 					case 't': case 'target':
@@ -2183,11 +2183,11 @@ function Player(socket,name,ip)
 					case 'exe': case 'execute': case 'x':
 						if (!this.chats.jailor)
 						{
-							socket.emit(Type.SYSTEM,'You need to be the Jailor to use this.');
+							this.s.emit(Type.SYSTEM,'You need to be the Jailor to use this.');
 						}
 						else if (phase != Phase.NIGHT)
 						{
-							socket.emit(Type.SYSTEM,'You can only use this at night.');
+							this.s.emit(Type.SYSTEM,'You can only use this at night.');
 						}
 						else
 						{
@@ -2210,7 +2210,7 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'You do not have a prisoner to execute!');
+								this.s.emit(Type.SYSTEM,'You do not have a prisoner to execute!');
 							}
 						}
 					break;
@@ -2219,7 +2219,7 @@ function Player(socket,name,ip)
 						{
 							if (c.length < 2)
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/me action\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/me action\'.');
 							}
 							else
 							{
@@ -2312,7 +2312,7 @@ function Player(socket,name,ip)
 					case 'confirm':
 						if (mod == this.s.id)
 						{
-							socket.emit(Type.SYSTEM,'The mod cannot use this command.');
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
 						else if (phase == Phase.ROLES)
 						{						
@@ -2329,7 +2329,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
+							this.s.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
 						}
 					break;
 					case 'ban':
@@ -2338,7 +2338,7 @@ function Player(socket,name,ip)
 							if (this.dev)
 							{
 								banlist.push(c[1]);
-								socket.emit(Type.SYSTEM, 'You banned the ip: '+c[1]);
+								this.s.emit(Type.SYSTEM, 'You banned the ip: '+c[1]);
 							}
 						}
 					break;
@@ -2351,7 +2351,7 @@ function Player(socket,name,ip)
 								var tokick = getPlayerByName(name);
 								if (!isNaN(name))
 								{
-									socket.emit(Type.SYSTEM,'Please use the name of the player you wish to kick, not the number. This is to ensure no players are kicked accidentally.');
+									this.s.emit(Type.SYSTEM,'Please use the name of the player you wish to kick, not the number. This is to ensure no players are kicked accidentally.');
 								}
 								else if (tokick)
 								{
@@ -2368,17 +2368,17 @@ function Player(socket,name,ip)
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'\''+name+'\' is not a valid player.');
+									this.s.emit(Type.SYSTEM,'\''+name+'\' is not a valid player.');
 								}
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'You do not have the correct permissions to use this command.');
+								this.s.emit(Type.SYSTEM,'You do not have the correct permissions to use this command.');
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
+							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
 						}
 					break;
 					case 'alert':
@@ -2397,7 +2397,7 @@ function Player(socket,name,ip)
 									}
 									else
 									{
-										socket.emit(Type.SYSTEM,'Cannot find player \''+c[1]+'\'');
+										this.s.emit(Type.SYSTEM,'Cannot find player \''+c[1]+'\'');
 									}
 								}
 								else if (parseInt(c[1]) >= 0 && parseInt(c[1]) < Object.keys(players).length) //Number
@@ -2409,17 +2409,17 @@ function Player(socket,name,ip)
 								}
 								else
 								{									
-									socket.emit(Type.SYSTEM,'Cannot find user number '+c[1]+'.');
+									this.s.emit(Type.SYSTEM,'Cannot find user number '+c[1]+'.');
 								}
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'You do not have the correct permissions to use this command.');
+								this.s.emit(Type.SYSTEM,'You do not have the correct permissions to use this command.');
 							}
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM,'The syntax of this command is \'/alert user \'.');
+							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/alert user \'.');
 						}
 					break;
 					case 'ping':
@@ -2471,12 +2471,12 @@ function Player(socket,name,ip)
 								}
 								else
 								{
-									socket.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
+									this.s.emit(Type.SYSTEM,'\''+c[1]+'\' is not a valid player.');
 								}
 							}
 							else
 							{
-								socket.emit(Type.SYSTEM,'The syntax of this command is \'/msg name message\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/msg name message\'.');
 							}
 						}
 						else
@@ -2562,7 +2562,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							socket.emit(Type.SYSTEM, 'There is currently no rolelist saved.');
+							this.s.emit(Type.SYSTEM, 'There is currently no rolelist saved.');
 						}
 						break;
 					default:
@@ -2659,7 +2659,7 @@ function Player(socket,name,ip)
 						{
 							if (this.blackmailed)
 							{
-								socket.emit(Type.SYSTEM,'You are blackmailed.');
+								this.s.emit(Type.SYSTEM,'You are blackmailed.');
 							}
 							else
 							{
@@ -2754,7 +2754,7 @@ function Player(socket,name,ip)
 						{					
 							if (this.blackmailed)
 							{
-								socket.emit(Type.SYSTEM,'You are blackmailed.');
+								this.s.emit(Type.SYSTEM,'You are blackmailed.');
 							}
 							else
 							{
