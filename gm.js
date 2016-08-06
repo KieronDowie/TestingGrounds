@@ -306,7 +306,7 @@ module.exports = {
 		suggestedActions = [];
 		beingTargetted = {};
 	},
-	evaluate:function(players, playernames, mod, roles){
+	evaluate:function(players, playernames, mod, roles, lvl){
 		var targets = {};
 		var displayTargets = {};
 		var playersByName = {}; //Quick target array to get back to the players array.
@@ -349,564 +349,576 @@ module.exports = {
 				
 			}
 		}
-		//Sort targets array by priority
-		var orderedTargets = Object.keys(targets);
-		orderedTargets = orderedTargets.sort(function(one, two){
-			var rolename1 = getRole(targets[one]);
-			var rolename2 = getRole(targets[two]);
-			var role1 = autoRoles[rolename1];
-			var role2 = autoRoles[rolename2];
-			var p1, p2;
-			if (role1 === undefined)
-			{
-				p1 = 0;
-			}
-			else
-			{
-				p1 = role1.priority;
-			}
-			if (role2 === undefined)
-			{
-				p2 = 0;
-			}
-			else
-			{
-				p2 = role2.priority;
-			}
-			if (p1 === undefined)
-			{
-				p1 = 0;
-			}
-			if (p2 === undefined)
-			{
-				p2 = 0;
-			}
-			return (p2 > p1);
-		});
-		//Loop through roles in priority order.
-		for (i in orderedTargets)
+		//Only do this bit if suggestions are enabled ie. auto is 2
+		if (lvl == 2)
 		{
-			var num = orderedTargets[i];
-			var role = getRole(targets[num]);
-			var roleInfo = autoRoles[role];
-			if (roleInfo) //If role is automated
-			{
-				if (Object.keys(targets[num][1]).length != 0) //If they sent in a night action
+			//Sort targets array by priority
+			var orderedTargets = Object.keys(targets);
+			orderedTargets = orderedTargets.sort(function(one, two){
+				var rolename1 = getRole(targets[one]);
+				var rolename2 = getRole(targets[two]);
+				var role1 = autoRoles[rolename1];
+				var role2 = autoRoles[rolename2];
+				var p1, p2;
+				if (role1 === undefined)
 				{
-					var roleAttributes = roleInfo.attributes;
-					var targettingLiving = false;
-					var targettingDead = false;
-					for (j in targets[num][1])
+					p1 = 0;
+				}
+				else
+				{
+					p1 = role1.priority;
+				}
+				if (role2 === undefined)
+				{
+					p2 = 0;
+				}
+				else
+				{
+					p2 = role2.priority;
+				}
+				if (p1 === undefined)
+				{
+					p1 = 0;
+				}
+				if (p2 === undefined)
+				{
+					p2 = 0;
+				}
+				return (p2 > p1);
+			});
+			//Loop through roles in priority order.
+			for (i in orderedTargets)
+			{
+				var num = orderedTargets[i];
+				var role = getRole(targets[num]);
+				var roleInfo = autoRoles[role];
+				if (roleInfo) //If role is automated
+				{
+					if (Object.keys(targets[num][1]).length != 0) //If they sent in a night action
 					{
-						var p = playersByName[targets[num][1]];
-						if (p.alive)
+						var roleAttributes = roleInfo.attributes;
+						var targettingLiving = false;
+						var targettingDead = false;
+						for (j in targets[num][1])
 						{
-							targettingLiving = true;
-						}
-						else
-						{
-							targettingDead = true;
-						}
-					}
-					var allowedDead = roleAttributes.DEADTARGET;
-					var allowedLiving = !roleAttributes.NOLIVINGTARGET;
-					//TargettingLiving is true if at least one target is alive. TargettingDead is true if at least one is dead.
-					var valid = false;
-					if (targettingDead)
-					{
-						if (allowedDead)
-						{
-							valid = true;
-						}
-						else
-						{
-							valid = false;
-							displayTargets[num][2] = {auto:false,reason:'Targetting a dead player when not allowed.'}; //Set the role to not automated.
-						}
-					}
-					else
-					{
-						if (allowedLiving)
-						{
-							valid = true;
-						}
-						else
-						{
-							valid = false;
-							displayTargets[num][2] = {auto:false,reason:'Targetting a living player when not allowed.'}; //Set the role to not automated.
-						}
-					}
-					//If they are not self targetting, or are allowed to self target anyway. 
-					//Exception variable for witches and transporters.
-					if (valid)
-					{
-						if (targets[num][1] != num || roleAttributes.SELF || targets[num].targetChanged)
-						{
-							if (roleAttributes.TRANSPORT) //Transport
+							var p = playersByName[targets[num][1]];
+							if (p.alive)
 							{
-								//Ensure two targets were used.
-								var t = targets[num][1];
-								if (t.length == 2 )
+								targettingLiving = true;
+							}
+							else
+							{
+								targettingDead = true;
+							}
+						}
+						var allowedDead = roleAttributes.DEADTARGET;
+						var allowedLiving = !roleAttributes.NOLIVINGTARGET;
+						//TargettingLiving is true if at least one target is alive. TargettingDead is true if at least one is dead.
+						var valid = false;
+						if (targettingDead)
+						{
+							if (allowedDead)
+							{
+								valid = true;
+							}
+							else
+							{
+								valid = false;
+								displayTargets[num][2] = {auto:false,reason:'Targetting a dead player when not allowed.'}; //Set the role to not automated.
+							}
+						}
+						else
+						{
+							if (allowedLiving)
+							{
+								valid = true;
+							}
+							else
+							{
+								valid = false;
+								displayTargets[num][2] = {auto:false,reason:'Targetting a living player when not allowed.'}; //Set the role to not automated.
+							}
+						}
+						//If they are not self targetting, or are allowed to self target anyway. 
+						//Exception variable for witches and transporters.
+						if (valid)
+						{
+							if (targets[num][1] != num || roleAttributes.SELF || targets[num].targetChanged)
+							{
+								if (roleAttributes.TRANSPORT) //Transport
 								{
-									//Swap all targets on the two players.
-									for (j in targets)
+									//Ensure two targets were used.
+									var t = targets[num][1];
+									if (t.length == 2 )
 									{
-										if (targets[j][1].indexOf(t[0]) != -1 && j != num)
+										//Swap all targets on the two players.
+										for (j in targets)
 										{
-											var index = targets[j][1].indexOf(t[0]);
-											//Remove the previous target.
-											var prevTarget = targets[j][1][0];
-											var pindex = beingTargetted[prevTarget].indexOf(j);
-											beingTargetted[prevTarget].splice(pindex,1);
-											//This person targetted one of the players being transported. Switch them to the other one.
-											targets[j][1][index] = t[1];
-											displayTargets[j][3].push('transport');
-											//Add a variable allowing them to self target now.
-											targets[j].targetChanged = true;
-											//Add reference to the new target.
-											if (beingTargetted[t[1]])
+											if (targets[j][1].indexOf(t[0]) != -1 && j != num)
 											{
-												beingTargetted[t[1]].push(j);
+												var index = targets[j][1].indexOf(t[0]);
+												//Remove the previous target.
+												var prevTarget = targets[j][1][0];
+												var pindex = beingTargetted[prevTarget].indexOf(j);
+												beingTargetted[prevTarget].splice(pindex,1);
+												//This person targetted one of the players being transported. Switch them to the other one.
+												targets[j][1][index] = t[1];
+												displayTargets[j][3].push('transport');
+												//Add a variable allowing them to self target now.
+												targets[j].targetChanged = true;
+												//Add reference to the new target.
+												if (beingTargetted[t[1]])
+												{
+													beingTargetted[t[1]].push(j);
+												}
+												else
+												{
+													beingTargetted[t[1]]= [ j ];
+												}
 											}
-											else
+											else if (targets[j][1].indexOf(t[1]) != -1 && j != num)
 											{
-												beingTargetted[t[1]]= [ j ];
-											}
-										}
-										else if (targets[j][1].indexOf(t[1]) != -1 && j != num)
-										{
-											var index = targets[j][1].indexOf(t[1]);
-											//Remove the previous target.
-											var prevTarget = targets[j][1][0];
-											var pindex = beingTargetted[prevTarget].indexOf(j);
-											beingTargetted[prevTarget].splice(pindex,1);
-											//This person targetted one of the players being transported. Switch them to the other one.
-											targets[j][1][index] = t[0];
-											displayTargets[j][3].push('transport');
-											//Add a variable allowing them to self target now.
-											targets[j][1][index].targetChanged = true;
-											//Add reference to the new target.
-											if (beingTargetted[t[1]])
-											{
-												beingTargetted[t[0]].push(j);
-											}
-											else
-											{
-												beingTargetted[t[0]]= [ j ];
+												var index = targets[j][1].indexOf(t[1]);
+												//Remove the previous target.
+												var prevTarget = targets[j][1][0];
+												var pindex = beingTargetted[prevTarget].indexOf(j);
+												beingTargetted[prevTarget].splice(pindex,1);
+												//This person targetted one of the players being transported. Switch them to the other one.
+												targets[j][1][index] = t[0];
+												displayTargets[j][3].push('transport');
+												//Add a variable allowing them to self target now.
+												targets[j][1][index].targetChanged = true;
+												//Add reference to the new target.
+												if (beingTargetted[t[1]])
+												{
+													beingTargetted[t[0]].push(j);
+												}
+												else
+												{
+													beingTargetted[t[0]]= [ j ];
+												}
 											}
 										}
 									}
+									else
+									{
+										displayTargets[num][2] = {auto:false,reason:'Incorrect number of targets.'}; //Set the role to not automated.
+									}
 								}
-								else
+								else if (roleAttributes.CONTROL) //Witching
 								{
-									displayTargets[num][2] = {auto:false,reason:'Incorrect number of targets.'}; //Set the role to not automated.
+									//Ensure two targets were used.
+									var t = targets[num][1];
+									if (t.length == 2 )
+									{
+										var person = targets[t[0]];
+										var personRole = getRole(person);
+										if (autoRoles[personRole].attributes.CONTROLIMMUNE)
+										{
+											//Inform the person being controlled of the failure.
+											addSuggestedMessage('A witch tried to control you, but you are immune!',t[0]);
+										}
+										else
+										{
+											//Inform the person being controlled
+											addSuggestedMessage('You felt a mysterious power dominating you. You were controlled by a Witch!',t[0]);
+											//Remove the previous target.
+											var prevTarget = targets[t[0]][1];
+											if (prevTarget.length > 0) //If the player was originally targetting someone.
+											{
+												var index = beingTargetted[prevTarget].indexOf(t[0]);
+												beingTargetted[prevTarget].splice(index,1);
+											}
+											//Change their target.
+											targets[t[0]][1] = [t[1]];
+											//Add a variable allowing them to self target now.
+											targets[t[0]].targetChanged = true;
+											//Add reference for new target.
+											if (beingTargetted[t[1]])
+											{
+												beingTargetted[t[1]].push(t[0]);
+											}
+											else
+											{
+												beingTargetted[t[1]]= [ t[0] ];
+											}
+											//Highlight the person in the target display.
+											displayTargets[t[0]][3].push('witched');
+										}
+									}
+									else
+									{
+										displayTargets[num][2] = {auto:false,reason:'Incorrect number of targets.'}; //Set the role to not automated.
+									}
 								}
-							}
-							else if (roleAttributes.CONTROL) //Witching
-							{
-								//Ensure two targets were used.
-								var t = targets[num][1];
-								if (t.length == 2 )
+								else if (roleAttributes.RB) //Roleblocking
 								{
+									var t = targets[num][1];
 									var person = targets[t[0]];
 									var personRole = getRole(person);
-									if (autoRoles[personRole].attributes.CONTROLIMMUNE)
+									//If the person is not immune to roleblocking
+									if (!autoRoles[personRole].attributes.RBIMMUNE)
 									{
-										//Inform the person being controlled of the failure.
-										addSuggestedMessage('A witch tried to control you, but you are immune!',t[0]);
-									}
-									else
-									{
-										//Inform the person being controlled
-										addSuggestedMessage('You felt a mysterious power dominating you. You were controlled by a Witch!',t[0]);
-										//Remove the previous target.
-										var prevTarget = targets[t[0]][1];
-										if (prevTarget.length > 0) //If the player was originally targetting someone.
+										if (autoRoles[personRole].attributes.RBATTACK)
 										{
-											var index = beingTargetted[prevTarget].indexOf(t[0]);
-											beingTargetted[prevTarget].splice(index,1);
-										}
-										//Change their target.
-										targets[t[0]][1] = [t[1]];
-										//Add a variable allowing them to self target now.
-										targets[t[0]].targetChanged = true;
-										//Add reference for new target.
-										if (beingTargetted[t[1]])
-										{
-											beingTargetted[t[1]].push(t[0]);
-										}
-										else
-										{
-											beingTargetted[t[1]]= [ t[0] ];
-										}
-										//Highlight the person in the target display.
-										displayTargets[t[0]][3].push('witched');
-									}
-								}
-								else
-								{
-									displayTargets[num][2] = {auto:false,reason:'Incorrect number of targets.'}; //Set the role to not automated.
-								}
-							}
-							else if (roleAttributes.RB) //Roleblocking
-							{
-								var t = targets[num][1];
-								var person = targets[t[0]];
-								var personRole = getRole(person);
-								//If the person is not immune to roleblocking
-								if (!autoRoles[personRole].attributes.RBIMMUNE)
-								{
-									if (autoRoles[personRole].attributes.RBATTACK)
-									{
-										displayTargets[t[0]][3].push('rbattack');
-										var prevTarget = targets[t[0]][1];
-										//Remove the reference to the previous target.
-										if (prevTarget.length > 0)
-										{
-											var index = beingTargetted[prevTarget].indexOf(t[0]);
-											beingTargetted[prevTarget].splice(index,1);
-										}
-										//Move the target to the roleblocker.
-										targets[t[0]][1] = [num];
-										//Add the reference to the new target.
-										if (beingTargetted[num])
-										{
-											beingTargetted[num].push(t[0]);
-										}
-										else
-										{
-											beingTargetted[num] = [ t[0] ];
-										}
-										addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
-										addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
-									}
-									else
-									{
-										displayTargets[t[0]][3].push('rbd');
-										//If they are actually targetting someone
-										if (targets[t[0]][1].length > 0)
-										{
-											//Remove the reference to the target.
+											displayTargets[t[0]][3].push('rbattack');
 											var prevTarget = targets[t[0]][1];
-											var index = beingTargetted[prevTarget].indexOf(t[0]);
-											beingTargetted[prevTarget].splice(index,1);
+											//Remove the reference to the previous target.
+											if (prevTarget.length > 0)
+											{
+												var index = beingTargetted[prevTarget].indexOf(t[0]);
+												beingTargetted[prevTarget].splice(index,1);
+											}
+											//Move the target to the roleblocker.
+											targets[t[0]][1] = [num];
+											//Add the reference to the new target.
+											if (beingTargetted[num])
+											{
+												beingTargetted[num].push(t[0]);
+											}
+											else
+											{
+												beingTargetted[num] = [ t[0] ];
+											}
+											addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
+											addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 										}
-										//Cancel the target.
-										targets[t[0]][1] = [];
-										//Inform the player they were roleblocked.
-										addSuggestedMessage("Someone occupied your night, you were roleblocked!",t[0]);
-									}
-								}
-								else
-								{
-									//Inform the person of the failure.
-									addSuggestedMessage('Someone tried to roleblock you, but you are immune.',t[0]);
-									//addSuggestedMessage('Your target is immune to roleblocks.',num); 
-								}
-							}
-							else if (roleAttributes.BG) //Bodyguard.
-							{
-								var t = targets[num][1];
-								var person = targets[t[0]];
-								//Check if a person with KILL or DOUSE is targetting this person.
-								var visitors = getPeopleTargetting(t[0]);
-								for (j in visitors)
-								{
-									//Kill or douse
-									var name = visitors[j];
-									var role = getRole(targets[name]);
-									var autorole = autoRoles[role];
-									if (autorole !== undefined)
-									{
-										var attrib = autorole.attributes;
-										if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
+										else
 										{
-											addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
-											addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
-											addSuggestedMessage('You successfully protected your target.',num); //Tell bg that they succeeded
-											//Suggested actions: Kill both the bg and attacker
-											addSuggestedAction('Kill', num);
-											addSuggestedAction('Kill', visitors[j]);
-											//Death announcements
-											addSuggestedMessage('They died protecting their target.','<All>');
-											addSuggestedMessage('They were killed by a [town]Bodyguard[/town].','<All>');
-											//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
-											targets[num].bgKill = visitors[j];
-											break; //break, bg can only stop one attacker.
+											displayTargets[t[0]][3].push('rbd');
+											//If they are actually targetting someone
+											if (targets[t[0]][1].length > 0)
+											{
+												//Remove the reference to the target.
+												var prevTarget = targets[t[0]][1];
+												var index = beingTargetted[prevTarget].indexOf(t[0]);
+												beingTargetted[prevTarget].splice(index,1);
+											}
+											//Cancel the target.
+											targets[t[0]][1] = [];
+											//Inform the player they were roleblocked.
+											addSuggestedMessage("Someone occupied your night, you were roleblocked!",t[0]);
 										}
 									}
-								}
-							}
-							else if (roleAttributes.HEAL) //Heal.
-							{
-								var t = targets[num][1];
-								var person = targets[t[0]];
-								//Check if a person with a KILL is targetting this person.
-								var visitors = getPeopleTargetting(t[0]);
-								for (j in visitors)
-								{
-									var name = visitors[j];
-									var role = getRole(targets[name]);
-									var autorole = autoRoles[role];
-									if (autorole !== undefined)
+									else
 									{
-										var attrib = autorole.attributes;
-										if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL)
+										//Inform the person of the failure.
+										addSuggestedMessage('Someone tried to roleblock you, but you are immune.',t[0]);
+										//addSuggestedMessage('Your target is immune to roleblocks.',num); 
+									}
+								}
+								else if (roleAttributes.BG) //Bodyguard.
+								{
+									var t = targets[num][1];
+									var person = targets[t[0]];
+									//Check if a person with KILL or DOUSE is targetting this person.
+									var visitors = getPeopleTargetting(t[0]);
+									for (j in visitors)
+									{
+										//Kill or douse
+										var name = visitors[j];
+										var role = getRole(targets[name]);
+										var autorole = autoRoles[role];
+										if (autorole !== undefined)
 										{
-											//Successful heal!
-											addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
-											addSuggestedMessage('Your target was attacked last night.',num);
-											//Kill is stopped by the corresponding check in its section.
+											var attrib = autorole.attributes;
+											if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
+											{
+												addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
+												addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
+												addSuggestedMessage('You successfully protected your target.',num); //Tell bg that they succeeded
+												//Suggested actions: Kill both the bg and attacker
+												addSuggestedAction('Kill', num);
+												addSuggestedAction('Kill', visitors[j]);
+												//Death announcements
+												addSuggestedMessage('They died protecting their target.','<All>');
+												addSuggestedMessage('They were killed by a [town]Bodyguard[/town].','<All>');
+												//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
+												targets[num].bgKill = visitors[j];
+												break; //break, bg can only stop one attacker.
+											}
 										}
 									}
 								}
-							}
-							else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL)
-							{
-								var t = targets[num][1];
-								var peopleTargetting = getPeopleTargetting(t[0]);
-								var attackSuccess = true;
-								for (i in peopleTargetting) //Loop through and check for heals
+								else if (roleAttributes.HEAL) //Heal.
 								{
-									var person = targets[peopleTargetting[i]];
-									var role = getRole(person);
-									var attrib = autoRoles[role].attributes;
-									if (attrib.HEAL)
-									{
-										//Person was healed, attack fails silently.
-										attackSuccess = false;
-									}
-									else if (attrib.BG)
-									{
-										//More complicated, attack only fails if this is the person the bg killed.
-										if (person.bgKill == num)
-										{
-											attackSuccess = false;
-										}
-									}
-								}
-								//Check for night immunity
-								var role = getRole(targets[t[0]]);
-								if (autoRoles[role].attributes.IMMUNE)
-								{
-									attackSuccess = false;
-									//Inform the person they were attacked, inform the attacker their target was immune.
-									addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
-									addSuggestedMessage('Your target was immune to your attack!',num)
-								}
-								if (attackSuccess)
-								{
-									var msg = '';
-									var announce = '';
-									//Attack successful!
-									if (roleAttributes.MAFKILL)
-									{
-										msg =  'You were attacked by a member of the Mafia!';
-										announce = 'They were killed by a member of the [maf]Mafia[/maf].';
-									}
-									else if (roleAttributes.SKKILL)
-									{
-										msg =  'You were attacked by a Serial Killer!';
-										announce = 'They were killed by a [sk]Serial Killer[/sk].';
-									}
-									else if (roleAttributes.VIGKILL)
-									{
-										msg =  'You were shot by a Vigilante!';
-										announce = 'They were shot by a [town]Vigilante[/town].';
-									}
-									addSuggestedMessage(msg,t[0]);
-									addSuggestedMessage(announce,'<All>');
-									addSuggestedAction('Kill',t[0]);
-								}
-							}
-							else if (roleAttributes.CHECK)
-							{
-								var t = targets[num][1];
-								var name = t[0];
-								var role = getRole(targets[name]);
-								if (autoRoles[role])
-								{
-									var alignment = autoRoles[role].alignment;
-									if (autoRoles[role].attributes.DETECTIONIMMUNE)
-									{
-										alignment = 'town';
-									}
-									//If the person is framed, return a mafia result
+									var t = targets[num][1];
+									var person = targets[t[0]];
+									//Check if a person with a KILL is targetting this person.
 									var visitors = getPeopleTargetting(t[0]);
 									for (j in visitors)
 									{
 										var name = visitors[j];
-										var person = targets[name];
+										var role = getRole(targets[name]);
+										var autorole = autoRoles[role];
+										if (autorole !== undefined)
+										{
+											var attrib = autorole.attributes;
+											if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL)
+											{
+												//Successful heal!
+												addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
+												addSuggestedMessage('Your target was attacked last night.',num);
+												//Kill is stopped by the corresponding check in its section.
+											}
+										}
+									}
+								}
+								else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL)
+								{
+									var t = targets[num][1];
+									var peopleTargetting = getPeopleTargetting(t[0]);
+									var attackSuccess = true;
+									for (i in peopleTargetting) //Loop through and check for heals
+									{
+										var person = targets[peopleTargetting[i]];
 										var role = getRole(person);
 										var attrib = autoRoles[role].attributes;
-										if (attrib.FRAME)
+										if (attrib.HEAL)
 										{
-											alignment = 'mafia';
+											//Person was healed, attack fails silently.
+											attackSuccess = false;
+										}
+										else if (attrib.BG)
+										{
+											//More complicated, attack only fails if this is the person the bg killed.
+											if (person.bgKill == num)
+											{
+												attackSuccess = false;
+											}
 										}
 									}
-									//Send this player's alignment
-									var msg = sheriffResults[alignment];
-									addSuggestedMessage(msg,num);
-								}
-								else
-								{
-									displayTargets[num][2] = {auto:false,reason:'Player is checking a player with a role that is not automated.'}; //Set the role to not automated.
-								}
-							}
-							else if (roleAttributes.WATCH) //Lookout type roles
-							{
-								//Just list the people that visited your target.
-								var t = targets[num][1];
-								var name = t[0];
-								var visitors = getPeopleTargetting(name);
-								visitors.splice(visitors.indexOf(num),1); //Remove the person watching from the list.
-								//Grammar
-								var str = '';
-								if (visitors.length > 1)
-								{
-									str = visitors.slice(0,visitors.length-1).join(', ') + ' and ' + visitors[visitors.length -1]+'.';
-								}
-								else if (visitors.length == 1)
-								{
-									str = visitors[0];
-								}
-								if (str != '')
-								{
-									addSuggestedMessage(str+' visited your target last night!',num);
-								}
-							}
-							else if (roleAttributes.INVESTIGATE) //Investigatives
-							{
-								//Fetch the person's investigative results.
-								var t = targets[num][1];
-								var role = getRole(targets[t[0]]);
-								role = autoRoles[role];
-								if (role)
-								{
-									var group = role.grouping;
-									//If they have been framed, they automatically get the invest group of the framer.
-									var visitors = getPeopleTargetting(t[0]);
-									for (i in visitors)
+									//Check for night immunity
+									var role = getRole(targets[t[0]]);
+									if (autoRoles[role].attributes.IMMUNE)
 									{
-										var name = visitors[i];
-										var vrole = getRole(targets[name]);
-										var attrib = autoRoles[vrole].attributes;
-										if (attrib.FRAME)
-										{
-											//Target was framed, they get the same group as the framer.
-											group = autoRoles[vrole].grouping;
-										}
+										attackSuccess = false;
+										//Inform the person they were attacked, inform the attacker their target was immune.
+										addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
+										addSuggestedMessage('Your target was immune to your attack!',num)
 									}
-									var results = investGrouping[group];
-									var possibleRoles = getInvestGroupings(group);
-									//Grammar
-									var str = results+' ';
-									if (possibleRoles.length == 1)
+									if (attackSuccess)
 									{
-										str += 'They must be a ' + possibleRoles[0]+'.';
+										var msg = '';
+										var announce = '';
+										//Attack successful!
+										if (roleAttributes.MAFKILL)
+										{
+											msg =  'You were attacked by a member of the Mafia!';
+											announce = 'They were killed by a member of the [maf]Mafia[/maf].';
+										}
+										else if (roleAttributes.SKKILL)
+										{
+											msg =  'You were attacked by a Serial Killer!';
+											announce = 'They were killed by a [sk]Serial Killer[/sk].';
+										}
+										else if (roleAttributes.VIGKILL)
+										{
+											msg =  'You were shot by a Vigilante!';
+											announce = 'They were shot by a [town]Vigilante[/town].';
+										}
+										addSuggestedMessage(msg,t[0]);
+										addSuggestedMessage(announce,'<All>');
+										addSuggestedAction('Kill',t[0]);
+									}
+								}
+								else if (roleAttributes.CHECK)
+								{
+									var t = targets[num][1];
+									var name = t[0];
+									var role = getRole(targets[name]);
+									if (autoRoles[role])
+									{
+										var alignment = autoRoles[role].alignment;
+										if (autoRoles[role].attributes.DETECTIONIMMUNE)
+										{
+											alignment = 'town';
+										}
+										//If the person is framed, return a mafia result
+										var visitors = getPeopleTargetting(t[0]);
+										for (j in visitors)
+										{
+											var name = visitors[j];
+											var person = targets[name];
+											var role = getRole(person);
+											var attrib = autoRoles[role].attributes;
+											if (attrib.FRAME)
+											{
+												alignment = 'mafia';
+											}
+										}
+										//Send this player's alignment
+										var msg = sheriffResults[alignment];
+										addSuggestedMessage(msg,num);
 									}
 									else
 									{
-										str += 'They could be a ';
-										str += possibleRoles.slice(0,possibleRoles.length-1).join(', ') + ' or ' + possibleRoles[possibleRoles.length-1]+'.';
+										displayTargets[num][2] = {auto:false,reason:'Player is checking a player with a role that is not automated.'}; //Set the role to not automated.
 									}
-									addSuggestedMessage(str,num);
 								}
-								else
+								else if (roleAttributes.WATCH) //Lookout type roles
 								{
-									displayTargets[num][2] = {auto:false,reason:'Player is investigating a role that is not automated.'}; //Set the role to not automated.
+									//Just list the people that visited your target.
+									var t = targets[num][1];
+									var name = t[0];
+									var visitors = getPeopleTargetting(name);
+									visitors.splice(visitors.indexOf(num),1); //Remove the person watching from the list.
+									//Grammar
+									var str = '';
+									if (visitors.length > 1)
+									{
+										str = visitors.slice(0,visitors.length-1).join(', ') + ' and ' + visitors[visitors.length -1]+'.';
+									}
+									else if (visitors.length == 1)
+									{
+										str = visitors[0];
+									}
+									if (str != '')
+									{
+										addSuggestedMessage(str+' visited your target last night!',num);
+									}
+								}
+								else if (roleAttributes.INVESTIGATE) //Investigatives
+								{
+									//Fetch the person's investigative results.
+									var t = targets[num][1];
+									var role = getRole(targets[t[0]]);
+									role = autoRoles[role];
+									if (role)
+									{
+										var group = role.grouping;
+										//If they have been framed, they automatically get the invest group of the framer.
+										var visitors = getPeopleTargetting(t[0]);
+										for (i in visitors)
+										{
+											var name = visitors[i];
+											var vrole = getRole(targets[name]);
+											var attrib = autoRoles[vrole].attributes;
+											if (attrib.FRAME)
+											{
+												//Target was framed, they get the same group as the framer.
+												group = autoRoles[vrole].grouping;
+											}
+										}
+										var results = investGrouping[group];
+										var possibleRoles = getInvestGroupings(group);
+										//Grammar
+										var str = results+' ';
+										if (possibleRoles.length == 1)
+										{
+											str += 'They must be a ' + possibleRoles[0]+'.';
+										}
+										else
+										{
+											str += 'They could be a ';
+											str += possibleRoles.slice(0,possibleRoles.length-1).join(', ') + ' or ' + possibleRoles[possibleRoles.length-1]+'.';
+										}
+										addSuggestedMessage(str,num);
+									}
+									else
+									{
+										displayTargets[num][2] = {auto:false,reason:'Player is investigating a role that is not automated.'}; //Set the role to not automated.
+									}
+								}
+								else if (roleAttributes.BLACKMAIL)
+								{
+									var t = targets[num][1];
+									var player = players[playernames[t[0]]];
+									//If the player was not jailed.
+									if (!player.chats.jailed)
+									{
+										addSuggestedAction('Blackmail',t[0]);
+									}
+									else
+									{
+										addSuggestedMessage('Someone tried to blackmail you, but you were in jail.',t[0]);
+									}
+								}
+								else if (roleAttributes.CONSIG) //Absolute check
+								{
+									var t = targets[num][1];
+									var role = getRole(targets[t[0]]);
+									addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
+								}
+								else if (roleAttributes.CLEAN) //Role cleaning
+								{
+									var t = targets[num][1];
+									//If someone is killing them.
+									var visitors = getPeopleTargetting(t[0]); 
+									for (j in visitors)
+									{
+										
+									}
+								}
+								else if (roleAttributes.REMEMBER) //Remembering a role
+								{
+									var t = targets[num][1];
+									var p = playersByName[t[0]];
+									addSuggestedAction('Set Role',num+"/"+p.role);
+									addSuggestedMessage('An Amnesiac has remembered that they were a '+p.role+".",'<All>');
 								}
 							}
-							else if (roleAttributes.BLACKMAIL)
+							else
 							{
-								var t = targets[num][1];
-								var player = players[playernames[t[0]]];
-								//If the player was not jailed.
-								if (!player.chats.jailed)
-								{
-									addSuggestedAction('Blackmail',t[0]);
-								}
-								else
-								{
-									addSuggestedMessage('Someone tried to blackmail you, but you were in jail.',t[0]);
-								}
-							}
-							else if (roleAttributes.CONSIG) //Absolute check
-							{
-								var t = targets[num][1];
-								var role = getRole(targets[t[0]]);
-								addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
-							}
-							else if (roleAttributes.CLEAN) //Role cleaning
-							{
-								var t = targets[num][1];
-								//If someone is killing them.
-								var visitors = getPeopleTargetting(t[0]); 
-								for (j in visitors)
-								{
-									
-								}
-							}
-							else if (roleAttributes.REMEMBER) //Remembering a role
-							{
-								var t = targets[num][1];
-								var p = playersByName[t[0]];
-								addSuggestedAction('Set Role',num+"/"+p.role);
-								addSuggestedMessage('An Amnesiac has remembered that they were a '+p.role+".",'<All>');
+								displayTargets[num][2] = {auto:false,reason:'Player is self-targetting, but role cannot self target.'}; //Set the role to not automated.
 							}
 						}
 						else
 						{
-							displayTargets[num][2] = {auto:false,reason:'Player is self-targetting, but role cannot self target.'}; //Set the role to not automated.
-						}
-					}
-					else
-					{
-						var roleAttributes = roleInfo.attributes;
-						if (roleAttributes.PASSIVE) //If they have a passive night action.
-						{
-							if (roleAttributes.MAFVISIT) //Sees who mafia visits.
+							var roleAttributes = roleInfo.attributes;
+							if (roleAttributes.PASSIVE) //If they have a passive night action.
 							{
-								var visits = [];
-								for (i in players)
+								if (roleAttributes.MAFVISIT) //Sees who mafia visits.
 								{
-									if (players[i].chats.mafia)
+									var visits = [];
+									for (i in players)
 									{
-										var name = players[i].name;
-										if (Object.keys(targets[name][1]).length != 0) //if they sent in a night action
+										if (players[i].chats.mafia)
 										{
-											visits = visits.concat(targets[name][1]);
+											var name = players[i].name;
+											if (Object.keys(targets[name][1]).length != 0) //if they sent in a night action
+											{
+												visits = visits.concat(targets[name][1]);
+											}
 										}
 									}
+									//Grammar
+									var str = '';
+									if (visits.length == 1)
+									{
+										str = "The mafia visited "+visits[0]+" last night.";
+									}
+									else
+									{
+										str = "The mafia visited " + visits.slice(0,visits.length-1).join(', ') +" and "+visits[visits.length-1] +" last night.";
+									}
+									addSuggestedMessage(str,num);
 								}
-								//Grammar
-								var str = '';
-								if (visits.length == 1)
-								{
-									str = "The mafia visited "+visits[0]+" last night.";
-								}
-								else
-								{
-									str = "The mafia visited " + visits.slice(0,visits.length-1).join(', ') +" and "+visits[visits.length-1] +" last night.";
-								}
-								addSuggestedMessage(str,num);
-							}
-						} 
+							} 
+						}
 					}
 				}
-			}
-			else
-			{
-				displayTargets[num][2] = {auto:false,reason:'Role not in system.'}; //Set the role to not automated.
+				else
+				{
+					displayTargets[num][2] = {auto:false,reason:'Role not in system.'}; //Set the role to not automated.
+				}
 			}
 		}
 		//Return array of messages to send and actions to take.
-		return {
-			targets: displayTargets,
-			messages: suggestedMessages,
-			actions: suggestedActions
+		if (lvl > 1)
+		{
+			return {
+				targets: displayTargets,
+				messages: suggestedMessages,
+				actions: suggestedActions
+			}
 		}
-		
+		else
+		{
+			return {
+				targets: displayTargets
+			}
+		}
 	}
 }
 function addSuggestedMessage(msg,to)

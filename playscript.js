@@ -19,6 +19,12 @@ var current_rolelist = [
 	"Neutral Benign",
 	"Any"
 ];
+var autorolelists = {
+	3:["Citizen","Citizen","Godfather"],
+	8: ["Town Investigative", "Town Protective", "Random Town","Random Town","Random Town", "Godfather","Random Mafia","Neutral Benign"],
+	9: ["Town Investigative", "Town Protective", "Town Support","Random Town","Random Town","Random Town", "Godfather","Random Mafia","Neutral Benign"],
+	10: ["Town Investigative", "Town Protective", "Town Support","Random Town","Random Town","Random Town", "Godfather","Random Mafia","Neutral Evil","Neutral Benign"],
+}
 //Globals
 var customRolesRollable = true;
 var rolelist_names = [];
@@ -73,6 +79,21 @@ function highlightTitle()
 	};
 	func();
 }
+function showPanel(panel)
+{
+	panel.toggle();
+	if (panel.hasClass('grow'))
+	{
+		panel.removeClass('grow');
+		panel.addClass('shrink');
+	}
+	else if (panel.hasClass('shrink'))
+	{
+		panel.removeClass('shrink');
+		panel.addClass('grow');
+	}
+	console.log(panel);
+}
 function checkKey(e)
 {
 	if (e.keyCode==13 && $('#c').val() != '' ) //Enter
@@ -99,6 +120,11 @@ function addMessage(msg, type)
 	{
 		case 'msg':
 			$('#main').append('<li>'+msg+'</li>');
+		break;
+		case 'help':
+			var li = $('<li></li>');
+			li.append(msg);
+			$('#main').append(li);
 		break;
 		case 'me':
 			$('#main').append('<li class="me">*<em>'+msg+'</em>*</li>');
@@ -378,8 +404,45 @@ function openModList(targ)
 		}
 	}
 }
+function autoModSettings()
+{
+	//Remove the role list, if it exists
+	if ($('#rolelist').length > 0)
+	{
+		$('#rolelist').remove();
+	}
+	if ($('#automodsettings').length > 0)
+	{
+		$('#automodsettings').remove();
+	}
+	else
+	{
+		var ams = $('<ul id="automodsettings"></ul>');
+		var levels = {
+			'Manual': 'Turn automod off.',
+			'Targetting': 'Automod will listen for night actions sent in using /target and present you with a table at the end of the night.',
+			'Targetting + Suggestions':'AutoMod will listen for night actions sent in using /target and present you with a table at the end of the night, as well as suggested actions.'
+		};
+		for (i in levels)
+		{
+			var li = $('<li><div><h3>'+i+'</h3><p>'+levels[i]+'</p></div></li>');
+			li.click(function(){
+				var index = $(this).parent().children().index($(this));
+				socket.emit(Type.AUTOLEVEL,index);
+				$('#automodsettings').remove();	
+			});
+			ams.append(li);
+		}
+		$('body').append(ams);
+	}
+}
 function openRolelist()
 {
+	//Remove the automod settings, if they exist, prevents layering
+	if ($('#automodsettings').length > 0)
+	{
+		$('#automodsettings').remove();
+	}
 	if ($('#rolelist').length > 0)
 	{
 		$('#rolelist').remove();
@@ -390,7 +453,8 @@ function openRolelist()
 		var roll = $('<div class="roll"></div>');
 		roll.click(function()
 		{
-			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1));
+			var custom = $('#customRolesChk').is(':checked');
+			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1), custom);
 		});
 		var showList = $('<div class="showlist">Show List</div>');
 		showList.click(function()
@@ -461,16 +525,17 @@ function openRolelist()
 		var optionsPanel = $('<div class="options"></div>');
 		var customRoles = $('<div class="customroles"></div>');
 		var p = $('<p>Custom roles: </p>');
-		var chk = $('<input type="checkbox" />');
+		var chk = $('<input id="customRolesChk" type="checkbox" />');
+		var autoButton = $('<div id="autoRolesButton"><p>Autolist</p></div>');
+		autoButton.click(function(){
+			autoList();
+		});
 		chk.prop('checked', customRolesRollable)
 		customRoles.append(p);
 		customRoles.append(chk);
-		chk.click(function(){
-			var b = $(this).is(':checked');
-			socket.emit(Type.CUSTOMROLES,b);
-		});
 		extraControls.append(optionsPanel);
 		optionsPanel.append(customRoles);
+		extraControls.append(autoButton);
 		rolelist.append(extraControls);
 		$('body').append(rolelist);
 	}
@@ -480,6 +545,23 @@ function openUserWill(e)
 	var li = e.parentNode.parentNode;
 	var index = $('#userlist').children().index(li);
 	socket.emit(Type.GETWILL,index);
+}
+function autoList()
+{
+	var num = users.length-1;
+	if (autorolelists[num])
+	{
+		current_rolelist = autorolelists[num];
+		var list = $(".rolealignment");
+		for (i=0; i < list.length ; i++)
+		{
+			$($(".rolealignment")[i]).html( autorolelists[num][i] );
+		}
+	}
+	else
+	{
+		alert('There is no preset rolelist for this number of players.');
+	}
 }
 function formatAlignment(str)
 {                       
@@ -613,7 +695,10 @@ function chooseAutoButton(info, label)
 		/*Default is to treat it as a name*/
 		default:
 			func = function(){
-				socket.emit(Type.MSG,'/sys '+info[0]+' '+info[1]);
+				var tr = $(this).parent().parent();
+				var to = $(tr.children()[0]).html();
+				var msg = $($(tr.children()[1]).html()).html();
+				socket.emit(Type.MSG,'/sys '+to+' '+msg);
 			};
 		break;
 	}

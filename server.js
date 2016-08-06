@@ -6,8 +6,45 @@ var Server = require('socket.io');
 var io = new Server(http, {pingInterval: 5000, pingTimeout: 10000});
 var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
-var createdList = []; //He will the rolelist be saved in
+var createdList = [];
 var gm = require('./gm.js');
+var commandList = {
+	all:{
+		'help' : 'Displays this message.',
+		'whisper': 'Whisper to another player. This is silent during Pregame, but once ingame other players will know that you are whispering. Usage: /w name message',
+		'mod': 'Send a message directly to the mod. Usage: /mod message',
+		'target':'Target a player with a night action. Usage: /target player or /target playerone playertwo',
+		'vote':'Command for voting, should only be used if there is a problem with the voting interface. Usage: /vote name',
+		'role':'View your current rolecard, or use /role name to view another rolecard. Usage /role to view your role, /role name to view a rolecard.',
+		'confirm':'Use during the roles phase to confirm you have your role. Usage: /confirm',
+		'ping':'Show your ping. Usage: /ping',
+		'afk':'Go afk. Only usable in pregame. Usage: /afk',
+		'back':'Return. Usage /back, after using /afk'
+	},
+	roles:{
+		'reveal':'Reveal yourself as the Mayor, if you have that role. Usage: /reveal, during the day.',
+		'execute':'Choose to execute the person you have jailed. Usage /execute, then /execute again to cancel.',
+		'seance':'Not implemented yet.'
+	},
+	mod:{
+		'givemod':'Pass the mod onto another person. Usage: /givemod name',
+		'disguise':'Disguise one player as another. Usage: /disguise playerone playertwo',
+		'random':'Choose a random player. Usage: /random',
+		'roll':'Roll a dice. Usage /roll or /roll sides',
+		'msg':'Send a message to a player. <span class="mod">From</span> <b>Mod:</b> <span class="mod">This looks like this</span>. Usage: /msg name message',
+		'sys':'Send a system message to a player. <b>This looks like this</b>'
+	},
+	dev:{
+		'dev':'Activate developer powers.',
+		'alert':'Send an audio ',
+		'kick':'Kick a player.',
+		'ban':'Ban an ip.',
+	},
+	fun:{
+		'me':'Do something. Eg. <em>Player waves!</em. Only usable during Pregame.',
+		'hug':'Send a hug to a person. Only usable during Pregame.'
+	}
+}
 db.connect();
 //Enums
 var Type = {
@@ -56,7 +93,8 @@ var Type = {
 	AUTOLEVEL:43,
 	SUGGESTIONS:44,
 	SYSSENT:45,
-	CUSTOMROLES:46
+	CUSTOMROLES:46,
+	HELP:47
 };
 var autoLevel = 1;
 /*
@@ -464,6 +502,7 @@ var server = http.createServer(function(req,res)
 		case '/willicon.png':
 		case '/button.png':
 		case '/list.png':
+		case '/settings.png':
 		case '/edit.png':
 		case '/accept.png':
 		case '/roll.png':
@@ -674,6 +713,9 @@ io.on('connection', function(socket){
 			socket.disconnect();
 		}
 	}
+	socket.on(Type.AUTOLEVEL,function(lvl){
+		autoLevel = lvl;
+	});
 	socket.on(Type.MSG,function(msg)
 	{
 		msg=sanitize(msg);
@@ -748,11 +790,11 @@ io.on('connection', function(socket){
 			socket.emit(Type.SYSTEM,'Only the mod can do that.');
 		}
 	});
-	socket.on(Type.ROLL,function(rolelist)
+	socket.on(Type.ROLL,function(rolelist, custom, exceptions)
 	{
 		if (socket.id == mod)
 		{
-			var result = roles.sortRoles(rolelist);
+			var result = roles.sortRoles(rolelist, custom, exceptions);
 			createdList = rolelist
 			var names = Object.keys(playernames);
 			names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
@@ -762,7 +804,7 @@ io.on('connection', function(socket){
 			{
 				result[i] = roles.formatAlignment(result[i]);
 			}
-			socket.emit(Type.ROLL,result,names);
+			socket.emit(Type.ROLL,result,names,[]);
 		}
 		else
 		{
@@ -1357,18 +1399,11 @@ function Timer()
 				case Phase.NIGHT:
 					//Change to modtime.
 					setPhase(Phase.MODTIME);
-					if (autoLevel > 0)
+					if (autoLevel > 0 )
 					{
 						//Evaluate night actions.
-						var results = gm.evaluate(players,playernames,mod,roles);
-						if (autoLevel == 1) //Semi-auto. Just show the suggestions to the mod.
-						{
-							players[mod].s.emit(Type.SUGGESTIONS, results);
-						}
-						else if (autoLevel == 2) //Full auto, act on all suggestions.
-						{
-							
-						}
+						var results = gm.evaluate(players,playernames,mod,roles, autoLevel);
+						players[mod].s.emit(Type.SUGGESTIONS, results);
 					}
 				break;
 				case Phase.TRIAL:
@@ -1473,6 +1508,7 @@ function addZero(num)
 }
 function loadDate()
 {
+	console.log("Loading date...");
 	db.query('SELECT * FROM details',function(err,result)
 	{
 		if (err)
@@ -1493,11 +1529,13 @@ function loadDate()
 				parseInt(time[0]), //Hours
 				parseInt(time[1])//Minutes
 			); 
+			console.log("Date loaded.");
 		}
 	});
 }
 function loadPassword()
 {
+	console.log("Loading password...");
 	db.query('SELECT * FROM details',function(err,result)
 	{
 		if (err)
@@ -1748,6 +1786,21 @@ function Player(socket,name,ip)
 				var c = com.split(' ');
 				switch (c[0])
 				{
+					case 'help':
+						var list = {
+							all:clone(commandList.all)
+						}
+						if (mod == this.s.id)
+						{
+							list.mod = clone(commandList.mod);	
+						}
+						if (this.dev)
+						{
+							list.dev = clone(commandList.dev);
+						}
+						list.fun = clone(commandList.fun);
+						socket.emit(Type.HELP,list);
+					break;
 					case 'whisper':
 					case 'w':
 						if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME)
@@ -1955,6 +2008,51 @@ function Player(socket,name,ip)
 							msg=msg.join(' ');
 							players[mod].s.emit(Type.MOD,{from:this.name,msg:msg});
 							this.s.emit(Type.MOD,{to:'Mod',msg:msg});
+						}
+					break;
+					case 'random':
+						if (mod == this.s.id)
+						{
+							if (c.length != 1)
+							{
+								socket.emit(Type.SYSTEM,'The syntax of this command is \'/random\'.');
+							}
+							else
+							{
+								var length = Object.keys(players).length -1; //Minus mod
+								if (length > 0)
+								{
+									var randomNumber = Math.floor( Math.random()*length)+1;
+									socket.emit(Type.SYSTEM,'Random player: '+ getPlayerByNumber(randomNumber).name);
+								}
+								else
+								{
+									socket.emit(Type.SYSTEM,'Not enough players to use this command.');
+								}
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
+					case 'roll':
+						if (mod == this.s.id)
+						{
+							if (c.length > 2)
+							{
+								socket.emit(Type.SYSTEM,'The syntax of this command is \'/roll number\'.');
+							}
+							else
+							{
+								var sides = c[1] ? c[1] : 6; //Specified value or 6.
+								var randomNumber = Math.floor( Math.random()*sides)+1;
+								socket.emit(Type.SYSTEM,'Dice roll ('+sides+' sides): '+randomNumber);
+							}
+						}
+						else
+						{
+							socket.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
 					case 'vote':
@@ -2693,4 +2791,12 @@ function Player(socket,name,ip)
 				}
 			}
 	};
+}
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+    }
+    return copy;
 }

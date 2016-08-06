@@ -1,4 +1,3 @@
-var customRolesRollable = true;
 //colors
 var towncolor="#19FF19";
 var mafiacolor="red";
@@ -786,7 +785,7 @@ function getRoleNum(name)
         return -1;
 }
 module.exports = {
-          sortRoles: function(r)
+          sortRoles: function(r, customRolesRollable, exceptions)
           {
 			r=lowerAll(r);
 			for (i=0;i<r.length;i++)

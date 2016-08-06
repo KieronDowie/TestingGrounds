@@ -56,7 +56,8 @@ var Type = {
 	AUTOLEVEL:43,
 	SUGGESTIONS:44,
 	SYSSENT:45,
-	CUSTOMROLES:46
+	CUSTOMROLES:46,
+	HELP:47
 };
 function clearAllInfo()
 {
@@ -92,6 +93,16 @@ function modInterface()
 				openRolelist();
 			});
 			$('#inputarea').append(rlbutton);
+		}
+		//Add in an automod settings button if it doesn't exist
+		if ($('#automodsettingsbutton').length == 0)
+		{
+			var ambutton = $('<div id="automodsettingsbutton"></div>');
+			ambutton.click(function()
+			{
+				autoModSettings();
+			});
+			$('#inputarea').append(ambutton);
 		}
 		//Addition to the top row
 		var kill = $('<div class="controlbutton killbutton">Kill</div>');
@@ -204,6 +215,40 @@ socket.on(Type.MSG,function(name,msg)
 		addMessage(name+': '+msg,'msg');
 	}
 });
+socket.on(Type.HELP,function(commands){
+
+	var com = $("<div class='helppanel shrink' id='helpListPanel'>This is a test message. General help goes here.</div>");
+	var com2 = $("<div class='helppanel shrink' id='modListPanel'>This is a test message. Modding help goes here.</div>");
+	var com3 = $("<div class='helppanel shrink' id='commandListPanel'></div>");
+	var txt1 = $('<a href="#">General help</a>');
+	var txt2 = $('<a href="#">Modding help</a>');
+	var txt3 = $('<a href="#">List of commands</a>');
+	//Command list.
+	for (i in commands)
+	{
+		var f = i[0].toUpperCase() + i.substring(1,i.length);
+		com3.append($('<li class="commandheader"><b>'+f+'</b></li>'));
+		for (j in commands[i])
+		{
+			com3.append($('<li><b>/'+j+': </b>'+commands[i][j]+'</li>'));
+		}
+	}
+	txt1.click(function(){
+		showPanel(com);
+	});
+	txt2.click(function(){
+		showPanel(com2);
+	});
+	txt3.click(function(){
+		showPanel(com3);
+	});
+	addMessage(txt1,'help');
+	addMessage(com,'help');
+	addMessage(txt2,'help');
+	addMessage(com2,'help');
+	addMessage(txt3,'help');
+	addMessage(com3,'help');
+});
 socket.on(Type.ME,function(name,msg)
 {
 	addMessage(name+' '+msg,'me');
@@ -242,6 +287,12 @@ socket.on(Type.JOIN,function(name, reconnect)
 		{
 			openRolelist();
 		});
+		//Add in an automod settings button
+		var ambutton = $('<div id="automodsettingsbutton"></div>');
+		ambutton.click(function()
+		{
+			autoModSettings();
+		});
 	}
 	//Top row, normal users.
 	var li = $('<li></li>');
@@ -263,6 +314,7 @@ socket.on(Type.JOIN,function(name, reconnect)
 		}
 		
 		$('#inputarea').append(rlbutton);
+		$('#inputarea').append(ambutton);
 		//Addition to the top row
 		var kill = $('<div class="controlbutton killbutton">Kill</div>');
 		kill.click(function()
@@ -813,7 +865,6 @@ socket.on(Type.LATENCIES,function(p)
 	}
 });
 socket.on(Type.SUGGESTIONS,function(results){
-	console.log(results);
 	var container = $('<div class="automodcontainer"><header><p>Automod</p></header</div>');
 	//Target list
 	var table = createTable('actiontable');
@@ -851,7 +902,37 @@ socket.on(Type.SUGGESTIONS,function(results){
 				to = to.substring(1,to.length-1);
 			}
 			data.push(to); //Name
-			data.push(results.messages[i][1]); //Message
+			var msg = $("<span class='editableMessage'>"+results.messages[i][1]+"</span>");
+			var editMessage = function(){ //Make message editable
+				var m = $(this).html();
+				var parent = $(this).parent();
+				$(this).remove();
+				var edit = $('<input class="editingMessage" type="text">');
+				edit.blur(function(e){
+					revert(e)
+				});
+				edit.keydown(function(e){
+					if (e.keyCode == 13)
+					{
+						revert(e);
+					}
+				});
+				edit.val(m);
+				parent.append(edit);
+				edit.focus();
+			};
+			var revert = function(e)
+			{
+				var self = $(e.target);
+				var parent = $(self.parent());
+				var v = self.val();
+				self.remove();
+				var msg = $("<span class='editableMessage'>"+v+"</span>");
+				msg.click(editMessage);
+				parent.append(msg);
+			};
+			msg.click(editMessage);
+			data.push(msg); //Message
 			//Choose a button action.
 			var button = chooseAutoButton(results.messages[i], 'Send');
 			data.push(button); //Send button
