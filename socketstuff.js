@@ -228,7 +228,7 @@ socket.on(Type.HELP,function(commands)
 		"Transporters are silent",
 		"Disguisers display their own last will on their first disguise and the last will of their previous victim on subsequent disguises.",
 		"Blackmailer can read whispers if they do not blackmail the previous night.",
-		"<a href='http://www.blankmediagames.com/phpbb/viewtopic.php?f=27&t=23473'>Orangeandblack5's Investigation results 1.6</a> are used.",
+		"<a target='_blank' href='http://www.blankmediagames.com/phpbb/viewtopic.php?f=27&t=23473'>Orangeandblack5's Investigation results 1.6</a> are used.",
 		"The Godfather can choose another mafia member to perform the night kill.",
 		"If there is no Godfather, the Mafia members can decide amongst themselves who to kill.",
 		"The Spy cannot read the Mafia chat.",
@@ -298,7 +298,7 @@ socket.on(Type.HELP,function(commands)
 	var com = $("<div class='helppanel shrink helpPanel' id='helpListPanel'>"+helpmsg+"</div>");
 	com.prepend(changespan);
 	com.prepend(abridgedChanges);
-	com.prepend("<li>Read the standard changes of the Testing Grounds <a href='https://docs.google.com/document/d/1d_a-R-lhKQpQe_fYD3XyBnCx4WQETI9GokBjscB96mk/edit'>here</a>.</li>");
+	com.prepend("<li>Read the standard changes of the Testing Grounds <a target='_blank' href='https://docs.google.com/document/d/1d_a-R-lhKQpQe_fYD3XyBnCx4WQETI9GokBjscB96mk/edit'>here</a>.</li>");
 	var com2 = $("<div class='helppanel shrink' id='modListPanel'></div>");
 	for ( i in modhelp)
 	{
