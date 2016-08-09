@@ -218,32 +218,94 @@ socket.on(Type.MSG,function(name,msg)
 socket.on(Type.HELP,function(commands)
 {
 	var helpmsgs = [
-		"The Mod is your friend, ask them if you need further help.",
 		"The Mod does not bite, they are only killing people.",
 		"The Mod can make mistakes, if you believe there has been a mod error, message them using /mod.",
 		"Please keep your last will closed during Modtime.",
 		"You can tell the mod what you would like to do at night using /mod or /target",
 		"Be patient as Modtime can last for a while, depending on the player number and roles in play.",
-		"Read up the standard changes of the Testing Grounds <a href='https://docs.google.com/document/d/1d_a-R-lhKQpQe_fYD3XyBnCx4WQETI9GokBjscB96mk/edit'>here</a>."
 	];
 	var tldrchanges = [
 		"Transporters are silent",
-		"Disguisers display the last will of the ones whose name died (disgusers -> first tartgets --> secodn targets and when the Disguiser dies the one of the third target).",
-		"Blackmailer can read whispers when they did not blackmail in the previous night.",
-		"Orangeandblack5's Investigation results 1.6 are used http://www.blankmediagames.com/phpbb/viewtopic.php?f=27&t=23473 ).",
-		"There is no Mafioso, the Godfather can decide if an other Member should perform the kill.",
-		"If there is no Godfather, the Mafia members can discuss who should kill, but they do not have to kill.",
+		"Disguisers display their own last will on their first disguise and the last will of their previous victim on subsequent disguises.",
+		"Blackmailer can read whispers if they do not blackmail the previous night.",
+		"<a href='http://www.blankmediagames.com/phpbb/viewtopic.php?f=27&t=23473'>Orangeandblack5's Investigation results 1.6</a> are used.",
+		"The Godfather can choose another mafia member to perform the night kill.",
+		"If there is no Godfather, the Mafia members can decide amongst themselves who to kill.",
 		"The Spy cannot read the Mafia chat.",
-		"Retributionist, Jailor and Mayor have the Town(Power) alignment. Town(Power) cannot roll in Random Town."
+		"Retributionist, Jailor and Mayor have been moved to a new Town Power alignment. Town Power cannot roll in Random Town or Any."
 	];
+	var controls = $("<div class='helppanel shrink aChanges' id='helpListPanel'></div>");
+	var controldetails = [
+		'You can kill or jail a player using the bigger buttons.',
+		'Assign a player a role manually using the textbox under their name.',
+		'The smaller buttons on the bottom right allow you to give a player a modifier, allowing them to do something special. The modifiers are:<br>   <img src="maf.png" class="icon">Mafia, <img src="jailor.png" class="icon">Jailor, <img src="spy.png" class="icon">Reading Whispers, <img src="med.png" class="icon">Medium, <img src="mayor.png" class="icon">Mayor.',
+		'You have access to a player\'s will using the W button. Use this to forge or clean a will.',
+		'The white button labelled with a V allows you to send preset messages to a player.'
+	];
+	for (i in controldetails)
+	{
+		controls.append('<li>'+controldetails[i]+'</li>');
+	}
+	var controlslink = $("<a href='#'>As the mod, you have control over every player.</a>");
+	var rlinfolink= $("<a href='#'>You can access the rolelist using the button to the right of the chatbox.</a>");
+	var rlinfo = [
+		"You can edit each entry in the rolelist using the pencil button to the right of each role.",
+		"The button with a dice will roll a role for all players.",
+		"The green ticlk will assign the roles to each player.",
+		"Show List will show the rolelist to all of the players in the game. It is recommended that you use this before starting.",
+		"Show Roles will show the roles of all players. It is recommended that you use this after the game is over.",
+		"'Custom roles' allows you to toggle the rolling of non-standard roles. When unchecked, only roles actually in the game will roll.",
+		"The Autolist button sets the rolelist to the recommended list for that amount of players."
+	];
+	var rlpanel = $("<div class='helppanel shrink aChanges' id='helpListPanel'></div>");
+	for (i in rlinfo)
+	{
+		rlpanel.append('<li>'+rlinfo[i]+'</li>');
+	}
+	rlinfolink.click(function(){
+		showPanel(rlpanel);
+	});
+	controlslink.click(function(){
+		showPanel(controls);
+	});
+	var modhelp = [
+		"The following information is only neccessary if you are planning to mod a Testing Grounds game.",
+		"If you are using manual mode, have a separate file open to take note of night actions and results to check if you have given everyone their feedback.",
+		controlslink,
+		controls,
+		rlinfolink,
+		rlpanel,
+		'Each game begins with a "Roles" phase. In this phase you distribute the roles, set the modifiers and wait for everyone to confirm their role.',
+		'You may need to tell them about the /confirm command, if there are new players present.',
+		'After everyone has confirmed, select Day 1 to start the game.',
+		'Phases will end in Modtime, where it is your call to perform the actions before setting the phase to Day/Night.',
+	];
+	var changespan = $("<div class='helppanel shrink aChanges' id='helpListPanel'></div>");
+	for (i in tldrchanges)
+	{
+		changespan.append('<li>'+tldrchanges[i]+'</li>');
+	}
+	var abridgedChanges = $('<a href="#" class="backline">Or see the tldr version.</a>');
+	abridgedChanges.click(function(){
+		showPanel(changespan);
+	});
 	//Help
 	var helpmsg = "";
 	for (i in helpmsgs)
 	{
 		helpmsg += '<li>'+helpmsgs[i]+"</li>";
 	}
-	var com = $("<div class='helppanel shrink' id='helpListPanel'>"+helpmsg+"</div>");
-	var com2 = $("<div class='helppanel shrink' id='modListPanel'>This is a test message. Modding help goes here.</div>");
+	var com = $("<div class='helppanel shrink helpPanel' id='helpListPanel'>"+helpmsg+"</div>");
+	com.prepend(changespan);
+	com.prepend(abridgedChanges);
+	com.prepend("<li>Read the standard changes of the Testing Grounds <a href='https://docs.google.com/document/d/1d_a-R-lhKQpQe_fYD3XyBnCx4WQETI9GokBjscB96mk/edit'>here</a>.</li>");
+	var com2 = $("<div class='helppanel shrink' id='modListPanel'></div>");
+	for ( i in modhelp)
+	{
+		var li = $('<li></li>');
+		li.append(modhelp[i]);
+		com2.append(li);
+	}
 	var com3 = $("<div class='helppanel shrink' id='commandListPanel'></div>");
 	var txt1 = $('<a href="#">General help</a>');
 	var txt2 = $('<a href="#">Modding help</a>');

@@ -1106,9 +1106,35 @@ neut
 }
 .helppanel
 {
-	width:100%;
+	width:97%;
+	margin-left:5px;
 }
 .commandheader
 {
 	margin-top:1em;
+}
+.aChanges
+{
+	margin-left:10px;
+	margin-bottom:5px;
+}
+a:visited
+{
+	color:blue;
+}
+.backline
+{
+	margin-left:0.5em;
+}
+.helpPanel>li:first-child
+{
+	float:left;
+}
+.helpPanel
+{
+	overflow:hiddenp;
+}
+.icon
+{
+	height:1em;
 }

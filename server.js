@@ -16,6 +16,7 @@ var commandList = {
 		'target':'Target a player with a night action. Usage: /target player or /target playerone playertwo',
 		'vote':'Command for voting, should only be used if there is a problem with the voting interface. Usage: /vote name',
 		'role':'View your current rolecard, or use /role name to view another rolecard. Usage /role to view your role, /role name to view a rolecard.',
+		'rolelist':'Display the current rolelist.',
 		'confirm':'Use during the roles phase to confirm you have your role. Usage: /confirm',
 		'ping':'Show your ping. Usage: /ping',
 		'afk':'Go afk. Only usable in pregame. Usage: /afk',
