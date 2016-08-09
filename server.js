@@ -2564,7 +2564,8 @@ function Player(socket,name,ip)
 									//Check if the ip is formatted correctly.
 									if (/\d+\.\d+\.\d+\.\d+/.test(c[1]))
 									{
-										ban(c[1],c[2],this.name);
+										ban(c[1],c.slice(2,c.length).join(' '),this.name);
+										this.s.emit(Type.SYSTEM,'You banned the ip: '+c[1]+'. Reason: '+c.slice(2,c.length).join(' '));
 									}
 									else
 									{
@@ -2576,8 +2577,8 @@ function Player(socket,name,ip)
 									if (playernames[c[1]])
 									{
 										var ip = getPlayerByName(c[1]).ip;
-										kick(c[1],c[2],this.name);
-										ban(ip,c[2],this.name);
+										kick(c[1],c.slice(2,c.length).join(' '),this.name);
+										ban(ip,c.slice(2,c.length).join(' '),this.name);
 									}
 									else
 									{
