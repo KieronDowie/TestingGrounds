@@ -37,9 +37,10 @@ var commandList = {
 	},
 	dev:{
 		'dev':'Activate developer powers.',
-		'alert':'Send an audio ',
+		'alert':'Send an audio alert to a player.',
 		'kick':'Kick a player.',
 		'ban':'Ban an ip.',
+		'silence':'Silence a player until the end of the current phase. This effects all messages that are shown to other players.'
 	},
 	fun:{
 		'me':'Do something. Eg. <em>Player waves!</em. Only usable during Pregame.',
@@ -896,7 +897,10 @@ io.on('connection', function(socket){
 				list[i] = sanitize(list[i]);
 				list[i] = roles.formatAlignment(list[i]);
 			}
-			io.emit(Type.SHOWLIST,list);
+			if (!players[socket.id].silenced)
+			{
+				io.emit(Type.SHOWLIST,list);
+			}
 		}
 		else
 		{
@@ -918,7 +922,10 @@ io.on('connection', function(socket){
 					c++;
 				}
 			}
-			io.emit(Type.SHOWALLROLES,list);
+			if (players[socket.id])
+			{
+				io.emit(Type.SHOWALLROLES,list);
+			}
 		}
 		else
 		{
@@ -968,18 +975,24 @@ io.on('connection', function(socket){
 				player.chats.dead = !player.chats.dead;
 				if (player.alive)
 				{
-					io.emit(Type.HIGHLIGHT,name+' has been revived!');
-					player.s.emit(Type.PRENOT,'REVIVE');
+					if (!players[socket.id].silenced)
+					{
+						io.emit(Type.HIGHLIGHT,name+' has been revived!');
+						player.s.emit(Type.PRENOT,'REVIVE');
+					}
 					io.emit(Type.TOGGLELIVING,{name:name});
 				}
 				else
 				{
-					io.emit(Type.HIGHLIGHT,name+' has died!');
-					io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
-					var show = sanitize(player.will);
-					show = show.replace(/(\n)/g,'<br />');
-					io.emit(Type.WILL,show);
-					player.s.emit(Type.PRENOT,"DEAD");
+					if (!players[socket.id].silenced)
+					{
+						io.emit(Type.HIGHLIGHT,name+' has died!');
+						io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
+						var show = sanitize(player.will);
+						show = show.replace(/(\n)/g,'<br />');
+						io.emit(Type.WILL,show);
+						player.s.emit(Type.PRENOT,"DEAD");
+					}
 					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
 				}
 			}
@@ -1024,7 +1037,10 @@ io.on('connection', function(socket){
 							default: notify = 'You can no longer talk in the '+chat+' chat.'; break;
 						}	
 					}
-					if (notify) player.s.emit(Type.SYSTEM,notify)	
+					if (!players[socket.id].silenced)
+					{
+						if (notify) player.s.emit(Type.SYSTEM,notify)	
+					}
 				}
 				else
 				{
@@ -1034,36 +1050,48 @@ io.on('connection', function(socket){
 							if (player.mayor === undefined)
 							{
 								player.mayor = false; //False, meaning not revealed.
-								player.s.emit(Type.SYSTEM,'You are now the Mayor! Use /reveal to reveal yourself and get 3 votes.');
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are now the Mayor! Use /reveal to reveal yourself and get 3 votes.');
+								}
 							}
 							else
 							{
 								player.mayor = undefined; //Undefined, meaning not mayor.
-								player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
+								}
 							}
 						break;				
 						case 'spy': 
 							player.hearwhispers = !player.hearwhispers;
-							if (player.hearwhispers)
+							if (!players[socket.id].silenced)
 							{
-								player.s.emit(Type.SYSTEM,'You can now hear whispers.');
-							}
-							else
-							{
-								player.s.emit(Type.SYSTEM,'You can no longer hear whispers.');
+								if (player.hearwhispers)
+								{
+									player.s.emit(Type.SYSTEM,'You can now hear whispers.');
+								}
+								else
+								{
+									player.s.emit(Type.SYSTEM,'You can no longer hear whispers.');
+								}
 							}
 						break;				
 						case 'blackmail': 
 							player.blackmailed = !player.blackmailed;
-							if (player.blackmailed)
+							if (!players[socket.id].silenced)
 							{
-								player.s.emit(Type.PRENOT,'BLACKMAIL');
-								players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
-							}
-							else
-							{
-								player.s.emit(Type.SYSTEM,'You are no longer blackmailed.');
-								players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
+								if (player.blackmailed)
+								{
+									player.s.emit(Type.PRENOT,'BLACKMAIL');
+									players[mod].s.emit(Type.SYSTEM,player.name+' is now blackmailed.');
+								}
+								else
+								{
+									player.s.emit(Type.SYSTEM,'You are no longer blackmailed.');
+									players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
+								}
 							}
 						break;				
 						default: 
@@ -1210,10 +1238,20 @@ function setPhase(p)
 	phase = p;
 	timer.setPhase(p);
 	io.emit(Type.SETPHASE,phase);
+	//Reset all silenced players.
+	for (i in players)
+	{
+		if (players[i].silenced)
+		{
+			players[i].silenced = undefined;
+			players[i].s.emit(Type.SYSTEM, "You are no longer silenced.");
+		}
+	}
 	if (p == Phase.NIGHT)
 	{
 		//Reset the automod
 		gm.clear();
+
 		//Special beginning of night messages.
 		for (i in players)
 		{
@@ -1740,7 +1778,10 @@ function Player(socket,name,ip)
 							{
 								players[this.votingFor].votes--; //subtract a vote from the person that was being voted.
 							}
-							io.emit(Type.VOTE,this.name,' has cancelled their vote.','',prev);
+							if (!this.silenced)
+							{
+								io.emit(Type.VOTE,this.name,' has cancelled their vote.','',prev);
+							}
 							this.votingFor = undefined;
 						}
 						else if (this.votingFor) //Previous voter
@@ -1755,13 +1796,19 @@ function Player(socket,name,ip)
 							{
 								players[prev].votes--; //subtract a vote from the person that was being voted.		
 								player.votes++; //Add a vote to the new person			
-							}					
-							io.emit(Type.VOTE,this.name,' has changed their vote to ',player.name,players[prev].name);
+							}		
+							if (!this.silenced)
+							{			
+								io.emit(Type.VOTE,this.name,' has changed their vote to ',player.name,players[prev].name);
+							}
 							this.votingFor = player.s.id;					
 						}
 						else
 						{ 
-							io.emit(Type.VOTE,this.name,' has voted for ',player.name);
+							if (!this.silenced)
+							{
+								io.emit(Type.VOTE,this.name,' has voted for ',player.name);
+							}
 							this.votingFor = player.s.id;
 							if (this.mayor)
 							{	
@@ -1804,7 +1851,11 @@ function Player(socket,name,ip)
 					break;
 					case 'whisper':
 					case 'w':
-						if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME)
 						{
 							if (this.blackmailed && phase != Phase.PREGAME)
 							{
@@ -1998,7 +2049,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'mod':
-						if (c.length < 2)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (c.length < 2)
 						{
 							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/mod message\'.');
 						}
@@ -2009,6 +2064,132 @@ function Player(socket,name,ip)
 							msg=msg.join(' ');
 							players[mod].s.emit(Type.MOD,{from:this.name,msg:msg});
 							this.s.emit(Type.MOD,{to:'Mod',msg:msg});
+						}
+					break;
+					case 'unsilence':
+						if (this.dev)
+						{
+							if (c.length < 2)
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/unsilence player\'.');
+							}
+							else
+							{
+								if (playernames[c[1]])
+								{
+									if (!players[playernames[c[1]]].silenced)
+									{
+										this.s.emit(Type.SYSTEM,c[1]+' is not silenced.');
+									}
+									else
+									{
+										io.emit(Type.HIGHLIGHT,c[1]+' is now unsilenced.');
+										players[playernames[c[1]]].silenced = undefined;
+									}
+								}
+								else if (!isNaN(c[1])) //It's a number.
+								{
+									//Get the numbered player.
+									var target = getPlayerByNumber(c[1]);
+									if (target != -1)
+									{
+										if (!target.silenced)
+										{
+											this.s.emit(Type.SYSTEM,target.name+' is not silenced.');
+										}
+										else
+										{
+											io.emit(Type.HIGHLIGHT,target.name+' is now unsilenced.');
+											target.silenced = undefined;
+										}
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'Could not find player '+c[1]+'!');
+								}	
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM, 'You do not have the correct permissions to use this command.');
+						}
+					break;
+					case 'silence':
+						if (this.dev)
+						{
+							if (c.length < 2)
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/silence player [reason]\'.');
+							}
+							else
+							{
+								if (playernames[c[1]])
+								{
+									if (players[playernames[c[1]]].silenced)
+									{
+										this.s.emit(Type.SYSTEM,c[1]+' is already silenced.');
+									}
+									else
+									{
+										players[playernames[c[1]]].silenced = this.name;
+										if (c[2])
+										{
+											players[playernames[c[1]]].silenced +='/' + c.slice(2,c.length).join(' ');
+										}
+										this.s.emit(Type.SYSTEM,"You have silenced "+c[1]+' for the phase. You can use /unsilence to unsilence them early.');
+										var msg = players[playernames[c[1]]].name + ' was silenced for this phase by '+this.name+'.';
+										if (c[2])
+										{
+											msg += ' Reason: '+c.slice(2,c.length).join(' ');
+										}
+										io.emit(Type.HIGHLIGHT,msg);
+									}
+								}
+								else if (!isNaN(c[1])) //It's a number.
+								{
+									//Get the numbered player.
+									var target = getPlayerByNumber(c[1]);
+									if (target != -1)
+									{
+										if (target.silenced)
+										{
+											this.s.emit(Type.SYSTEM,target.name+' is already silenced.');
+										}
+										else
+										{
+											target.silenced = this.name;
+											if (c[2])
+											{
+												target.silenced+='/'+c.slice(2,c.length).join(' ');
+											}
+											this.s.emit(Type.SYSTEM,"You have silenced "+target.name+' for the phase. You can use /unsilence to unsilence them early.');
+											var msg = target.name + ' was silenced for the phase by '+this.name+'.';
+											if (c[2])
+											{
+												msg += ' Reason: '+c.slice(2,c.length).join(' ');
+											}
+											io.emit(Type.HIGHLIGHT,msg);
+										}
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'Could not find player '+c[1]+'!');
+								}
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM, 'You do not have the correct permissions to use this command.');
 						}
 					break;
 					case 'random':
@@ -2533,7 +2714,10 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'afk':
-						io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+						if (!this.silenced)
+						{
+							io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+						}
 						if (phase == Phase.PREGAME)
 						{							
 							//SetRole(this.name, 'afk')
@@ -2542,7 +2726,10 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'back':
-						io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
+						if (!this.silenced)
+						{
+							io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
+						}
 						if (phase == Phase.PREGAME)
 						{							
 							//SetRole(this.name, '')
@@ -2631,15 +2818,39 @@ function Player(socket,name,ip)
 				//Log the night action for review at the end of the night.
 				gm.log(this.name,targets);
 			},
+			silencedError: function(){
+				var details = [this.silenced];
+				if (this.silenced.indexOf('/') != -1)
+				{
+					details = this.silenced.split('/');
+				}
+				var msg = 'You have been silenced by '+details[0]+'.';
+				if (details[1])
+				{
+					msg+=' Reason: '+details[1];
+				}
+				this.s.emit(Type.SYSTEM, msg);
+			},
 			message:function(msg)
 			{
 				switch (phase)
 				{
 					case Phase.PREGAME:
-						io.emit(Type.MSG,this.name,msg);
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else
+						{
+							io.emit(Type.MSG,this.name,msg);
+						}
 					break;
 					case Phase.ROLES:
-						if (mod==this.s.id)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
@@ -2652,7 +2863,11 @@ function Player(socket,name,ip)
 					case Phase.VOTING:
 					case Phase.VERDICTS:
 					case Phase.FIRSTDAY:
-						if (mod==this.s.id)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
@@ -2673,7 +2888,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case Phase.TRIAL:
-						if (mod==this.s.id)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
@@ -2701,7 +2920,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case Phase.NIGHT:
-						if (this.alive)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (this.alive)
 						{
 							if (mod==this.s.id)
 							{
@@ -2732,7 +2955,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case Phase.MODTIME:
-						if (mod==this.s.id)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
@@ -2742,8 +2969,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case Phase.LASTWORDS:
-					
-						if (mod==this.s.id)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
@@ -2791,6 +3021,7 @@ function Player(socket,name,ip)
 					}
 				}
 			}
+			
 	};
 }
 function clone(obj) {
