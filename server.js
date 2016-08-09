@@ -2553,7 +2553,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'ban':
-					if (c.length >= 2)
+					if (c.length > 2)
 						{
 							if (this.dev)
 							{
@@ -2592,7 +2592,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							this.s.emit(Type.SYSTEM,'The syntax of this command is /ban [name/ip] reason');
+							this.s.emit(Type.SYSTEM,'The syntax of this command is /ban [name/ip] reason. A reason is mandatory.');
 						}
 					break;
 					case 'kick':
