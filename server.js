@@ -122,6 +122,7 @@ var mod = undefined;
 var ontrial = undefined;
 var apass;
 loadPassword();
+loadBanlist();
 var prev_rolled;
 var testTime;
 loadDate();
@@ -577,9 +578,19 @@ var dcd = [];
 io.listen(server);
 io.on('connection', function(socket){
 	var ip=getIp(socket);
-	if (banlist.indexOf(ip) != -1)
+	var banned = false;
+	var reason = '';
+	for (i in banlist)
 	{
-		socket.emit(Type.SYSTEM,'This ip is banned. If you believe this to be in error, contact <a href="http://www.blankmediagames.com/phpbb/memberlist.php?mode=viewprofile&u=422145">KittenLicks</a> at the Town of Salem forums.');
+		if (banlist[i].ip == ip)
+		{
+			banned = true;
+			reason = banlist[i].reason;
+		}
+	}
+	if (banned)
+	{
+		socket.emit(Type.SYSTEM,'This ip is banned. Reason: '+reason+'.<br>If you believe this to be in error, contact <a href="http://www.blankmediagames.com/phpbb/memberlist.php?mode=viewprofile&u=422145">KittenLicks</a> at the Town of Salem forums.');
 		socket.emit(Type.KICK);
 		console.log('Connection attempt from banned ip: '+ip);
 		socket.disconnect();
@@ -693,6 +704,7 @@ io.on('connection', function(socket){
 			var name = joining[ip];
 			delete joining[ip];
 			players[socket.id]= Player(socket,name,ip);
+			console.log(players[socket.id].ip);
 			//Inform everyone of the new arrival.
 			io.emit(Type.JOIN,name);
 			if (alt) //Inform everyone of the alt.
@@ -714,6 +726,7 @@ io.on('connection', function(socket){
 		{
 			socket.disconnect();
 		}
+		console.log(playernames);
 	}
 	socket.on(Type.AUTOLEVEL,function(lvl){
 		autoLevel = lvl;
@@ -1569,6 +1582,23 @@ function loadDate()
 				parseInt(time[1])//Minutes
 			); 
 			console.log("Date loaded.");
+		}
+	});
+}
+function loadBanlist()
+{
+	console.log("Loading banlist...");
+	db.query('SELECT * FROM banlist',function(err,result)
+	{
+		if (err)
+		{
+			console.log('Could not load password.');
+			throw err;
+		}	
+		else
+		{
+			banlist = result.rows;
+			console.log('Banlist loaded.');
 		}
 	});
 }
@@ -2519,9 +2549,42 @@ function Player(socket,name,ip)
 						{
 							if (this.dev)
 							{
-								banlist.push(c[1]);
-								this.s.emit(Type.SYSTEM, 'You banned the ip: '+c[1]);
+								var first = c[1];
+								var reason = c[2];
+								if (!isNaN(first[0])) //Ip
+								{
+									//Check if the ip is formatted correctly.
+									if (/\d+\.\d+\.\d+\.\d+/.test(c[1]))
+									{
+										ban(c[1],c[2],this.name);
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'The argument '+c[1]+' was not recognized as an ip.');
+									}
+								}
+								else //name
+								{
+									if (playernames[c[1]])
+									{
+										var ip = getPlayerByName(c[1]).ip;
+										kick(c[1],c[2],this.name);
+										ban(ip,c[2],this.name);
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM, 'The name \''+c[1]+'\' could not be found.');
+									}
+								}
 							}
+							else
+							{
+								this.s.emit(Type.SYSTEM, 'You do not have the correct permissions to use this command.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'The syntax of this command is /ban [name/ip] reason');
 						}
 					break;
 					case 'kick':
@@ -2537,16 +2600,7 @@ function Player(socket,name,ip)
 								}
 								else if (tokick)
 								{
-									tokick.s.emit(Type.SYSTEM,'You have been kicked from the game!');
-									var reason = '';
-									if (c.length > 2)
-									{
-										c.splice(0,2);
-										reason = ' Reason: '+c.join(' ');
-									}
-									io.emit(Type.HIGHLIGHT,tokick.name+' has been kicked by '+this.name+'!'+reason);
-									tokick.s.emit(Type.KICK);
-									tokick.s.disconnect();
+									kick(name,c[2],this.name);
 								}
 								else
 								{
@@ -3031,4 +3085,28 @@ function clone(obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
     }
     return copy;
+}
+function kick(name, reason, kicker)
+{
+	var tokick = getPlayerByName(name);
+	tokick.s.emit(Type.SYSTEM,'You have been kicked from the game!');
+	if (reason)
+	{
+		io.emit(Type.HIGHLIGHT,tokick.name+' has been kicked by '+kicker+'! Reason: '+reason);
+	}
+	else
+	{
+		io.emit(Type.HIGHLIGHT,tokick.name+' has been kicked by '+kicker+'!');
+	}
+	tokick.s.emit(Type.KICK);
+	tokick.s.disconnect();
+}
+function ban(ip,reason,banner)
+{
+	reason = reason?reason:'';
+	db.query('INSERT INTO banlist VALUES(\''+ip+'\',\''+reason+'\');',function(err,result)
+	{
+		console.log(ip+' successfully banned by '+banner+'. Reason: '+reason);
+	});
+	loadBanlist();
 }
