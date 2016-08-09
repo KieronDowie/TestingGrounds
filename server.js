@@ -2427,7 +2427,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'me':
-						if (phase == Phase.PREGAME)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (phase == Phase.PREGAME)
 						{
 							if (c.length < 2)
 							{
@@ -2447,7 +2451,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'hug':
-						if (phase == Phase.PREGAME)
+						if (this.silenced)
+						{
+							this.silencedError();
+						}
+						else if (phase == Phase.PREGAME)
 						{
 							if (c.length == 2)
 							{
