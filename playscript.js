@@ -657,7 +657,7 @@ function chooseAutoButton(info, label)
 			};
 		break;
 		/*Actions*/
-		case '<Kill>':
+		case '<Kill>': case'<Revive>':
 			func = function(){
 				socket.emit(Type.TOGGLELIVING,info[1]);
 				//Stupid button swapping stuff that I have no idea why I thought was a good idea at the time.
@@ -690,6 +690,11 @@ function chooseAutoButton(info, label)
 		case '<Blackmail>':
 			func = function(){
 				socket.emit(Type.TOGGLE,info[1],'blackmail');
+			};
+		break;
+		case '<Clean>':
+			func = function(){
+				socket.emit(Type.MSG,'/clean '+info[1]);
 			};
 		break;
 		/*Default is to treat it as a name*/

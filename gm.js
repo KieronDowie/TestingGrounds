@@ -257,7 +257,8 @@ var autoRoles =
 	},
 	'survivor': {
 		attributes:  {
-			VEST:attributes.VEST
+			VEST:attributes.VEST,
+			SELF:attributes.SELF,
 		},
 		grouping:'B',
 		alignment:'neutral'
@@ -690,8 +691,11 @@ module.exports = {
 									}
 									//Check for night immunity
 									var role = getRole(targets[t[0]]);
-									if (autoRoles[role].attributes.IMMUNE)
+									var target = players[playernames[t[0]]];
+									
+									if (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && Object.keys(targets[t[0]][1]).length != 0) )
 									{
+										//Immune or a survivor that sent in an action.
 										attackSuccess = false;
 										//Inform the person they were attacked, inform the attacker their target was immune.
 										addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
@@ -843,12 +847,7 @@ module.exports = {
 								else if (roleAttributes.CLEAN) //Role cleaning
 								{
 									var t = targets[num][1];
-									//If someone is killing them.
-									var visitors = getPeopleTargetting(t[0]); 
-									for (j in visitors)
-									{
-										
-									}
+									addSuggestedAction('Clean',t[0]);
 								}
 								else if (roleAttributes.REMEMBER) //Remembering a role
 								{
@@ -856,6 +855,17 @@ module.exports = {
 									var p = playersByName[t[0]];
 									addSuggestedAction('Set Role',num+"/"+p.role);
 									addSuggestedMessage('An Amnesiac has remembered that they were a '+p.role+".",'<All>');
+								}
+								else if (roleAttributes.REVIVE)
+								{
+									var t = targets[num][1];
+									addSuggestedAction('Revive',t[0]);
+								}
+								else if (roleAttributes.EXECUTE)
+								{
+									var t = targets[num][1];
+									addSuggestedMessage('They were executed by the [town]Jailor[/town].','<All>');
+									addSuggestedAction('Kill',t[0]);
 								}
 							}
 							else

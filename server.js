@@ -25,7 +25,7 @@ var commandList = {
 	roles:{
 		'reveal':'Reveal yourself as the Mayor, if you have that role. Usage: /reveal, during the day.',
 		'execute':'Choose to execute the person you have jailed. Usage /execute, then /execute again to cancel.',
-		'seance':'Not implemented yet.'
+		'seance':'Choose a player to talk to at night. You may only use this once.'
 	},
 	mod:{
 		'givemod':'Pass the mod onto another person. Usage: /givemod name',
@@ -33,7 +33,8 @@ var commandList = {
 		'random':'Choose a random player. Usage: /random',
 		'roll':'Roll a dice. Usage /roll or /roll sides',
 		'msg':'Send a message to a player. <span class="mod">From</span> <b>Mod:</b> <span class="mod">This looks like this</span>. Usage: /msg name message',
-		'sys':'Send a system message to a player. <b>This looks like this</b>'
+		'sys':'Send a system message to a player. <b>This looks like this</b>',
+		'clean':'Set a player\'s will to not show upon death.'
 	},
 	dev:{
 		'dev':'Activate developer powers.',
@@ -1003,7 +1004,14 @@ io.on('connection', function(socket){
 						io.emit(Type.HIGHLIGHT,'Their role was '+player.role);
 						var show = sanitize(player.will);
 						show = show.replace(/(\n)/g,'<br />');
-						io.emit(Type.WILL,show);
+						if (!player.cleaned)
+						{
+							io.emit(Type.WILL,show);
+						}
+						else
+						{
+							io.emit(Type.HIGHLIGHT,'We could not find a last will.');
+						}
 						player.s.emit(Type.PRENOT,"DEAD");
 					}
 					io.emit(Type.TOGGLELIVING,{name:name,role:player.role});
@@ -1036,7 +1044,10 @@ io.on('connection', function(socket){
 						{
 							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
 							case 'jailed': notify = undefined; break; //No message
-							case 'medium': notify = 'You can now hear the dead at night.'; break;
+							case 'medium': 
+								notify = 'You can now hear the dead at night.'; 
+								player.canSeance = true;
+							break;
 							default: notify = 'You can now talk in the '+chat+' chat.'; break;
 						}
 					}
@@ -1046,7 +1057,10 @@ io.on('connection', function(socket){
 						{
 							case 'jailor': notify = 'You are no longer the jailor.'; break;
 							case 'jailed': notify = undefined; break; //No message
-							case 'medium': notify = 'You can no longer hear the dead at night.'; break;
+							case 'medium': 
+								notify = 'You can no longer hear the dead at night.'; 
+								player.canSeance = false;
+							break;
 							default: notify = 'You can no longer talk in the '+chat+' chat.'; break;
 						}	
 					}
@@ -1248,10 +1262,21 @@ function getPlayerByNumber(num)
 //--Phase change
 function setPhase(p)
 {
+	if (phase == Phase.NIGHT && p != phase)
+	{
+		for (i in players)
+		{
+			if (players[i].seancing)
+			{
+				players[i].seancing.beingSeanced = undefined;
+				players[i].seancing = undefined;
+			}
+		}
+	}
 	phase = p;
 	timer.setPhase(p);
 	io.emit(Type.SETPHASE,phase);
-	//Reset all silenced players.
+	//Reset all silenced players. And the medium seancing
 	for (i in players)
 	{
 		if (players[i].silenced)
@@ -1264,10 +1289,16 @@ function setPhase(p)
 	{
 		//Reset the automod
 		gm.clear();
-
+		//Reset cleaning.
 		//Special beginning of night messages.
 		for (i in players)
 		{
+			//Reset cleaning
+			if (players[i].cleaned)
+			{
+				players[i].cleaned = false;
+				players[mod].s.emit(Type.SYSTEM,players[i].name+ "\'s Last Will will show upon death.");
+			}
 			//Jailed player
 			if (players[i].chats.jailed)
 			{
@@ -1290,6 +1321,13 @@ function setPhase(p)
 			else if (players[i].chats.mafia && players[i].alive)
 			{
 				players[i].s.emit(Type.SYSTEM,'Use "/target name" or "/t name" to send in your night action.');
+			}
+			//Medium messages.
+			if (players[i].seancing)
+			{
+				players[i].s.emit(Type.SYSTEM, "You have opened a communication with the living!");
+				players[i].seancing.s.emit(Type.SYSTEM, "A medium is talking to you!");
+				players[i].canSeance = true;
 			}
 		}	
 	}
@@ -1721,6 +1759,7 @@ function Player(socket,name,ip)
 			fault:0,
 			role:'NoRole',
 			alive:true,
+			canSeance:false,
 			mayor:undefined,
 			blackmailed:false,
 			hearwhispers:false,
@@ -1938,6 +1977,127 @@ function Player(socket,name,ip)
 						else
 						{
 							this.s.emit(Type.SYSTEM,'You can only whisper during the day.');
+						}
+					break;
+					case 'seance':
+						if (this.chats.medium)
+						{
+							if (this.canSeance)
+							{
+								if (!this.alive)
+								{
+									if (phase == Phase.DAY)
+									{
+										var seance = function(medium,target)
+										{
+											if (medium.seancing && medium.seancing == target)
+											{
+												medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
+												medium.seancing.beingSeanced = undefined;
+												medium.seancing = undefined;
+												players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+											}
+											else
+											{
+												medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
+												medium.seancing = target;
+												medium.seancing.beingSeanced = medium;
+												players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
+											}
+										};
+										if (playernames[c[1]])
+										{
+											seance(this,players[playernames[c[1]]]);
+										}
+										else if (!isNaN(c[1]))
+										{
+											//Get the numbered player.
+											var target = getPlayerByNumber(c[1]);
+											if (target != -1)
+											{
+												seance(this,target);
+											}
+											else
+											{
+												this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+											}
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
+										}
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM, 'You can only use this command during the day.');
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'You need to be dead to seance.');
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'You have no seances left.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'Only a medium can seance.');
+						}
+					break;
+					case 'clean':
+						if (mod == this.s.id)
+						{
+							if (c.length == 2)
+							{
+								if (playernames[c[1]])
+								{
+									players[playernames[c[1]]].cleaned = !players[playernames[c[1]]].cleaned;
+									if (players[playernames[c[1]]].cleaned)
+									{
+										this.s.emit(Type.SYSTEM, c[1]+'\'s Last Will will no longer show upon death.');
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM, c[1]+'\'s Last Will will show upon death.');
+									}
+								}
+								else if (!isNaN(c[1]))
+								{
+									//Get the numbered player.
+									var target = getPlayerByNumber(c[1]);
+									if (target != -1)
+									{
+										target.cleaned = !target.cleaned;
+										if (target.cleaned)
+										{
+											this.s.emit(Type.SYSTEM, target.name+'\'s Last Will will no longer show upon death.');
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM, target.name+'\'s Last Will will show upon death.');
+										}
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM, 'The syntax of this command is /clean [name/number]');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM, 'Only the mod can use that command.');
 						}
 					break;
 					case 'disguise':
@@ -2410,7 +2570,7 @@ function Player(socket,name,ip)
 							{
 								if (players[i].chats.jailed)
 								{
-									found = true;
+									found = players[i].name;
 									players[i].s.emit(Type.SYSTEM,msg);
 									socket.emit(Type.SYSTEM,jmsg);
 									players[mod].s.emit(Type.SYSTEM,this.executing?this.name+' has changed their mind.':this.name+' has decided to execute '+players[i].name+'.');
@@ -2419,6 +2579,14 @@ function Player(socket,name,ip)
 							if (found)
 							{
 								this.executing = !this.executing;
+								if (this.executing)
+								{
+									gm.log(this.name,[found]);
+								}
+								else
+								{
+									gm.log(this.name,[]);
+								}
 							}
 							else
 							{
@@ -3005,16 +3173,31 @@ function Player(socket,name,ip)
 							{
 								this.specMessage(msg,{jailor:true,jailed:true},'Jailor');
 							}
-							if (this.chats.medium) //Not else if, the medium's messages go through if they are jailed.
+							if (this.chats.medium)
 							{
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
 							}
+							if (this.beingSeanced)
+							{
+								this.beingSeanced.s.emit(Type.MSG,this.name,msg);
+								//Echo the message back to the medium.
+								this.s.emit(Type.MSG,this.name,msg);
+							}
 						}
 						else //Deadchat
 						{
-							this.specMessage(msg,{dead:true,medium:true});
+							if (this.seancing)
+							{
+								this.seancing.s.emit(Type.MSG,'Medium',msg);
+								//Echo the message back to the medium.
+								this.s.emit(Type.MSG,'Medium',msg);
+							}
+							else
+							{
+								this.specMessage(msg,{dead:true,medium:true});
+							}
 						}
 					break;
 					case Phase.MODTIME:
