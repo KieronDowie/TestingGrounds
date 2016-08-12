@@ -1475,7 +1475,7 @@ function Timer()
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			10, //Night
+			60, //Night
 			30 //Day 1
 			],
 		tock:function(){
