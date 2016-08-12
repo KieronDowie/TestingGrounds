@@ -959,7 +959,7 @@ socket.on(Type.SUGGESTIONS,function(results){
 	for (i in results.targets)
 	{
 		var data = [];
-		data.push(i); //Name
+		data.push('<span class="playername">'+i+'</span>'); //Name
 		data.push(results.targets[i][0]); //Role
 		if (results.targets[i][1] && results.targets[i][1].length != 0)
 		{
@@ -987,6 +987,11 @@ socket.on(Type.SUGGESTIONS,function(results){
 			if (to[0] == '<')
 			{
 				to = to.substring(1,to.length-1);
+			}
+			else
+			{
+				//If it's not special, add it as a normal name, selectable for the disguise namechange
+				to = '<span class="playername">'+to+'</span>';
 			}
 			data.push(to); //Name
 			var msg = $("<span class='editableMessage'>"+results.messages[i][1]+"</span>");
@@ -1043,7 +1048,7 @@ socket.on(Type.SUGGESTIONS,function(results){
 				type = type.substring(1,type.length-1);
 			}
 			data.push(type); //Type
-			data.push(results.actions[i][1]); //Person
+			data.push('<span class="playername">'+results.actions[i][1]+'</span>'); //Person
 			//Choose a button action.
 			var label = results.actions[i][0].substring(1,results.actions[i][0].length-1); //Cut off the < > around the action.
 			var button = chooseAutoButton(results.actions[i], label);

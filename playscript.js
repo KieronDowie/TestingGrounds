@@ -653,15 +653,19 @@ function chooseAutoButton(info, label)
 		/*Messages*/
 		case '<All>':
 			func = function(){
-				socket.emit(Type.MSG,info[1]);
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				socket.emit(Type.MSG,to);
 			};
 		break;
 		/*Actions*/
 		case '<Kill>': case'<Revive>':
 			func = function(){
-				socket.emit(Type.TOGGLELIVING,info[1]);
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				socket.emit(Type.TOGGLELIVING,to);
 				//Stupid button swapping stuff that I have no idea why I thought was a good idea at the time.
-				var index = users.indexOf(info[1]);
+				var index = users.indexOf(to);
 				var buttons = $('.killbutton, .revivebutton');
 				if ($(buttons[index]).hasClass('killbutton'))
 				{
@@ -679,7 +683,9 @@ function chooseAutoButton(info, label)
 		break;
 		case '<Set Role>':
 			func = function(){
-				var arr = info[1].split('/');
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				var arr = to.split('/');
 				socket.emit(Type.SETROLE,arr[0],arr[1]);
 				//Change the input box
 				var index = users.indexOf(arr[0]);
@@ -687,21 +693,47 @@ function chooseAutoButton(info, label)
 				$(input[index]).val(arr[1]);
 			}
 		break;
+		case '<Disguise>':
+			func = function(){
+				var arr = info[1].split('/');
+				socket.emit(Type.MSG,'/disguise '+ arr[0] +' '+ arr[1]);
+				//Swap all messages in the table.
+				var container = $('.automodcontainer');
+				container = container[container.length-1];
+				//Loop for all names
+				var names = $(container).find('.playername');
+				for ( i in names)
+				{
+					if ($(names[i]).html() == arr[0])
+					{
+						$(names[i]).html(arr[1]);
+					}
+					else if ($(names[i]).html() == arr[1])
+					{
+						$(names[i]).html(arr[0]);
+					}
+				}
+			}
+		break;
 		case '<Blackmail>':
 			func = function(){
-				socket.emit(Type.TOGGLE,info[1],'blackmail');
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				socket.emit(Type.TOGGLE,to,'blackmail');
 			};
 		break;
 		case '<Clean>':
+			var tr = $(this).parent().parent();
+			var to = $($(tr.children()[1]).children()[0]).html();
 			func = function(){
-				socket.emit(Type.MSG,'/clean '+info[1]);
+				socket.emit(Type.MSG,'/clean '+to);
 			};
 		break;
 		/*Default is to treat it as a name*/
 		default:
 			func = function(){
 				var tr = $(this).parent().parent();
-				var to = $(tr.children()[0]).html();
+				var to = $($(tr.children()[0]).children()[0]).html();
 				var msg = $($(tr.children()[1]).html()).html();
 				socket.emit(Type.MSG,'/sys '+to+' '+msg);
 			};

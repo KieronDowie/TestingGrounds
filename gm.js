@@ -73,6 +73,7 @@ var autoRoles =
 		attributes: {
 			RBIMMUNE:attributes.RBIMMUNE,
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
+			SELF:attributes.SELF,
 			ALERT:attributes.ALERT},
 		grouping:'C',
 		alignment:'town'
@@ -670,9 +671,9 @@ module.exports = {
 									var t = targets[num][1];
 									var peopleTargetting = getPeopleTargetting(t[0]);
 									var attackSuccess = true;
-									for (i in peopleTargetting) //Loop through and check for heals
+									for (j in peopleTargetting) //Loop through and check for heals
 									{
-										var person = targets[peopleTargetting[i]];
+										var person = targets[peopleTargetting[j]];
 										var role = getRole(person);
 										var attrib = autoRoles[role].attributes;
 										if (attrib.HEAL)
@@ -689,7 +690,7 @@ module.exports = {
 											}
 										}
 									}
-									//Check for night immunity
+									//Check for night immunity or vet alerting.
 									var role = getRole(targets[t[0]]);
 									var target = players[playernames[t[0]]];
 									
@@ -700,6 +701,14 @@ module.exports = {
 										//Inform the person they were attacked, inform the attacker their target was immune.
 										addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
 										addSuggestedMessage('Your target was immune to your attack!',num)
+									}
+									else if (autoRoles[role].attributes.ALERT) //Vet alert.
+									{
+										if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
+										{
+											attackSuccess = false;
+											addSuggestedMessage('Someone tried to kill you, but you are immune while you are on alert!',t[0]);
+										}
 									}
 									if (attackSuccess)
 									{
@@ -793,9 +802,9 @@ module.exports = {
 										var group = role.grouping;
 										//If they have been framed, they automatically get the invest group of the framer.
 										var visitors = getPeopleTargetting(t[0]);
-										for (i in visitors)
+										for (j in visitors)
 										{
-											var name = visitors[i];
+											var name = visitors[j];
 											var vrole = getRole(targets[name]);
 											var attrib = autoRoles[vrole].attributes;
 											if (attrib.FRAME)
@@ -847,7 +856,10 @@ module.exports = {
 								else if (roleAttributes.CLEAN) //Role cleaning
 								{
 									var t = targets[num][1];
-									addSuggestedAction('Clean',t[0]);
+									if (isDying(t[0],targets))
+									{
+										addSuggestedAction('Clean',t[0]);
+									}
 								}
 								else if (roleAttributes.REMEMBER) //Remembering a role
 								{
@@ -867,6 +879,48 @@ module.exports = {
 									addSuggestedMessage('They were executed by the [town]Jailor[/town].','<All>');
 									addSuggestedAction('Kill',t[0]);
 								}
+								else if (roleAttributes.ALERT)
+								{
+									var visitors = getPeopleTargetting(num);
+									for (j in visitors)
+									{
+										if (visitors[j] != num)
+										{
+											var success = true;
+											var vVisitors = getPeopleTargetting(visitors[i]);
+											for (k in vVisitors) //Check for a doc heal
+											{
+												var role = getRole(targets[vVisitors[k]]);
+												var attribs = autoRoles[role].attributes;
+												if (attribs.HEAL)
+												{
+													success = false;
+													//Successful heal!
+													addSuggestedMessage('You were attacked but someone nursed you back to health!',visitors[j]);
+													addSuggestedMessage('Your target was attacked last night.',vVisitors[k]);
+												}
+											}
+											if (success)
+											{
+												addSuggestedMessage('They were shot by a [town]Veteran[/town].','<All>');
+												addSuggestedAction('Kill',visitors[j]);
+											}
+											addSuggestedMessage('You shot someone that visited you.',num);
+										}
+									}
+								}
+								else if (roleAttributes.MAUL)
+								{
+									
+								}
+								else if (roleAttributes.DISGUISE)
+								{
+									var t = targets[num][1];
+									if (isDying(t[0],targets) )
+									{
+										addSuggestedAction('Disguise',num+'/'+t[0]);
+									}
+								}
 							}
 							else
 							{
@@ -881,11 +935,11 @@ module.exports = {
 								if (roleAttributes.MAFVISIT) //Sees who mafia visits.
 								{
 									var visits = [];
-									for (i in players)
+									for (j in players)
 									{
-										if (players[i].chats.mafia)
+										if (players[j].chats.mafia)
 										{
-											var name = players[i].name;
+											var name = players[j].name;
 											if (Object.keys(targets[name][1]).length != 0) //if they sent in a night action
 											{
 												visits = visits.concat(targets[name][1]);
@@ -961,6 +1015,57 @@ function getInvestGroupings(grouping)
 		}
 	}
 	return arr;
+}
+function isDying(name,targets)
+{
+	var visitors = getPeopleTargetting(name);
+	for (j in visitors)
+	{
+		var name = visitors[j];
+		var role = getRole(targets[name]);
+		var autorole = autoRoles[role];
+		if (autorole !== undefined)
+		{
+			var attrib = autorole.attributes;
+			if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL || attrib.EXECUTE) //Killing roles.
+			{
+				return true;
+			}
+		}
+	}
+	//Check who name is targetting, for vet/ww
+	var t = targets[name];
+	for (j in t[1])
+	{
+		var r = getRole(t[1][j]);
+		var ar = autoRoles[role];
+		if (ar.attributes.ALERT) //If they're a veteran.
+		{
+			if (Object.keys(targets[t[1][j]][1]).length != 0)//If they are alerting.
+			{
+				if (!isHealed()) //If a doc isn't healing this person.
+				{
+					return true;
+				}
+			}
+		}
+	}
+}
+function isHealed(name)
+{
+	var peopleTargetting = getPeopleTargetting(name);
+	for (j in peopleTargetting) //Loop through and check for heals
+	{
+		var person = targets[peopleTargetting[j]];
+		var role = getRole(person);
+		var attrib = autoRoles[role].attributes;
+		if (attrib.HEAL)
+		{
+			//Person was healed
+			return true;
+		}
+	}
+	return false;
 }
 function capitalize(str)
 {
