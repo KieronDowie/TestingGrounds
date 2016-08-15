@@ -403,7 +403,7 @@ module.exports = {
 						var targettingDead = false;
 						for (j in targets[num][1])
 						{
-							var p = playersByName[targets[num][1]];
+							var p = playersByName[targets[num][1][j]];
 							if (p.alive)
 							{
 								targettingLiving = true;
