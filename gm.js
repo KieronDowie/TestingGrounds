@@ -628,7 +628,7 @@ module.exports = {
 											{
 												addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
 												addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
-												addSuggestedMessage('You successfully protected your target.',num); //Tell bg that they succeeded
+												addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 												//Suggested actions: Kill both the bg and attacker
 												addSuggestedAction('Kill', num);
 												addSuggestedAction('Kill', visitors[j]);
