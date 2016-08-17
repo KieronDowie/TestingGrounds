@@ -1489,6 +1489,7 @@ function Timer()
 					setPhase(Phase.MODTIME);
 					if (autoLevel > 0 )
 					{
+						console.log(mod);
 						//Evaluate night actions.
 						var results = gm.evaluate(players,playernames,mod,roles, autoLevel);
 						players[mod].s.emit(Type.SUGGESTIONS, results);

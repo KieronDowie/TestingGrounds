@@ -952,6 +952,8 @@ socket.on(Type.LATENCIES,function(p)
 	}
 });
 socket.on(Type.SUGGESTIONS,function(results){
+	//Check if scrolled to bottom.
+	var atBottom = ( 10 +$('#main').scrollTop() + $('#main').prop('offsetHeight') >= $('#main').prop('scrollHeight'));
 	var container = $('<div class="automodcontainer"><header><p>Automod</p></header</div>');
 	//Target list
 	var table = createTable('actiontable');
@@ -1059,6 +1061,12 @@ socket.on(Type.SUGGESTIONS,function(results){
 		container.append(actionsTable.object);
 	}
 	$('#main').append(container);
+	if (atBottom)
+	{
+		//Scroll down.
+		var end = $("#main").prop('scrollHeight');
+		$("#main").prop('scrollTop',end);
+	}
 });
 socket.on(Type.SHOWLIST,function(list)
 {
