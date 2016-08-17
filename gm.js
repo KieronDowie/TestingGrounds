@@ -445,7 +445,6 @@ module.exports = {
 						//Exception variable for witches and transporters.
 						if (valid)
 						{
-							console.log(targets[num]);
 							if (targets[num][1] != num || roleAttributes.SELF || targets[num][3])
 							{
 								if (roleAttributes.TRANSPORT) //Transport
@@ -469,8 +468,6 @@ module.exports = {
 												displayTargets[j][3].push('transport');
 												//Add a variable allowing them to self target now.
 												targets[j][3] = true;
-												console.log('asdf');
-												console.log(targets[j]);
 												//Add reference to the new target.
 												if (beingTargetted[t[1]])
 												{
@@ -493,7 +490,6 @@ module.exports = {
 												displayTargets[j][3].push('transport');
 												//Add a variable allowing them to self target now.
 												targets[j][3] = true;
-												console.log(targets[j]);
 												//Add reference to the new target.
 												if (beingTargetted[t[1]])
 												{
@@ -513,10 +509,15 @@ module.exports = {
 								}
 								else if (roleAttributes.CONTROL) //Witching
 								{
+									//Remove the 
+									var t = targets[num][1].slice(); //Duplicate the array
 									//Ensure two targets were used.
-									var t = targets[num][1];
 									if (t.length == 2 )
 									{
+										//Remove the second target, witch doesn't 'visit' it.
+										targets[num][1].splice(1);
+										var index = beingTargetted[t[1]].indexOf(num);
+										beingTargetted[t[1]].splice(index,1);
 										var person = targets[t[0]];
 										var personRole = getRole(person);
 										if (autoRoles[personRole].attributes.CONTROLIMMUNE)
@@ -784,7 +785,7 @@ module.exports = {
 									var str = '';
 									if (visitors.length > 1)
 									{
-										str = visitors.slice(0,visitors.length-1).join(', ') + ' and ' + visitors[visitors.length -1]+'.';
+										str = visitors.slice(0,visitors.length-1).join(', ') + ' and ' + visitors[visitors.length -1];
 									}
 									else if (visitors.length == 1)
 									{
