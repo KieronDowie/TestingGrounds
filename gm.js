@@ -445,7 +445,8 @@ module.exports = {
 						//Exception variable for witches and transporters.
 						if (valid)
 						{
-							if (targets[num][1] != num || roleAttributes.SELF || targets[num].targetChanged)
+							console.log(targets[num]);
+							if (targets[num][1] != num || roleAttributes.SELF || targets[num][3])
 							{
 								if (roleAttributes.TRANSPORT) //Transport
 								{
@@ -467,7 +468,9 @@ module.exports = {
 												targets[j][1][index] = t[1];
 												displayTargets[j][3].push('transport');
 												//Add a variable allowing them to self target now.
-												targets[j].targetChanged = true;
+												targets[j][3] = true;
+												console.log('asdf');
+												console.log(targets[j]);
 												//Add reference to the new target.
 												if (beingTargetted[t[1]])
 												{
@@ -489,7 +492,8 @@ module.exports = {
 												targets[j][1][index] = t[0];
 												displayTargets[j][3].push('transport');
 												//Add a variable allowing them to self target now.
-												targets[j][1][index].targetChanged = true;
+												targets[j][3] = true;
+												console.log(targets[j]);
 												//Add reference to the new target.
 												if (beingTargetted[t[1]])
 												{
@@ -534,7 +538,7 @@ module.exports = {
 											//Change their target.
 											targets[t[0]][1] = [t[1]];
 											//Add a variable allowing them to self target now.
-											targets[t[0]].targetChanged = true;
+											targets[t[0]][3] = true;
 											//Add reference for new target.
 											if (beingTargetted[t[1]])
 											{

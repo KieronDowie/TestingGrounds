@@ -705,7 +705,6 @@ io.on('connection', function(socket){
 			var name = joining[ip];
 			delete joining[ip];
 			players[socket.id]= Player(socket,name,ip);
-			console.log(players[socket.id].ip);
 			//Inform everyone of the new arrival.
 			io.emit(Type.JOIN,name);
 			if (alt) //Inform everyone of the alt.
@@ -727,7 +726,6 @@ io.on('connection', function(socket){
 		{
 			socket.disconnect();
 		}
-		console.log(playernames);
 	}
 	socket.on(Type.AUTOLEVEL,function(lvl){
 		autoLevel = lvl;
