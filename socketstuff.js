@@ -573,6 +573,10 @@ socket.on(Type.SETMOD,function(val)
 		{
 			$('#rolelistbutton').remove();
 		}		
+		if ($('#automodsettingsbutton').length != 0)
+		{
+			$('#automodsettingsbutton').remove();
+		}		
 	}
 });
 socket.on(Type.SYSTEM,function(msg)

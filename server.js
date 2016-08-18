@@ -728,7 +728,14 @@ io.on('connection', function(socket){
 		}
 	}
 	socket.on(Type.AUTOLEVEL,function(lvl){
-		autoLevel = lvl;
+		if (socket.id == mod)
+		{
+			autoLevel = lvl;
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can set the level of automation.');
+		}
 	});
 	socket.on(Type.MSG,function(msg)
 	{
