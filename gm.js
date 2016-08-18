@@ -574,6 +574,8 @@ module.exports = {
 												var index = beingTargetted[prevTarget].indexOf(t[0]);
 												beingTargetted[prevTarget].splice(index,1);
 											}
+											//Remove target
+											targets[t[0]][1] = [];
 											addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
 											addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 											addSuggestedAction('Kill',num);
