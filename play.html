@@ -7,15 +7,31 @@
   <script src="/playscript.js"></script>
   <script src="/socketstuff.js"></script> 
   <link href='playstyle.css' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Denk+One|Open+Sans|Slabo+27px" rel="stylesheet">
 </head>
 
 <body>
-	<header><ul><li>Pregame</li><li>Roles</li><li>Mod time</li><li>Day</li><li>Voting</li><li>Trial</li><li>Verdict</li>
-	<li>Last words</li><li>Night</li><li>Day 1</li></li></ul><div class='willbutton' onclick="openWill()">WILL</div><div id='clock'></div></header>
+	<div id="slidingpanel"></div>
+	<header>
+		<ul>
+			<li><span>Pregame</span></li>
+			<li><span>Roles</span></li>
+			<li><span>Mod time</span></li>
+			<li><span>Day</span></li>
+			<li><span>Voting</span></li>
+			<li><span>Trial</span></li>
+			<li><span>Verdict</span></li>
+			<li><span>Last words</span></li>
+			<li><span>Night</span></li>
+			<li><span>Day 1</span></li>
+		</ul>
+		<div class='willbutton' onclick="openWill()">WILL</div>
+		<div id='clock'></div>
+	</header>
 	<ul id='main'>
 	
 	</ul>
+	<div id="adjustabledivider" onmousedown="grabDivider()"></div>
 	<ul id='userlist'></ul>
 	<div id='inputarea'><input type='text' id='c' onKeyDown='checkKey(event)'/></div>
 	<div id="will"><div id='closewill' onclick='closeWill()'></div><textarea id='willcontent'></textarea></div>

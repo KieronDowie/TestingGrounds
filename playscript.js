@@ -316,9 +316,13 @@ function addMessage(msg, type)
 }
 function openModList(targ)
 {
-	if ($(targ).hasClass('more'))
+	if ($(targ).hasClass('more') || $(targ).hasClass('downarrow'))
 	{
-		var alreadyOpen = (targ.children.length > 0);
+		if ($(targ).hasClass('downarrow'))
+		{
+			targ = $(targ).parent()[0];
+		}
+		var alreadyOpen = $('#morelist').length > 0;
 		$('#morelist').remove();
 		if (!alreadyOpen)
 		{
@@ -327,10 +331,6 @@ function openModList(targ)
 				{
 					var name = $(this.parentNode).attr('name');
 					socket.emit(Type.TOGGLE,name,'blackmail');
-				},
-				'Seance':function()
-				{
-					console.log('seance!');
 				}
 			};
 			var notifications = {
@@ -381,8 +381,7 @@ function openModList(targ)
 			var index = $('#userlist li').index(li);
 			var name = users[index];
 			list.attr('name',name);
-			
-			list.css('top',targ.getBoundingClientRect().bottom);
+			list.css('top',$(targ).height());
 			//Actions
 			list.append($('<li class="morelistheading">Actions</li>'));
 			for (i in actions)
@@ -401,6 +400,7 @@ function openModList(targ)
 			}
 			//Append
 			$(targ).append(list);
+			console.log(targ);
 		}
 	}
 }
@@ -563,6 +563,29 @@ function autoList()
 		alert('There is no preset rolelist for this number of players.');
 	}
 }
+function grabDivider()
+{
+	grabbed = true;
+	$('body').mousemove(function(e)
+	{
+		if (grabbed)
+		{
+			resizeDivider(e);
+		}
+	});
+	$('body').mouseup(function(){
+		releaseDivider();
+	});
+}
+function releaseDivider()
+{
+	grabbed = false;
+}
+function resizeDivider(e)
+{
+	$('#main').css('width',e.pageX);
+	$('#adjustabledivider').css('left',e.pageX);
+}
 function formatAlignment(str)
 {                       
 	//colors
@@ -671,13 +694,13 @@ function chooseAutoButton(info, label)
 				{
 					$(buttons[index]).removeClass('killbutton');
 					$(buttons[index]).addClass('revivebutton');
-					$(buttons[index]).html('Revive');
+					$(buttons[index]).html('<span>Revive</span>');
 				}
 				else
 				{
 					$(buttons[index]).removeClass('revivebutton');
 					$(buttons[index]).addClass('killbutton');
-					$(buttons[index]).html('Kill');
+					$(buttons[index]).html('<span>Kill</span>');
 				}
 			};
 		break;

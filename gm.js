@@ -905,7 +905,22 @@ module.exports = {
 								}
 								else if (roleAttributes.MAUL)
 								{
-									
+									var visitors = getPeopleTargetting(t[0]);
+									visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+									for (j in visitors)
+									{
+										if (visitors[j] != num)
+										{
+											var success = true;
+											if (success)
+											{
+												addSuggestedMessage('They were mauled by a [town]Werewolf[/town].','<All>');
+												addSuggestedAction('Kill',visitors[j]);
+											}
+											addSuggestedMessage('You mauled someone that visited you.',num);
+											addSuggestedMessage('You were mauled by a Werewolf!',t[0]);
+										}
+									}
 								}
 								else if (roleAttributes.DISGUISE)
 								{

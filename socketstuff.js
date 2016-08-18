@@ -105,7 +105,7 @@ function modInterface()
 			$('#inputarea').append(ambutton);
 		}
 		//Addition to the top row
-		var kill = $('<div class="controlbutton killbutton">Kill</div>');
+		var kill = $('<div class="controlbutton killbutton"><span>Kill</span></div>');
 		kill.click(function()
 		{
 			if ($(this).hasClass('killbutton'))
@@ -113,18 +113,18 @@ function modInterface()
 				var index = $('.killbutton, .revivebutton').index($(this))
 				$(this).removeClass('killbutton');
 				$(this).addClass('revivebutton');
-				$(this).html('Revive');
+				$(this).html('<span>Revive</span>');
 			}
 			else
 			{
 				var index = $('.killbutton, .revivebutton').index($(this))
 				$(this).removeClass('revivebutton');
 				$(this).addClass('killbutton');
-				$(this).html('Kill');
+				$(this).html('<span>Kill</span>');
 			}
 			socket.emit(Type.TOGGLELIVING,users[index]);
 		});
-		var jail= $('<div class="controlbutton jailbutton">Jail</div>');
+		var jail= $('<div class="controlbutton jailbutton"><span>Jail</span></div>');
 		jail.click(function()
 		{
 			var index = $('.jailbutton, .releasebutton').index($(this))
@@ -133,17 +133,19 @@ function modInterface()
 			{
 				$(this).removeClass('jailbutton');
 				$(this).addClass('releasebutton');
-				$(this).html('Release');
+				$(this).html('<span>Release</span>');
 			}
 			else
 			{
 				$(this).removeClass('releasebutton');
 				$(this).addClass('jailbutton');
-				$(this).html('Jail');
+				$(this).html('<span>Jail</span>');
 			}	
 		});
-		var will = $('<div class="controlbutton modwillbutton">W</div>');
-		var more = $('<div class="controlbutton more">v</div>');
+		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
+		var more = $('<div class="controlbutton more"></div>');
+		var arrow = $('<span class="downarrow"></span>');
+		more.append(arrow);
 		more.click(function()
 		{
 			openModList(this);
@@ -391,19 +393,10 @@ socket.on(Type.JOIN,function(name, reconnect)
 	//Bottom row
 	if (mod)
 	{		
-		if ($('#userlist').children().length == 0)
-		{
-			name.css('max-width','80px');
-		}
-		else
-		{
-			name.css('max-width','100px');
-		}
-		
 		$('#inputarea').append(rlbutton);
 		$('#inputarea').append(ambutton);
 		//Addition to the top row
-		var kill = $('<div class="controlbutton killbutton">Kill</div>');
+		var kill = $('<div class="controlbutton killbutton"><span>Kill</span></div>');
 		kill.click(function()
 		{
 			if ($(this).hasClass('killbutton'))
@@ -411,18 +404,18 @@ socket.on(Type.JOIN,function(name, reconnect)
 				var index = $('.killbutton, .revivebutton').index($(this))
 				$(this).removeClass('killbutton');
 				$(this).addClass('revivebutton');
-				$(this).html('Revive');
+				$(this).html('<span>Revive</span>');
 			}
 			else
 			{
 				var index = $('.killbutton, .revivebutton').index($(this))
 				$(this).removeClass('revivebutton');
 				$(this).addClass('killbutton');
-				$(this).html('Kill');
+				$(this).html('<span>Kill</span>');
 			}
 			socket.emit(Type.TOGGLELIVING,users[index]);
 		});
-		var jail= $('<div class="controlbutton jailbutton">Jail</div>');
+		var jail= $('<div class="controlbutton jailbutton"><span>Jail</span></div>');
 		jail.click(function()
 		{
 			var index = $('.jailbutton, .releasebutton').index($(this))
@@ -431,17 +424,17 @@ socket.on(Type.JOIN,function(name, reconnect)
 			{
 				$(this).removeClass('jailbutton');
 				$(this).addClass('releasebutton');
-				$(this).html('Release');
+				$(this).html('<span>Release</span>');
 			}
 			else
 			{
 				$(this).removeClass('releasebutton');
 				$(this).addClass('jailbutton');
-				$(this).html('Jail');
+				$(this).html('<span>Jail</span>');
 			}	
 		});
-		var will = $('<div class="controlbutton modwillbutton">W</div>');
-		var more = $('<div class="controlbutton more">v</div>');
+		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
+		var more = $('<div class="controlbutton more"><span class="downarrow"></span></div>');
 		more.click(function(e)
 		{
 			openModList(e.target);
@@ -633,9 +626,12 @@ socket.on(Type.SETPHASE,function(phase,silent)
 	$('.votinginterface').remove();
 	//Remove any remaining verdict interfaces
 	$('.verdictinterface').remove();
-	$('header ul li').css('color','grey');
-	$($('header ul li')[phase]).css('color','black');
-	if (!silent)	addMessage($('header ul li')[phase].innerHTML,'highlight');
+	$('header ul li').removeClass('current');
+	$($('header ul li')[phase]).addClass('current');
+	if (!silent)	
+	{
+		addMessage($('header ul li')[phase].innerHTML,'highlight');
+	}
 	if (phase == 4 && !mod) //Voting
 	{
 		//Add the voting interface
@@ -844,13 +840,13 @@ socket.on(Type.ROLEUPDATE,function(send){
 	{
 		var button = $($('.killbutton')[index]);
 		button.addClass('revivebutton');
-		button.html('Revive');
+		button.html('<span>Revive</span>');
 	}
 	if (send.jailed)
 	{
 		var button = $($('.jailbutton')[index]);
 		button.addClass('releasebutton');
-		button.html('Release');
+		button.html('<span>Release</span>');
 	}
 });
 socket.on(Type.MASSROLEUPDATE,function(people){
@@ -876,18 +872,17 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 			}
 			if (!send.alive)
 			{
-				console.log(j);
 				var button = $($('.killbutton, .revivebutton')[index]);
 				button.addClass('revivebutton');
 				button.removeClass('killbutton');
-				button.html('Revive');
+				button.html('<span>Revive</span>');
 			}
 			if (send.jailed)
 			{
 				var button = $($('.jailbutton')[index]);
 				button.addClass('releasebutton');
 				button.removeClass('jailbutton');
-				button.html('Release');
+				button.html('<span>Release</span>');
 			}
 		}
 	}
