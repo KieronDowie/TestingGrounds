@@ -574,19 +574,10 @@ module.exports = {
 												var index = beingTargetted[prevTarget].indexOf(t[0]);
 												beingTargetted[prevTarget].splice(index,1);
 											}
-											//Move the target to the roleblocker.
-											targets[t[0]][1] = [num];
-											//Add the reference to the new target.
-											if (beingTargetted[num])
-											{
-												beingTargetted[num].push(t[0]);
-											}
-											else
-											{
-												beingTargetted[num] = [ t[0] ];
-											}
 											addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
 											addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
+											addSuggestedAction('Kill',num);
+											addSuggestedMessage('They were killed by a [sk]Serial Killer[/sk]','<All>');
 										}
 										else
 										{
