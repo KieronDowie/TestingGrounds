@@ -441,11 +441,9 @@ module.exports = {
 								displayTargets[num][2] = {auto:false,reason:'Targetting a living player when not allowed.'}; //Set the role to not automated.
 							}
 						}
-						//If they are not self targetting, or are allowed to self target anyway. 
-						//Exception variable for witches and transporters.
 						if (valid)
 						{
-							if (targets[num][1] != num || roleAttributes.SELF || targets[num][3])
+							if (isLegalTarget(num,roleAttributes,targets))
 							{
 								if (roleAttributes.TRANSPORT) //Transport
 								{
@@ -661,7 +659,7 @@ module.exports = {
 										if (autorole !== undefined)
 										{
 											var attrib = autorole.attributes;
-											if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL)
+											if ((attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL) && isLegalTarget(visitors[j],autorole.attributes,targets))
 											{
 												//Successful heal!
 												addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
@@ -681,12 +679,12 @@ module.exports = {
 										var person = targets[peopleTargetting[j]];
 										var role = getRole(person);
 										var attrib = autoRoles[role].attributes;
-										if (attrib.HEAL)
+										if (attrib.HEAL && isLegalTarget(peopleTargetting[j],attrib,targets))
 										{
 											//Person was healed, attack fails silently.
 											attackSuccess = false;
 										}
-										else if (attrib.BG)
+										else if (attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
 										{
 											//More complicated, attack only fails if this is the person the bg killed.
 											if (person.bgKill == num)
@@ -1055,6 +1053,12 @@ function isDying(name,targets)
 			}
 		}
 	}
+}
+function isLegalTarget(name,roleAttributes,targets)								
+{
+	//If they are not self targetting, or are allowed to self target anyway. 
+	//Exception variable for witches and transporters.
+	return (targets[name][1] != name || roleAttributes.SELF || targets[name][3]);
 }
 function isHealed(name)
 {
