@@ -620,7 +620,7 @@ socket.on(Type.KICK,function()
 {
 	kicked = true;
 });
-socket.on(Type.SETPHASE,function(phase,silent)
+socket.on(Type.SETPHASE,function(phase,silent,time)
 {
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
@@ -628,9 +628,15 @@ socket.on(Type.SETPHASE,function(phase,silent)
 	$('.verdictinterface').remove();
 	$('header ul li').removeClass('current');
 	$($('header ul li')[phase]).addClass('current');
+	$('#clock').remove();
 	if (!silent)	
 	{
 		addMessage($('header ul li')[phase].innerHTML,'highlight');
+	}
+	//Move the clock.
+	if (time > 0)
+	{
+		$($('header ul li')[phase]).append('<div id="clock">'+time+'</div>');
 	}
 	if (phase == 4 && !mod) //Voting
 	{

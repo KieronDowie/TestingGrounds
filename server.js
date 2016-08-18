@@ -657,7 +657,7 @@ io.on('connection', function(socket){
 			//Inform everyone of the new arrival.
 			io.emit(Type.JOIN,name,true);
 			//Tell the new arrival what phase it is.
-			socket.emit(Type.SETPHASE,phase);
+			socket.emit(Type.SETPHASE,phase,true,timer.time);
 			
 			var send = {};
 			
@@ -712,7 +712,7 @@ io.on('connection', function(socket){
 				io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
 			}
 			//Tell the new arrival what phase it is.
-			socket.emit(Type.SETPHASE,phase);
+			socket.emit(Type.SETPHASE,phase, true, timer.time);
 			//Inform the new arrival of any devs present.
 			for (i in players)
 			{
@@ -1280,7 +1280,7 @@ function setPhase(p)
 	}
 	phase = p;
 	timer.setPhase(p);
-	io.emit(Type.SETPHASE,phase);
+	io.emit(Type.SETPHASE,phase, false, timer.time);
 	//Reset all silenced players. And the medium seancing
 	for (i in players)
 	{
@@ -1346,7 +1346,7 @@ function setPhase(p)
 		{
 			players[mod].s.emit(Type.SYSTEM,'No player is currently on trial. Phase is being set back to voting.');
 			p=Phase.VOTING;
-			io.emit(Type.SETPHASE,Phase.VOTING);
+			io.emit(Type.SETPHASE,Phase.VOTING, false, timer.time);
 		}
 	}
 	if (p == Phase.VOTING)
@@ -1425,7 +1425,7 @@ function trialCheck(player)
 		clearVotes();
 		setPhase(Phase.TRIAL);
 		io.emit(Type.HIGHLIGHT,player.name+' has been put on trial. What is your defense?');
-		io.emit(Type.SETPHASE,phase,true);
+		io.emit(Type.SETPHASE,phase,true,timer.time);
 		ontrial = player.s.id;
 	}
 }
