@@ -627,7 +627,7 @@ module.exports = {
 												addSuggestedAction('Kill', num);
 												addSuggestedAction('Kill', visitors[j]);
 												//Death announcements
-												addSuggestedMessage('They died protecting their target.','<All>');
+												addSuggestedMessage('They died guarding someone.','<All>');
 												addSuggestedMessage('They were killed by a [town]Bodyguard[/town].','<All>');
 												//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
 												targets[num].bgKill = visitors[j];
