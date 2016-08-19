@@ -372,7 +372,7 @@ header ul li span
 }
 #userlist>li
 {
-	height:2.2em;
+	height:3em;
 	width:100%;
 	border-bottom:1px solid black;
 }
@@ -469,6 +469,7 @@ header ul li span
 	border-bottom-right-radius: 200px;
 	font-size: 1.5em;
 	background: #EBD33F;
+	z-index:100;
 }
 #clock span
 {
