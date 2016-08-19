@@ -2542,7 +2542,16 @@ function Player(socket,name,ip)
 									}
 									if (p && p != -1)
 									{
-										targets.push(p.name);
+										if (p.s.id != mod)
+										{
+											targets.push(p.name);	
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+											error = true;
+											break;
+										}
 									}
 									else
 									{

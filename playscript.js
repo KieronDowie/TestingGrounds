@@ -542,7 +542,11 @@ function openRolelist()
 }
 function openUserWill(e)
 {
-	var li = e.parentNode.parentNode;
+	var li = e;
+	while ( ! $(li).is('li'))
+	{
+		li = $(li).parent();
+	}
 	var index = $('#userlist').children().index(li);
 	socket.emit(Type.GETWILL,index);
 }
@@ -746,9 +750,9 @@ function chooseAutoButton(info, label)
 			};
 		break;
 		case '<Clean>':
-			var tr = $(this).parent().parent();
-			var to = $($(tr.children()[1]).children()[0]).html();
 			func = function(){
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
 				socket.emit(Type.MSG,'/clean '+to);
 			};
 		break;

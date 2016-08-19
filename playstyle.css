@@ -300,7 +300,7 @@ header ul li:last-child
 .current
 {
 	color:black;
-	background:#E2E112;
+	background:#EBD33F;
 }
 header ul li span
 {
@@ -485,10 +485,10 @@ header ul li span
 }
 .willbutton
 {
-	height:50%;
-	width:2%;
+	height:2em;
+	width:3em;
+	text-align:center;
 	border: 1px solid black;
-	border-radius: 8px;
 	float:right;
 	background: #8B6914;
 	color: white;

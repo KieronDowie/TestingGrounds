@@ -562,7 +562,7 @@ module.exports = {
 									var person = targets[t[0]];
 									var personRole = getRole(person);
 									//If the person is not immune to roleblocking
-									if (!autoRoles[personRole].attributes.RBIMMUNE)
+									if (autoRoles[role] && !autoRoles[personRole].attributes.RBIMMUNE)
 									{
 										if (autoRoles[personRole].attributes.RBATTACK)
 										{
@@ -690,7 +690,7 @@ module.exports = {
 									var role = getRole(targets[t[0]]);
 									var target = players[playernames[t[0]]];
 									
-									if (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && Object.keys(targets[t[0]][1]).length != 0) )
+									if (autoRoles[role] && (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && Object.keys(targets[t[0]][1]).length != 0) ) )
 									{
 										//Immune or a survivor that sent in an action.
 										attackSuccess = false;
@@ -698,12 +698,12 @@ module.exports = {
 										addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
 										addSuggestedMessage('Your target was immune to your attack!',num)
 									}
-									else if (autoRoles[role].attributes.ALERT) //Vet alert.
+									else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
 									{
 										if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
 										{
 											attackSuccess = false;
-											addSuggestedMessage('Someone tried to kill you, but you are immune while you are on alert!',t[0]);
+											addSuggestedMessage('Someone tried to kill you, but you cannot be killed while on alert!',t[0]);
 										}
 									}
 									if (attackSuccess)
@@ -862,12 +862,16 @@ module.exports = {
 									var t = targets[num][1];
 									var p = playersByName[t[0]];
 									addSuggestedAction('Set Role',num+"/"+p.role);
-									addSuggestedMessage('An Amnesiac has remembered that they were a '+p.role+".",'<All>');
+									var a = AorAn(p.role);
+									addSuggestedMessage('An Amnesiac has remembered that they were '+a+' '+p.role+".",'<All>');
 								}
 								else if (roleAttributes.REVIVE)
 								{
 									var t = targets[num][1];
 									addSuggestedAction('Revive',t[0]);
+									addSuggestedMessage('They were revived by a [town]Retributionist[/town].','<All>');
+									addSuggestedMessage('You successfully revived your target!',num);
+									addSuggestedMessage('You were revived by a Retributionist!',t[0]);
 								}
 								else if (roleAttributes.EXECUTE)
 								{
@@ -902,6 +906,7 @@ module.exports = {
 												addSuggestedAction('Kill',visitors[j]);
 											}
 											addSuggestedMessage('You shot someone that visited you.',num);
+											addSuggestedMessage('You were shot by the veteran you visited.',visitors[j]);
 										}
 									}
 								}
@@ -938,39 +943,53 @@ module.exports = {
 								displayTargets[num][2] = {auto:false,reason:'Player is self-targetting, but role cannot self target.'}; //Set the role to not automated.
 							}
 						}
-						else
+					}
+					else
+					{
+						var roleAttributes = roleInfo.attributes;
+						if (roleAttributes.PASSIVE) //If they have a passive night action.
 						{
-							var roleAttributes = roleInfo.attributes;
-							if (roleAttributes.PASSIVE) //If they have a passive night action.
+							if (roleAttributes.MAFVISIT) //Sees who mafia visits, if not roleblocked.
 							{
-								if (roleAttributes.MAFVISIT) //Sees who mafia visits.
+								var blocked = false;
+								var visits = [];
+								for (j in players)
 								{
-									var visits = [];
-									for (j in players)
+									if (players[j].chats.mafia)
 									{
-										if (players[j].chats.mafia)
+										var name = players[j].name;
+										if (Object.keys(targets[name][1]).length != 0) //if they sent in a night action
 										{
-											var name = players[j].name;
-											if (Object.keys(targets[name][1]).length != 0) //if they sent in a night action
-											{
-												visits = visits.concat(targets[name][1]);
-											}
+											visits = visits.concat(targets[name][1]);
 										}
 									}
-									//Grammar
-									var str = '';
-									if (visits.length == 1)
+								}
+								var peopleTargettingMe = getPeopleTargetting(num);
+								for (j in peopleTargettingMe)
+								{
+									var role = getRole( targets[peopleTargettingMe[j]] );
+									var attribs = autoRoles[role].attributes;
+									if (attribs.RB)
 									{
-										str = "The mafia visited "+visits[0]+" last night.";
+										blocked = true;
 									}
-									else
-									{
-										str = "The mafia visited " + visits.slice(0,visits.length-1).join(', ') +" and "+visits[visits.length-1] +" last night.";
-									}
+								}
+								//Grammar
+								var str = '';
+								if (visits.length == 1)
+								{
+									str = "The mafia visited "+visits[0]+" last night.";
+								}
+								else if (visits.length >0)
+								{
+									str = "The mafia visited " + visits.slice(0,visits.length-1).join(', ') +" and "+visits[visits.length-1] +" last night.";
+								}
+								if (visits.length > 0 && !blocked)
+								{
 									addSuggestedMessage(str,num);
 								}
-							} 
-						}
+							}
+						} 
 					}
 				}
 				else
@@ -1084,6 +1103,7 @@ function isHealed(name)
 	}
 	return false;
 }
+//String stuff
 function capitalize(str)
 {
 	var arr = str.split(' ');
@@ -1092,4 +1112,16 @@ function capitalize(str)
 		arr[i] = arr[i][0].toUpperCase() + arr[i].substring(1,arr[i].length)
 	} 
 	return arr.join(' ');
+}
+function AorAn(word)
+{
+	var first = word[0].toLowerCase();
+	if ('aeiou'.indexOf(first) != -1)
+	{
+		return 'an';
+	}
+	else
+	{
+		return 'a';
+	}
 }
