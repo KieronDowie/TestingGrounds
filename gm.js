@@ -860,6 +860,7 @@ module.exports = {
 										if (isDying(t[0],targets))
 										{
 											addSuggestedAction('Clean',t[0]);
+											addSuggestedAction('Set Role',t[0]+"/cleaned");
 										}
 									}
 									else if (roleAttributes.REMEMBER) //Remembering a role
