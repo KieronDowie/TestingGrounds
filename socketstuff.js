@@ -845,12 +845,14 @@ socket.on(Type.ROLEUPDATE,function(send){
 	if (!send.alive)
 	{
 		var button = $($('.killbutton')[index]);
+		button.removeClass('killbutton');
 		button.addClass('revivebutton');
 		button.html('<span>Revive</span>');
 	}
 	if (send.jailed)
 	{
 		var button = $($('.jailbutton')[index]);
+		button.removeClass('jailbutton');
 		button.addClass('releasebutton');
 		button.html('<span>Release</span>');
 	}
