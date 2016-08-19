@@ -411,18 +411,15 @@ var roles=[
 					color:"purple"
 			},
 			/*ROLEIDEANECRO*/
-			{      
-				rolename:"necromancer",
-				alignment:"neutral evil",
-				abilities:'Select one dead person to necromance back to life, allowing you to use their ability once.',
-				attributes:['You cannot revive a Jailor.',
-				'On odd nights you use the ability and on full moons you choose to necromance.',
-				'You cannot use the same body twice.',
-				'If you revive a role without a night ability, or a Retrib or Amne, you will gain night immunity instead.'				
-				],
-				goal:'Survive to see the town lose the game.',
-				color:'black',
-				custom:true
+			{
+			rolename:"necromancer",
+			alignment:"neutral evil",
+			abilities:'You may resurrect a dead evildoer in the disguise of a Townmember once at night.',
+			attributes:['You have a magical shield that protects against one attack from non town roles.',
+			   'Your target will know who has revived them.',
+			   'If you are killed, you will take your puppet with you.'],
+			goal:"Survive to see the town lose the game.",
+			color:"#BBC2A5"
 			},
 			{      
 					rolename:"survivor",
