@@ -676,13 +676,16 @@ module.exports = {
 										{
 											var person = targets[peopleTargetting[j]];
 											var role = getRole(person);
-											var attrib = autoRoles[role].attributes;
-											if (attrib.HEAL && isLegalTarget(peopleTargetting[j],attrib,targets))
+											if (autoRoles[role])
+											{
+												var attrib = autoRoles[role].attributes;
+											}
+											if (attrib && attrib.HEAL && isLegalTarget(peopleTargetting[j],attrib,targets))
 											{
 												//Person was healed, attack fails silently.
 												attackSuccess = false;
 											}
-											else if (attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
+											else if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
 											{
 												//More complicated, attack only fails if this is the person the bg killed.
 												if (person.bgKill == num)
