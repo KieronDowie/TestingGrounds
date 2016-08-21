@@ -1907,7 +1907,7 @@ function Player(socket,name,ip)
 			},
 			command:function(com){
 				var c = com.split(' ');
-				switch (c[0])
+				switch (c[0].toLowerCase())
 				{
 					case 'help':
 						var list = {
@@ -2507,7 +2507,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						if (this.chats.jailed)
+						else if (this.chats.jailed)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
