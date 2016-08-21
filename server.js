@@ -681,6 +681,20 @@ io.on('connection', function(socket){
 				{
 					players[mod].s.emit(Type.ROLEUPDATE,send);
 				}
+				//Resend the list.
+				var namelist = [];
+				//Send the roles of any dead players
+				for (i in playernums)
+				{
+					var p={};
+					p.name = players[playernums[i]].name;
+					if (!players[playernums[i]].alive)
+					{
+						p.role = players[playernums[i]].role;
+					}
+					namelist.push(p);
+				}
+				socket.emit(Type.ROOMLIST,namelist);
 				//Set the rejoining player's will.
 				socket.emit(Type.GETWILL,undefined,players[socket.id].will);
 			}
