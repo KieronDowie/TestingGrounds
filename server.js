@@ -2792,7 +2792,7 @@ function Player(socket,name,ip)
 								}
 								else if (tokick)
 								{
-									kick(name,c[2],this.name);
+									kick(name,c.slice(2,c.length).join(' '),this.name);
 								}
 								else
 								{
