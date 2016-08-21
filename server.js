@@ -2526,7 +2526,17 @@ function Player(socket,name,ip)
 							var error = false;
 							if (args.length == 0 || args[0] == '0')
 							{
-								//This is a cancel
+								var actions = gm.getActions(this.name);
+								if (actions && actions.length > 0)
+								{
+									//This is a cancel
+									
+								}
+								else
+								{
+									error = true;
+									this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
+								}
 							}
 							else
 							{

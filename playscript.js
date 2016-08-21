@@ -196,21 +196,28 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
-			if (msg.role)
-			{
-				msg.role = '('+msg.role+') is';
-			}
-			else
-			{
-				msg.role = ' are';
-			}
 			if (msg.target != '')
 			{
+				if (msg.role)
+				{
+					msg.role = '('+msg.role+') is';
+				}
+				else
+				{
+					msg.role = ' are';
+				}
 				var str = msg.name+msg.role+' now targeting <b>'+msg.target+'</b>.';
 			}
 			else
 			{
-				var str = 'You cancel your targetting.';
+				if (msg.role)
+				{
+					var str = msg.name+'('+msg.role+') cancels their targetting.';
+				}
+				else
+				{
+					var str = 'You cancel your targetting.';
+				}
 			}
 			$('#main').append('<li><span class="mod">'+str+'</span></li>');
 		break;

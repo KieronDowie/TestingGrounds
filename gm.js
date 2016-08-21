@@ -308,6 +308,9 @@ module.exports = {
 		suggestedActions = [];
 		beingTargetted = {};
 	},
+	getActions:function(name){
+		return loggedActions[name];
+	},
 	evaluate:function(players, playernames, mod, roles, lvl){
 		var targets = {};
 		var displayTargets = {};
