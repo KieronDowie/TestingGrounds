@@ -620,6 +620,10 @@ socket.on(Type.KICK,function()
 {
 	kicked = true;
 });
+socket.on(Type.DENY,function(reason){
+	addMessage(reason,'system');
+	kicked = true;
+});
 socket.on(Type.SETPHASE,function(phase,silent,time)
 {
 	//Remove any remaining voting interfaces

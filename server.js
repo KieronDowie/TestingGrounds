@@ -614,116 +614,125 @@ io.on('connection', function(socket){
 				}
 			}
 		}
-		if ( dcd[ip] && !alt && (!joining[ip] || (joining[ip] && joining[ip] == dcd[ip].name) ) ) //Rejoining after a dc
+		//Second check for the name being taken
+		if (!nameTaken(joining[ip]))
 		{
-			//Send the list of names in the game to the returning player.
-			var namelist = [];
-			//Send the roles of any dead players
-			for (i in playernums)
+			if ( dcd[ip] && !alt && (!joining[ip] || (joining[ip] && joining[ip] == dcd[ip].name) ) ) //Rejoining after a dc
 			{
-				var p={};
-				p.name = players[playernums[i]].name;
-				if (!players[playernums[i]].alive)
+				//Send the list of names in the game to the returning player.
+				var namelist = [];
+				//Send the roles of any dead players
+				for (i in playernums)
 				{
-					p.role = players[playernums[i]].role;
+					var p={};
+					p.name = players[playernums[i]].name;
+					if (!players[playernums[i]].alive)
+					{
+						p.role = players[playernums[i]].role;
+					}
+					namelist.push(p);
 				}
-				namelist.push(p);
+				//If the player is first, set them as the mod.
+				if (Object.keys(players).length==0)
+				{
+					mod = socket.id;
+					socket.emit(Type.SETMOD,true);
+				}
+				else
+				{
+					socket.emit(Type.SETMOD,false);
+				}
+				//Welcome back!
+				players[socket.id]=dcd[ip];
+				//Replace the old socket.
+				players[socket.id].s = socket;
+				//Reset ping.
+				players[socket.id].ping = 0;
+				
+				playernums.push(socket.id);
+				playernames[players[socket.id].name] = socket.id;
+				
+				socket.emit(Type.ROOMLIST,namelist);
+				
+				socket.emit(Type.ACCEPT);
+				socket.emit(Type.SYSTEM,'You have reconnected.');
+				var name = players[socket.id].name;
+				//Inform everyone of the new arrival.
+				io.emit(Type.JOIN,name,true);
+				//Tell the new arrival what phase it is.
+				socket.emit(Type.SETPHASE,phase,true,timer.time);
+				
+				var send = {};
+				
+				for (i in players[socket.id].chats)
+				{
+					if (players[socket.id].chats[i])
+					{
+						send[i] = players[socket.id].chats[i];
+					}
+				}
+				//Exceptions
+				send.name = players[socket.id].name;
+				send.alive = players[socket.id].alive;
+				send.spy = players[socket.id].hearwhispers;
+				send.mayor = (players[socket.id].mayor !== undefined);
+				send.role = players[socket.id].role;
+				if (players[mod])
+				{
+					players[mod].s.emit(Type.ROLEUPDATE,send);
+				}
+				//Set the rejoining player's will.
+				socket.emit(Type.GETWILL,undefined,players[socket.id].will);
 			}
-			//If the player is first, set them as the mod.
-			if (Object.keys(players).length==0)
+			else if (joining[ip])
 			{
-				mod = socket.id;
-				socket.emit(Type.SETMOD,true);
+				//If the player is first, set them as the mod.
+				if (Object.keys(players).length==0)
+				{
+					mod = socket.id;
+				}
+				//Send the list of names in the game to the new arrival
+				var namelist = [];
+				//Send the roles of any dead players
+				for (i in playernums)
+				{
+					var p={};
+					p.name = players[playernums[i]].name;
+					if (!players[playernums[i]].alive)
+					{
+						p.role = players[playernums[i]].role;
+					}
+					namelist.push(p);
+				}
+				socket.emit(Type.ROOMLIST,namelist);
+				var name = joining[ip];
+				delete joining[ip];
+				players[socket.id]= Player(socket,name,ip);
+				//Inform everyone of the new arrival.
+				io.emit(Type.JOIN,name);
+				if (alt) //Inform everyone of the alt.
+				{
+					io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
+				}
+				//Tell the new arrival what phase it is.
+				socket.emit(Type.SETPHASE,phase, true, timer.time);
+				//Inform the new arrival of any devs present.
+				for (i in players)
+				{
+					if (players[i].dev)
+					{
+						socket.emit(Type.SETDEV,players[i].name);
+					}
+				}
 			}
 			else
 			{
-				socket.emit(Type.SETMOD,false);
-			}
-			//Welcome back!
-			players[socket.id]=dcd[ip];
-			//Replace the old socket.
-			players[socket.id].s = socket;
-			//Reset ping.
-			players[socket.id].ping = 0;
-			
-			playernums.push(socket.id);
-			playernames[players[socket.id].name] = socket.id;
-			
-			socket.emit(Type.ROOMLIST,namelist);
-			
-			socket.emit(Type.ACCEPT);
-			socket.emit(Type.SYSTEM,'You have reconnected.');
-			var name = players[socket.id].name;
-			//Inform everyone of the new arrival.
-			io.emit(Type.JOIN,name,true);
-			//Tell the new arrival what phase it is.
-			socket.emit(Type.SETPHASE,phase,true,timer.time);
-			
-			var send = {};
-			
-			for (i in players[socket.id].chats)
-			{
-				if (players[socket.id].chats[i])
-				{
-					send[i] = players[socket.id].chats[i];
-				}
-			}
-			//Exceptions
-			send.name = players[socket.id].name;
-			send.alive = players[socket.id].alive;
-			send.spy = players[socket.id].hearwhispers;
-			send.mayor = (players[socket.id].mayor !== undefined);
-			send.role = players[socket.id].role;
-			if (players[mod])
-			{
-				players[mod].s.emit(Type.ROLEUPDATE,send);
-			}
-			//Set the rejoining player's will.
-			socket.emit(Type.GETWILL,undefined,players[socket.id].will);
-		}
-		else if (joining[ip])
-		{
-			//If the player is first, set them as the mod.
-			if (Object.keys(players).length==0)
-			{
-				mod = socket.id;
-			}
-			//Send the list of names in the game to the new arrival
-			var namelist = [];
-			//Send the roles of any dead players
-			for (i in playernums)
-			{
-				var p={};
-				p.name = players[playernums[i]].name;
-				if (!players[playernums[i]].alive)
-				{
-					p.role = players[playernums[i]].role;
-				}
-				namelist.push(p);
-			}
-			socket.emit(Type.ROOMLIST,namelist);
-			var name = joining[ip];
-			delete joining[ip];
-			players[socket.id]= Player(socket,name,ip);
-			//Inform everyone of the new arrival.
-			io.emit(Type.JOIN,name);
-			if (alt) //Inform everyone of the alt.
-			{
-				io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
-			}
-			//Tell the new arrival what phase it is.
-			socket.emit(Type.SETPHASE,phase, true, timer.time);
-			//Inform the new arrival of any devs present.
-			for (i in players)
-			{
-				if (players[i].dev)
-				{
-					socket.emit(Type.SETDEV,players[i].name);
-				}
+				socket.disconnect();
 			}
 		}
 		else
 		{
+			socket.emit(Type.DENY,'Sorry, this name is taken.');
 			socket.disconnect();
 		}
 	}
