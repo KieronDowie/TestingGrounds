@@ -2614,6 +2614,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
+							var modjailed = false;
 							var found = false;
 							var msg = this.executing? 'The Jailor has changed his mind.':'The Jailor has decided to execute you.';
 							var jmsg = this.executing? 'You have changed your mind.':'You have decided to execute your prisoner.';			
@@ -2621,13 +2622,24 @@ function Player(socket,name,ip)
 							{
 								if (players[i].chats.jailed)
 								{
-									found = players[i].name;
-									players[i].s.emit(Type.SYSTEM,msg);
-									socket.emit(Type.SYSTEM,jmsg);
-									players[mod].s.emit(Type.SYSTEM,this.executing?this.name+' has changed their mind.':this.name+' has decided to execute '+players[i].name+'.');
+									if (i == mod)
+									{
+										modjailed = true;
+									}
+									else
+									{
+										found = players[i].name;
+										players[i].s.emit(Type.SYSTEM,msg);
+										socket.emit(Type.SYSTEM,jmsg);
+										players[mod].s.emit(Type.SYSTEM,this.executing?this.name+' has changed their mind.':this.name+' has decided to execute '+players[i].name+'.');
+									}
 								}
 							}
-							if (found)
+							if (modjailed)
+							{
+								this.s.emit(Type.SYSTEM, "You cannot execute the mod.");
+							}
+							else if (found)
 							{
 								this.executing = !this.executing;
 								if (this.executing)
