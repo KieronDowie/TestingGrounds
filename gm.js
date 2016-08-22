@@ -311,6 +311,19 @@ module.exports = {
 	getActions:function(name){
 		return loggedActions[name];
 	},
+	grammarList:function(list){
+		//Format a list in a grammatically correct way.
+		var str = '';
+		if (list.length > 1)
+		{
+			str = list.slice(0,list.length-1).join(', ') + ' and ' + list[list.length -1];
+		}
+		else if (list.length == 1)
+		{
+			str = list[0];
+		}
+		return str;
+	},
 	evaluate:function(players, playernames, mod, roles, lvl){
 		var targets = {};
 		var displayTargets = {};
@@ -784,15 +797,7 @@ module.exports = {
 										var visitors = getPeopleTargetting(name);
 										visitors.splice(visitors.indexOf(num),1); //Remove the person watching from the list.
 										//Grammar
-										var str = '';
-										if (visitors.length > 1)
-										{
-											str = visitors.slice(0,visitors.length-1).join(', ') + ' and ' + visitors[visitors.length -1];
-										}
-										else if (visitors.length == 1)
-										{
-											str = visitors[0];
-										}
+										var str = this.grammarList(visitors);
 										if (str != '')
 										{
 											addSuggestedMessage(str+' visited your target last night!',num);
@@ -992,14 +997,7 @@ module.exports = {
 									}
 									//Grammar
 									var str = '';
-									if (visits.length == 1)
-									{
-										str = "The mafia visited "+visits[0]+" last night.";
-									}
-									else if (visits.length >0)
-									{
-										str = "The mafia visited " + visits.slice(0,visits.length-1).join(', ') +" and "+visits[visits.length-1] +" last night.";
-									}
+									str = "The mafia visited "+this.grammarList(visits)+".";
 									if (visits.length > 0 && !blocked)
 									{
 										addSuggestedMessage(str,num);

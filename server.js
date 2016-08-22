@@ -2565,32 +2565,35 @@ function Player(socket,name,ip)
 							{
 								for (i in args)
 								{
-									if (isNaN(args[i]))
+									if (args[i] != '')
 									{
-										var p = getPlayerByName(args[i]);
-									}
-									else
-									{
-										var p = getPlayerByNumber(parseInt(args[i]));															
-									}
-									if (p && p != -1)
-									{
-										if (p.s.id != mod)
+										if (isNaN(args[i]))
 										{
-											targets.push(p.name);	
+											var p = getPlayerByName(args[i]);
 										}
 										else
 										{
-											this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+											var p = getPlayerByNumber(parseInt(args[i]));															
+										}
+										if (p && p != -1)
+										{
+											if (p.s.id != mod)
+											{
+												targets.push(p.name);	
+											}
+											else
+											{
+												this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+												error = true;
+												break;
+											}
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
 											error = true;
 											break;
 										}
-									}
-									else
-									{
-										this.s.emit(Type.SYSTEM,'Invalid player: '+c[1]);
-										error = true;
-										break;
 									}
 								}
 							}
@@ -3085,14 +3088,14 @@ function Player(socket,name,ip)
 					{
 						if (players[i].chats.mafia || players[i].s.id == mod)
 						{
-							players[i].s.emit(Type.TARGET,this.name,this.role,targets.join(' and '));
+							players[i].s.emit(Type.TARGET,this.name,this.role,gm.grammarList(targets));
 						}
 					}
 				}
 				else
 				{
-					players[mod].s.emit(Type.TARGET,this.name,this.role,targets.join(' and '));
-					this.s.emit(Type.TARGET,'You',undefined,targets.join(' and '));
+					players[mod].s.emit(Type.TARGET,this.name,this.role,gm.grammarList(targets));
+					this.s.emit(Type.TARGET,'You',undefined,gm.grammarList(targets));
 				}
 				//Log the night action for review at the end of the night.
 				gm.log(this.name,targets);
