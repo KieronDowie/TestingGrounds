@@ -203,6 +203,7 @@ function modInterface()
 		$($('#userlist li')[x]).append(info);
 		$($('#userlist li')[x]).append(modcontrols);
 	}
+	$('.name').addClass('shorten');
 }
 var socket= io.connect({'pingInterval': 45000});
 socket.on(Type.MSG,function(name,msg)
@@ -504,8 +505,14 @@ socket.on(Type.JOIN,function(name, reconnect)
 	li.append(info);
 	if (mod) {
 		li.append(modcontrols);
+		console.log(li.html());
 	}
 	$('#userlist').append(li);
+	console.log($('#userlist').html());
+	if (mod)
+	{
+		$('.name').addClass('shorten');
+	}
 });
 socket.on(Type.LEAVE,function(name)
 {
@@ -569,7 +576,8 @@ socket.on(Type.SETMOD,function(val)
 		if ($('#automodsettingsbutton').length != 0)
 		{
 			$('#automodsettingsbutton').remove();
-		}		
+		}
+		$('.name').removeClass('shorten');
 	}
 });
 socket.on(Type.SYSTEM,function(msg)
@@ -582,21 +590,28 @@ socket.on(Type.SYSSENT,function(to,msg)
 });
 socket.on(Type.ROOMLIST,function(list)
 {
-	users = [];
-	$('#userlist').empty();
-	for (i in list)
+	if (!mod)
 	{
-		var num = (i==0)?'MOD':i; //Num is MOD if i is 0, otherwise num is equal to i.
-		if (list[i].role)
-		{	
-			//Player is dead.
-			$('#userlist').append('<li class="deadplayer"><div><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div><div><span>'+list[i].role+'</span></div></li>');
-		}
-		else
+		users = [];
+		$('#userlist').empty();
+		for (i in list)
 		{
-			$('#userlist').append('<li><div class="info"><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div></li>');
+			var num = (i==0)?'MOD':i; //Num is MOD if i is 0, otherwise num is equal to i.
+			if (list[i].role)
+			{	
+				//Player is dead.
+				$('#userlist').append('<li class="deadplayer"><div><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div><div><span>'+list[i].role+'</span></div></li>');
+			}
+			else
+			{
+				$('#userlist').append('<li><div class="info"><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div></li>');
+			}
+			users.push(list[i].name);
 		}
-		users.push(list[i].name);
+	}
+	if (mod)
+	{
+		$('.name').addClass('shorten');
 	}
 });
 socket.on(Type.TOGGLELIVING,function(p)
