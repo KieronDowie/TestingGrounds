@@ -505,10 +505,8 @@ socket.on(Type.JOIN,function(name, reconnect)
 	li.append(info);
 	if (mod) {
 		li.append(modcontrols);
-		console.log(li.html());
 	}
 	$('#userlist').append(li);
-	console.log($('#userlist').html());
 	if (mod)
 	{
 		$('.name').addClass('shorten');
@@ -1027,7 +1025,7 @@ socket.on(Type.SUGGESTIONS,function(results){
 				var m = $(this).html();
 				var parent = $(this).parent();
 				$(this).remove();
-				var edit = $('<input class="editingMessage" type="text">');
+				var edit = $('<textarea class="editingMessage" type="text">');
 				edit.blur(function(e){
 					revert(e)
 				});
@@ -1040,6 +1038,10 @@ socket.on(Type.SUGGESTIONS,function(results){
 				edit.val(m);
 				parent.append(edit);
 				edit.focus();
+				//Keep the size
+				var tr = parent.parent();
+				console.log(tr.children()[0]);
+				parent.height($(tr.children()[0]).height());
 			};
 			var revert = function(e)
 			{
@@ -1051,7 +1053,14 @@ socket.on(Type.SUGGESTIONS,function(results){
 				msg.click(editMessage);
 				parent.append(msg);
 				//Make some hacky css fixes
-				$('.messagetable tr:not(:first-child) td:not(:nth-child(2))').height($('.messagetabletr').height());
+				var trs = $('.messagetable tr:not(:first-child');
+				for (x=0; x<trs.length; x++)
+				{
+					var tds = $(trs[x]).children();
+					var theight = $(tds[1]).height();
+					$(tds[0]).height(theight);
+					$(tds[2]).height(theight);
+				}
 				//--
 			};
 			msg.click(editMessage);
@@ -1091,7 +1100,14 @@ socket.on(Type.SUGGESTIONS,function(results){
 	}
 	$('#main').append(container);
 	//Make some hacky css fixes
-	$('.messagetable tr:not(:first-child) td:not(:nth-child(2))').height($('.messagetabletr').height());
+	var trs = $('.messagetable tr:not(:first-child');
+	for (x=0; x<trs.length; x++)
+	{
+		var tds = $(trs[x]).children();
+		var theight = $(tds[1]).height();
+		$(tds[0]).height(theight);
+		$(tds[2]).height(theight);
+	}
 	//--
 	if (atBottom)
 	{
