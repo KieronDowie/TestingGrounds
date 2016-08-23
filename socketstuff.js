@@ -1050,13 +1050,16 @@ socket.on(Type.SUGGESTIONS,function(results){
 				var msg = $("<span class='editableMessage'>"+v+"</span>");
 				msg.click(editMessage);
 				parent.append(msg);
+				//Make some hacky css fixes
+				$('.messagetable tr:not(:first-child) td:not(:nth-child(2))').height($('.messagetabletr').height());
+				//--
 			};
 			msg.click(editMessage);
 			data.push(msg); //Message
 			//Choose a button action.
 			var button = chooseAutoButton(results.messages[i], 'Send');
 			data.push(button); //Send button
-			messageTable.addRow(data,true);
+			messageTable.addRow(data,true,['messagetabletr']);
 			data = [];
 		}
 		container.append(messageTable.object);
@@ -1087,6 +1090,9 @@ socket.on(Type.SUGGESTIONS,function(results){
 		container.append(actionsTable.object);
 	}
 	$('#main').append(container);
+	//Make some hacky css fixes
+	$('.messagetable tr:not(:first-child) td:not(:nth-child(2))').height($('.messagetabletr').height());
+	//--
 	if (atBottom)
 	{
 		//Scroll down.

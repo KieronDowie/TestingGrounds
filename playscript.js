@@ -92,7 +92,6 @@ function showPanel(panel)
 		panel.removeClass('shrink');
 		panel.addClass('grow');
 	}
-	console.log(panel);
 }
 function checkKey(e)
 {
@@ -407,7 +406,6 @@ function openModList(targ)
 			}
 			//Append
 			$(targ).append(list);
-			console.log(targ);
 		}
 	}
 }
