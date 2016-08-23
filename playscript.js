@@ -32,7 +32,7 @@ var rolelist_result = [];
 $(document).ready(function(){	
 	$('header ul li').on('click',function(e)
 	{
-		if ($(e.target).is('span'))
+		if ($(e.target).is('li') || $(e.target).is('span'))
 		{
 			var phase = $('header ul li').index(this);
 			socket.emit(Type.SETPHASE,phase);
@@ -777,6 +777,18 @@ function chooseAutoButton(info, label)
 	var button = $('<div class="automodbutton">'+label+'</div>');
 	button.click(func);
 	return button;
+}
+function addModControls()
+{
+	//Add numbering interface
+	var spn = $('<input type="number" min="1" max="99" value="'+daynumber+'"/>');
+	spn.change(function(){
+		socket.emit(Type.SETDAYNUMBER,$(this).val());
+	});
+	var lbl = $('<span>Day/Night:</span>');
+	$('#modnumbering').empty();
+	$('#modnumbering').append(lbl);
+	$('#modnumbering').append(spn);
 }
 function addPauseButton(phase)
 {

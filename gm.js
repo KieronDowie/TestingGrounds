@@ -2,6 +2,7 @@ var loggedActions = {};
 var suggestedMessages = [];
 var suggestedActions = [];
 var beingTargetted = {};
+var daynumber = 1;
 var attributes = {
 	 BG:'Protect your target, killing their attacker and yourself.',
 	 HEAL:'Heal your target.',
@@ -307,6 +308,12 @@ module.exports = {
 		suggestedMessages = [];
 		suggestedActions = [];
 		beingTargetted = {};
+	},
+	setDay:function(num){
+		daynumber = num;
+	},
+	getDay:function(){
+		return daynumber;
 	},
 	getActions:function(name){
 		return loggedActions[name];

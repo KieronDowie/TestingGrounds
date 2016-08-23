@@ -98,7 +98,8 @@ var Type = {
 	SYSSENT:45,
 	CUSTOMROLES:46,
 	HELP:47,
-	PAUSEPHASE:48
+	PAUSEPHASE:48,
+	SETDAYNUMBER:49
 };
 var autoLevel = 1;
 /*
@@ -600,25 +601,18 @@ io.on('connection', function(socket){
 	else
 	{
 		//Check if the person is an alt.
-		var alt = false;
+		var alts = [];
 		for (i in players)
 		{
 			if (ip == players[i].ip)
 			{
-				if (alt)
-				{
-					alt+=' and '+players[i].name;
-				}
-				else
-				{
-					alt = players[i].name;
-				}
+				alts.push(players[i].name);
 			}
 		}
 		//Second check for the name being taken
 		if (!nameTaken(joining[ip]))
 		{
-			if ( dcd[ip] && !alt && (!joining[ip] || (joining[ip] && joining[ip] == dcd[ip].name) ) ) //Rejoining after a dc
+			if ( dcd[ip] && alts.length == 0 && (!joining[ip] || (joining[ip] && joining[ip] == dcd[ip].name) ) ) //Rejoining after a dc
 			{
 				//Send the list of names in the game to the returning player.
 				var namelist = [];
@@ -634,6 +628,7 @@ io.on('connection', function(socket){
 					namelist.push(p);
 				}
 				socket.emit(Type.PAUSEPHASE,timer.paused);
+				socket.emit(Type.SETDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -703,6 +698,7 @@ io.on('connection', function(socket){
 			else if (joining[ip])
 			{
 				socket.emit(Type.PAUSEPHASE,timer.paused);
+				socket.emit(Type.SETDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -722,15 +718,14 @@ io.on('connection', function(socket){
 					namelist.push(p);
 				}
 				socket.emit(Type.ROOMLIST,namelist);
-				socket.emit(Type.PAUSEPHASE,timer.paused);
 				var name = joining[ip];
 				delete joining[ip];
 				players[socket.id]= Player(socket,name,ip);
 				//Inform everyone of the new arrival.
 				io.emit(Type.JOIN,name);
-				if (alt) //Inform everyone of the alt.
+				if (alts.length > 0) //Inform everyone of the alt.
 				{
-					io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+alt+'.');
+					io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+gm.grammarList(alts)+'.');
 				}
 				//Tell the new arrival what phase it is.
 				socket.emit(Type.SETPHASE,phase, true, timer.time);
@@ -979,10 +974,21 @@ io.on('connection', function(socket){
 		}
 	});
 	socket.on(Type.SETPHASE,function(p){
-		if (mod==socket.id && p>=0 && p< Object.keys(Phase).length)
+		if (mod==socket.id && p>=0 && p < Object.keys(Phase).length)
 		{
 			setPhase(p);
 		}	
+	});
+	socket.on(Type.SETDAYNUMBER,function(num){
+		if (socket.id == mod)
+		{
+			gm.setDay(num);
+			io.emit(Type.SETDAYNUMBER,gm.getDay());
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can set the day number.');
+		}
 	});
 	socket.on(Type.PAUSEPHASE,function(){
 		if (mod == socket.id)

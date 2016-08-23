@@ -6,6 +6,7 @@ var users = [];
 var mod = false;
 var paused = false;
 var currentphase = undefined;
+var daynumber = 1;
 //Connect attempts
 var connectAttempt = 0;
 var kicked = false;
@@ -60,7 +61,8 @@ var Type = {
 	SYSSENT:45,
 	CUSTOMROLES:46,
 	HELP:47,
-	PAUSEPHASE:48
+	PAUSEPHASE:48,
+	SETDAYNUMBER:49
 };
 function clearAllInfo()
 {
@@ -85,6 +87,7 @@ function modInterface()
 	{
 		addPauseButton(currentphase);
 	}
+	addModControls();
 	for (x = 0; x < users.length; x++)
 	{
 		var li = $('<li></li>');
@@ -391,6 +394,7 @@ socket.on(Type.JOIN,function(name, reconnect)
 		{
 			autoModSettings();
 		});
+		addModControls();
 	}
 	//Top row, normal users.
 	var li = $('<li></li>');
@@ -551,6 +555,7 @@ socket.on(Type.SETMOD,function(val)
 	else if (mod)
 	{
 		$('.pausebutton, .playbutton').remove();
+		$('#modnumbering').empty();
 		mod = false;
 		var buttons = $('.killbutton, .revivebutton');
 		var roles = $('.role');
@@ -645,6 +650,11 @@ socket.on(Type.KICK,function()
 socket.on(Type.DENY,function(reason){
 	addMessage(reason,'system');
 	kicked = true;
+});
+socket.on(Type.SETDAYNUMBER,function(num){
+	daynumber = num;
+	$('#dayli').html('Day '+num);
+	$('#nightli').html('Night '+num);
 });
 socket.on(Type.SETPHASE,function(phase,silent,time)
 {

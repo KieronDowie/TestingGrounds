@@ -542,6 +542,32 @@ header ul li span
 	float:left;
 	width:50%;
 }
+#modnumbering
+{
+	float:left;
+	height:100%;
+	width:15%;
+	position:relative;
+}	
+#modnumbering input
+{
+	position:absolute;
+	top:50%;
+	left:40%;
+	transform:translate(0,-50%);
+	text-align:center;
+	width: 2.4em;
+}
+#modnumbering span
+{
+	position:absolute;
+	top:50%;
+	right:65%;
+	transform:translate(0,-50%);
+	font-size: 0.8em;
+	font-family: 'Open Sans', Arial, sans-serif;
+	color:white;
+}
 .willbutton
 {
 	height:2em;
