@@ -1267,10 +1267,10 @@ function sanitize(msg)
 //Getting players
 function getPlayerByName(name)
 {
-	if (playernames[name.toLowerCase()])
+	if (playernames[name])
 	{
 		//Valid
-		return players[playernames[name.toLowerCase()]];
+		return players[playernames[name]];
 	}
 	else
 	{
