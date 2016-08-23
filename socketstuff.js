@@ -4,6 +4,8 @@ connection = false;
 var users = [];
 //Mod
 var mod = false;
+var paused = false;
+var currentphase = undefined;
 //Connect attempts
 var connectAttempt = 0;
 var kicked = false;
@@ -57,7 +59,8 @@ var Type = {
 	SUGGESTIONS:44,
 	SYSSENT:45,
 	CUSTOMROLES:46,
-	HELP:47
+	HELP:47,
+	PAUSEPHASE:48
 };
 function clearAllInfo()
 {
@@ -77,6 +80,11 @@ function clearAllInfo()
 }
 function modInterface()
 {
+	//Add play/pause button to the clock
+	if ($('#clock').length > 0)
+	{
+		addPauseButton(currentphase);
+	}
 	for (x = 0; x < users.length; x++)
 	{
 		var li = $('<li></li>');
@@ -542,6 +550,7 @@ socket.on(Type.SETMOD,function(val)
 	}
 	else if (mod)
 	{
+		$('.pausebutton, .playbutton').remove();
 		mod = false;
 		var buttons = $('.killbutton, .revivebutton');
 		var roles = $('.role');
@@ -639,6 +648,7 @@ socket.on(Type.DENY,function(reason){
 });
 socket.on(Type.SETPHASE,function(phase,silent,time)
 {
+	currentphase = phase;
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
 	//Remove any remaining verdict interfaces
@@ -646,6 +656,7 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	$('header ul li').removeClass('current');
 	$($('header ul li')[phase]).addClass('current');
 	$('#clock').remove();
+	$('.pausebutton, .playbutton').remove();
 	if (!silent)	
 	{
 		addMessage($('header ul li')[phase].innerHTML,'highlight');
@@ -654,6 +665,10 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	if (time > 0)
 	{
 		$($('header ul li')[phase]).append('<div id="clock">'+time+'</div>');
+		if (mod)
+		{
+			addPauseButton(phase);
+		}
 	}
 	if (phase == 4 && !mod) //Voting
 	{
@@ -817,6 +832,9 @@ socket.on(Type.VERDICT,function(name,val)
 socket.on(Type.CLEARVOTES,function()
 {
 	$('.votecount').html('0');	
+});
+socket.on(Type.PAUSEPHASE,function(p){
+		paused = p;
 });
 socket.on(Type.TICK,function(time)
 {

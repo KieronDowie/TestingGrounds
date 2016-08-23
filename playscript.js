@@ -32,8 +32,11 @@ var rolelist_result = [];
 $(document).ready(function(){	
 	$('header ul li').on('click',function(e)
 	{
-		var phase = $('header ul li').index(this);
-		socket.emit(Type.SETPHASE,phase);
+		if ($(e.target).is('span'))
+		{
+			var phase = $('header ul li').index(this);
+			socket.emit(Type.SETPHASE,phase);
+		}
 	});
 });
 //Check if the window is infocus
@@ -774,4 +777,28 @@ function chooseAutoButton(info, label)
 	var button = $('<div class="automodbutton">'+label+'</div>');
 	button.click(func);
 	return button;
+}
+function addPauseButton(phase)
+{
+	if (paused)
+	{
+		var pause = $('<div class="playbutton"></div>');
+	}
+	else
+	{
+		var pause = $('<div class="pausebutton"></div>');
+	}	
+	pause.click(function(){
+		socket.emit(Type.PAUSEPHASE);
+		if ($(this).hasClass('playbutton'))
+		{
+			$(this).removeClass('playbutton');
+			$(this).addClass('pausebutton');
+		}
+		else if ($(this).hasClass('pausebutton')){
+			$(this).removeClass('pausebutton');
+			$(this).addClass('playbutton');
+		}
+	});
+	$($('header ul li')[phase]).append(pause);
 }

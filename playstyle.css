@@ -479,6 +479,55 @@ header ul li span
 	font-size: 1.5em;
 	background: #EBD33F;
 	z-index:100;
+	cursor: default;
+}
+.pausebutton, .playbutton
+{
+	position:absolute;
+	top:180%;
+	left:50%;
+	transform:translate(-50%,0);
+	height:1em;
+	width:1em;
+	border-radius:100%;
+	z-index:101;
+	background:black;
+}
+.pausebutton:after
+{
+	display:block;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	content:'';
+	height:70%;
+	width:15%;
+	border-right: 3px solid #B4A861;
+	border-left: 3px solid #B4A861;
+}
+.pausebutton:hover:after
+{
+	border-right: 3px solid yellow;
+	border-left: 3px solid yellow;
+}
+.playbutton:after
+{
+	display:block;
+	position:absolute;
+	left:60%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	content:'';
+	height:0;
+	width:0;
+	border-left: 8px solid green;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+}
+.playbutton:hover:after
+{
+	border-left: 8px solid lime;
 }
 #clock span
 {

@@ -97,7 +97,8 @@ var Type = {
 	SUGGESTIONS:44,
 	SYSSENT:45,
 	CUSTOMROLES:46,
-	HELP:47
+	HELP:47,
+	PAUSEPHASE:48
 };
 var autoLevel = 1;
 /*
@@ -632,6 +633,7 @@ io.on('connection', function(socket){
 					}
 					namelist.push(p);
 				}
+				socket.emit(Type.PAUSEPHASE,timer.paused);
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -700,6 +702,7 @@ io.on('connection', function(socket){
 			}
 			else if (joining[ip])
 			{
+				socket.emit(Type.PAUSEPHASE,timer.paused);
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -719,6 +722,7 @@ io.on('connection', function(socket){
 					namelist.push(p);
 				}
 				socket.emit(Type.ROOMLIST,namelist);
+				socket.emit(Type.PAUSEPHASE,timer.paused);
 				var name = joining[ip];
 				delete joining[ip];
 				players[socket.id]= Player(socket,name,ip);
@@ -979,6 +983,17 @@ io.on('connection', function(socket){
 		{
 			setPhase(p);
 		}	
+	});
+	socket.on(Type.PAUSEPHASE,function(){
+		if (mod == socket.id)
+		{
+			timer.paused = !timer.paused;
+			io.emit(Type.PAUSEPHASE,timer.paused);
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'You need to be the mod to pause or unpause.');
+		}
 	});
 	socket.on(Type.WILL,function(will,name)
 	{
@@ -1495,6 +1510,7 @@ function expireVerification(ip)
 function Timer() 
 {
 	return {
+		paused:false,
 		time:0,
 		buffertime:undefined,
 		phase:[0,0,0, //Pregame, Roles, Modtime.
@@ -1563,15 +1579,18 @@ function Timer()
 			}
 		},
 		tick: function(){
-			if (this.time>0) 
+			if (!this.paused)
 			{
-				this.time--;
+				if (this.time>0) 
+				{
+					this.time--;
+				}
+				else
+				{
+					this.tock();
+				}
+				io.emit(Type.TICK,this.time);
 			}
-			else
-			{
-				this.tock();
-			}
-			io.emit(Type.TICK,this.time);
 			setTimeout(function()
 			{
 				timer.tick();
@@ -3008,24 +3027,24 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'afk':
-						if (!this.silenced)
-						{
-							io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
-						}
 						if (phase == Phase.PREGAME)
-						{							
+						{					
+							if (!this.silenced)
+							{
+								io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+							}		
 							//SetRole(this.name, 'afk')
 							var p = getPlayerByName(this.name)
 							p.setRole("afk")
 						}
 					break;
 					case 'back':
-						if (!this.silenced)
-						{
-							io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
-						}
 						if (phase == Phase.PREGAME)
-						{							
+						{		
+							if (!this.silenced)
+							{
+								io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
+							}					
 							//SetRole(this.name, '')
 							var p = getPlayerByName(this.name)
 							p.setRole("NoRole")
