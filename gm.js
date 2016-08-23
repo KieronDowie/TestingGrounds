@@ -1077,7 +1077,10 @@ function isDying(name,targets)
 			var attrib = autorole.attributes;
 			if (attrib.MAFKILL || attrib.VIGKILL || attrib.MAUL || attrib.SKKILL || attrib.EXECUTE) //Killing roles.
 			{
-				return true;
+				if (isLegalTarget(name,attrib,targets))
+				{
+					return true;
+				}
 			}
 		}
 	}
