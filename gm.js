@@ -474,48 +474,51 @@ module.exports = {
 											//Swap all targets on the two players.
 											for (j in targets)
 											{
-												if (targets[j][1].indexOf(t[0]) != -1 && j != num)
+												for (k in targets[j][1])
 												{
-													var index = targets[j][1].indexOf(t[0]);
-													//Remove the previous target.
-													var prevTarget = targets[j][1][0];
-													var pindex = beingTargetted[prevTarget].indexOf(j);
-													beingTargetted[prevTarget].splice(pindex,1);
-													//This person targetted one of the players being transported. Switch them to the other one.
-													targets[j][1][index] = t[1];
-													displayTargets[j][3].push('transport');
-													//Add a variable allowing them to self target now.
-													targets[j][3] = true;
-													//Add reference to the new target.
-													if (beingTargetted[t[1]])
+													if (targets[j][1][k] == t[0] && j != num)
 													{
-														beingTargetted[t[1]].push(j);
+														var index = k;
+														//Remove the previous target.
+														var prevTarget = targets[j][1][0];
+														var pindex = beingTargetted[prevTarget].indexOf(j);
+														beingTargetted[prevTarget].splice(pindex,1);
+														//This person targetted one of the players being transported. Switch them to the other one.
+														targets[j][1][index] = t[1];
+														displayTargets[j][3].push('transport');
+														//Add a variable allowing them to self target now.
+														targets[j][3] = true;
+														//Add reference to the new target.
+														if (beingTargetted[t[1]])
+														{
+															beingTargetted[t[1]].push(j);
+														}
+														else
+														{
+															beingTargetted[t[1]]= [ j ];
+														}
 													}
-													else
+													else if (targets[j][1][k] == t[1] && j != num)
 													{
-														beingTargetted[t[1]]= [ j ];
-													}
-												}
-												else if (targets[j][1].indexOf(t[1]) != -1 && j != num)
-												{
-													var index = targets[j][1].indexOf(t[1]);
-													//Remove the previous target.
-													var prevTarget = targets[j][1][0];
-													var pindex = beingTargetted[prevTarget].indexOf(j);
-													beingTargetted[prevTarget].splice(pindex,1);
-													//This person targetted one of the players being transported. Switch them to the other one.
-													targets[j][1][index] = t[0];
-													displayTargets[j][3].push('transport');
-													//Add a variable allowing them to self target now.
-													targets[j][3] = true;
-													//Add reference to the new target.
-													if (beingTargetted[t[1]])
-													{
-														beingTargetted[t[0]].push(j);
-													}
-													else
-													{
-														beingTargetted[t[0]]= [ j ];
+														var index = k;
+														//Remove the previous target.
+														var prevTarget = targets[j][1][0];
+														var pindex = beingTargetted[prevTarget].indexOf(j);
+														beingTargetted[prevTarget].splice(pindex,1);
+														//This person targetted one of the players being transported. Switch them to the other one.
+														targets[j][1][index] = t[0];
+														displayTargets[j][3].push('transport');
+														//Add a variable allowing them to self target now.
+														targets[j][3] = true;
+														//Add reference to the new target.
+														if (beingTargetted[t[1]])
+														{
+															beingTargetted[t[0]].push(j);
+														}
+														else
+														{
+															beingTargetted[t[0]]= [ j ];
+														}
 													}
 												}
 											}
@@ -539,7 +542,7 @@ module.exports = {
 											beingTargetted[t[1]].splice(index,1);
 											var person = targets[t[0]];
 											var personRole = getRole(person);
-											if (autoRoles[personRole].attributes.CONTROLIMMUNE)
+											if (autoRoles[personRole] && autoRoles[personRole].attributes.CONTROLIMMUNE)
 											{
 												//Inform the person being controlled of the failure.
 												addSuggestedMessage('A witch tried to control you, but you are immune!',t[0]);

@@ -196,6 +196,11 @@ table tbody
 	padding-right:5px;
 	float:left;
 	height:100%;
+	border-bottom:1px solid #ADADAD;
+}
+.automodcontainer table tr:last-child td
+{
+	border-bottom:none;
 }
 .automodcontainer table tr td:first-child
 {
@@ -249,7 +254,7 @@ table tbody
 .messagetable tr
 {
 	line-height:22px;
-	overflow:auto;
+	overflow:hidden;
 }
 .tooltip
 {
