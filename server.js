@@ -1978,7 +1978,7 @@ function Player(socket,name,ip)
 						{
 							this.silencedError();
 						}
-						else if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME)
+						else if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME || phase == Phase.FIRSTDAY)
 						{
 							if (this.blackmailed && phase != Phase.PREGAME)
 							{
