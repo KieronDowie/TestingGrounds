@@ -1367,8 +1367,8 @@ function setPhase(p)
 					}
 				}
 			}
-			//Mafia target info, else if because you do not recieve it if you are jailed.
-			else if (players[i].chats.mafia && players[i].alive)
+			//Target info, else if because you do not recieve it if you are jailed.
+			else
 			{
 				players[i].s.emit(Type.SYSTEM,'Use "/target name" or "/t name" to send in your night action.');
 			}
@@ -1422,6 +1422,10 @@ function setPhase(p)
 		for (i in players)
 		{
 			players[i].confirm = false;
+			if (i != mod)
+			{
+				players[i].s.emit(Type.SYSTEM,'Please type /confirm if you have recieved a role and are ready to play.');
+			}
 		}
 		
 	}
