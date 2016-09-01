@@ -26,6 +26,32 @@ header
 	overflow-x:hidden;
 	
 }
+.investresult
+{
+	position:relative;
+    width: 20em;
+    font-size: 0.9em;
+    padding: 0.5em;
+    padding-left:1em;
+    border-radius: 1em;
+    padding-right: 50px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #CFD7D7;
+    margin: 0.5em;
+    text-align:center;
+}
+.investresult:after
+{
+	position: absolute;
+    display: block;
+    content: '';
+    background: url(invest.png);
+    height: 50px;
+    width: 50px;
+    right: -10px;
+    top: 0px;
+}
+}
 #main>li
 {
 	width:100%;

@@ -868,7 +868,7 @@ module.exports = {
           {              
                         return ( getRoleNum(name.toLowerCase())!=-1);
           },
-          getRoleCard: function (name)
+          getRoleCard: function (name, investResult)
           {
                 var output;
                 name=name.toLowerCase();
@@ -886,6 +886,11 @@ module.exports = {
                         abi+"<br>"+
                         att+"<br>"+
                         goal+"</div>";
+                        //Add invest and consig results if they are available
+                        if (investResult)
+                        {
+							output += "<div class='investresult'>"+investResult+"</div>";
+						}
                         return output;                                                                                                 
                 }      
                 return "You need to specify a role!<br>";

@@ -499,6 +499,7 @@ var server = http.createServer(function(req,res)
 				}
 			});
 		break;
+		case '/invest.png':
 		case '/maf.png':
 		case '/mayor.png':
 		case '/med.png':
@@ -2764,7 +2765,15 @@ function Player(socket,name,ip)
 							}
 							else if (roles.hasRolecard(this.role))
 							{
-								this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role));
+								var investGroup = gm.getRoleGroup(this.role.toLowerCase());
+								if (investGroup)
+								{
+									this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role, gm.getInvestFlavor(investGroup)+' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup,'or'))));
+								}
+								else
+								{
+									this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role));
+								}
 							}
 							else
 							{
@@ -2777,7 +2786,15 @@ function Player(socket,name,ip)
 							var rolename = c.join(' '); 
 							if (roles.hasRolecard(rolename))
 							{
-								this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+								var investGroup = gm.getRoleGroup(rolename.toLowerCase());
+								if (investGroup)
+								{
+									this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename, gm.getInvestFlavor(investGroup) +' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup),'or')));
+								}
+								else
+								{
+									this.s.emit(Type.ROLECARD.roles.getRoleCard(rolename));
+								}
 							}
 							else
 							{

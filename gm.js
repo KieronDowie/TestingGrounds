@@ -309,6 +309,16 @@ module.exports = {
 		suggestedActions = [];
 		beingTargetted = {};
 	},
+	getRoleGroup:function(role){
+		return getRoleGroup(role);
+	},
+	getInvestFlavor:function(group)
+	{
+		return investGrouping[group];
+	},
+	getInvestGroupings:function(group){
+		return getInvestGroupings(group);
+	},
 	setDay:function(num){
 		daynumber = num;
 	},
@@ -318,12 +328,16 @@ module.exports = {
 	getActions:function(name){
 		return loggedActions[name];
 	},
-	grammarList:function(list){
+	grammarList:function(list, sep){
+		if (sep === undefined)
+		{
+			sep = 'and';
+		}
 		//Format a list in a grammatically correct way.
 		var str = '';
 		if (list.length > 1)
 		{
-			str = list.slice(0,list.length-1).join(', ') + ' and ' + list[list.length -1];
+			str = list.slice(0,list.length-1).join(', ') + ' '+sep+' ' + list[list.length -1];
 		}
 		else if (list.length == 1)
 		{
@@ -1068,6 +1082,17 @@ function getRole(person)
 function getPeopleTargetting(name)
 {
 	return (beingTargetted[name]);
+}
+function getRoleGroup(role)
+{
+	if (autoRoles[role])
+	{
+		return autoRoles[role].grouping;
+	}
+	else
+	{
+		return '';
+	}
 }
 function getInvestGroupings(grouping)
 {
