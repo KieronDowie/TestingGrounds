@@ -1424,7 +1424,7 @@ function setPhase(p)
 			players[i].confirm = false;
 			if (i != mod)
 			{
-				players[i].s.emit(Type.SYSTEM,'Please type /confirm if you have recieved a role and are ready to play.');
+				players[i].s.emit(Type.SYSTEM,'Please type /confirm if you have received a role and are ready to play.');
 			}
 		}
 		
