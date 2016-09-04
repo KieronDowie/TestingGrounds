@@ -345,7 +345,7 @@ module.exports = {
 		}
 		return str;
 	},
-	evaluate:function(players, playernames, mod, roles, lvl){
+	evaluate:function(players, playernames, mod, roles, lvl, fromphase){
 		var targets = {};
 		var displayTargets = {};
 		var playersByName = {}; //Quick target array to get back to the players array.
@@ -1053,7 +1053,8 @@ module.exports = {
 			return {
 				targets: displayTargets,
 				messages: suggestedMessages,
-				actions: suggestedActions
+				actions: suggestedActions,
+				phase: fromphase
 			}
 		}
 		else

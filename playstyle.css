@@ -26,6 +26,10 @@ header
 	overflow-x:hidden;
 	
 }
+.investresultcontainer
+{
+	float:left;
+}
 .investresult
 {
 	position:relative;
@@ -360,6 +364,7 @@ header ul li span
     position:relative;
     padding:20px;
     padding-top:10px;
+    float:left;
 }
 .rolecard h2
 {

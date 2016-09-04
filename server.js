@@ -500,6 +500,7 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/invest.png':
+		case '/moon.png':
 		case '/maf.png':
 		case '/mayor.png':
 		case '/med.png':
@@ -1542,14 +1543,15 @@ function Timer()
 				break;
 				case Phase.VOTING:
 				case Phase.NIGHT:
+					var prevphase = phase;
 					//Change to modtime.
 					setPhase(Phase.MODTIME);
 					if (autoLevel > 0 )
 					{
-						console.log(mod);
 						//Evaluate night actions.
-						var results = gm.evaluate(players,playernames,mod,roles, autoLevel);
+						var results = gm.evaluate(players,playernames,mod,roles, autoLevel, prevphase);
 						players[mod].s.emit(Type.SUGGESTIONS, results);
+						gm.clear();
 					}
 				break;
 				case Phase.TRIAL:

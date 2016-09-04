@@ -889,7 +889,9 @@ module.exports = {
                         //Add invest and consig results if they are available
                         if (investResult)
                         {
-							output += "<div class='investresult'>"+investResult+"</div>";
+							var container = '<div class="investresultcontainer">';
+							container = container + "<div class='investresult'>"+investResult+"</div>" + '</div>';
+							output += container;
 						}
                         return output;                                                                                                 
                 }      
