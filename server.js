@@ -1338,8 +1338,6 @@ function setPhase(p)
 	}
 	if (p == Phase.NIGHT)
 	{
-		//Reset the automod
-		gm.clear();
 		//Reset cleaning.
 		//Special beginning of night messages.
 		for (i in players)

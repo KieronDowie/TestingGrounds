@@ -24,7 +24,18 @@ header
 	list-style:none;
 	overflow-y:auto;
 	overflow-x:hidden;
-	
+}
+.moonimg
+{
+	background: url('moon.png');
+	height:15px;
+	width:15px;
+	float:left;
+	background-size:cover;
+}
+header .moonimg
+{
+	display:none;
 }
 .investresultcontainer
 {

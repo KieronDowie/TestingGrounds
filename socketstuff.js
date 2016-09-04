@@ -2,6 +2,7 @@
 connection = false;
 //Players on list
 var users = [];
+var devs = [];
 //Mod
 var mod = false;
 var paused = false;
@@ -92,7 +93,15 @@ function modInterface()
 	{
 		var li = $('<li></li>');
 		var num = (x==0)?'MOD':x;
-		var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[x]+'</span></div>');
+		if (devs.indexOf(users[x]) != -1)
+		{
+			var name = '<span class="name dev">'+users[x]+'</span>';
+		}
+		else
+		{
+			var name = '<span class="name">'+users[x]+'</span>';
+		}
+		var info = $('<div class="info"><span class="num">'+num+'</span>'+name+'</div>');
 		$('#userlist li')[x].innerHTML='';
 		$('#userlist li')[x].className='';
 		//Add in a rolelist button if it is does not already exist
@@ -564,8 +573,16 @@ socket.on(Type.SETMOD,function(val)
 			var num = i==0?'MOD':i;
 			if ($(buttons[i]).hasClass('killbutton'))
 			{
+				if (devs.indexOf(users[i]) != -1)
+				{
+					var name ='<span class="name dev">'+users[i]+'</span>';
+				}
+				else
+				{
+					var name ='<span class="name">'+users[i]+'</span>';
+				}
 				//Top row, normal users.
-				var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div>');
+				var info = $('<div class="info"><span class="num">'+num+'</span>'+name+'</div>');
 			}
 			else
 			{
@@ -609,15 +626,24 @@ socket.on(Type.ROOMLIST,function(list)
 		for (i in list)
 		{
 			var num = (i==0)?'MOD':i; //Num is MOD if i is 0, otherwise num is equal to i.
-			if (list[i].role)
-			{	
-				//Player is dead.
-				$('#userlist').append('<li class="deadplayer"><div><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div><div><span>'+list[i].role+'</span></div></li>');
+			if (devs.indexOf(list[i].name) != -1)
+			{
+				var name = '<span class="name dev">'+list[i].name+'</span>';	
 			}
 			else
 			{
-				$('#userlist').append('<li><div class="info"><span class="num">'+num+'</span><span class="name">'+list[i].name+'</span></div></li>');
+				var name = '<span class="name">'+list[i].name+'</span>';
 			}
+			if (list[i].role)
+			{	
+				//Player is dead.
+				$('#userlist').append('<li class="deadplayer"><div><span class="num">'+num+'</span></div>'+name+'<div><span>'+list[i].role+'</span></div></li>');
+			}
+			else
+			{
+				$('#userlist').append('<li><div class="info"><span class="num">'+num+'</span>'+name+'</div></li>');
+			}
+			
 			users.push(list[i].name);
 		}
 	}
@@ -654,7 +680,15 @@ socket.on(Type.DENY,function(reason){
 socket.on(Type.SETDAYNUMBER,function(num){
 	daynumber = num;
 	$('#dayli').html('Day '+num);
-	$('#nightli').html('Night '+num);
+	if (num % 2 == 0)
+	{
+		$('#nightli').html('Night '+num+'<div class="moonimg" />');
+	}
+	else
+	{
+		$('#nightli').html('Night '+num);
+	}
+	
 });
 socket.on(Type.SETPHASE,function(phase,silent,time)
 {
@@ -862,7 +896,7 @@ socket.on(Type.SETDEV,function(name)
 {
 	var index = users.indexOf(name);
 	$($('.name')[index]).addClass('dev');
-	$($('.num')[index]).addClass('dev');
+	devs.push(name);
 });
 socket.on(Type.ROLECARD,function(card)
 {
