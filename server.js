@@ -1368,7 +1368,7 @@ function setPhase(p)
 				}
 			}
 			//Target info, else if because you do not recieve it if you are jailed.
-			else if (i != mod)
+			else if (i != mod && players[i].alive)
 			{
 				players[i].s.emit(Type.SYSTEM,'Use "/target name" or "/t name" to send in your night action.');
 			}
