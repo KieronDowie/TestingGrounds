@@ -39,6 +39,7 @@ var attributes = {
 	 CHARGE:'Charge someone with electricity.',
 	 CONTROLIMMUNE:'Cannot be controlled.',
 	 FRAME:'Make the target appear as member of the Mafia.',
+	 FULLMOONSHERIFFRESULT:'During a full moon the target shows as a Werewolf to the Sheriff.',
 	 FORGE:'Change targets last will.',
 	 HAUNT:'Kills one of their guilty voters.',
 	 // TARGET:'Player that needs to be lynched for victory.',
@@ -230,7 +231,8 @@ var autoRoles =
 		attributes:  {
 			MAUL:attributes.MAUL,
 			SELF:attributes.SELF,
-			IMMUNE:attributes.IMMUNE},
+			IMMUNE:attributes.IMMUNE,
+			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT},
 		grouping:'K',
 		alignment:'ww'
 	},
@@ -292,12 +294,12 @@ var investGrouping = {
 };
 
 var sheriffResults = {
-	'town':'Your target is not suspicious',
-	'mafia':'Your target is a member of the Mafia',
-	'ww': ['Not Suspicious', 'Your target is a Werewolf'],
+	'town':'Your target is not suspicious.',
+	'mafia':'Your target is a member of the Mafia!',
+	'ww': ['Your target is not suspicious.', 'Your target is a Werewolf!'],
 	'sw':'Your target is a Shadowalker.',
 	'sk':'Your target is a Serial Killer.',
-	'neutral':'Your target is not suspicious'
+	'neutral':'Your target is not suspicious.'
 };
 module.exports = {
 	log:function(name,targets){
@@ -827,6 +829,13 @@ module.exports = {
 											}
 											//Send this player's alignment
 											var msg = sheriffResults[alignment];
+											//Werewolf check
+											role = getRole(targets[t[0]]);
+											if (autoRoles[role].attributes.FULLMOONSHERIFFRESULT)
+											{
+												var number = 1 - (daynumber % 2); //Minus to make it so that odd is first.
+												msg = sheriffResults[alignment][number];
+											}
 											addSuggestedMessage(msg,num);
 										}
 										else
@@ -977,6 +986,7 @@ module.exports = {
 									}
 									else if (roleAttributes.MAUL)
 									{
+										var t = targets[num][1];
 										var visitors = getPeopleTargetting(t[0]);
 										visitors.push(t[0]); //Person that ww is targetting gets mauled as well
 										for (j in visitors)
@@ -986,11 +996,11 @@ module.exports = {
 												var success = true;
 												if (success)
 												{
-													addSuggestedMessage('They were mauled by a [town]Werewolf[/town].','<All>');
+													addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
 													addSuggestedAction('Kill',visitors[j]);
 												}
-												addSuggestedMessage('You mauled someone that visited you.',num);
-												addSuggestedMessage('You were mauled by a Werewolf!',t[0]);
+												addSuggestedMessage('You mauled someone.',num);
+												addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 											}
 										}
 									}

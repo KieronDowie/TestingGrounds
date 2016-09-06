@@ -1316,6 +1316,13 @@ function setPhase(p)
 {
 	if (phase == Phase.NIGHT && p != phase)
 	{
+		if (autoLevel > 0 )
+		{
+			//Evaluate night actions.
+			var results = gm.evaluate(players,playernames,mod,roles, autoLevel, phase);
+			players[mod].s.emit(Type.SUGGESTIONS, results);
+			gm.clear();
+		}
 		for (i in players)
 		{
 			if (players[i].seancing)
@@ -1545,13 +1552,6 @@ function Timer()
 					var prevphase = phase;
 					//Change to modtime.
 					setPhase(Phase.MODTIME);
-					if (autoLevel > 0 )
-					{
-						//Evaluate night actions.
-						var results = gm.evaluate(players,playernames,mod,roles, autoLevel, prevphase);
-						players[mod].s.emit(Type.SUGGESTIONS, results);
-						gm.clear();
-					}
 				break;
 				case Phase.TRIAL:
 					//Change to verdicts.
@@ -1845,7 +1845,7 @@ function Player(socket,name,ip)
 				}
 				else if (roles.hasRolecard(role))
 				{
-					var rolecard = roles.getRoleCard(role);
+					var rolecard = roles.getRoleCard(role, {});
 					this.s.emit(Type.ROLECARD,rolecard);
 				}
 				else
