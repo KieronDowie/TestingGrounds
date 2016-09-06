@@ -316,6 +316,20 @@ module.exports = {
 	{
 		return investGrouping[group];
 	},
+	getAlignment:function(role){
+		if (autoRoles[role])
+		{
+			return autoRoles[role].alignment;
+		}
+		else
+		{
+			return undefined;
+		} 
+	},
+	getSheriffResult:function(alignment)
+	{
+		return sheriffResults[alignment];
+	},
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},

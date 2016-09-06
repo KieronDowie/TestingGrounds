@@ -868,7 +868,7 @@ module.exports = {
           {              
                         return ( getRoleNum(name.toLowerCase())!=-1);
           },
-          getRoleCard: function (name, investResult)
+          getRoleCard: function (name, results)
           {
                 var output;
                 name=name.toLowerCase();
@@ -887,10 +887,16 @@ module.exports = {
                         att+"<br>"+
                         goal+"</div>";
                         //Add invest and consig results if they are available
-                        if (investResult)
+                        if (results.investResult)
                         {
 							var container = '<div class="investresultcontainer">';
-							container = container + "<div class='investresult'>"+investResult+"</div>" + '</div>';
+							container = container + "<div class='investresult'>"+results.investResult+"</div>" + '</div>';
+							output += container;
+						}
+                        if (results.sheriffResult)
+                        {
+							var container = '<div class="investresultcontainer">';
+							container = container + "<div class='sheriffresult'>"+results.sheriffResult+"</div>" + '</div>';
 							output += container;
 						}
                         return output;                                                                                                 

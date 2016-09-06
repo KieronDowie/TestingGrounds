@@ -500,6 +500,7 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/invest.png':
+		case '/sheriff.png':
 		case '/moon.png':
 		case '/maf.png':
 		case '/mayor.png':
@@ -2769,15 +2770,18 @@ function Player(socket,name,ip)
 							}
 							else if (roles.hasRolecard(this.role))
 							{
+								var results = {};
 								var investGroup = gm.getRoleGroup(this.role.toLowerCase());
 								if (investGroup)
 								{
-									this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role, gm.getInvestFlavor(investGroup)+' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup,'or'))));
+									results.investResult = gm.getInvestFlavor(investGroup)+' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup),'or');
 								}
-								else
+								var sheriffAlignment = gm.getAlignment(this.role.toLowerCase());
+								if (sheriffAlignment)
 								{
-									this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role));
+									results.sheriffResult = gm.getSheriffResult(sheriffAlignment);
 								}
+								this.s.emit(Type.ROLECARD,roles.getRoleCard(this.role,results));
 							}
 							else
 							{
@@ -2790,15 +2794,18 @@ function Player(socket,name,ip)
 							var rolename = c.join(' '); 
 							if (roles.hasRolecard(rolename))
 							{
+								var results = {};
 								var investGroup = gm.getRoleGroup(rolename.toLowerCase());
 								if (investGroup)
 								{
-									this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename, gm.getInvestFlavor(investGroup) +' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup),'or')));
+									results.investResult = gm.getInvestFlavor(investGroup)+' They must be a '+gm.grammarList(gm.getInvestGroupings(investGroup),'or');
 								}
-								else
+								var sheriffAlignment = gm.getAlignment(rolename.toLowerCase());
+								if (sheriffAlignment)
 								{
-									this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename));
+									results.sheriffResult = gm.getSheriffResult(sheriffAlignment);
 								}
+								this.s.emit(Type.ROLECARD,roles.getRoleCard(rolename,results));
 							}
 							else
 							{

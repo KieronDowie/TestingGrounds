@@ -41,7 +41,7 @@ header .moonimg
 {
 	float:left;
 }
-.investresult
+.investresult, .sheriffresult
 {
 	position:relative;
     width: 20em;
@@ -66,6 +66,16 @@ header .moonimg
     right: -10px;
     top: 0px;
 }
+.sheriffresult:after
+{
+	position: absolute;
+    display: block;
+    content: '';
+    background: url(sheriff.png);
+    height: 50px;
+    width: 50px;
+    right: -10px;
+    top: -10px;
 }
 #main>li
 {
