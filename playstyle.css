@@ -72,6 +72,10 @@ header .moonimg
 	width:100%;
 	padding-left:5px;
 }
+.rolecardcontainer
+{
+	overflow:auto;
+}
 #rolelist, #automodsettings
 {
 	position:absolute;

@@ -132,7 +132,7 @@ function addMessage(msg, type)
 			$('#main').append('<li class="me">*<em>'+msg+'</em>*</li>');
 		break;
 		case 'rolecard':
-			$('#main').append('<li>'+msg+'</li>');
+			$('#main').append('<li class="rolecardcontainer">'+msg+'</li>');
 		break;
 		case 'hug':
 			$('#main').append('<li>*<b>'+msg.name+' hugs '+msg.target+'</b>*</li>');
