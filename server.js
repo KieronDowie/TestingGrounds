@@ -1356,6 +1356,12 @@ function setPhase(p)
 				players[i].cleaned = false;
 				players[mod].s.emit(Type.SYSTEM,players[i].name+ "\'s Last Will will show upon death.");
 			}
+			//Werewolf transforming
+			var n = gm.getDay();
+			if (n % 2 == 0 && players[i].role == 'werewolf') //Even number, full moon
+			{
+				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!');
+			}
 			//Jailed player
 			if (players[i].chats.jailed)
 			{
