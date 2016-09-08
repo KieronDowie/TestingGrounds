@@ -1072,6 +1072,7 @@ socket.on(Type.SUGGESTIONS,function(results){
 		{
 			var to = results.messages[i][0];
 			//Remove the <> surrounding special names like <All>
+			console.log(results.messages[i]);
 			if (to[0] == '<')
 			{
 				to = to.substring(1,to.length-1);

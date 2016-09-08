@@ -1358,7 +1358,7 @@ function setPhase(p)
 			}
 			//Werewolf transforming
 			var n = gm.getDay();
-			if (n % 2 == 0 && players[i].role == 'werewolf') //Even number, full moon
+			if (n % 2 == 0 && players[i].role.toLowerCase() == 'werewolf') //Even number, full moon
 			{
 				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!');
 			}

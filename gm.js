@@ -36,6 +36,8 @@ var attributes = {
 	 RBIMMUNE:'Cannot be roleblocked.',
 	 RBATTACK:'Attack the roleblocker.',
 	 MAUL:'Attack target and all visitors.',
+	 MUSTVISIT:'Must visit each night. If not visiting visits themselves instead.',
+	 MUSTVISITEVEN:'Must visit each even night. If not visiting visits themselves instead.',
 	 CHARGE:'Charge someone with electricity.',
 	 CONTROLIMMUNE:'Cannot be controlled.',
 	 FRAME:'Make the target appear as member of the Mafia.',
@@ -232,7 +234,8 @@ var autoRoles =
 			MAUL:attributes.MAUL,
 			SELF:attributes.SELF,
 			IMMUNE:attributes.IMMUNE,
-			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT},
+			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT,
+			MUSTVISITEVEN:attributes.MUSTVISITEVEN},
 		grouping:'K',
 		alignment:'ww'
 	},
@@ -451,8 +454,12 @@ module.exports = {
 				{
 					if (targets[num][1])
 					{
-						if( Object.keys(targets[num][1]).length != 0) //If they sent in a night action
+						if( Object.keys(targets[num][1]).length != 0 || roleInfo.attributes.MUSTVISIT || (roleInfo.attributes.MUSTVISITEVEN && daynumber % 2 == 0)) //If they sent in a night action or have to visit anyway
 						{
+							if (Object.keys(targets[num][1]).length != 0) //If they were forced they must now target themselves.
+							{
+								targets[num][1].push(num);
+							}
 							var roleAttributes = roleInfo.attributes;
 							var targettingLiving = false;
 							var targettingDead = false;
@@ -986,9 +993,22 @@ module.exports = {
 									}
 									else if (roleAttributes.MAUL)
 									{
-										var t = targets[num][1];
+										console.log(targets[num]);
+										if (targets[num][1].length > 0)
+										{
+											var t = targets[num][1];
+										}
+										else
+										{
+											var t = [num];
+										}
+										console.log(t);
+										console.log(t[0]);
 										var visitors = getPeopleTargetting(t[0]);
-										visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+										if (t[0] != num)
+										{
+											visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+										}
 										for (j in visitors)
 										{
 											if (visitors[j] != num)
