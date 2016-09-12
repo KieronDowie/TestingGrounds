@@ -35,6 +35,7 @@ var attributes = {
 	 VEST:'Make yourself night immune.',
 	 RBIMMUNE:'Cannot be roleblocked.',
 	 RBATTACK:'Attack the roleblocker.',
+	 RBHOME:'Stays home when roleblocked.',
 	 MAUL:'Attack target and all visitors.',
 	 MUSTVISIT:'Must visit each night. If not visiting visits themselves instead.',
 	 MUSTVISITEVEN:'Must visit each even night. If not visiting visits themselves instead.',
@@ -235,7 +236,8 @@ var autoRoles =
 			SELF:attributes.SELF,
 			IMMUNE:attributes.IMMUNE,
 			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT,
-			MUSTVISITEVEN:attributes.MUSTVISITEVEN},
+			MUSTVISITEVEN:attributes.MUSTVISITEVEN,
+			RBHOME:attributes.RBHOME},
 		grouping:'K',
 		alignment:'ww'
 	},
@@ -456,7 +458,7 @@ module.exports = {
 					{
 						if( Object.keys(targets[num][1]).length != 0 || roleInfo.attributes.MUSTVISIT || (roleInfo.attributes.MUSTVISITEVEN && daynumber % 2 == 0)) //If they sent in a night action or have to visit anyway
 						{
-							if (Object.keys(targets[num][1]).length != 0) //If they were forced they must now target themselves.
+							if (Object.keys(targets[num][1]).length == 0) //If they were forced they must now target themselves.
 							{
 								targets[num][1].push(num);
 							}
@@ -515,56 +517,66 @@ module.exports = {
 										var t = targets[num][1];
 										if (t.length == 2 )
 										{
-											//Swap all targets on the two players.
-											for (j in targets)
+											var player = players[playernames[t[0]]];
+											var player2 = players[playernames[t[1]]];
+											if (!player.chats.jailed && !player2.chats.jailed ) //Check if either player was jailed
 											{
-												for (k in targets[j][1])
+												//Swap all targets on the two players.
+												for (j in targets)
 												{
-													if (targets[j][1][k] == t[0] && j != num)
+													for (k in targets[j][1])
 													{
-														var index = k;
-														//Remove the previous target.
-														var prevTarget = targets[j][1][0];
-														var pindex = beingTargetted[prevTarget].indexOf(j);
-														beingTargetted[prevTarget].splice(pindex,1);
-														//This person targetted one of the players being transported. Switch them to the other one.
-														targets[j][1][index] = t[1];
-														displayTargets[j][3].push('transport');
-														//Add a variable allowing them to self target now.
-														targets[j][3] = true;
-														//Add reference to the new target.
-														if (beingTargetted[t[1]])
+														if (targets[j][1][k] == t[0] && j != num)
 														{
-															beingTargetted[t[1]].push(j);
+															var index = k;
+															//Remove the previous target.
+															var prevTarget = targets[j][1][0];
+															var pindex = beingTargetted[prevTarget].indexOf(j);
+															beingTargetted[prevTarget].splice(pindex,1);
+															//This person targetted one of the players being transported. Switch them to the other one.
+															targets[j][1][index] = t[1];
+															displayTargets[j][3].push('transport');
+															//Add a variable allowing them to self target now.
+															targets[j][3] = true;
+															//Add reference to the new target.
+															if (beingTargetted[t[1]])
+															{
+																beingTargetted[t[1]].push(j);
+															}
+															else
+															{
+																beingTargetted[t[1]]= [ j ];
+															}
 														}
-														else
+														else if (targets[j][1][k] == t[1] && j != num)
 														{
-															beingTargetted[t[1]]= [ j ];
-														}
-													}
-													else if (targets[j][1][k] == t[1] && j != num)
-													{
-														var index = k;
-														//Remove the previous target.
-														var prevTarget = targets[j][1][0];
-														var pindex = beingTargetted[prevTarget].indexOf(j);
-														beingTargetted[prevTarget].splice(pindex,1);
-														//This person targetted one of the players being transported. Switch them to the other one.
-														targets[j][1][index] = t[0];
-														displayTargets[j][3].push('transport');
-														//Add a variable allowing them to self target now.
-														targets[j][3] = true;
-														//Add reference to the new target.
-														if (beingTargetted[t[1]])
-														{
-															beingTargetted[t[0]].push(j);
-														}
-														else
-														{
-															beingTargetted[t[0]]= [ j ];
+															var index = k;
+															//Remove the previous target.
+															var prevTarget = targets[j][1][0];
+															var pindex = beingTargetted[prevTarget].indexOf(j);
+															beingTargetted[prevTarget].splice(pindex,1);
+															//This person targetted one of the players being transported. Switch them to the other one.
+															targets[j][1][index] = t[0];
+															displayTargets[j][3].push('transport');
+															//Add a variable allowing them to self target now.
+															targets[j][3] = true;
+															//Add reference to the new target.
+															if (beingTargetted[t[1]])
+															{
+																beingTargetted[t[0]].push(j);
+															}
+															else
+															{
+																beingTargetted[t[0]]= [ j ];
+															}
 														}
 													}
 												}
+											}
+											else
+											{
+												//Inform transporter and cancel action.
+												addSuggestedMessage('One of your target was in jail, so you could not transport them!',num);
 											}
 										}
 										else
@@ -654,6 +666,19 @@ module.exports = {
 												addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 												addSuggestedAction('Kill',num);
 												addSuggestedMessage('They were killed by a [sk]Serial Killer[/sk]','<All>');
+											}
+											else if (autoRoles[personRole] && autoRoles[personRole].attributes.RBHOME && daynumber % 2 == 0)
+											{
+												var prevTarget = targets[t[0]][1];
+												//Remove the reference to the previous target.
+												if (prevTarget.length > 0)
+												{
+													var index = beingTargetted[prevTarget].indexOf(t[0]);
+													beingTargetted[prevTarget].splice(index,1);
+												}
+												//Remove target
+												targets[t[0]][1] = [];
+												addSuggestedMessage("Someone roleblocked you, so you stayed home.",t[0]);
 											}
 											else
 											{
@@ -993,7 +1018,6 @@ module.exports = {
 									}
 									else if (roleAttributes.MAUL)
 									{
-										console.log(targets[num]);
 										if (targets[num][1].length > 0)
 										{
 											var t = targets[num][1];
@@ -1002,12 +1026,35 @@ module.exports = {
 										{
 											var t = [num];
 										}
-										console.log(t);
-										console.log(t[0]);
 										var visitors = getPeopleTargetting(t[0]);
-										if (t[0] != num)
+										var bgd= false;
+										var rbd = false;
+										for (v in visitors)
+										{
+											var r = getRole(targets[visitors[v]]);
+											if (autoRoles[r])
+											{
+												var att = autoRoles[r].attributes;
+												if (att.BG)
+												{
+													bgd = true;
+												}
+											}
+										}
+										var jailed = players[playernames[t[0]]].chats.jailed;
+										if (t[0] != num && !jailed && !bgd)
 										{
 											visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+										}
+										else if (jailed)
+										{
+											for (w in players)
+											{
+												if (players[w].chats.jailor)
+												{
+													visitors.push(players[w].name);
+												}
+											}
 										}
 										for (j in visitors)
 										{
@@ -1019,7 +1066,7 @@ module.exports = {
 													addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
 													addSuggestedAction('Kill',visitors[j]);
 												}
-												addSuggestedMessage('You mauled someone.',num);
+												addSuggestedMessage('You attacked someone.',num);
 												addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 											}
 										}
