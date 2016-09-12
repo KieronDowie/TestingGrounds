@@ -587,7 +587,7 @@ socket.on(Type.SETMOD,function(val)
 			else
 			{
 				var role = roles[i].value==''?'NoRole':roles[i].value;
-				var info = '<div><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div><div>'+role+'</div>';
+				var info = $('<div class="info"><span class="num">'+num+'</span><span class="name">'+users[i]+'</span></div><div>'+role+'</div>');
 				$($('#userlist li')[i]).addClass('deadplayer');
 			}
 			$('#userlist li')[i].innerHTML='';
@@ -637,7 +637,7 @@ socket.on(Type.ROOMLIST,function(list)
 			if (list[i].role)
 			{	
 				//Player is dead.
-				$('#userlist').append('<li class="deadplayer"><div><span class="num">'+num+'</span></div>'+name+'<div><span>'+list[i].role+'</span></div></li>');
+				$('#userlist').append('<li class="deadplayer"><div class="info"><span class="num">'+num+'</span>'+name+'</div><div><span>'+list[i].role+'</span></div></li>');
 			}
 			else
 			{
