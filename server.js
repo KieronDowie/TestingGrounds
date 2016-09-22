@@ -2562,7 +2562,12 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
-					case 't': case 'target':
+					case 't': case 'target': case 'freetarget': case 'ft':
+						var free = false;
+						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
+						{
+							free = true;
+						}
 						if (mod == this.s.id)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
@@ -2600,38 +2605,49 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								for (i in args)
+								//Check if the targetting is valid
+								var vt = gm.validTarget(args, this.role, players, playernames, playernums, this);
+								if (vt == 'notfound' || vt == 'ok' || free)
 								{
-									if (args[i] != '')
+									for (i in args)
 									{
-										if (isNaN(args[i]))
+										if (args[i] != '')
 										{
-											var p = getPlayerByName(args[i]);
-										}
-										else
-										{
-											var p = getPlayerByNumber(parseInt(args[i]));															
-										}
-										if (p && p != -1)
-										{
-											if (p.s.id != mod)
+											if (isNaN(args[i]))
 											{
-												targets.push(p.name);	
+												var p = getPlayerByName(args[i]);
 											}
 											else
 											{
-												this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+												var p = getPlayerByNumber(parseInt(args[i]));															
+											}
+											if (p && p != -1)
+											{
+												if (p.s.id != mod)
+												{
+													targets.push(p.name);	
+												}
+												else
+												{
+													this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+													error = true;
+													break;
+												}
+											}
+											else
+											{
+												this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
 												error = true;
 												break;
 											}
 										}
-										else
-										{
-											this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
-											error = true;
-											break;
-										}
 									}
+								}
+								else
+								{
+									error = true;
+									var message = vt;
+									this.s.emit(Type.SYSTEM,message);
 								}
 							}
 							if (!error)

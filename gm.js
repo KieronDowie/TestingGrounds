@@ -31,8 +31,10 @@ var attributes = {
 	 DOUSE:'Douse the target.',
 	 IGNITE:'Ignite all doused targets.',
 	 MULTI:'Target two players.',
+	 FORCEDMULTI:'Has to target two players.',
 	 SELF:'Can target themself.',
 	 VEST:'Make yourself night immune.',
+	 NINJA:'Not spotted by WATCHES when visiting.',
 	 RBIMMUNE:'Cannot be roleblocked.',
 	 RBATTACK:'Attack the roleblocker.',
 	 RBHOME:'Stays home when roleblocked.',
@@ -65,6 +67,7 @@ var autoRoles =
 	'transporter': {
 		attributes: {
 			MULTI:attributes.MULTI,
+			FORCEDMULTI:attributes.FORCEDMULTI,
 			TRANSPORT:attributes.TRANSPORT,
 			RBIMMUNE:attributes.RBIMMUNE,
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
@@ -79,7 +82,9 @@ var autoRoles =
 			RBIMMUNE:attributes.RBIMMUNE,
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
 			SELF:attributes.SELF,
-			ALERT:attributes.ALERT},
+			ALERT:attributes.ALERT,
+			NINJA:attributes.NINJA
+			},
 		grouping:'C',
 		alignment:'town'
 	},
@@ -258,7 +263,9 @@ var autoRoles =
 	'witch': {
 		attributes:  {
 			CONTROL:attributes.CONTROL,
-			CONTROLIMMUNE:attributes.CONTROLIMMUNE
+			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
+			MULTI:attributes.MULTI,
+			FORCEDMULTI:attributes.MULTI
 		},
 		grouping:'I',
 		alignment:'neutral',
@@ -268,6 +275,7 @@ var autoRoles =
 		attributes:  {
 			VEST:attributes.VEST,
 			SELF:attributes.SELF,
+			NINJA:attributes.NINJA
 		},
 		grouping:'B',
 		alignment:'neutral'
@@ -339,6 +347,59 @@ module.exports = {
 	},
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
+	},
+	validTarget:function(arr, role, players, playernames, playernums, self){
+		var auto = autoRoles[role];
+		if (auto)
+		{
+			//Check number of targets
+			if (arr.length > 1)
+			{
+				if (auto.attributes.MULTI)
+				{
+					
+				}
+				else
+				{
+					return 'You can only visit one person at night.';
+				}
+			}
+			else
+			{
+				if (auto.attributes.FORCEDMULTI) //Has to visit two people.
+				{
+					return 'You need to visit 2 people with this role. Use /target person1 person2.';
+				}
+			}
+			var selfVisiting = false;
+			for (i in arr)
+			{
+				if (!isNaN(arr[i]))
+				{
+					arr[i] = players[playernums[arr[i]]].name;
+				}
+				if (arr[i] == self.name)
+				{
+					selfVisiting = true;
+				}
+			}
+			if (selfVisiting)
+			{
+				if (auto.attributes.SELF)
+				{
+					
+				}
+				else
+				{
+					return 'You tried to self target, but your role cannot self target.';
+				}
+			}
+		} 
+		else
+		{
+			return 'notfound';
+		}
+		return 'ok';
 	},
 	setDay:function(num){
 		daynumber = num;
@@ -882,6 +943,19 @@ module.exports = {
 										var name = t[0];
 										var visitors = getPeopleTargetting(name);
 										visitors.splice(visitors.indexOf(num),1); //Remove the person watching from the list.
+										//Remove ninja roles
+										for (p in visitors)
+										{
+											var player = players[playernames[visitors[p]]];
+											var autorole = autoRoles[player.role];
+											if (autorole)
+											{
+												if (autorole.attributes.NINJA)
+												{
+													visitors.splice(p,1);
+												}
+											}
+										}
 										//Grammar
 										var str = this.grammarList(visitors);
 										if (str != '')
@@ -1173,7 +1247,7 @@ function getRole(person)
 }
 function getPeopleTargetting(name)
 {
-	return (beingTargetted[name]);
+	return (beingTargetted[name].slice(0,beingTargetted[name].length));
 }
 function getRoleGroup(role)
 {
