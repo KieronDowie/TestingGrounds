@@ -738,10 +738,19 @@ module.exports = {
 												}
 												//Remove target
 												targets[t[0]][1] = [];
-												addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
 												addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
-												addSuggestedAction('Kill',num);
-												addSuggestedMessage('They were killed by a [sk]Serial Killer[/sk]','<All>');
+												addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
+												if (isHealed(num,targets))
+												{
+													var doc = isHealed(num,targets);
+													addSuggestedMessage('You were attacked but someone nursed you back to health!',num);
+													addSuggestedMessage('Your target was attacked last night.',doc);
+												}
+												else
+												{
+													addSuggestedAction('Kill',num);
+													addSuggestedMessage('They were killed by a [sk]Serial Killer[/sk]','<All>');
+												}
 											}
 											else if (autoRoles[personRole] && autoRoles[personRole].attributes.RBHOME && daynumber % 2 == 0)
 											{
@@ -1335,7 +1344,7 @@ function isDying(name,targets)
 		{
 			if (Object.keys(targets[t[1][j]][1]).length != 0)//If they are alerting.
 			{
-				if (!isHealed()) //If a doc isn't healing this person.
+				if (!isHealed(name,targets)) //If a doc isn't healing this person.
 				{
 					return true;
 				}
@@ -1349,7 +1358,7 @@ function isLegalTarget(name,roleAttributes,targets)
 	//Exception variable for witches and transporters.
 	return (targets[name][1] != name || roleAttributes.SELF || targets[name][3]);
 }
-function isHealed(name)
+function isHealed(name,targets)
 {
 	var peopleTargetting = getPeopleTargetting(name);
 	for (j in peopleTargetting) //Loop through and check for heals
@@ -1360,7 +1369,7 @@ function isHealed(name)
 		if (attrib.HEAL)
 		{
 			//Person was healed
-			return true;
+			return peopleTargetting[j];
 		}
 	}
 	return false;

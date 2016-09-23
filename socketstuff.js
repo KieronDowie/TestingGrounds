@@ -1072,7 +1072,6 @@ socket.on(Type.SUGGESTIONS,function(results){
 		{
 			var to = results.messages[i][0];
 			//Remove the <> surrounding special names like <All>
-			console.log(results.messages[i]);
 			if (to[0] == '<')
 			{
 				to = to.substring(1,to.length-1);
@@ -1103,7 +1102,6 @@ socket.on(Type.SUGGESTIONS,function(results){
 				edit.focus();
 				//Keep the size
 				var tr = parent.parent();
-				console.log(tr.children()[0]);
 				parent.height($(tr.children()[0]).height());
 			};
 			var revert = function(e)
