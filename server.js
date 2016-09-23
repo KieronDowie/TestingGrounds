@@ -1876,7 +1876,7 @@ function Player(socket,name,ip)
 					}
 				}
 			},
-			vote:function(name){
+			vote:function(name, forced){
 				if (phase != Phase.VOTING)
 				{
 					socket.emit(Type.SYSTEM,'You can only vote in the voting phase.');
@@ -1890,7 +1890,7 @@ function Player(socket,name,ip)
 					var player = getPlayerByName(name);
 					if (player)
 					{
-						if (name == this.name)
+						if (name == this.name && !forced)
 						{
 							socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
 						}
@@ -2486,6 +2486,83 @@ function Player(socket,name,ip)
 								var sides = c[1] ? c[1] : 6; //Specified value or 6.
 								var randomNumber = Math.floor( Math.random()*sides)+1;
 								this.s.emit(Type.SYSTEM,'Dice roll ('+sides+' sides): '+randomNumber);
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
+					case 'forcevote':
+						if (mod == this.s.id)
+						{
+							if (phase== Phase.VOTING)
+							{
+								if (c.length == 3)
+								{
+									var error = false;
+									var one = c[1];
+									var two = c[2];
+									if (!isNaN(one))
+									{
+										p = getPlayerByNumber(one);
+										if (p == -1)
+										{
+											this.s.emit(Type.SYSTEM,one+' is not valid player.');
+											error = true;
+										}
+										else
+										{
+											one = p.name;
+										}
+									}
+									if (!isNaN(two))
+									{
+										p = getPlayerByNumber(two);
+										if (p == -1)
+										{
+											this.s.emit(Type.SYSTEM,two+' is not a valid player.');
+											error = true;
+										}
+										else
+										{
+											two = p.name;
+										}
+									}
+									//Namecheck
+									var p = getPlayerByName(one);
+									var p2 = getPlayerByName(two);
+									if (p)
+									{
+										
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'\''+one+'\' is not a player.');
+										error = true;
+									}
+									if (p2)
+									{
+										
+									}
+									else
+									{
+										this.s.emit(Type.SYSTEM,'\''+two+'\' is not a player.');
+										error = true;
+									}
+									if (!error)
+									{
+										players[playernames[one]].vote(two, true);
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'The syntax of this command is /forcevote person1 person2.');
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'You cannot use this command outside of the voting phase.');
 							}
 						}
 						else
