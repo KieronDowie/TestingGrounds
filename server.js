@@ -34,7 +34,10 @@ var commandList = {
 		'roll':'Roll a dice. Usage /roll or /roll sides',
 		'msg':'Send a message to a player. <span class="mod">From</span> <b>Mod:</b> <span class="mod">This looks like this</span>. Usage: /msg name message',
 		'sys':'Send a system message to a player. <b>This looks like this</b>',
-		'clean':'Set a player\'s will to not show upon death.'
+		'clean':'Set a player\'s will to not show upon death.',
+		'forcevote':'Forces a player to vote for a particular person. Usage: /forcevote person1 person2',
+		'lockvote':'Locks the player\'s vote. They will be unable to vote or cancel their vote after you use this command, except through /forcevote. Usage: /lockvote person',
+		'unlockvote':'Unlocks the player\'s vote. They will be able to vote and cancel their vote once more after you use this command. /unlockvote person'
 	},
 	dev:{
 		'dev':'Activate developer powers.',
@@ -1826,6 +1829,7 @@ function Player(socket,name,ip)
 			role:'NoRole',
 			alive:true,
 			canSeance:false,
+			votelock:false,
 			mayor:undefined,
 			blackmailed:false,
 			hearwhispers:false,
@@ -1890,17 +1894,21 @@ function Player(socket,name,ip)
 					var player = getPlayerByName(name);
 					if (player)
 					{
-						if (name == this.name && !forced)
+						if (this.votelock && !forced)
 						{
-							socket.emit(Type.SYSTEM,'You cannot vote for yourself.');
+							this.s.emit(Type.SYSTEM,'Your vote has been locked by the mod. You cannot vote or cancel your vote until it is unlocked.');
+						}
+						else if (name == this.name && !forced)
+						{
+							this.s.emit(Type.SYSTEM,'You cannot vote for yourself.');
 						}
 						else if (name == players[mod].name)
 						{
-							socket.emit(Type.SYSTEM,'You cannot vote for the mod.');
+							this.s.emit(Type.SYSTEM,'You cannot vote for the mod.');
 						}
 						else if (this.s.id == mod)
 						{
-							socket.emit(Type.SYSTEM,'The mod cannot vote.');
+							this.s.emit(Type.SYSTEM,'The mod cannot vote.');
 						}
 						else if (this.votingFor == player.s.id) //Same person, cancel vote.
 						{
@@ -2493,6 +2501,157 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
 						}
 					break;
+					case 'settrial':
+						if (mod == this.s.id)
+						{
+							if (c.length == 2)
+							{
+								var error = false;
+								var one = c[1];
+								if (!isNaN(one))
+								{
+									p = getPlayerByNumber(one);
+									if (p == -1)
+									{
+										this.s.emit(Type.SYSTEM,one+' is not a valid player.');
+										error = true;
+									}
+									else
+									{
+										one = p.name;
+									}
+								}
+								var p = getPlayerByName(one);
+								if (p)
+								{
+									
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'\''+one+'\' is not a player.');
+									error = true;
+								}
+								if (!error)
+								{
+									io.emit(Type.HIGHLIGHT,"The mod has put "+one+" on trial.");
+									setPhase(Phase.TRIAL);
+									ontrial = p.s.id;
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /settrial person.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
+					case 'lockvote':
+						if (mod == this.s.id)
+						{
+							if (c.length == 2)
+							{
+								var error = false;
+								var one = c[1];
+								if (!isNaN(one))
+								{
+									p = getPlayerByNumber(one);
+									if (p == -1)
+									{
+										this.s.emit(Type.SYSTEM,one+' is not a valid player.');
+										error = true;
+									}
+									else
+									{
+										one = p.name;
+									}
+								}
+								var p = getPlayerByName(one);
+								if (p)
+								{
+									
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'\''+one+'\' is not a player.');
+									error = true;
+								}
+								if (!error && players[playernames[one]].votelock)
+								{
+									error = true;
+									this.s.emit(Type.SYSTEM,one+'\'s vote is already locked.');
+								}
+								if (!error)
+								{
+									players[playernames[one]].s.emit(Type.SYSTEM,'Your vote has been locked.');
+									players[playernames[one]].votelock = true;
+									this.s.emit(Type.SYSTEM,one+"\'s vote is now locked.");
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /lockvote person.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
+					case 'unlockvote':
+						if (mod == this.s.id)
+							{
+							if (c.length == 2)
+							{
+								var error = false;
+								var one = c[1];
+								if (!isNaN(one))
+								{
+									p = getPlayerByNumber(one);
+									if (p == -1)
+									{
+										this.s.emit(Type.SYSTEM,one+' is not a valid player.');
+										error = true;
+									}
+									else
+									{
+										one = p.name;
+									}
+								}
+								var p = getPlayerByName(one);
+								if (p)
+								{
+									
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'\''+one+'\' is not a player.');
+									error = true;
+								}
+								if (!error && !players[playernames[one]].votelock)
+								{
+									error = true;
+									this.s.emit(Type.SYSTEM,one+'\'s vote is not locked.');
+								}
+								if (!error)
+								{
+									players[playernames[one]].s.emit(Type.SYSTEM,'Your vote has been unlocked.');
+									players[playernames[one]].votelock = false;
+									this.s.emit(Type.SYSTEM,one+"\'s vote is now unlocked.");
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is /unlockvote person.');
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
 					case 'forcevote':
 						if (mod == this.s.id)
 						{
@@ -2508,8 +2667,11 @@ function Player(socket,name,ip)
 										p = getPlayerByNumber(one);
 										if (p == -1)
 										{
-											this.s.emit(Type.SYSTEM,one+' is not valid player.');
-											error = true;
+											if (!error)
+											{
+												this.s.emit(Type.SYSTEM,one+' is not a valid player.');
+												error = true;
+											}
 										}
 										else
 										{
@@ -2521,8 +2683,11 @@ function Player(socket,name,ip)
 										p = getPlayerByNumber(two);
 										if (p == -1)
 										{
-											this.s.emit(Type.SYSTEM,two+' is not a valid player.');
-											error = true;
+											if (!error)
+											{
+												this.s.emit(Type.SYSTEM,two+' is not a valid player.');
+												error = true;
+											}
 										}
 										else
 										{
@@ -2552,6 +2717,7 @@ function Player(socket,name,ip)
 									}
 									if (!error)
 									{
+										players[playernames[one]].s.emit(Type.SYSTEM,'The mod has forced you to vote for '+two+'.');
 										players[playernames[one]].vote(two, true);
 									}
 								}
