@@ -1092,56 +1092,66 @@ module.exports = {
 									}
 									else if (roleAttributes.MAUL)
 									{
-										if (targets[num][1].length > 0)
+										if (daynumber % 2 == 0 && fromphase == 8 /*Night*/)
 										{
-											var t = targets[num][1];
-										}
-										else
-										{
-											var t = [num];
-										}
-										var visitors = getPeopleTargetting(t[0]);
-										var bgd= false;
-										var rbd = false;
-										for (v in visitors)
-										{
-											var r = getRole(targets[visitors[v]]);
-											if (autoRoles[r])
+											if (targets[num][1].length > 0)
 											{
-												var att = autoRoles[r].attributes;
-												if (att.BG)
+												var t = targets[num][1];
+											}
+											else
+											{
+												var t = [num];
+											}
+											var visitors = getPeopleTargetting(t[0]);
+											var bgd= false;
+											var rbd = false;
+											for (v in visitors)
+											{
+												var r = getRole(targets[visitors[v]]);
+												if (autoRoles[r])
 												{
-													bgd = true;
+													var att = autoRoles[r].attributes;
+													if (att.BG)
+													{
+														bgd = true;
+													}
 												}
 											}
-										}
-										var jailed = players[playernames[t[0]]].chats.jailed;
-										if (t[0] != num && !jailed && !bgd)
-										{
-											visitors.push(t[0]); //Person that ww is targetting gets mauled as well
-										}
-										else if (jailed)
-										{
-											for (w in players)
+											var jailed = players[playernames[t[0]]].chats.jailed;
+											if (t[0] != num && !jailed && !bgd)
 											{
-												if (players[w].chats.jailor)
+												visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+											}
+											else if (jailed)
+											{
+												for (w in players)
 												{
-													visitors.push(players[w].name);
+													if (players[w].chats.jailor)
+													{
+														visitors.push(players[w].name);
+													}
 												}
 											}
-										}
-										for (j in visitors)
-										{
-											if (visitors[j] != num)
+											for (j in visitors)
 											{
-												var success = true;
-												if (success)
+												if (visitors[j] != num)
 												{
-													addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
-													addSuggestedAction('Kill',visitors[j]);
+													var success = true;
+													//Check for doc heal
+													if (isHealed(visitors[j]))
+													{
+														//Successful heal!
+														addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
+														addSuggestedMessage('Your target was attacked last night.',num); //INPROGESS
+													}
+													if (success)
+													{
+														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
+														addSuggestedAction('Kill',visitors[j]);
+													}
+													addSuggestedMessage('You attacked someone.',num);
+													addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 												}
-												addSuggestedMessage('You attacked someone.',num);
-												addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 											}
 										}
 									}
@@ -1247,7 +1257,15 @@ function getRole(person)
 }
 function getPeopleTargetting(name)
 {
-	return (beingTargetted[name].slice(0,beingTargetted[name].length));
+	if (name)
+	{
+		return (beingTargetted[name].slice(0,beingTargetted[name].length));
+	}
+	else
+	{
+		console.log('ERROR: Undefined value passed to getPeopleTargetting.');
+		return undefined;
+	}
 }
 function getRoleGroup(role)
 {

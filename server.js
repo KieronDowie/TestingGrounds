@@ -1194,57 +1194,7 @@ io.on('connection', function(socket){
 	});
 	socket.on(Type.VERDICT,function(verdict)
 	{
-		if (phase == Phase.VERDICTS)
-		{
-			if (ontrial == socket.id)
-			{
-				socket.emit(Type.SYSTEM,'You cannot vote on your own trial.');
-			}
-			else if (!players[socket.id].alive)
-			{
-				socket.emit(Type.SYSTEM,'You need to be alive to vote.');
-			}
-			else
-			{
-				var name = players[socket.id].name;
-				if (verdict === true) //Inno
-				{
-					if (players[socket.id].verdict == 1) //Already inno, cancel
-					{
-						players[socket.id].verdict = 0;
-						io.emit(Type.VERDICT,name,2);
-					}
-					else if (players[socket.id].verdict == -1) //Guilty, change
-					{
-						players[socket.id].verdict = (players[socket.id].mayor)?3:1;
-						io.emit(Type.VERDICT,name,1);
-					}
-					else
-					{
-						players[socket.id].verdict = (players[socket.id].mayor)?3:1;;
-						io.emit(Type.VERDICT,name,0);
-					}
-				}
-				else if (verdict === false) //Guilty
-				{
-					if (players[socket.id].verdict == -1) //Already guilty, cancel
-					{
-						players[socket.id].verdict = 0;
-						io.emit(Type.VERDICT,name,2);
-					}
-					else if (players[socket.id].verdict == 1) //Inno, change
-					{
-						players[socket.id].verdict = (players[socket.id].mayor)?-3:-1;;
-						io.emit(Type.VERDICT,name,1);
-					}
-					else
-					{
-						players[socket.id].verdict = (players[socket.id].mayor)?-3:-1;;
-						io.emit(Type.VERDICT,name,0);
-					}
-				}
-			}
-		}
+		players[socket.id].castVerdict(verdict);
 	});
 	//socket.on(TYPE.ROLELIST, function()
 	//{
@@ -1880,6 +1830,61 @@ function Player(socket,name,ip)
 					}
 				}
 			},
+			castVerdict:function(verdict, forced)
+			{
+				if (ontrial == this.s.id)
+				{
+					this.s.emit(Type.SYSTEM,'You cannot vote on your own trial.');
+				}
+				else if (!this.alive)
+				{
+					this.s.emit(Type.SYSTEM,'You need to be alive to vote.');
+				}
+				else if (this.votelock && !forced)
+				{
+					this.s.emit(Type.SYSTEM,'You cannot cast a verdict while votelocked.');
+				}
+				else
+				{
+					var name = this.name;
+					if (verdict === true) //Inno
+					{
+						if (this.verdict == 1) //Already inno, cancel
+						{
+							this.verdict = 0;
+							io.emit(Type.VERDICT,name,2);
+						}
+						else if (this.verdict == -1) //Guilty, change
+						{
+							this.verdict = (this.mayor)?3:1;
+							io.emit(Type.VERDICT,name,1);
+						}
+						else
+						{
+							this.verdict = (this.mayor)?3:1;;
+							io.emit(Type.VERDICT,name,0);
+						}
+					}
+					else if (verdict === false) //Guilty
+					{
+						if (this.verdict == -1) //Already guilty, cancel
+						{
+							this.verdict = 0;
+							io.emit(Type.VERDICT,name,2);
+						}
+						else if (this.verdict == 1) //Inno, change
+						{
+							this.verdict = (this.mayor)?-3:-1;;
+							io.emit(Type.VERDICT,name,1);
+						}
+						else
+						{
+							this.verdict = (this.mayor)?-3:-1;;
+							io.emit(Type.VERDICT,name,0);
+						}
+					}
+				}
+			},
 			vote:function(name, forced){
 				if (phase != Phase.VOTING)
 				{
@@ -2494,6 +2499,62 @@ function Player(socket,name,ip)
 								var sides = c[1] ? c[1] : 6; //Specified value or 6.
 								var randomNumber = Math.floor( Math.random()*sides)+1;
 								this.s.emit(Type.SYSTEM,'Dice roll ('+sides+' sides): '+randomNumber);
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You need to be the mod to use this command.');
+						}
+					break;
+					case 'forceverdict':
+						if (mod == this.s.id)
+						{
+							if (phase == Phase.VERDICTS)
+							{
+								if (c.length == 3)
+								{
+									var one = c[1];
+									if (!isNaN(one))
+									{
+										p = getPlayerByNumber(one);
+										if (p == -1)
+										{
+											if (!error)
+											{
+												this.s.emit(Type.SYSTEM,one+' is not a valid player.');
+												error = true;
+											}
+										}
+										else
+										{
+											one = p.name;
+										}
+									}
+									if (!error)
+									{
+										if (c[2] == 'guilty' || c[2] == 'g')
+										{
+											p.castVerdict(false,true);
+										}
+										else if (c[2] == 'innocent' || c[2] == 'inno' || c[2] == 'i')
+										{
+											p.castVerdict(true,true);
+										}
+										else
+										{
+											this.s.emit(Type.SYSTEM,'\''+c[2]+'\' is not a valid option.');
+											error = true;
+										}
+									}
+								}
+								else
+								{
+									this.s.emit(Type.SYSTEM,'The syntax of this command is /forceverdict player [guilty/innocent]');
+								}
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'This command can only be used during the verdicts phase.');
 							}
 						}
 						else
