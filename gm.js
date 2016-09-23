@@ -33,6 +33,7 @@ var attributes = {
 	 MULTI:'Target two players.',
 	 FORCEDMULTI:'Has to target two players.',
 	 SELF:'Can target themself.',
+	 NOVISIT:'Can only target themself.',
 	 VEST:'Make yourself night immune.',
 	 NINJA:'Not spotted by WATCHES when visiting.',
 	 RBIMMUNE:'Cannot be roleblocked.',
@@ -83,7 +84,8 @@ var autoRoles =
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
 			SELF:attributes.SELF,
 			ALERT:attributes.ALERT,
-			NINJA:attributes.NINJA
+			NINJA:attributes.NINJA,
+			NOVISIT:attributes.NOVISIT
 			},
 		grouping:'C',
 		alignment:'town'
@@ -275,7 +277,8 @@ var autoRoles =
 		attributes:  {
 			VEST:attributes.VEST,
 			SELF:attributes.SELF,
-			NINJA:attributes.NINJA
+			NINJA:attributes.NINJA,
+			NOVISIT:attributes.NOVISIT
 		},
 		grouping:'B',
 		alignment:'neutral'
@@ -392,6 +395,13 @@ module.exports = {
 				else
 				{
 					return 'You tried to self target, but your role cannot self target.';
+				}
+			}
+			else
+			{
+				if (auto.attributes.NOVISIT)
+				{
+					return 'You tried to target another player, but your role can only self target.';
 				}
 			}
 		} 
@@ -567,6 +577,11 @@ module.exports = {
 									displayTargets[num][2] = {auto:false,reason:'Targetting a living player when not allowed.'}; //Set the role to not automated.
 									addSuggestedMessage('Your night action was disregarded because you targetted a living player, when your role cannot target the living.',num);
 								}
+							}
+							if (roleAttributes.NOVISIT && targets[num][1][0] != num)
+							{
+								valid = false;
+								addSuggestedMessage('Your night action was disregarded because you targetted another player, when your role can only self target.',num);
 							}
 							if (valid)
 							{

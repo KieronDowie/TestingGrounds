@@ -2911,6 +2911,7 @@ function Player(socket,name,ip)
 							{
 								//Check if the targetting is valid
 								var vt = gm.validTarget(args, this.role, players, playernames, playernums, this);
+								console.log(vt);
 								if (vt == 'notfound' || vt == 'ok' || free)
 								{
 									for (i in args)
