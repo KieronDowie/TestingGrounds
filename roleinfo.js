@@ -438,7 +438,7 @@ var roles=[
 					goal:"Remember who you were and complete that roles objectives.",
 					color:"cyan"
 			},
-			/*ROLEIDEAAVENGER*/
+			/*ROLEIDEAAVENGER
 			{      
 				rolename:"avenger",
 				alignment:"neutral benign",
@@ -449,7 +449,7 @@ var roles=[
 				goal:"Take vengeance for someone and complete their objective.",
 				color:"#408080",
 				custom:true
-			},
+			},*/
 			/*ROLEIDEABURGLAR*/
 			{      
 				rolename:"thief",
