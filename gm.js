@@ -1162,19 +1162,18 @@ module.exports = {
 												{
 													var success = true;
 													//Check for doc heal
-													if (isHealed(visitors[j]))
+													if (isHealed(visitors[j],targets))
 													{
 														//Successful heal!
-														addSuggestedMessage('You were attacked but someone nursed you back to health!',t[0]);
-														addSuggestedMessage('Your target was attacked last night.',num); //INPROGESS
+														success = false;
 													}
 													if (success)
 													{
 														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
 														addSuggestedAction('Kill',visitors[j]);
+														addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 													}
 													addSuggestedMessage('You attacked someone.',num);
-													addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 												}
 											}
 										}
@@ -1283,7 +1282,14 @@ function getPeopleTargetting(name)
 {
 	if (name)
 	{
-		return (beingTargetted[name].slice(0,beingTargetted[name].length));
+		if (beingTargetted[name])
+		{
+			return (beingTargetted[name].slice(0,beingTargetted[name].length));
+		}
+		else
+		{
+			return [];
+		}
 	}
 	else
 	{
