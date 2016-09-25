@@ -1065,6 +1065,7 @@ module.exports = {
 										addSuggestedAction('Set Role',num+"/"+p.role);
 										var a = AorAn(p.role);
 										addSuggestedMessage('An Amnesiac has remembered that they were '+a+' '+p.role+".",'<All>');
+										addSuggestedMessage('You remembered what you were!',num);
 									}
 									else if (roleAttributes.REVIVE)
 									{
