@@ -172,7 +172,7 @@ var roles=[
 				rolename:"vigilante",
 				alignment:"town killing",
 				abilities:'Choose to take justice into your own hands and shoot someone.',
-				attributes:['If you shoot another Town member you will commit no longer be able to shoot.',
+				attributes:['If you shoot another Town member you will no longer be able to shoot.',
 				'You can only shoot your gun 3 times.'],
 				goal:towngoal,
 				color:towncolor
@@ -442,7 +442,7 @@ var roles=[
 								'You can not choose the same target twice in a row',
 								'You are immune to witches'],
 					goal:"Survive to see the Town lose the game.",
-					color:"purple",
+					color:"#BF80FF",
 					custom:true
 			},
 			/*ROLEIDEANECRO*/
