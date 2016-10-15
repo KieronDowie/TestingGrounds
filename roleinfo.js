@@ -182,7 +182,7 @@ var roles=[
 				attributes:['If you shoot another Town member you will no longer be able to shoot.',
 				'You can only shoot your gun 3 times.'],
 				goal:towngoal,
-				color:towncolor
+				color:towncolor,
 				custom:true
 			},
 			{      
