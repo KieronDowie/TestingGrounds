@@ -176,6 +176,16 @@ var roles=[
 				color:towncolor
 			},
 			{      
+				rolename:"vig",
+				alignment:"town killing",
+				abilities:'Choose to take justice into your own hands and shoot someone.',
+				attributes:['If you shoot another Town member you will no longer be able to shoot.',
+				'You can only shoot your gun 3 times.'],
+				goal:towngoal,
+				color:towncolor
+				custom:true
+			},
+			{      
 				rolename:"veteran",
 				alignment:"town killing",
 				abilities:'Decide if you will go on alert.',
