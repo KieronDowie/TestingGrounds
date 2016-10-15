@@ -439,7 +439,7 @@ var roles=[
 					attributes:['You may target two people.',
 								'Everything that happens to one target will also happen to the other.',
 								'You can choose yourself.',
-								'You can not choose the same target twice in a row'
+								'You can not choose the same target twice in a row',
 								'You are immune to witches'],
 					goal:"Survive to see the Town lose the game.",
 					color:"purple",
