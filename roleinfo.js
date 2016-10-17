@@ -968,7 +968,7 @@ module.exports = {
         },
         setCustomRoles:function(bool){
 			customRolesRollable = bool;
-		}
+		},
 	getRolenames:function()
 	{
 		var roleNames = '';
