@@ -1097,7 +1097,12 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
+							case 'jailor':
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
+								}
+							break;
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
