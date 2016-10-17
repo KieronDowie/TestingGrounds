@@ -3192,7 +3192,7 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'Sorry! Please keep your hugs to pregame.');
 						}
 					break;
-					case 'spectate':
+					/*case 'spectate':
 						if (mod == this.s.id)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
@@ -3219,7 +3219,7 @@ function Player(socket,name,ip)
 								this.s.emit(Type.SYSTEM,'You can only leave spectator in pregame.');
 							}
 						}
-					break;
+					break;*/
 					case 'role':
 						if (c.length == 1)
 						{
