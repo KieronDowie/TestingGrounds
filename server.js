@@ -2892,9 +2892,9 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
 						}
-						else if (this.mayor)
+						else if (this.jailor)
 						{
-							this.s.emit(Type.SYSTEM,'You have already revealed yourself as the Mayor.');
+							this.s.emit(Type.SYSTEM,'You have already revealed yourself as the Jailor.');
 						}
 						else if (!this.alive)
 						{
@@ -2903,7 +2903,7 @@ function Player(socket,name,ip)
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 						{
 							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Jailor!');
-							this.mayor = true;
+							this.jailor = true;
 							if (this.votingFor)
 							{
 								players[this.votingFor].votes+=2;
