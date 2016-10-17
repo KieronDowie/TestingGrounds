@@ -2871,13 +2871,13 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
 						}
-						else if (this.mayor)
-						{
-							this.s.emit(Type.SYSTEM,'You have already revealed yourself as the Jailor.');
-						}
 						else if (!this.alive)
 						{
-							this.s.emit(Type.SYSTEM,'You must be alive to reveal.');
+							this.s.emit(Type.SYSTEM,'You must be alive to jail.');
+						}
+						else if (mod == this.s.id)
+						{
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 						{
