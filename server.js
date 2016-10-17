@@ -2889,12 +2889,32 @@ function Player(socket,name,ip)
 								trialCheck(players[this.votingFor]);
 							}
 						}
-						else
+						else if
 						{
 							this.s.emit(Type.SYSTEM,'You can only jail during the day.');
 						}
+						else
+						{	
+							var args = c.slice(1,c.length);
+							var targets = [];
+							var error = false;
+							if (args.length == 0 || args[0] == '0')
+							{
+								var actions = gm.getActions(this.name);
+								if (actions && actions.length > 0)
+								{
+									//This is a cancel
+									
+								}
+								else
+								{
+									error = true;
+									this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
+								}
+							}
+						}
 					break;
-					case 't': case 'target': case 'freetarget': case 'ft':
+					/*case 't': case 'target': case 'freetarget': case 'ft':
 						var free = false;
 						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
 						{
@@ -2987,7 +3007,7 @@ function Player(socket,name,ip)
 								this.target(targets);
 							}
 						}
-					break;
+					break;*/
 					case 'exe': case 'execute': case 'x':
 						if (!this.chats.jailor)
 						{
