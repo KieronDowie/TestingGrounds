@@ -1796,6 +1796,7 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
+			spectate:0;
 			jailorcom:false,
 			blackmailed:false,
 			hearwhispers:false,
@@ -3189,6 +3190,34 @@ function Player(socket,name,ip)
 						else
 						{
 							this.s.emit(Type.SYSTEM,'Sorry! Please keep your hugs to pregame.');
+						}
+					break;
+					case 'spectate'
+						if (mod == this.s.id)
+						{
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
+						}
+						else if (this.specate === 0)
+						{
+							this.spectate = 1;								
+							this.s.emit(Type.SYSTEM,'Please do confirm you want to spectate by doing /spectate again. And be aware: You can only leave specator in pregame.');
+						}
+						else if (this.specate === 1)
+						{
+							this.spectate = 2;	
+							this.s.emit(Type.SYSTEM,'You are now spectating.');
+						}
+						else if (this.specate === 2)
+						{
+							if (phase == Phase.PREGAME)
+							{					
+								this.spectate = 2;	
+								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'You can only leave spectator in pregame.');
+							}
 						}
 					break;
 					case 'role':
