@@ -3267,6 +3267,11 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
 						}
 					break;
+					case 'roles':
+					{
+						this.s.emit(Type.SYSTEM, roles.getRolenames());
+					}
+					break;
 					case 'ban':
 					if (c.length > 2)
 						{
