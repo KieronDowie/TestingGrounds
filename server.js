@@ -2912,6 +2912,57 @@ function Player(socket,name,ip)
 									this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
 								}
 							}
+							else
+							{
+								//Check if the targetting is valid
+								var vt = gm.validTarget(args, this.role.toLowerCase(), players, playernames, playernums, this);
+								if (vt == 'notfound' || vt == 'ok' || free)
+								{
+									for (i in args)
+									{
+										if (args[i] != '')
+										{
+											if (isNaN(args[i]))
+											{
+												var p = getPlayerByName(args[i]);
+											}
+											else
+											{
+												var p = getPlayerByNumber(parseInt(args[i]));															
+											}
+											if (p && p != -1)
+											{
+												if (p.s.id != mod)
+												{
+													targets.push(p.name);	
+												}
+												else
+												{
+													this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+													error = true;
+													break;
+												}
+											}
+											else
+											{
+												this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
+												error = true;
+												break;
+											}
+										}
+									}
+								}
+								else
+								{
+									error = true;
+									var message = vt;
+									this.s.emit(Type.SYSTEM,message);
+								}
+							}
+							if (!error)
+							{
+								this.target(targets);
+							}
 						}
 					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
