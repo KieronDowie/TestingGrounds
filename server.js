@@ -1098,7 +1098,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
+							/*case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;*/
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
@@ -1111,7 +1111,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are no longer the jailor.'; break;
+							/*case 'jailor': notify = 'You are no longer the jailor.'; break;*/
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
@@ -1146,7 +1146,25 @@ io.on('connection', function(socket){
 									player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
 								}
 							}
-						break;				
+						break;
+						case 'jailor': 
+							if (player.jailor === undefined)
+							{
+								player.mayor = true; //False, meaning not revealed.
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /jail [target] to jail. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
+								}
+							}
+							else
+							{
+								player.mayor = undefined; //Undefined, meaning not mayor.
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are no longer the Jailor.');
+								}
+							}
+						break;						
 						case 'spy': 
 							player.hearwhispers = !player.hearwhispers;
 							if (!players[socket.id].silenced)
