@@ -8,7 +8,7 @@ var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
-var player.jailorcom = false;
+var jailorcom = false;
 var commandList = {
 	all:{
 		'help' : 'Displays this message.',
@@ -1796,6 +1796,7 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
+			jailorcom:false,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
