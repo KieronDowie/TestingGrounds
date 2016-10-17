@@ -627,21 +627,18 @@ header ul li span
 .willbutton
 {
 	height:2em;
-	width:2em;
+	width:3em;
+	text-align:center;
+	border: 1px solid black;
 	float:right;
+	background: #8B6914;
+	color: white;
+	font-size:10px;
+	padding-top:8px;
+	margin-left:5px;
+	cursor:default;
 }
 .willbutton:hover
-{
-	background:#E1D45B;
-	color:black;
-}
-.deathnotebutton
-{
-	height:2em;
-	width:2em;
-	float:right;
-}
-.deathnotebutton:hover
 {
 	background:#E1D45B;
 	color:black;
