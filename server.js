@@ -2880,13 +2880,74 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You must be alive to jail.');
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
-						{
-							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Jailor!');
-							this.mayor = true;
-							if (this.votingFor)
+						{	
+							var args = c.slice(1,c.length);
+							var targets = [];
+							var error = false;
+							if (args.length == 0 || args[0] == '0')
 							{
-								players[this.votingFor].votes+=2;
-								trialCheck(players[this.votingFor]);
+								var actions = gm.getActions(this.name);
+								if (actions && actions.length > 0)
+								{
+									//This is a cancel
+									
+								}
+								else
+								{
+									error = true;
+									this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
+								}
+							}
+							else
+							{
+								//Check if the targetting is valid
+								var vt = gm.validTarget(args, this.role.toLowerCase(), players, playernames, playernums, this);
+								if (vt == 'notfound' || vt == 'ok' || free)
+								{
+									for (i in args)
+									{
+										if (args[i] != '')
+										{
+											if (isNaN(args[i]))
+											{
+												var p = getPlayerByName(args[i]);
+											}
+											else
+											{
+												var p = getPlayerByNumber(parseInt(args[i]));															
+											}
+											if (p && p != -1)
+											{
+												if (p.s.id != mod)
+												{
+													targets.push(p.name);	
+												}
+												else
+												{
+													this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+													error = true;
+													break;
+												}
+											}
+											else
+											{
+												this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
+												error = true;
+												break;
+											}
+										}
+									}
+								}
+								else
+								{
+									error = true;
+									var message = vt;
+									this.s.emit(Type.SYSTEM,message);
+								}
+							}
+							if (!error)
+							{
+								this.target(targets);
 							}
 						}
 						else
