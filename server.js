@@ -2867,17 +2867,17 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'jail':
-						if (this.mayor === undefined)
+						if (mod == this.s.id)
+						{
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
+						}
+						else if (this.mayor === undefined)
 						{
 							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
 						}
 						else if (!this.alive)
 						{
 							this.s.emit(Type.SYSTEM,'You must be alive to jail.');
-						}
-						else if (mod == this.s.id)
-						{
-							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 						{
@@ -2891,7 +2891,7 @@ function Player(socket,name,ip)
 						}
 						else
 						{
-							this.s.emit(Type.SYSTEM,'You can only reveal as the Jailor during the day.');
+							this.s.emit(Type.SYSTEM,'You can only jail during the day.');
 						}
 					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
