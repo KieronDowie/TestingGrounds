@@ -679,7 +679,6 @@ io.on('connection', function(socket){
 				send.alive = players[socket.id].alive;
 				send.spy = players[socket.id].hearwhispers;
 				send.mayor = (players[socket.id].mayor !== undefined);
-				send.jailor = (players[socket.id].jailor !== undefined);
 				send.role = players[socket.id].role;
 				if (players[mod])
 				{
@@ -1150,7 +1149,7 @@ io.on('connection', function(socket){
 						case 'jailor': 
 							if (player.jailor === undefined)
 							{
-								player.mayor = true; //False, meaning not revealed.
+								player.jailor = true; //False, meaning not revealed.
 								if (!players[socket.id].silenced)
 								{
 									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /jail [target] to jail. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
@@ -1158,7 +1157,7 @@ io.on('connection', function(socket){
 							}
 							else
 							{
-								player.mayor = undefined; //Undefined, meaning not mayor.
+								player.jailor = undefined; //Undefined, meaning not mayor.
 								if (!players[socket.id].silenced)
 								{
 									player.s.emit(Type.SYSTEM,'You are no longer the Jailor.');
