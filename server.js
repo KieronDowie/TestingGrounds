@@ -1797,6 +1797,7 @@ function Player(socket,name,ip)
 			votelock:false,
 			mayor:undefined,
 			jailorcom:false,
+			afk:false,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -2889,7 +2890,7 @@ function Player(socket,name,ip)
 						}
 						else if (this.jailorcom === false)
 						{
-							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
+							this.s.emit(Type.SYSTEM,'Only the jailor can detain people.');
 						}
 						else if (!this.alive)
 						{
@@ -3498,26 +3499,41 @@ function Player(socket,name,ip)
 					break;
 					case 'afk':
 						if (phase == Phase.PREGAME)
-						{					
-							if (!this.silenced)
+						{	
+							if (this.afk === false)
 							{
-								io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
-							}		
-							//SetRole(this.name, 'afk')
-							var p = getPlayerByName(this.name)
-							p.setRole("afk")
+								player.afk = true;					
+								if (!this.silenced)
+								{
+									io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+								}		
+								//SetRole(this.name, 'afk')
+								var p = getPlayerByName(this.name)
+								p.setRole("afk")
+							}	
+							else if (this.jailorcom === true)
+							{
+								this.s.emit(Type.SYSTEM,'You are already afk.');
+							}
 						}
 					break;
 					case 'back':
 						if (phase == Phase.PREGAME)
-						{		
-							if (!this.silenced)
+						{	
+							if (this.afk === true)
 							{
-								io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
-							}					
-							//SetRole(this.name, '')
-							var p = getPlayerByName(this.name)
-							p.setRole("NoRole")
+								if (!this.silenced)
+								{
+									io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
+								}					
+								//SetRole(this.name, '')
+								var p = getPlayerByName(this.name)
+								p.setRole("NoRole")
+							}
+							else if (this.jailorcom === true)
+							{
+								this.s.emit(Type.SYSTEM,'You are not afk.');
+							}
 						}
 					break;
 					case 'rolelist': case 'rl':
