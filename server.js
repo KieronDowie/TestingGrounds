@@ -679,6 +679,7 @@ io.on('connection', function(socket){
 				send.alive = players[socket.id].alive;
 				send.spy = players[socket.id].hearwhispers;
 				send.mayor = (players[socket.id].mayor !== undefined);
+				send.jailor= (players[socket.id].jailor !== undefined);
 				send.role = players[socket.id].role;
 				if (players[mod])
 				{
@@ -1097,7 +1098,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
+							/*case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;*/
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
@@ -1110,7 +1111,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are no longer the jailor.'; break;
+							/*case 'jailor': notify = 'You are no longer the jailor.'; break;*/
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
@@ -1145,7 +1146,25 @@ io.on('connection', function(socket){
 									player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
 								}
 							}
-						break;				
+						break;
+						case 'jailor': 
+							if (player.jailor === undefined)
+							{
+								player.jailor = false; //False, meaning not revealed.
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /jail [target] to jail. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
+								}
+							}
+							else
+							{
+								player.jailor = undefined; //Undefined, meaning not jailor.
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are no longer the Jailor.');
+								}
+							}
+						break;	
 						case 'spy': 
 							player.hearwhispers = !player.hearwhispers;
 							if (!players[socket.id].silenced)
@@ -1754,6 +1773,7 @@ function sendPlayerInfo()
 		send.alive = players[j].alive;
 		send.spy = players[j].hearwhispers;
 		send.mayor = (players[j].mayor !== undefined);
+		send.jailor = (players[j].jailor !== undefined);
 		send.role = players[j].role;
 		
 		final.push(send);
@@ -1781,6 +1801,7 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
+			jailor:undefined
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -1791,7 +1812,7 @@ function Player(socket,name,ip)
 			chats:{
 				dead:false,
 				mafia:false,
-				jailor:false,
+				/*jailor:false,*/
 				jailed:false,
 				medium:false
 			},
@@ -2881,7 +2902,7 @@ function Player(socket,name,ip)
 						}
 						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 						{
-							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Mayor!');
+							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Jailor!');
 							this.mayor = true;
 							if (this.votingFor)
 							{
