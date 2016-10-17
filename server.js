@@ -8,7 +8,6 @@ var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
-var jailorcom = false;
 var commandList = {
 	all:{
 		'help' : 'Displays this message.',
@@ -1098,13 +1097,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor':
-								player.jailorcom = true;
-								if (!players[socket.id].silenced)
-								{
-									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /jail [target] to jail. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
-								}
-							break;
+							case 'jailor': notify = 'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.'; break;
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
@@ -1117,13 +1110,7 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor':
-								player.jailorcom = false;
-								if (!players[socket.id].silenced)
-								{
-									player.s.emit(Type.SYSTEM,'You are no longer the jailor.');
-								}
-							break;
+							case 'jailor': notify = 'You are no longer the jailor.'; break;
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
@@ -1158,8 +1145,7 @@ io.on('connection', function(socket){
 									player.s.emit(Type.SYSTEM,'You are no longer the Mayor.');
 								}
 							}
-						break;
-						break;						
+						break;				
 						case 'spy': 
 							player.hearwhispers = !player.hearwhispers;
 							if (!players[socket.id].silenced)
@@ -1768,7 +1754,6 @@ function sendPlayerInfo()
 		send.alive = players[j].alive;
 		send.spy = players[j].hearwhispers;
 		send.mayor = (players[j].mayor !== undefined);
-		send.jailor= (players[j].jailor !== undefined);
 		send.role = players[j].role;
 		
 		final.push(send);
@@ -1796,7 +1781,6 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
-			jailorcom:false,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -2882,95 +2866,6 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
-					case 'jail':
-						if (mod == this.s.id)
-						{
-							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
-						}
-						else if (this.jailorcom === false)
-						{
-							this.s.emit(Type.SYSTEM,'Only the jailor can detain people.');
-						}
-						else if (!this.alive)
-						{
-							this.s.emit(Type.SYSTEM,'You must be alive to jail.');
-						}
-						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
-						{	
-							var args = c.slice(1,c.length);
-							var targets = [];
-							var error = false;
-							if (args.length == 0 || args[0] == '0')
-							{
-								var actions = gm.getActions(this.name);
-								if (actions && actions.length > 0)
-								{
-									//This is a cancel
-									
-								}
-								else
-								{
-									error = true;
-									this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
-								}
-							}
-							else
-							{
-								//Check if the targetting is valid
-								var vt = gm.validTarget(args, this.role.toLowerCase(), players, playernames, playernums, this);
-								if (vt == 'notfound' || vt == 'ok' || free)
-								{
-									for (i in args)
-									{
-										if (args[i] != '')
-										{
-											if (isNaN(args[i]))
-											{
-												var p = getPlayerByName(args[i]);
-											}
-											else
-											{
-												var p = getPlayerByNumber(parseInt(args[i]));															
-											}
-											if (p && p != -1)
-											{
-												if (p.s.id != mod)
-												{
-													targets.push(p.name);	
-												}
-												else
-												{
-													this.s.emit(Type.SYSTEM,'You cannot jail the mod.');
-													error = true;
-													break;
-												}
-											}
-											else
-											{
-												this.s.emit(Type.SYSTEM,'Invalid player: '+args[i]);
-												error = true;
-												break;
-											}
-										}
-									}
-								}
-								else
-								{
-									error = true;
-									var message = vt;
-									this.s.emit(Type.SYSTEM,message);
-								}
-							}
-							if (!error)
-							{
-								this.target(targets);
-							}
-						}
-						else
-						{
-							this.s.emit(Type.SYSTEM,'You can only jail during the day.');
-						}
-					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
 						var free = false;
 						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
@@ -3197,7 +3092,7 @@ function Player(socket,name,ip)
 							//Return own role.
 							if (this.role == 'NoRole')
 							{
-								this.s.emit(Type.SYSTEM,'You were not assigned a role, yet.');
+								this.s.emit(Type.SYSTEM,'You do not have a role.');
 							}
 							else if (roles.hasRolecard(this.role))
 							{
@@ -3266,11 +3161,6 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You can only use this command while the mod is giving out roles.');
 						}
-					break;
-					case 'roles':
-					{
-						this.s.emit(Type.SYSTEM, roles.getRolenames());
-					}
 					break;
 					case 'ban':
 					if (c.length > 2)
