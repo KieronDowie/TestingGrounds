@@ -8,7 +8,7 @@ var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
-var jailorcom = false;
+var player.jailorcom = false;
 var commandList = {
 	all:{
 		'help' : 'Displays this message.',
