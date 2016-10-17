@@ -718,6 +718,7 @@ var roles=[
 				 goal:"Get taken in, and help your team win.",
 				 color:"turquoise"
 			},
+			/*
 			{
 				 rolename:"sniper",
 				 alignment:"mafia killing",
@@ -730,7 +731,7 @@ var roles=[
 				 goal:mafiagoal,
 				 color:mafiacolor,
 				custom:true
-			 }
+			 }*/
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor"];
  
