@@ -2889,7 +2889,7 @@ function Player(socket,name,ip)
 								trialCheck(players[this.votingFor]);
 							}
 						}
-						else if
+						else
 						{
 							this.s.emit(Type.SYSTEM,'You can only jail during the day.');
 						}
