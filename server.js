@@ -3197,7 +3197,7 @@ function Player(socket,name,ip)
 							//Return own role.
 							if (this.role == 'NoRole')
 							{
-								this.s.emit(Type.SYSTEM,'You do not have a role.');
+								this.s.emit(Type.SYSTEM,'You were not assigned a role, yet.');
 							}
 							else if (roles.hasRolecard(this.role))
 							{
