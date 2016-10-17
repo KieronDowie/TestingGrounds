@@ -679,6 +679,7 @@ io.on('connection', function(socket){
 				send.alive = players[socket.id].alive;
 				send.spy = players[socket.id].hearwhispers;
 				send.mayor = (players[socket.id].mayor !== undefined);
+				send.jailor = (players[socket.id].jailor !== undefined);
 				send.role = players[socket.id].role;
 				if (players[mod])
 				{
@@ -2871,7 +2872,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.mayor === undefined)
+						else if (this.jailor === undefined)
 						{
 							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
 						}
@@ -2924,7 +2925,7 @@ function Player(socket,name,ip)
 												}
 												else
 												{
-													this.s.emit(Type.SYSTEM,'You cannot target the mod.');
+													this.s.emit(Type.SYSTEM,'You cannot jail the mod.');
 													error = true;
 													break;
 												}
