@@ -1796,7 +1796,7 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
-			spectate:0;
+			spectate:0,
 			jailorcom:false,
 			blackmailed:false,
 			hearwhispers:false,
