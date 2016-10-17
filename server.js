@@ -2866,6 +2866,34 @@ function Player(socket,name,ip)
 							this.s.emit(Type.SYSTEM,'You can only reveal as the Mayor during the day.');
 						}
 					break;
+					case 'jail':
+						if (this.mayor === undefined)
+						{
+							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
+						}
+						else if (this.mayor)
+						{
+							this.s.emit(Type.SYSTEM,'You have already revealed yourself as the Jailor.');
+						}
+						else if (!this.alive)
+						{
+							this.s.emit(Type.SYSTEM,'You must be alive to reveal.');
+						}
+						else if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
+						{
+							io.emit(Type.HIGHLIGHT,this.name+' has revealed themselves as the Jailor!');
+							this.mayor = true;
+							if (this.votingFor)
+							{
+								players[this.votingFor].votes+=2;
+								trialCheck(players[this.votingFor]);
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM,'You can only reveal as the Jailor during the day.');
+						}
+					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
 						var free = false;
 						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
