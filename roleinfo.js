@@ -137,13 +137,12 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-			//Transporter changed! Can no longer transport themselves
 			{      
 				rolename:"transporter",
 				alignment:"town support",
 				abilities:'Choose two people to transport at night.',
 				attributes:['Transporting two people swaps all targets against them.',
-				'You may not transport yourself.',
+				'You may transport yourself.',
 				'Your targets will NOT know they were transported.'],
 				goal:towngoal,
 				color:towncolor
@@ -167,12 +166,11 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
-			//Vigilante changed! Vigi dies no longer of guilt
 			{      
 				rolename:"vigilante",
 				alignment:"town killing",
 				abilities:'Choose to take justice into your own hands and shoot someone.',
-				attributes:['If you shoot another Town member you will no longer be able to shoot.',
+				attributes:['If you shoot another Town member you will commit suicide over the guilt.',
 				'You can only shoot your gun 3 times.'],
 				goal:towngoal,
 				color:towncolor
@@ -401,49 +399,16 @@ var roles=[
 					goal:"Get your target lynched at any cost.",
 					color:"grey"
 			},
-			//ROLEIDEASTALKER
 			{      
-					rolename:"stalker",
+					rolename:"witch",
 					alignment:"neutral evil",
-					abilities:'Stalk someone each night.',
-					attributes:['The person you stalked can not be visited by others.',
-								'Transporter and killing-roles are uneffected.',
-								'You may stalk yourself once, this cannot be redirected or controlled.',
-								'You have one autovest protecting from the first non-town attack.'],
+					abilities:'Control someone each night.',
+					attributes:['You can only control targetable actions such as detection and killing.',
+								'You can force people to target themselves.',
+								//'You are immune to the first incoming non town attack.',
+								'Your victim will know they are being controlled.'],
 					goal:"Survive to see the Town lose the game.",
-					color:"#000080",
-					custom:true
-			},
-			//ROLEIDEAMORTICIAN
-			{      
-					rolename:"mortician",
-					alignment:"neutral evil",
-					abilities:'Bury someone on trial.',
-					attributes:['If a player is put on trial you may decide to bury them.',
-								'You start with 2 buries.',
-								'At night you may target a player. If that player dies, you get an',
-								'additional bury.',
-								'If you are lynched, you will bury yourself.',
-								'You will still lose a bury if you attempt to bury someone who',
-								'gets pardoned off the stand.',
-								'You have one autovest protecting from the first non-town attack.'],
-					goal:"Survive to see the Town lose the game.",
-					color:"#CEA9AC",
-					custom:true
-			},
-			//ROLEIDEADISTRIBUTOR
-			{      
-					rolename:"distributor",
-					alignment:"neutral evil",
-					abilities:'Distribute night actions.',
-					attributes:['You may target two people.',
-								'Everything that happens to one target will also happen to the other.',
-								'You can choose yourself.',
-								'You can not choose the same target twice in a row',
-								'You are immune to witches'],
-					goal:"Survive to see the Town lose the game.",
-					color:"#BF80FF",
-					custom:true
+					color:"purple"
 			},
 			/*ROLEIDEANECRO*/
 			{
@@ -718,7 +683,6 @@ var roles=[
 				 goal:"Get taken in, and help your team win.",
 				 color:"turquoise"
 			},
-			/*
 			{
 				 rolename:"sniper",
 				 alignment:"mafia killing",
@@ -731,7 +695,7 @@ var roles=[
 				 goal:mafiagoal,
 				 color:mafiacolor,
 				custom:true
-			 }*/
+			 }
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor"];
  
@@ -969,13 +933,4 @@ module.exports = {
         setCustomRoles:function(bool){
 			customRolesRollable = bool;
 		}
-	getRolenames:function()
-	{
-		var roleNames = '';
-		for (i in roles)
-		{
-		roleNames = roleNames + roles[i].rolename + ', ';
-		}
-		return(roleNames);
-	},
 };
