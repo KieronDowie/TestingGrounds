@@ -8,6 +8,7 @@ var db = require('./database');
 var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
+var jailorcom = false;
 var commandList = {
 	all:{
 		'help' : 'Displays this message.',
@@ -1098,9 +1099,10 @@ io.on('connection', function(socket){
 						switch (chat)
 						{
 							case 'jailor':
+								jailorcom = true;
 								if (!players[socket.id].silenced)
 								{
-									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
+									player.s.emit(Type.SYSTEM,'You are now the jailor. Use /jail [target] to jail. Use /execute, /exe or /x to execute your prisoner. Do not use this command on the first night.');
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
@@ -1115,7 +1117,13 @@ io.on('connection', function(socket){
 					{
 						switch (chat)
 						{
-							case 'jailor': notify = 'You are no longer the jailor.'; break;
+							case 'jailor':
+								jailorcom = false;
+								if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are no longer the jailor.');
+								}
+							break;
 							case 'jailed': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
@@ -2878,7 +2886,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.jailor === false)
+						else if (this.jailorcom === false)
 						{
 							this.s.emit(Type.SYSTEM,'...but you aren\'t the Jailor.');
 						}
