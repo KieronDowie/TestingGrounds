@@ -1800,6 +1800,7 @@ function Player(socket,name,ip)
 			canSeance:false,
 			votelock:false,
 			mayor:undefined,
+			jailor:undefined,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
