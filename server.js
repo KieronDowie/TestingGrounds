@@ -2102,6 +2102,12 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
+											if (medium.seancing == medium.name)
+											{
+												medium.s.emit(Type.SYSTEM, 'You cannot seance yourself.');
+											}
+											else
+											{
 											var seance = function(medium,target)
 											{
 												if (medium.seancing && medium.seancing == target)
@@ -2139,6 +2145,7 @@ function Player(socket,name,ip)
 											else
 											{
 												this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
+											}
 											}
 										}
 										else
