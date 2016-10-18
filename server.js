@@ -2088,7 +2088,11 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'seance':
-						if (this.chats.medium)
+						if (mod == this.s.id)
+						{
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
+						}
+						else if (this.chats.medium)
 						{
 							if (this.canSeance)
 							{
