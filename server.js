@@ -3774,7 +3774,7 @@ function Player(socket,name,ip)
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
-								players[mod].s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
+								players[mod].s.emit(Type.MSG,'Medium',msg);
 							}
 							if (this.beingSeanced)
 							{
