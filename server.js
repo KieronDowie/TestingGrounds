@@ -3277,7 +3277,8 @@ function Player(socket,name,ip)
 						{
 							if (phase == Phase.PREGAME)
 							{					
-								this.spectate = undefined;	
+								this.spectate = undefined;
+								players[mod].s.emit(Type.SYSTEM,this.name+' is no longer spectating.'); 
 								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
 							}
 							else
@@ -3287,7 +3288,8 @@ function Player(socket,name,ip)
 						}
 						else if (this.specate === undefined)
 						{
-							this.spectate = true;	
+							this.spectate = true;
+							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
 						}
 					break;
