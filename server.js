@@ -2094,6 +2094,7 @@ function Player(socket,name,ip)
 						}
 						else if (this.chats.medium)
 						{
+							players[mod].s.emit(Type.SYSTEM,medium.seancing+' is a test message.');
 							if (this.canSeance)
 							{
 								if (!this.alive)
@@ -2158,7 +2159,7 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								this.s.emit(Type.SYSTEM,'You have no seances left.');
+								this.s.emit(Type.SYSTEM,'You have 0 seances left.');
 							}
 						}
 						else
