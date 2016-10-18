@@ -2094,7 +2094,6 @@ function Player(socket,name,ip)
 						}
 						else if (this.chats.medium)
 						{
-							players[mod].s.emit(Type.SYSTEM,medium.seancing+' is a test message.');
 							if (this.canSeance)
 							{
 								if (!this.alive)
