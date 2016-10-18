@@ -3288,7 +3288,7 @@ function Player(socket,name,ip)
 						}
 						else if (this.spectate === undefined)
 						{
-							player.spectate = true;
+							/*player.spectate = true;*/
 							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
 						}
