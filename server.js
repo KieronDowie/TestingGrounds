@@ -2102,7 +2102,7 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											if(target.name != mod)
+											if(medium.seancing != mod)
 											{
 											var seance = function(medium,target)
 											{
