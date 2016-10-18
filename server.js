@@ -1798,6 +1798,7 @@ function Player(socket,name,ip)
 			mayor:undefined,
 			jailorcom:false,
 			spectate:undefined,
+			afk:undefined,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -3525,25 +3526,41 @@ function Player(socket,name,ip)
 					case 'afk':
 						if (phase == Phase.PREGAME)
 						{					
-							if (!this.silenced)
+							if (this.afk === undefined)
 							{
-								io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
-							}		
-							//SetRole(this.name, 'afk')
-							var p = getPlayerByName(this.name)
-							p.setRole("afk")
+								if (!this.silenced)
+								{
+									io.emit(Type.SYSTEM,this.name+' has decided to go afk.');
+								}
+								this.afk = true;
+								//SetRole(this.name, 'afk')
+								var p = getPlayerByName(this.name)
+								p.setRole("afk")
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'You are already AFK. Use /back.');
+							}
 						}
 					break;
 					case 'back':
 						if (phase == Phase.PREGAME)
-						{		
-							if (!this.silenced)
+						{	
+							if (this.afk)
 							{
-								io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
-							}					
+								if (!this.silenced)
+								{
+									io.emit(Type.SYSTEM,'Welcome back '+this.name+'.');
+								}	
+							this.afk = undefined;
 							//SetRole(this.name, '')
 							var p = getPlayerByName(this.name)
 							p.setRole("NoRole")
+							}
+							else
+							{
+								this.s.emit(Type.SYSTEM,'You are not AFK. Use /afk.');
+							}
 						}
 					break;
 					case 'rolelist': case 'rl':
