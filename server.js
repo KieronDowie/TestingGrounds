@@ -3273,7 +3273,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.specate)
+						else if (this.specate === true)
 						{
 							if (phase == Phase.PREGAME)
 							{					
