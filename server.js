@@ -2098,7 +2098,7 @@ function Player(socket,name,ip)
 							{
 								if (!this.alive)
 								{
-									if (phase == Phase.DAY)
+									if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY)
 									{
 										if (this.seance === undefined)
 										{
