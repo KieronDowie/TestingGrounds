@@ -1358,7 +1358,6 @@ function setPhase(p)
 			{
 				players[i].s.emit(Type.SYSTEM, "You have opened a communication with the living!");
 				players[i].seancing.s.emit(Type.SYSTEM, "A medium is talking to you!");
-				players[mod].s.emit(Type.SYSTEM,medium.name+" is now talking to "seancing.name+);
 				players[i].canSeance = true;
 			}
 		}	
