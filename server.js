@@ -27,7 +27,6 @@ var commandList = {
 		'reveal':'Reveal yourself as the Mayor, if you have that role. Usage: /reveal, during the day.',
 		'execute':'Choose to execute the person you have jailed. Usage /execute, then /execute again to cancel.',
 		'seance':'Choose a player to talk to at night. You may only use this once.'
-		'jail':'Jail your target then following night. Usage /jail [target] during the day.'
 	},
 	mod:{
 		'givemod':'Pass the mod onto another person. Usage: /givemod name',
