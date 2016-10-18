@@ -3283,7 +3283,7 @@ function Player(socket,name,ip)
 						{
 							if (phase == Phase.PREGAME)
 							{					
-								this.mayor = undefined;
+								this.spectate = undefined;
 								players[mod].s.emit(Type.SYSTEM,this.name+' is no longer spectating.'); 
 								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
 							}
