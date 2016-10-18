@@ -3774,13 +3774,13 @@ function Player(socket,name,ip)
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
-								players[mod].s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
 							}
 							if (this.beingSeanced)
 							{
 								this.beingSeanced.s.emit(Type.MSG,this.name,msg);
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,this.name,msg);
+								players[mod].s.emit(Type.MSG,this.name,msg);
 							}
 						}
 						else //Deadchat
