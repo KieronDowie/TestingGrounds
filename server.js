@@ -3273,7 +3273,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.specate === true)
+						else if (this.spectate === true)
 						{
 							if (phase == Phase.PREGAME)
 							{					
@@ -3286,7 +3286,7 @@ function Player(socket,name,ip)
 								this.s.emit(Type.SYSTEM,'You can only leave spectator in pregame.');
 							}
 						}
-						else if (this.specate === undefined)
+						else if (this.spectate === undefined)
 						{
 							player.spectate = true;
 							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
