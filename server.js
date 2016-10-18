@@ -1797,7 +1797,7 @@ function Player(socket,name,ip)
 			votelock:false,
 			mayor:undefined,
 			jailorcom:false,
-			spectate:0,
+			spectate:false,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -3273,21 +3273,16 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.specate === 0)
+						else if (this.specate === false)
 						{
-							this.spectate = 1;								
-							this.s.emit(Type.SYSTEM,'Please do confirm you want to spectate by doing /spectate again. And be aware: You can only leave specator in pregame.');
-						}
-						else if (this.specate === 1)
-						{
-							this.spectate = 2;	
+							this.spectate = true;	
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
 						}
-						else if (this.specate === 2)
+						else if (this.specate === true)
 						{
 							if (phase == Phase.PREGAME)
 							{					
-								this.spectate = 2;	
+								this.spectate = false;	
 								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
 							}
 							else
