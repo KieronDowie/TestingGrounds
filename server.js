@@ -1357,6 +1357,7 @@ function setPhase(p)
 			if (players[i].seancing)
 			{
 				players[i].s.emit(Type.SYSTEM, "You have opened a communication with the living!");
+				players[mod].s.emit(Type.SYSTEM, "A Medium has opened a conversation.");
 				players[i].seancing.s.emit(Type.SYSTEM, "A medium is talking to you!");
 				players[i].canSeance = true;
 			}
