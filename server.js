@@ -2102,20 +2102,6 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											var args = c.slice(1,c.length);
-											if (args.length == 0 || args[0] == '0')
-											{
-												var actions = gm.getActions(this.name);
-												if (actions && actions.length > 0)
-											{
-												//This is a cancel
-									
-											}
-											else
-											{
-											this.s.emit(Type.SYSTEM,'You are not targetting anyone.');
-											}
-											}
 											var seance = function(medium,target)
 											{
 												if (medium.seancing && medium.seancing == target)
