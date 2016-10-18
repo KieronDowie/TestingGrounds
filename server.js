@@ -2108,44 +2108,44 @@ function Player(socket,name,ip)
 											}
 											else
 											{
-											var seance = function(medium,target)
-											{
-												if (medium.seancing && medium.seancing == target)
+												var seance = function(medium,target)
 												{
-													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
-													medium.seancing.beingSeanced = undefined;
-													medium.seancing = undefined;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+													if (medium.seancing && medium.seancing == target)
+													{
+														medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
+														medium.seancing.beingSeanced = undefined;
+														medium.seancing = undefined;
+														players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+													}
+													else
+													{
+														medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
+														medium.seancing = target;
+														medium.seancing.beingSeanced = medium;
+														players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
+													}
+												};
+												if (playernames[c[1]])
+												{
+													seance(this,players[playernames[c[1]]]);
+												}
+												else if (!isNaN(c[1]))
+												{
+													//Get the numbered player.
+													var target = getPlayerByNumber(c[1]);
+													if (target != -1)
+													{
+														seance(this,target);
+													}
+													else
+													{
+														this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+													}
 												}
 												else
 												{
-													medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
-													medium.seancing = target;
-													medium.seancing.beingSeanced = medium;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
+													this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
 												}
-											};
-											if (playernames[c[1]])
-											{
-												seance(this,players[playernames[c[1]]]);
-											}
-											else if (!isNaN(c[1]))
-											{
-												//Get the numbered player.
-												var target = getPlayerByNumber(c[1]);
-												if (target != -1)
-												{
-													seance(this,target);
-												}
-												else
-												{
-													this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
-												}
-											}
-											else
-											{
-												this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
-											}
 											}
 										}
 										else
