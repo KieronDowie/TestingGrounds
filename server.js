@@ -2102,7 +2102,7 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											if (medium.seancing == medium.name)
+											if (this.seance ===undefined)
 											{
 												medium.s.emit(Type.SYSTEM, 'You cannot seance yourself.');
 											}
