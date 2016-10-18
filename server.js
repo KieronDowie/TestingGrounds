@@ -1312,6 +1312,13 @@ function setPhase(p)
 			players[i].s.emit(Type.SYSTEM, "You are no longer silenced.");
 		}
 	}
+	if (p == Phase.PREGAME)
+	for (i in players)
+	{
+		{
+			players[i].seance = undefined;
+		}
+	}
 	if (p == Phase.NIGHT)
 	{
 		//Reset cleaning.
@@ -1357,6 +1364,7 @@ function setPhase(p)
 			if (players[i].seancing)
 			{
 				players[i].s.emit(Type.SYSTEM, "You have opened a communication with the living!");
+				players[i].seance = true;
 				players[mod].s.emit(Type.SYSTEM,players[i].name+ " is now talking to " +players[i].seancing.name);
 				players[i].seancing.s.emit(Type.SYSTEM, "A medium is talking to you!");
 				players[i].canSeance = true;
@@ -1801,6 +1809,7 @@ function Player(socket,name,ip)
 			jailorcom:false,
 			spectate:undefined,
 			afk:undefined,
+			seance:undefined,
 			blackmailed:false,
 			hearwhispers:false,
 			votingFor:undefined,
@@ -2087,43 +2096,50 @@ function Player(socket,name,ip)
 								{
 									if (phase == Phase.DAY)
 									{
-										var seance = function(medium,target)
+										if (this.seance === undefined)
 										{
-											if (medium.seancing && medium.seancing == target)
+											var seance = function(medium,target)
 											{
-												medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
-												medium.seancing.beingSeanced = undefined;
-												medium.seancing = undefined;
-												players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+												if (medium.seancing && medium.seancing == target)
+												{
+													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
+													medium.seancing.beingSeanced = undefined;
+													medium.seancing = undefined;
+													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+												}
+												else
+												{
+													medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
+													medium.seancing = target;
+													medium.seancing.beingSeanced = medium;
+													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
+												}
+											};
+											if (playernames[c[1]])
+											{
+												seance(this,players[playernames[c[1]]]);
+											}
+											else if (!isNaN(c[1]))
+											{
+												//Get the numbered player.
+												var target = getPlayerByNumber(c[1]);
+												if (target != -1)
+												{
+													seance(this,target);
+												}
+												else
+												{
+													this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+												}
 											}
 											else
 											{
-												medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
-												medium.seancing = target;
-												medium.seancing.beingSeanced = medium;
-												players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
-											}
-										};
-										if (playernames[c[1]])
-										{
-											seance(this,players[playernames[c[1]]]);
-										}
-										else if (!isNaN(c[1]))
-										{
-											//Get the numbered player.
-											var target = getPlayerByNumber(c[1]);
-											if (target != -1)
-											{
-												seance(this,target);
-											}
-											else
-											{
-												this.s.emit(Type.SYSTEM,'Could not find player number '+c[1]+'!');
+												this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
 											}
 										}
 										else
 										{
-											this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
+											this.s.emit(Type.SYSTEM,'You have 0 seances left.');
 										}
 									}
 									else
