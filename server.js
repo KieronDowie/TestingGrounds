@@ -2102,7 +2102,11 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											if(medium.seancing != mod)
+											if(mod == medium.seancing)
+											{	
+											this.s.emit(Type.SYSTEM,'You cannot target the MOD.');
+											}
+											else
 											{
 											var seance = function(medium,target)
 											{
@@ -2142,10 +2146,6 @@ function Player(socket,name,ip)
 											{
 												this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
 											}
-											}
-											else
-											{
-												this.s.emit(Type.SYSTEM,'You cannot target the MOD.');
 											}
 										}
 										else
