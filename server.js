@@ -2102,12 +2102,6 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											if(true)
-											{	
-											this.s.emit(Type.SYSTEM,'You cannot target the MOD.');
-											}
-											else
-											{
 											var seance = function(medium,target)
 											{
 												if (medium.seancing && medium.seancing == target)
@@ -2122,7 +2116,7 @@ function Player(socket,name,ip)
 													medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
 													medium.seancing = target;
 													medium.seancing.beingSeanced = medium;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '++'.');
+													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
 												}
 											};
 											if (playernames[c[1]])
@@ -2145,7 +2139,6 @@ function Player(socket,name,ip)
 											else
 											{
 												this.s.emit(Type.SYSTEM, c[1] + ' is not a valid player.');
-											}
 											}
 										}
 										else
