@@ -2102,7 +2102,7 @@ function Player(socket,name,ip)
 									{
 										if (this.seance === undefined)
 										{
-											if(mod == medium.seancing)
+											if(true)
 											{	
 											this.s.emit(Type.SYSTEM,'You cannot target the MOD.');
 											}
@@ -2122,7 +2122,7 @@ function Player(socket,name,ip)
 													medium.s.emit(Type.SYSTEM, 'You are now seancing '+target.name+'.');
 													medium.seancing = target;
 													medium.seancing.beingSeanced = medium;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '+target.name+'.');
+													players[mod].s.emit(Type.SYSTEM,medium.name+' is now seancing '++'.');
 												}
 											};
 											if (playernames[c[1]])
