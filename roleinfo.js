@@ -685,7 +685,7 @@ var roles=[
 				abilities:'Code and Host the TG.',
 				attributes:['You are the fastest ever to live!'],
 				goal:"Make TG a happy place.",
-				color:"#F0FF0F",
+				color:"#0000FF",
 				custom:true
 			},
 			{
