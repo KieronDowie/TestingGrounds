@@ -679,6 +679,14 @@ var roles=[
 				color:"#F0FF0F",
 				custom:true
 			},
+				rolename:"ralozey",
+				alignment:"neutral casual",
+				abilities:'Code and Host the TG.',
+				attributes:['You are the fastest ever to live!'],
+				goal:"Make TG a happy place.",
+				color:"#F0FF0F",
+				custom:true
+			},
 			{
 				rolename:"afk",
 				alignment:"neutral trueEvil",
@@ -686,6 +694,15 @@ var roles=[
 				attributes:['You have lost automatically.'],
 				goal:"None",
 				color:"#B05F3C",
+				custom:true
+			},
+			{
+				rolename:"spectator",
+				alignment:"neutral casual",
+				abilities:'You know everything.',
+				attributes:['You can do nothing.'],
+				goal:"See how the game progresses",
+				color:"#AFAFAF",
 				custom:true
 			},
 			{
