@@ -1300,19 +1300,6 @@ function setPhase(p)
 			}
 		}
 	}
-	if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY && p != phase)
-	{
-		if (phase == Phase.NIGHT)
-		{
-		if (autoLevel > 0 )
-		{
-			//Evaluate day actions.
-			var results = gm.evaluate(players,playernames,mod,roles, autoLevel, phase);
-			players[mod].s.emit(Type.SUGGESTIONS, results);
-			gm.clear();
-		}
-		}
-	}
 	phase = p;
 	timer.setPhase(p);
 	io.emit(Type.SETPHASE,phase, false, timer.time);
