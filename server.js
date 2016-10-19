@@ -1300,11 +1300,11 @@ function setPhase(p)
 			}
 		}
 	}
-	if (phase == Phase.VOTING && p != phase)
+	if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY && p != phase)
 	{
 		if (autoLevel > 0 )
 		{
-			//Evaluate night actions.
+			//Evaluate day actions.
 			var results = gm.evaluate(players,playernames,mod,roles, autoLevel, phase);
 			players[mod].s.emit(Type.SUGGESTIONS, results);
 			gm.clear();
