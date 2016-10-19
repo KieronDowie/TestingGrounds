@@ -679,6 +679,7 @@ var roles=[
 				color:"#F0FF0F",
 				custom:true
 			},
+			{
 				rolename:"ralozey",
 				alignment:"neutral casual",
 				abilities:'Code and Host the TG.',
