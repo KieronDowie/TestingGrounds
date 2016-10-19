@@ -1300,6 +1300,16 @@ function setPhase(p)
 			}
 		}
 	}
+	if (phase == Phase.VOTING && p != phase)
+	{
+		if (autoLevel > 0 )
+		{
+			//Evaluate night actions.
+			var results = gm.evaluate(players,playernames,mod,roles, autoLevel, phase);
+			players[mod].s.emit(Type.SUGGESTIONS, results);
+			gm.clear();
+		}
+	}
 	phase = p;
 	timer.setPhase(p);
 	io.emit(Type.SETPHASE,phase, false, timer.time);
