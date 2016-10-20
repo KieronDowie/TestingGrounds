@@ -74,7 +74,7 @@ var autoRoles =
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
 			PRIO1:attributes.PRIO1, 
 			SELF:attributes.SELF},
-		grouping:'B',
+		grouping:'J',
 		alignment:'town',
 		priority: 4
 	},
@@ -87,31 +87,31 @@ var autoRoles =
 			NINJA:attributes.NINJA,
 			NOVISIT:attributes.NOVISIT
 			},
-		grouping:'C',
+		grouping:'D',
 		alignment:'town'
 	},
 	'vigilante': {
 		attributes: {
 			VIGKILL:attributes.VIGKILL},
-		grouping:'C',
+		grouping:'O',
 		alignment:'town'
 	},
 	'sheriff': {
 		attributes: {
 			CHECK:attributes.CHECK},
-		grouping:'D',
+		grouping:'N',
 		alignment:'town'
 	},
 	'investigator': {
 		attributes:  {
 			INVESTIGATE:attributes.INVESTIGATE},
-		grouping:'E',
+		grouping:'B',
 		alignment:'town'
 	},
 	'lookout': {
 		attributes:  {
 			WATCH:attributes.WATCH},
-		grouping:'F',
+		grouping:'C',
 		alignment:'town'
 	},
 	'spy': {
@@ -119,18 +119,18 @@ var autoRoles =
 			MAFVISIT:attributes.MAFVISIT,
 			PASSIVE: attributes.PASSIVE
 		},
-		grouping:'G',
+		grouping:'D',
 		alignment:'town'
 	},
 	'mayor': {
 		attributes:  {
 			NOHEAL:attributes.NOHEAL},
-		grouping:'G',
+		grouping:'E',
 		alignment:'town'
 	},
 	'medium': {
 		attributes:  {},
-		grouping:'H',
+		grouping:'M',
 		alignment:'town'
 	},
 	'retributionist': {
@@ -139,14 +139,14 @@ var autoRoles =
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
 		},
-		grouping:'I',
+		grouping:'F',
 		alignment:'town'
 	},
 	'doctor': {
 		attributes:  {
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
-		grouping:'J',
+		grouping:'H',
 		alignment:'town',
 		priority: 1
 	},
@@ -154,7 +154,7 @@ var autoRoles =
 		attributes:  {
 			BG:attributes.BG,
 			SELF:attributes.SELF},
-		grouping:'K',
+		grouping:'H',
 		alignment:'town',
 		priority: 1
 	},
@@ -162,7 +162,7 @@ var autoRoles =
 		attributes:  {
 			JAIL:attributes.JAIL,
 			EXECUTE:attributes.EXECUTE},
-		grouping:'G',
+		grouping:'E',
 		alignment:'town'
 	},
 	'godfather': {
@@ -170,20 +170,20 @@ var autoRoles =
 			MAFKILL:attributes.MAFKILL,
 			IMMUNE:attributes.IMMUNE,
 			DETECTIONIMMUNE:attributes.DETECTIONIMMUNE},
-		grouping:'D',
+		grouping:'N',
 		alignment:'mafia'
 	},
 	// 'underboss' {},
 	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
-		grouping:'F',
+		grouping:'J',
 		alignment:'mafia'
 	},
 	'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
-		grouping:'E',
+		grouping:'B',
 		alignment:'mafia'
 	},
 	'consort': {
@@ -205,19 +205,19 @@ var autoRoles =
 	'framer': {
 		attributes:  {
 			FRAME:attributes.FRAME},
-		grouping:'L',
+		grouping:'G',
 		alignment:'mafia'
 	},
 	'janitor': {
 		attributes:  {
 			CLEAN:attributes.CLEAN},
-		grouping:'H',
+		grouping:'M',
 		alignment:'mafia'
 	},
 	'forger': {
 		attributes:  {
 			FORGE:attributes.FORGE},
-		grouping:'J',
+		grouping:'H',
 		alignment:'mafia'
 	},
 	'serial killer': {
@@ -225,7 +225,7 @@ var autoRoles =
 			SKKILL:attributes.SKKILL,
 			RBATTACK:attributes.RBATTACK,
 			IMMUNE:attributes.IMMUNE},
-		grouping:'J',
+		grouping:'H',
 		alignment:'sk'
 	},
 	'arsonist': {
@@ -234,7 +234,7 @@ var autoRoles =
 			IGNITE:attributes.IGNITE,
 			SELF:attributes.SELF,
 			IMMUNE:attributes.IMMUNE},
-		grouping:'F',
+		grouping:'J',
 		alignment:'neutral'
 	},
 	'werewolf': {
@@ -245,21 +245,21 @@ var autoRoles =
 			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT,
 			MUSTVISITEVEN:attributes.MUSTVISITEVEN,
 			RBHOME:attributes.RBHOME},
-		grouping:'K',
+		grouping:'L',
 		alignment:'ww'
 	},
 	'jester': {
 		attributes:  {
 			HAUNT:attributes.HAUNT
 		},
-		grouping:'H',
+		grouping:'M',
 		alignment:'neutral'
 	},	
 	'executioner': {
 		attributes:  {
 			// TARGET:attributes.TARGET
 		},
-		grouping:'D',
+		grouping:'N',
 		alignment:'neutral'
 	},
 	'witch': {
@@ -280,7 +280,7 @@ var autoRoles =
 			NINJA:attributes.NINJA,
 			NOVISIT:attributes.NOVISIT
 		},
-		grouping:'B',
+		grouping:'O',
 		alignment:'neutral'
 	},
 	'amnesiac': {
@@ -289,7 +289,7 @@ var autoRoles =
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
 		},
-		grouping:'B',
+		grouping:'O',
 		alignment:'neutral'
 	}
 };
