@@ -298,6 +298,26 @@ var autoRoles =
 		grouping:'A',
 		alignment:'town'
 	},
+	'auditor': {
+		attributes:  {},
+		grouping:'A',
+		alignment:'neutral'
+	},
+	'nightmarer': {
+		attributes:  {},
+		grouping:'C',
+		alignment:'mafia'
+	},
+	'coroner': {
+		attributes:  {},
+		grouping:'C',
+		alignment:'town'
+	},
+	'watcher': {
+		attributes:  {},
+		grouping:'C',
+		alignment:'town'
+	},
 };
 
 /* Old Invest Results
