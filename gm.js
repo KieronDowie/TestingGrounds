@@ -294,6 +294,7 @@ var autoRoles =
 	}
 };
 
+/* Old Invest Results
 var investGrouping = {
 	'A':'Your target is a manipulative beauty.',
 	'B':'Your target avoids others.',
@@ -307,6 +308,24 @@ var investGrouping = {
 	'J':'Your target spends a lot of time sitting in an office.',
 	'K':'Your target may not be what they seem.',
 	'L':'Your target is not even trying to hide their evil deeds.',
+};
+*/
+var investGrouping = {
+	'A':'Your target is a manipulative beauty.',
+	'B':'Your target gathers information.',
+	'C':'Your target has a sharp eye.',
+	'D':'Your target is hiding.',
+	'E':'Your target is a part of the government.',
+	'F':'Your target makes the dead tremble.',
+	'G':'Your target isn\'t even trying to hide their evil deeds.',
+	'H':'Your target spends a lot of time with others.',
+	'I':'Your target relies on others.',
+	'J':'Your target is very stealthy.',
+	'K':'Your target may not be what they seem.',
+	'L':'Your target is not from this world.',
+	'M':'You target talks to themselves.',
+	'N':'Your target wants to gain others\' trust.',
+	'O':'Your target is an old member of this town.',
 };
 
 var sheriffResults = {
