@@ -291,7 +291,7 @@ var autoRoles =
 		},
 		grouping:'O',
 		alignment:'neutral'
-	}
+	},
 	//Custom Roles
 	'rain dancer': {
 		attributes:  {},
