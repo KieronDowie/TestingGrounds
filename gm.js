@@ -292,6 +292,12 @@ var autoRoles =
 		grouping:'O',
 		alignment:'neutral'
 	}
+	//Custom Roles
+	'rain dancer': {
+		attributes:  {},
+		grouping:'A',
+		alignment:'town'
+	},
 };
 
 /* Old Invest Results
