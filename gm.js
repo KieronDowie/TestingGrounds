@@ -316,7 +316,87 @@ var autoRoles =
 	'watcher': {
 		attributes:  {},
 		grouping:'C',
+		alignment:'mafia'
+	},
+	'electrician': {
+		attributes:  {},
+		grouping:'D',
+		alignment:'neutral'
+	},
+	'shadowalker': {
+		attributes:  {},
+		grouping:'D',
+		alignment:'neutral'
+	},
+	'necromancer': {
+		attributes:  {},
+		grouping:'F',
+		alignment:'neutral'
+	},
+	'stalker': {
+		attributes:  {},
+		grouping:'G',
+		alignment:'neutral'
+	},
+	'drug dealer': {
+		attributes:  {},
+		grouping:'H',
+		alignment:'mafia'
+	},
+	'lost spirit': {
+		attributes:  {},
+		grouping:'I',
+		alignment:'neutral'
+	},
+	'distributor': {
+		attributes:  {},
+		grouping:'I',
+		alignment:'neutral'
+	},
+	'scientist': {
+		attributes:  {},
+		grouping:'I',
 		alignment:'town'
+	},
+	'tracker': {
+		attributes:  {},
+		grouping:'J',
+		alignment:'town'
+	},
+	'tax collector': {
+		attributes:  {},
+		grouping:'K',
+		alignment:'neutral'
+	},
+	'ghost': {
+		attributes:  {},
+		grouping:'L',
+		alignment:'town'
+	},
+	'paradoxist': {
+		attributes:  {},
+		grouping:'L',
+		alignment:'neutral'
+	},
+	'mystic': {
+		attributes:  {},
+		grouping:'M',
+		alignment:'neutral'
+	},
+	'mortician': {
+		attributes:  {},
+		grouping:'M',
+		alignment:'neutral'
+	},
+	'politician': {
+		attributes:  {},
+		grouping:'N',
+		alignment:'neutral'
+	},
+	'undertaker': {
+		attributes:  {},
+		grouping:'O',
+		alignment:'neutral'
 	},
 };
 
