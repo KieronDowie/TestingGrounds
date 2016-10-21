@@ -3328,14 +3328,16 @@ function Player(socket,name,ip)
 								if (players[playernames[c[1]]].spectate)
 								{
 									players[playernames[c[1]]].spectate = undefined;
-									/*this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
-									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');*/
+									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
+									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									player[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
 								}	
 								else
 								{
 									players[playernames[c[1]]].spectate = true;
-									/*this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
-									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');*/
+									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
+									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									player[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
 								}
 							}
 						}
