@@ -1202,9 +1202,17 @@ module.exports = {
 									}
 									else if (roleAttributes.EXECUTE)
 									{
-										var t = targets[num][1];
-										addSuggestedMessage('They were executed by the [town]Jailor[/town].','<All>');
-										addSuggestedAction('Kill',t[0]);
+										if (fromphase == 8)
+										{
+											var t = targets[num][1];
+											addSuggestedMessage('They were executed by the [town]Jailor[/town].','<All>');
+											addSuggestedAction('Kill',t[0]);
+										}
+										else
+										{
+											var t = targets[num][1];
+											addSuggestedAction('Jail',t[0]);
+										}
 									}
 									else if (roleAttributes.ALERT)
 									{
