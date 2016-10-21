@@ -3321,7 +3321,7 @@ function Player(socket,name,ip)
 						{
 							if (c.length < 2)
 							{
-								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/setspectate player\'.');
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/setspectate player\' or \'/ss player\'.');
 							}
 							else
 							{
