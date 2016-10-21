@@ -1282,7 +1282,7 @@ function getPlayerByNumber(num)
 //--Phase change
 function setPhase(p)
 {
-	if (phase == Phase.NIGHT && p != phase)
+	if (phase >= Phase.DAY && phase <= Phase.LASTWORDS || phase == Phase.FIRSTDAY && p == Phase.MODTIME)
 	{
 		if (autoLevel > 0 )
 		{
@@ -3097,10 +3097,6 @@ function Player(socket,name,ip)
 						else if (phase != Phase.NIGHT)
 						{
 							this.s.emit(Type.SYSTEM,'You can only use this at night.');
-						}
-						else if (daynumber == 1)
-						{
-							this.s.emit(Type.SYSTEM,'You cannot execute night 1.');
 						}
 						else
 						{
