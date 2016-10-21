@@ -869,6 +869,7 @@ module.exports = {
 												{
 													var doc = isHealed(num,targets);
 													addSuggestedMessage('You were attacked but someone nursed you back to health!',num);
+													/*addSuggestedMessage('Your target was attacked last night.',doc);*/
 												}
 												else
 												{

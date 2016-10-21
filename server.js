@@ -3316,6 +3316,34 @@ function Player(socket,name,ip)
 							}
 						}
 					break;
+					case 'setspectate':
+						if (this.dev)
+						{
+							if (c.length < 2)
+							{
+								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/setspectate player\'.');
+							}
+							else
+							{
+								if (players[playernames[c[1]]].spectate)
+								{
+									players[playernames[c[1]]].spectate = undefined;
+									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
+									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+								}	
+								else
+								{
+									players[playernames[c[1]]].spectate = true;
+									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
+									c[1].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+								}
+							}
+						}
+						else
+						{
+							this.s.emit(Type.SYSTEM, 'You do not have the correct permissions to use this command.');
+						}
+					break;
 					case 'roles':
 					{
 						this.s.emit(Type.SYSTEM, roles.getRolenames());
