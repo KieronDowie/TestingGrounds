@@ -1282,7 +1282,7 @@ function getPlayerByNumber(num)
 //--Phase change
 function setPhase(p)
 {
-	if (phase >= Phase.DAY && phase <= Phase.FIRSTDAY && p == Phase.MODTIME)
+	if (phase >= Phase.DAY && phase <= Phase.FIRSTDAY && p <= Phase.MODTIME)
 	{
 		if (autoLevel > 0 )
 		{
