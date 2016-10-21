@@ -3098,6 +3098,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You can only use this at night.');
 						}
+						else if (daynumber == 1)
+						{
+							this.s.emit(Type.SYSTEM,'You cannot execute night 1.');
+						}
 						else
 						{
 							var modjailed = false;
