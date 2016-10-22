@@ -146,7 +146,7 @@ var autoRoles =
 		attributes:  {
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
-		grouping:'H',
+		grouping:'P',
 		alignment:'town',
 		priority: 1
 	},
@@ -217,7 +217,7 @@ var autoRoles =
 	'forger': {
 		attributes:  {
 			FORGE:attributes.FORGE},
-		grouping:'H',
+		grouping:'P',
 		alignment:'mafia'
 	},
 	'serial killer': {
@@ -225,7 +225,7 @@ var autoRoles =
 			SKKILL:attributes.SKKILL,
 			RBATTACK:attributes.RBATTACK,
 			IMMUNE:attributes.IMMUNE},
-		grouping:'H',
+		grouping:'O',
 		alignment:'sk'
 	},
 	'arsonist': {
@@ -252,7 +252,7 @@ var autoRoles =
 		attributes:  {
 			HAUNT:attributes.HAUNT
 		},
-		grouping:'M',
+		grouping:'D',
 		alignment:'neutral'
 	},	
 	'executioner': {
@@ -380,7 +380,7 @@ var autoRoles =
 	},
 	'mystic': {
 		attributes:  {},
-		grouping:'M',
+		grouping:'P',
 		alignment:'neutral'
 	},
 	'mortician': {
@@ -395,7 +395,7 @@ var autoRoles =
 	},
 	'undertaker': {
 		attributes:  {},
-		grouping:'O',
+		grouping:'M',
 		alignment:'neutral'
 	},
 };
@@ -429,9 +429,10 @@ var investGrouping = {
 	'J':'Your target is very stealthy.',
 	'K':'Your target may not be what they seem.',
 	'L':'Your target is not from this world.',
-	'M':'You target talks to themselves.',
+	'M':'Your target has a connection with the dead.',
 	'N':'Your target wants to gain others\' trust.',
 	'O':'Your target is an old member of this town.',
+	'P':'Your target can delay the inevitable.',
 };
 
 var sheriffResults = {
