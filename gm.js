@@ -1212,7 +1212,7 @@ module.exports = {
 										else
 										{
 											var t = targets[num][1];
-											addSuggestedAction('Amena',t[0]);
+											addSuggestedAction('Jail',t[0]);
 										}
 									}
 									else if (roleAttributes.ALERT)
@@ -1311,6 +1311,10 @@ module.exports = {
 													addSuggestedMessage('You attacked someone.',num);
 												}
 											}
+										}
+										else
+										{
+											addSuggestedMessage('Your night action was disregarded because you can only attack on Full Moon.',num);
 										}
 									}
 									else if (roleAttributes.DISGUISE)

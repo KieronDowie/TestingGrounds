@@ -757,6 +757,14 @@ function chooseAutoButton(info, label)
 				socket.emit(Type.TOGGLE,to,'blackmail');
 			};
 		break;
+		case '<Jail>':
+			func = function(){
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				socket.emit(Type.TOGGLE,to,'jailed');
+				
+			};
+		break;
 		case '<Clean>':
 			func = function(){
 				var tr = $(this).parent().parent();
