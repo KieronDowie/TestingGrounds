@@ -762,7 +762,20 @@ function chooseAutoButton(info, label)
 				var tr = $(this).parent().parent();
 				var to = $($(tr.children()[1]).children()[0]).html();
 				socket.emit(Type.TOGGLE,to,'jailed');
-				
+				var index = users.indexOf(to);
+				var buttons = $('.jailbutton, .releasebutton');
+				if ($(buttons[index]).hasClass('jailbutton'))
+				{
+					$(buttons[index]).removeClass('jailbutton');
+					$(buttons[index]).addClass('releasebutton');
+					$(buttons[index]).html('<span>Release</span>');
+				}
+				else
+				{
+					$(buttons[index]).removeClass('releasebutton');
+					$(buttons[index]).addClass('jailbutton');
+					$(buttons[index]).html('<span>Jail</span>');
+				}
 			};
 		break;
 		case '<Clean>':
