@@ -326,7 +326,7 @@ var autoRoles =
 	'shadowalker': {
 		attributes:  {},
 		grouping:'D',
-		alignment:'neutral'
+		alignment:'sw'
 	},
 	'necromancer': {
 		attributes:  {},
