@@ -1212,7 +1212,7 @@ module.exports = {
 										else
 										{
 											var t = targets[num][1];
-											addSuggestedAction('Kill',t[0]);
+											addSuggestedAction('Amena',t[0]);
 										}
 									}
 									else if (roleAttributes.ALERT)
