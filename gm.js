@@ -398,6 +398,11 @@ var autoRoles =
 		grouping:'M',
 		alignment:'neutral'
 	},
+	'orphan': {
+		attributes:  {},
+		grouping:'I',
+		alignment:'neutral'
+	},
 };
 
 /* Old Invest Results
