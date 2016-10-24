@@ -349,6 +349,11 @@ var autoRoles =
 		grouping:'H',
 		alignment:'mafia'
 	},
+	'underboss': {
+		attributes:  {},
+		grouping:'K',
+		alignment:'mafia'
+	},
 	'lost spirit': {
 		attributes:  {},
 		grouping:'I',
@@ -492,6 +497,14 @@ module.exports = {
 		var auto = autoRoles[role];
 		if (auto)
 		{
+			if (auto.attributes.DEADTARGET)
+			{
+				
+			}
+			else
+			{
+				return 'You cannot target the dead.';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
