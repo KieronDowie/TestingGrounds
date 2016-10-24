@@ -497,10 +497,6 @@ module.exports = {
 		var auto = autoRoles[role];
 		if (auto)
 		{
-			if (auto.attributes.NOLIVINGTARGET)
-			{
-				return 'You cannot target the living.';
-			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
