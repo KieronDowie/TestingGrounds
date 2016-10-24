@@ -53,7 +53,8 @@ var attributes = {
 	 PASSIVE:'Your night action takes effect without you needing to send in an action.',
 	 /*Targetting attributes*/
 	 DEADTARGET:'Able to target players that are dead.',
-	 NOLIVINGTARGET:'Unable to target living players.'
+	 NOLIVINGTARGET:'Unable to target living players.',
+	 RAINDANCE:'Let it rain next night'
 };
 var autoRoles = 
 	{
@@ -294,7 +295,12 @@ var autoRoles =
 	},
 	//Custom Roles
 	'rain dancer': {
-		attributes:  {},
+		attributes:  {
+			RAINDANCE:attributes.RAINDANCE,
+			SELF:attributes.SELF,
+			NINJA:attributes.NINJA,
+			NOVISIT:attributes.NOVISIT
+		},
 		grouping:'A',
 		alignment:'town'
 	},
