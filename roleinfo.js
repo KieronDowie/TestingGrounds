@@ -212,7 +212,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},
-			{      
+			/*{      
 				rolename:"underboss",
 				alignment:"mafia killing",
 				abilities:'Kill someone each night.',
@@ -222,7 +222,7 @@ var roles=[
 				'You can talk with the other Mafia at night.'],
 				goal:mafiagoal,
 				color:mafiacolor
-			},
+			},*/
 			/*{    
 				rolename:"mafioso",
 				alignment:"mafia killing",

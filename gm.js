@@ -174,7 +174,6 @@ var autoRoles =
 		grouping:'N',
 		alignment:'mafia'
 	},
-	// 'underboss' {},
 	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
@@ -347,11 +346,6 @@ var autoRoles =
 	'drug dealer': {
 		attributes:  {},
 		grouping:'H',
-		alignment:'mafia'
-	},
-	'underboss': {
-		attributes:  {},
-		grouping:'K',
 		alignment:'mafia'
 	},
 	'lost spirit': {
