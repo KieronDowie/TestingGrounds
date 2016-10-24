@@ -493,7 +493,7 @@ module.exports = {
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},
-	validTarget:function(arr, role, players, playernames, playernums, self){
+	validTarget:function(arr, role, players, playernames, playernums, targets, self){
 		var auto = autoRoles[role];
 		for (j in targets[num][1])
 		{
