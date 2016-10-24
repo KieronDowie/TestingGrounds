@@ -505,6 +505,10 @@ module.exports = {
 			{
 				return 'You cannot target the dead.';
 			}
+			if (auto.attributes.NOLIVINGTARGET)
+			{
+				return 'You cannot target the living.';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
