@@ -493,33 +493,10 @@ module.exports = {
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},
-	validTarget:function(arr, role, players, playernames, playernums, targets, self){
+	validTarget:function(arr, role, players, playernames, playernums, self){
 		var auto = autoRoles[role];
-		for (j in targets[num][1])
-		{
-			var p = playersByName[targets[num][1][j]];
-			if (p.alive)
-			{
-				targettingLiving = true;
-			}
-				else
-			{
-				targettingDead = true;
-			}
-		}
 		if (auto)
 		{
-			if (targettingDead)
-			{
-			if (auto.attributes.DEADTARGET)
-			{
-				
-			}
-			else
-			{
-				return 'You cannot target the dead.';
-			}
-			}
 			if (auto.attributes.NOLIVINGTARGET)
 			{
 				return 'You cannot target the living.';
