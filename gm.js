@@ -57,8 +57,8 @@ var attributes = {
 	 RAINDANCE:'Let it rain next night'
 };
 var autoRoles = 
-	/*{
-	'escort': {
+	{
+	/*'escort': {
 		attributes: {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
