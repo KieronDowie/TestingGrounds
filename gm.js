@@ -63,6 +63,7 @@ var autoRoles =
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
 		grouping:'A',
+		consiggrouping:'Your target owns many beautiful dresses. They must be an Escort.',
 		alignment:'town',
 		priority: 2
 	}, 
@@ -76,6 +77,7 @@ var autoRoles =
 			PRIO1:attributes.PRIO1, 
 			SELF:attributes.SELF},
 		grouping:'J',
+		consiggrouping:'Your target has an expensive, high-tech carriage. They must be a Transporter.',
 		alignment:'town',
 		priority: 4
 	},
@@ -89,30 +91,35 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 			},
 		grouping:'D',
+		consiggrouping:'Your target carries a shotgun with them everywhere they go. They must be a Veteran.',
 		alignment:'town'
 	},
 	'vigilante': {
 		attributes: {
 			VIGKILL:attributes.VIGKILL},
 		grouping:'O',
+		consiggrouping:'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
 		alignment:'town'
 	},
 	'sheriff': {
 		attributes: {
 			CHECK:attributes.CHECK},
 		grouping:'N',
+		consiggrouping:'Your target has hidden away a golden star badge. They must be a Sheriff.',
 		alignment:'town'
 	},
 	'investigator': {
 		attributes:  {
 			INVESTIGATE:attributes.INVESTIGATE},
 		grouping:'B',
+		consiggrouping:'Your target is starting to keep case files on the citizens of this town. They must be an Investigator.',
 		alignment:'town'
 	},
 	'lookout': {
 		attributes:  {
 			WATCH:attributes.WATCH},
 		grouping:'C',
+		consiggrouping:'Your target owns binoculars and stalks people with them at night. They must be a Lookout.',
 		alignment:'town'
 	},
 	'spy': {
@@ -121,17 +128,20 @@ var autoRoles =
 			PASSIVE: attributes.PASSIVE
 		},
 		grouping:'D',
+		consiggrouping:'Your target has advanced listening and tracking devices. They must be a Spy.',
 		alignment:'town'
 	},
 	'mayor': {
 		attributes:  {
 			NOHEAL:attributes.NOHEAL},
 		grouping:'E',
+		consiggrouping:'Your target has official papers listing them as the leader of this Town. They must be the Mayor.',
 		alignment:'town'
 	},
 	'medium': {
 		attributes:  {},
 		grouping:'M',
+		consiggrouping:'Your target owns a crystal ball and tarot cards. They must be a Medium.',
 		alignment:'town'
 	},
 	'retributionist': {
@@ -141,6 +151,7 @@ var autoRoles =
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
 		},
 		grouping:'F',
+		consiggrouping:'Your target owns several magical tomes. They must be the Retributionist.',
 		alignment:'town'
 	},
 	'doctor': {
@@ -148,6 +159,7 @@ var autoRoles =
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
 		grouping:'P',
+		consiggrouping:'Your target owns scrubs and medicine. They must be a Doctor.',
 		alignment:'town',
 		priority: 1
 	},
@@ -156,6 +168,7 @@ var autoRoles =
 			BG:attributes.BG,
 			SELF:attributes.SELF},
 		grouping:'H',
+		consiggrouping:'Your target owns body armor. They must be a Bodyguard.',
 		alignment:'town',
 		priority: 1
 	},
@@ -164,6 +177,7 @@ var autoRoles =
 			JAIL:attributes.JAIL,
 			EXECUTE:attributes.EXECUTE},
 		grouping:'E',
+		consiggrouping:'Your target has a prison cell in their basement. They must be the Jailor.',
 		alignment:'town'
 	},
 	'godfather': {
@@ -172,18 +186,21 @@ var autoRoles =
 			IMMUNE:attributes.IMMUNE,
 			DETECTIONIMMUNE:attributes.DETECTIONIMMUNE},
 		grouping:'N',
+		consiggrouping:'Your target is your boss. They must be the Godfather.',
 		alignment:'mafia'
 	},
 	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
-		grouping:'J',
+		grouping:'J'
+		consiggrouping:'Your target has a list of others\' secrets. They must be a Blackmailer.',
 		alignment:'mafia'
 	},
 	'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
 		grouping:'B',
+		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 		alignment:'mafia'
 	},
 	'consort': {
@@ -191,6 +208,7 @@ var autoRoles =
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
 		grouping:'A',
+		consiggrouping:'Your target owns very expensive jewelry. They must be a Consort.',
 		alignment:'mafia',
 		priority:2
 	},
@@ -200,24 +218,28 @@ var autoRoles =
 			SWAPWILL:attributes.SWAPWILL
 			},
 		grouping:'K',
+		consiggrouping:'Your target owns an elaborate make-up kit. They must be a Disguiser.',
 		alignment:'mafia'
 	},
 	'framer': {
 		attributes:  {
 			FRAME:attributes.FRAME},
 		grouping:'G',
+		consiggrouping:'Your target leaves incriminating evidence lying around. They must be a Framer.',
 		alignment:'mafia'
 	},
 	'janitor': {
 		attributes:  {
 			CLEAN:attributes.CLEAN},
 		grouping:'M',
+		consiggrouping:'Your target owns many cleaning supplies. They must be a Janitor.',
 		alignment:'mafia'
 	},
 	'forger': {
 		attributes:  {
 			FORGE:attributes.FORGE},
 		grouping:'P',
+		consiggrouping:'Your target owns many fancy inks. They must be a Forger.',
 		alignment:'mafia'
 	},
 	'serial killer': {
@@ -226,6 +248,7 @@ var autoRoles =
 			RBATTACK:attributes.RBATTACK,
 			IMMUNE:attributes.IMMUNE},
 		grouping:'O',
+		consiggrouping:'Your target has an extensive knife collection. They must be a Serial Killer.',
 		alignment:'sk'
 	},
 	'arsonist': {
@@ -235,6 +258,7 @@ var autoRoles =
 			SELF:attributes.SELF,
 			IMMUNE:attributes.IMMUNE},
 		grouping:'J',
+		consiggrouping:'Your target owns multiple cans of gasoline. They must be an Arsonist.',
 		alignment:'neutral'
 	},
 	'werewolf': {
@@ -246,6 +270,7 @@ var autoRoles =
 			MUSTVISITEVEN:attributes.MUSTVISITEVEN,
 			RBHOME:attributes.RBHOME},
 		grouping:'L',
+		consiggrouping:'Your target has scratch marks and fur everywhere inside of their home. They must be a Werewolf.',
 		alignment:'ww'
 	},
 	'jester': {
@@ -253,6 +278,7 @@ var autoRoles =
 			HAUNT:attributes.HAUNT
 		},
 		grouping:'D',
+		consiggrouping:'Your target\'s house is full of their deranged, crazy paintings. They must be a Jester.',
 		alignment:'neutral'
 	},	
 	'executioner': {
@@ -260,6 +286,7 @@ var autoRoles =
 			// TARGET:attributes.TARGET
 		},
 		grouping:'N',
+		consiggrouping:'Your target owns many pictures of [target], each one crossed out with a red \'X\'. They must be an Executioner.',
 		alignment:'neutral'
 	},
 	'witch': {
@@ -270,6 +297,7 @@ var autoRoles =
 			FORCEDMULTI:attributes.MULTI
 		},
 		grouping:'I',
+		consiggrouping:'Your target weighs the same as a duck. They must be a Witch.',
 		alignment:'neutral',
 		priority:3
 	},
@@ -281,6 +309,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 		},
 		grouping:'O',
+		consiggrouping:'Your target owns only a couple vests from their army days. They must be a Survivor.',
 		alignment:'neutral'
 	},
 	'amnesiac': {
@@ -290,6 +319,7 @@ var autoRoles =
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
 		},
 		grouping:'O',
+		consiggrouping:'Your target has records of head trauma. They must be an Amnesiac.',
 		alignment:'neutral'
 	},
 	//Custom Roles
@@ -301,125 +331,127 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 		},
 		grouping:'A',
+		consiggrouping:'Your target is dancing in the rain. They must be a Rain Dancer.',
 		alignment:'town'
 	},
 	'auditor': {
 		attributes:  {},
 		grouping:'A',
+		consiggrouping:'Your target has immense wealth. They must an Auditor.',
 		alignment:'neutral'
 	},
 	'nightmarer': {
 		attributes:  {},
 		grouping:'C',
-		consiggrouping:'',
+		consiggrouping:'Your target messes with peoples dreams. They must be a Nightmarer.',
 		alignment:'mafia'
 	},
 	'coroner': {
 		attributes:  {},
 		grouping:'C',
-		consiggrouping:'',
+		consiggrouping:'Your target gets leads from the dead people. They must be a Coroner.',
 		alignment:'town'
 	},
 	'watcher': {
 		attributes:  {},
 		grouping:'C',
-		consiggrouping:'',
+		consiggrouping:'Your target owns binoculars and works with the Mafia, They must be a Watcher.',
 		alignment:'mafia'
 	},
 	'electrician': {
 		attributes:  {},
 		grouping:'D',
-		consiggrouping:'',
+		consiggrouping:'Your target owns protective vests against high voltage. They must be a Electrician.',
 		alignment:'neutral'
 	},
 	'shadowalker': {
 		attributes:  {},
 		grouping:'D',
-		consiggrouping:'',
+		consiggrouping:'Your target lurks in the shadows of others, They must be a Shadowalker.',
 		alignment:'sw'
 	},
 	'necromancer': {
 		attributes:  {},
 		grouping:'F',
-		consiggrouping:'',
+		consiggrouping:'Your target creates minions. They must be a Necromancer.',
 		alignment:'neutral'
 	},
 	'stalker': {
 		attributes:  {},
 		grouping:'G',
-		consiggrouping:'',
+		consiggrouping:'Your target sends cold shivers down your spine. They must be a Stalker.',
 		alignment:'neutral'
 	},
 	'drug dealer': {
 		attributes:  {},
 		grouping:'H',
-		consiggrouping:'',
+		consiggrouping:'Your target drugs people in the night. They must be a Drug Dealer.',
 		alignment:'mafia'
 	},
 	'lost spirit': {
 		attributes:  {},
 		grouping:'I',
-		consiggrouping:'',
+		consiggrouping:'Your target has long been forgotten. They must be a Lost Spirit.',
 		alignment:'neutral'
 	},
 	'distributor': {
 		attributes:  {},
 		grouping:'I',
-		consiggrouping:'',
+		consiggrouping:'Your target makes sure everyone is equal. They must be a Distributor.',
 		alignment:'neutral'
 	},
 	'scientist': {
 		attributes:  {},
 		grouping:'I',
-		consiggrouping:'',
+		consiggrouping:'Your target owns vials of blood. They must be a Scientist.',
 		alignment:'town'
 	},
 	'tracker': {
 		attributes:  {},
 		grouping:'J',
-		consiggrouping:'',
+		consiggrouping:'Your target is always following you. They must be a Tracker.',
 		alignment:'town'
 	},
 	'tax collector': {
 		attributes:  {},
 		grouping:'K',
-		consiggrouping:'',
+		consiggrouping:'Your target collects money from others. They must be a Tax Collector.',
 		alignment:'neutral'
 	},
 	'ghost': {
 		attributes:  {},
 		grouping:'L',
-		consiggrouping:'',
+		consiggrouping:'Death did not stop your target from living. They must be a Ghost.',
 		alignment:'town'
 	},
 	'paradoxist': {
 		attributes:  {},
 		grouping:'L',
-		consiggrouping:'',
+		consiggrouping:'Your target is from another plane of reality. They must be a Paradoxist.',
 		alignment:'neutral'
 	},
 	'mystic': {
 		attributes:  {},
 		grouping:'P',
-		consiggrouping:'',
+		consiggrouping:'Your target has the power to take others\' bodies. They must be a Mystic.',
 		alignment:'neutral'
 	},
 	'mortician': {
 		attributes:  {},
 		grouping:'M',
-		consiggrouping:'',
+		consiggrouping:'>our target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
 		alignment:'neutral'
 	},
 	'politician': {
 		attributes:  {},
 		grouping:'N',
-		consiggrouping:'',
+		consiggrouping:'Your target wants to become the mayor, they must be a Politician.',
 		alignment:'neutral'
 	},
 	'undertaker': {
 		attributes:  {},
 		grouping:'M',
-		consiggrouping:'',
+		consiggrouping:'Your target buries the dead. They must be a Undertaker.',
 		alignment:'neutral'
 	},
 	'orphan': {
