@@ -445,6 +445,62 @@ var investGrouping = {
 	'P':'Your target can delay the inevitable.',
 };
 
+var consigResults = {
+	'Bodyguard':'Your target owns body armor. They must be a Bodyguard.',
+	'Doctor':'Your target owns scrubs and medicine. They must be a Doctor.',
+	'Escort':'Your target owns many beautiful dresses. They must be an Escort.',
+	'Investigator':'Your target is starting to keep case files on the citizens of this town. They must be an Investigator.',
+	'Jailor':'Your target has a prison cell in their basement. They must be the Jailor.',
+	'Lookout':'Your target owns binoculars and stalks people with them at night. They must be a Lookout.',
+	'Mayor':'Your target has official papers listing them as the leader of this Town. They must be the Mayor.',
+	'Medium':'Your target owns a crystal ball and tarot cards. They must be a Medium.',
+	'Transporter':'Your target has an expensive, high-tech carriage. They must be a Transporter.',
+	'Retributionist':'Your target owns several magical tomes. They must be the Retributionist.',
+	'Sheriff':'Your target has hidden away a golden star badge. They must be a Sheriff.',
+	'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
+	'Veteran':'Your target carries a shotgun with them everywhere they go. They must be a Veteran.',
+	'Vigilante':'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
+	'Blackmailer':'Your target has a list of others\' secrets. They muse be a Blackmailer.',
+	'Consigliere':'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
+	'Consort':'Your target owns very expensive jewelry. They must be a Consort.',
+	'Disguiser':'Your target owns an elaborate make-up kit. They must be a Disguiser.',
+	'Forger':'Your target owns many fancy inks. They must be a Forger.',
+	'Framer':'Your target leaves incriminating evidence lying around. They must be a Framer.',
+	'Godfather':'Your target is your boss. They must be the Godfather.',
+	'Mafioso':'Your target has hidden away several guns. They must be the Mafioso.',
+	'Janitor':'Your target owns many cleaning supplies. They must be a Janitor.',
+	'Amnesiac':'Your target has records of head trauma. They must be an Amnesiac.',
+	'Survivor':'Your target owns only a couple vests from their army days. They must be a Survivor.',
+	'Executioner':'Your target owns many pictures of [target], each one crossed out with a red \'X\'. They must be an Executioner.',
+	'Jester':'Your target\'s house is full of their deranged, crazy paintings. They must be a Jester.',
+	'Witch':'Your target weighs the same as a duck. They must be a Witch.',
+	'Arsonist':'Your target owns multiple cans of gasoline. They must be an Arsonist.',
+	'Serial Killer':'Your target has an extensive knife collection. They must be a Serial Killer.',
+	'Werewolf':'Your target has scratch marks and fur everywhere inside of their home. They must be a Werewolf.',
+	'Tracker':'Your target is always following you. They must be a Tracker.',
+	'Scientist':'Your target owns vials of blood. They must be a Scientist.',
+	'Watcher':'Your target owns binoculars and works with the Mafia, They must be a Watcher.',
+	'Electrician':'Your target owns protective vests against high voltage. They must be a Electrician.',
+	'Shadowalker':'Your target lurks in the shadows of others, They must be a Shadowalker.',
+	'Drug Dealer':'Your target drugs people in the night. They must be a Drug Dealer.',
+	'Necromancer':'Your target creates minions. They must be a Necromancer.',
+	'Politician':'Your target wants to become the mayor, they must be a Politician.',
+	'Nightmarer':'Your target messes with peoples dreams. They must be a Nightmarer.',
+	'Undetaker':'Your target buries the dead. They must be a Undertaker.',
+	'Lost Spirit':'Your target has long been forgotten. They must be a Lost Spirit.',
+	'Orphan':'Your target is living on the streets. They must be a Orphan.',
+	'Ghost':'Death did not stop your target from living. They must be a Ghost.',
+	'Rain Dancer':'Your target is dancing in the rain. They must be a Rain Dancer.',
+	'Auditor':'Your target has immense wealth. They must an Auditor.',
+	'Mystic':'Your target has the power to take others\' bodies. They must be a Mystic.',
+	'Tax Collector':'Your target collects money from others. They must be a Tax Collector.',
+	'Coroner':'Your target gets leads from the dead people. They must be a Coroner.',
+	'Paradoxist':'Your target is from another plane of reality. They must be a Paradoxist.',
+	'Mortician':'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
+	'Stalker':'Your target sends cold shivers down your spine. They must be a Stalker.',
+	'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.'
+};
+
 var sheriffResults = {
 	'town':'Your target is not suspicious.',
 	'mafia':'Your target is a member of the Mafia!',
@@ -1334,10 +1390,6 @@ module.exports = {
 										{
 											addSuggestedAction('Disguise',num+'/'+t[0]);
 										}
-									}
-									else if (roleAttributes.RAINDANCE)
-									{
-										addSuggestedMessage('It seems like its going to rain next night.');
 									}
 								}
 								else
