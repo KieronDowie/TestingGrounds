@@ -355,7 +355,7 @@ var autoRoles =
 	'watcher': {
 		attributes:  {},
 		grouping:'C',
-		consiggrouping:'Your target owns binoculars and works with the Mafia, They must be a Watcher.',
+		consiggrouping:'Your target owns binoculars and works for the Mafia, They must be a Watcher.',
 		alignment:'mafia'
 	},
 	'electrician': {
@@ -439,7 +439,7 @@ var autoRoles =
 	'mortician': {
 		attributes:  {},
 		grouping:'M',
-		consiggrouping:'>our target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
+		consiggrouping:'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
 		alignment:'neutral'
 	},
 	'politician': {
