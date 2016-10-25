@@ -13,6 +13,8 @@ var connectAttempt = 0;
 var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
+//Music
+var lobby = new Audio('Lobby.wav');
 //Enums
 var Type = {
 	PING:0,
@@ -373,6 +375,9 @@ socket.on(Type.PING,function()
 });
 socket.on(Type.HEY,function(){
 	hey.play();
+});
+socket.on(Type.LOBBY,function(){
+	lobby.play();
 });
 socket.on(Type.JOIN,function(name, reconnect)
 {

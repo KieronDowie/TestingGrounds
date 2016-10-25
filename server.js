@@ -548,6 +548,7 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/ping.wav':
+		case '/Lobby.wav':
 			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
@@ -3424,6 +3425,13 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
 						}
+					break;
+					case 'music':
+					if (this.music)
+					{
+						this.s.emit(Type.LOBBY);
+					}
+					
 					break;
 					case 'alert':
 						if (c.length >= 2)
