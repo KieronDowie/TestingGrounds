@@ -58,7 +58,7 @@ var attributes = {
 };
 var autoRoles = 
 	{
-	/*'escort': {
+	'escort': {
 		attributes: {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
@@ -100,7 +100,7 @@ var autoRoles =
 		grouping:'O',
 		consiggrouping:'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
 		alignment:'town'
-	},
+	/*},
 	'sheriff': {
 		attributes: {
 			CHECK:attributes.CHECK},
