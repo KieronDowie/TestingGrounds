@@ -1241,9 +1241,9 @@ module.exports = {
 										var t = targets[num][1];
 										var role = getRole(targets[t[0]]);
 										var group = role.consiggrouping;
-										if (role.consiggrouping != undefined)
+										if (group != undefined)
 										{
-											
+											addSuggestedMessage("Blah");
 										}
 										else
 										{
