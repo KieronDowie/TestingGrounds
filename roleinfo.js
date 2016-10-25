@@ -486,7 +486,7 @@ var roles=[
 				custom:true
 			},*/
 			/*ROLEIDEABURGLAR*/
-			{      
+			/*{      
 				rolename:"thief",
 				alignment:"neutral evil",
 				abilities:'Choose a person and steal their will at night.',
@@ -497,8 +497,8 @@ var roles=[
 				goal:"Manipulate the town into losing.",
 				color:"#292929",
 				custom:true
-			},
-			{      
+			},*/
+			/*{      
 				rolename:"burglar",
 				alignment:"mafia support",
 				abilities:'Choose a person and steal their will at night.',
@@ -509,7 +509,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor,
 				custom:true
-			},
+			},*/
 			{
 				rolename:"lost spirit",
 				alignment:"neutral benign",
