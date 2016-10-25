@@ -406,6 +406,7 @@ var autoRoles =
 	'orphan': {
 		attributes:  {},
 		grouping:'I',
+		consiggrouping:'Orphan',
 		alignment:'neutral'
 	},
 };
@@ -1239,7 +1240,18 @@ module.exports = {
 									{
 										var t = targets[num][1];
 										var role = getRole(targets[t[0]]);
+										var group = role.consiggrouping;
+										role = autoRoles[role];
+										if (false)
+										{
+											
+										}
+										else
+										{
+										var t = targets[num][1];
+										var role = getRole(targets[t[0]]);
 										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
+										}
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
