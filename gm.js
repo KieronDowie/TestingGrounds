@@ -144,7 +144,7 @@ var autoRoles =
 		consiggrouping:'Your target owns a crystal ball and tarot cards. They must be a Medium.',
 		alignment:'town'
 	},
-	/*'retributionist': {
+	'retributionist': {
 		attributes:  {
 			REVIVE:attributes.REVIVE,
 			DEADTARGET:attributes.DEADTARGET,
@@ -203,7 +203,7 @@ var autoRoles =
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 		alignment:'mafia'
 	},
-	'consort': {
+	/*'consort': {
 		attributes:  {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
