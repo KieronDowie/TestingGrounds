@@ -1248,6 +1248,8 @@ module.exports = {
 										}
 										else
 										{
+										var t = targets[num][1];
+										var role = getRole(targets[t[0]]);
 										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
 										}
 									}
