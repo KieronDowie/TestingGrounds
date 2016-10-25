@@ -172,7 +172,7 @@ var autoRoles =
 		alignment:'town',
 		priority: 1
 	},
-	/*'jailor': {
+	'jailor': {
 		attributes:  {
 			JAIL:attributes.JAIL,
 			EXECUTE:attributes.EXECUTE},
@@ -189,7 +189,7 @@ var autoRoles =
 		consiggrouping:'Your target is your boss. They must be the Godfather.',
 		alignment:'mafia'
 	},
-	'blackmailer': {
+	/*'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
 		grouping:'J'
