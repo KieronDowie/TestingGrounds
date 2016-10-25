@@ -101,7 +101,7 @@ var autoRoles =
 		consiggrouping:'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
 		alignment:'town'
 	},
-	/*'sheriff': {
+	'sheriff': {
 		attributes: {
 			CHECK:attributes.CHECK},
 		grouping:'N',
@@ -144,7 +144,7 @@ var autoRoles =
 		consiggrouping:'Your target owns a crystal ball and tarot cards. They must be a Medium.',
 		alignment:'town'
 	},
-	'retributionist': {
+	/*'retributionist': {
 		attributes:  {
 			REVIVE:attributes.REVIVE,
 			DEADTARGET:attributes.DEADTARGET,
