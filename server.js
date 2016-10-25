@@ -601,7 +601,7 @@ io.on('connection', function(socket){
 	}
 	if (banned)
 	{
-		socket.emit(Type.SYSTEM,'This ip is banned. Reason: '+reason+'.<br>If you believe this to be in error, contact <a href="http://www.blankmediagames.com/phpbb/memberlist.php?mode=viewprofile&u=422145">KittenLicks</a> at the Town of Salem forums.');
+		socket.emit(Type.SYSTEM,'This ip is banned. Reason: '+reason+'.<br>If you believe this to be in error, contact <a href="http://www.blankmediagames.com/phpbb/memberlist.php?mode=viewprofile&u=1270513">Ralozey</a> at the Town of Salem forums.');
 		socket.emit(Type.KICK);
 		console.log('Connection attempt from banned ip: '+ip);
 		socket.disconnect();
