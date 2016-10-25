@@ -1240,7 +1240,9 @@ module.exports = {
 									{
 										var t = targets[num][1];
 										var role = getRole(targets[t[0]]);
+										role = autoRoles[role];
 										var group = role.consiggrouping;
+										var results = consigResults[group];
 										addSuggestedMessage(group,num);
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
@@ -1521,6 +1523,18 @@ function getInvestGroupings(grouping)
 	for (i in autoRoles)
 	{
 		if (autoRoles[i].grouping == grouping)
+		{
+			arr.push(capitalize(i));
+		}
+	}
+	return arr;
+}
+function getConsigGroupings(consiggrouping)
+{
+	var arr = [];
+	for (i in autoRoles)
+	{
+		if (autoRoles[i].consiggrouping == consiggrouping)
 		{
 			arr.push(capitalize(i));
 		}
