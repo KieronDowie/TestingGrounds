@@ -201,8 +201,8 @@ var autoRoles =
 			CONSIG:attributes.CONSIG},
 		grouping:'B',
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
-		alignment:'mafia'*/
-	},
+		alignment:'mafia'
+	},*/
 	/*'consort': {
 		attributes:  {
 			RB:attributes.RB,
