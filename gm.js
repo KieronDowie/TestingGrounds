@@ -1262,7 +1262,7 @@ module.exports = {
 										role = autoRoles[role];
 										var group = role.consiggrouping;
 										var results = consigResults[group];
-										if (group == undefined)
+										if (group === 'null')
 										{
 										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
 										}
