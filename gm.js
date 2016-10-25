@@ -1241,16 +1241,7 @@ module.exports = {
 										var t = targets[num][1];
 										var role = getRole(targets[t[0]]);
 										var group = role.consiggrouping;
-										if (group != undefined)
-										{
-											addSuggestedMessage("Blah");
-										}
-										else
-										{
-											var t = targets[num][1];
-											var role = getRole(targets[t[0]]);
-											addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
-										}
+										addSuggestedMessage(group,num);
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
