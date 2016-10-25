@@ -561,19 +561,6 @@ var server = http.createServer(function(req,res)
 				}
 			});
 		break;
-		case '/lobby.wav':
-		fs.readFile(__dirname + '/music/' + path, function(error, data){
-				if (error){
-					res.writeHead(404);
-					res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
-					res.end();
-				}
-				else{
-					res.writeHead(200, {"Content-Type": "text/wav"});
-					res.write(data, "utf8");
-					res.end();
-				}
-			});
         default:
 			res.writeHead(404);
 			res.write('<h1>Oops! This page doesn\'t seem to exist! 404</h1>');
@@ -3437,13 +3424,6 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The syntax of this command is \'/kick user reason\'.');
 						}
-					break;
-					case 'music':
-					{
-						this.s.emit(Type.LOBBY);
-						this.s.emit(Type.SYSTEM,'You are now listening to Music!');
-					}
-					
 					break;
 					case 'alert':
 						if (c.length >= 2)
