@@ -57,7 +57,7 @@ var attributes = {
 	 RAINDANCE:'Let it rain next night'
 };
 var autoRoles = 
-	{
+	/*{
 	'escort': {
 		attributes: {
 			RB:attributes.RB,
@@ -459,7 +459,7 @@ var autoRoles =
 		grouping:'I',
 		consiggrouping:'Your target is living on the streets. They must be an Orphan.',
 		alignment:'neutral'
-	},
+	},*/
 };
 
 /* Old Invest Results
