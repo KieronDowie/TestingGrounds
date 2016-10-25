@@ -311,96 +311,115 @@ var autoRoles =
 	'nightmarer': {
 		attributes:  {},
 		grouping:'C',
+		consiggrouping:'',
 		alignment:'mafia'
 	},
 	'coroner': {
 		attributes:  {},
 		grouping:'C',
+		consiggrouping:'',
 		alignment:'town'
 	},
 	'watcher': {
 		attributes:  {},
 		grouping:'C',
+		consiggrouping:'',
 		alignment:'mafia'
 	},
 	'electrician': {
 		attributes:  {},
 		grouping:'D',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'shadowalker': {
 		attributes:  {},
 		grouping:'D',
+		consiggrouping:'',
 		alignment:'sw'
 	},
 	'necromancer': {
 		attributes:  {},
 		grouping:'F',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'stalker': {
 		attributes:  {},
 		grouping:'G',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'drug dealer': {
 		attributes:  {},
 		grouping:'H',
+		consiggrouping:'',
 		alignment:'mafia'
 	},
 	'lost spirit': {
 		attributes:  {},
 		grouping:'I',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'distributor': {
 		attributes:  {},
 		grouping:'I',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'scientist': {
 		attributes:  {},
 		grouping:'I',
+		consiggrouping:'',
 		alignment:'town'
 	},
 	'tracker': {
 		attributes:  {},
 		grouping:'J',
+		consiggrouping:'',
 		alignment:'town'
 	},
 	'tax collector': {
 		attributes:  {},
 		grouping:'K',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'ghost': {
 		attributes:  {},
 		grouping:'L',
+		consiggrouping:'',
 		alignment:'town'
 	},
 	'paradoxist': {
 		attributes:  {},
 		grouping:'L',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'mystic': {
 		attributes:  {},
 		grouping:'P',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'mortician': {
 		attributes:  {},
 		grouping:'M',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'politician': {
 		attributes:  {},
 		grouping:'N',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'undertaker': {
 		attributes:  {},
 		grouping:'M',
+		consiggrouping:'',
 		alignment:'neutral'
 	},
 	'orphan': {
@@ -1243,7 +1262,7 @@ module.exports = {
 										role = autoRoles[role];
 										var group = role.consiggrouping;
 										var results = consigResults[group];
-										if (group === 'null')
+										if (group == undefined)
 										{
 										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
 										}
