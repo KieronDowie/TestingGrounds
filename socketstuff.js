@@ -14,7 +14,7 @@ var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
 //Music
-var lobby = new Audio('Lobby.wav');
+var lobby = new Audio('lobby.wav');
 //Enums
 var Type = {
 	PING:0,
