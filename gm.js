@@ -1337,9 +1337,7 @@ module.exports = {
 									}
 									else if (roleAttributes.RAINDANCE)
 									{
-										{
-											addSuggestedMessage('It seems like its going to rain next night.');
-										}
+										addSuggestedMessage('It seems like its going to rain next night.');
 									}
 								}
 								else
