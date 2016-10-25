@@ -192,8 +192,8 @@ var autoRoles =
 	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
-		grouping:'J'
-		consiggrouping:'Your target has a list of others\' secrets. They must be a Blackmailer.',
+		grouping:'J',
+		consiggrouping:'Your target has a list of others secrets. They must be a Blackmailer.',
 		alignment:'mafia'
 	},
 	/*'consigliere': {
