@@ -194,14 +194,14 @@ var autoRoles =
 			BLACKMAIL:attributes.BLACKMAIL},
 		grouping:'J'
 		consiggrouping:'Your target has a list of others\' secrets. They must be a Blackmailer.',
-		alignment:'mafia'*/
+		alignment:'mafia'
 	},
 	'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
 		grouping:'B',
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
-		alignment:'mafia'
+		alignment:'mafia'*/
 	},
 	/*'consort': {
 		attributes:  {
