@@ -196,13 +196,13 @@ var autoRoles =
 		consiggrouping:'Your target has a list of others secrets. They must be a Blackmailer.',
 		alignment:'mafia'
 	},
-	/*'consigliere': {
+	'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
 		grouping:'B',
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 		alignment:'mafia'
-	},*/
+	},
 	'consort': {
 		attributes:  {
 			RB:attributes.RB,
