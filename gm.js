@@ -154,7 +154,7 @@ var autoRoles =
 		consiggrouping:'Your target owns several magical tomes. They must be the Retributionist.',
 		alignment:'town'
 	},
-	/*'doctor': {
+	'doctor': {
 		attributes:  {
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
@@ -172,7 +172,7 @@ var autoRoles =
 		alignment:'town',
 		priority: 1
 	},
-	'jailor': {
+	/*'jailor': {
 		attributes:  {
 			JAIL:attributes.JAIL,
 			EXECUTE:attributes.EXECUTE},
