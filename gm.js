@@ -406,7 +406,7 @@ var autoRoles =
 	'orphan': {
 		attributes:  {},
 		grouping:'I',
-		consiggrouping:'Orphan',
+		consiggrouping:'Your target is living on the streets. They must be a Orphan.',
 		alignment:'neutral'
 	},
 };
@@ -1243,7 +1243,14 @@ module.exports = {
 										role = autoRoles[role];
 										var group = role.consiggrouping;
 										var results = consigResults[group];
+										if (group == 'null')
+										{
+										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
+										}
+										else
+										{
 										addSuggestedMessage(group,num);
+										}
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
