@@ -100,8 +100,8 @@ var autoRoles =
 		grouping:'O',
 		consiggrouping:'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
 		alignment:'town'
-	/*},
-	'sheriff': {
+	},
+	/*'sheriff': {
 		attributes: {
 			CHECK:attributes.CHECK},
 		grouping:'N',
