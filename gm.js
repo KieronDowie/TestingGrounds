@@ -154,7 +154,7 @@ var autoRoles =
 		consiggrouping:'Your target owns several magical tomes. They must be the Retributionist.',
 		alignment:'town'
 	},
-	'doctor': {
+	/*'doctor': {
 		attributes:  {
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
@@ -203,7 +203,7 @@ var autoRoles =
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 		alignment:'mafia'
 	},
-	/*'consort': {
+	'consort': {
 		attributes:  {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
