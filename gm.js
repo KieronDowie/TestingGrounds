@@ -203,7 +203,7 @@ var autoRoles =
 		consiggrouping:'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 		alignment:'mafia'
 	},*/
-	/*'consort': {
+	'consort': {
 		attributes:  {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
@@ -459,7 +459,7 @@ var autoRoles =
 		grouping:'I',
 		consiggrouping:'Your target is living on the streets. They must be an Orphan.',
 		alignment:'neutral'
-	},*/
+	},
 };
 
 /* Old Invest Results
