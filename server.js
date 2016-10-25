@@ -3427,9 +3427,9 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'music':
-					if (this.music)
 					{
 						this.s.emit(Type.LOBBY);
+						player.s.emit(Type.SYSTEM,'You are now listening to Music!');
 					}
 					
 					break;
