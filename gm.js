@@ -189,14 +189,14 @@ var autoRoles =
 		consiggrouping:'Your target is your boss. They must be the Godfather.',
 		alignment:'mafia'
 	},
-	/*'blackmailer': {
+	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
 		grouping:'J'
 		consiggrouping:'Your target has a list of others\' secrets. They must be a Blackmailer.',
 		alignment:'mafia'
 	},
-	'consigliere': {
+	/*'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
 		grouping:'B',
