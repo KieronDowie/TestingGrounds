@@ -1303,10 +1303,6 @@ module.exports = {
 										addSuggestedMessage(results,num);
 										}
 									}
-									else if (roleAttributes.RAINDANCE)
-									{
-										addSuggestedMessage('It seems like its going to rain tonight.');
-									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
 										var t = targets[num][1];
@@ -1324,6 +1320,10 @@ module.exports = {
 										var a = AorAn(p.role);
 										addSuggestedMessage('An Amnesiac has remembered that they were '+a+' '+p.role+".",'<All>');
 										addSuggestedMessage('You remembered what you were!',num);
+									}
+									else if (roleAttributes.RAINDANCE)
+									{
+										addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 									}
 									else if (roleAttributes.REVIVE)
 									{
