@@ -331,7 +331,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 		},
 		grouping:'A',
-		consiggrouping:'Rain Dancer
+		consiggrouping:'Rain Dancer',
 		alignment:'town'
 	},
 	'auditor': {
