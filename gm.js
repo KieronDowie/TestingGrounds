@@ -3,7 +3,6 @@ var suggestedMessages = [];
 var suggestedActions = [];
 var beingTargetted = {};
 var daynumber = 1;
-var rain = 0;
 var attributes = {
 	 BG:'Protect your target, killing their attacker and yourself.',
 	 HEAL:'Heal your target.',
@@ -1324,7 +1323,6 @@ module.exports = {
 									}
 									else if (roleAttributes.RAINDANCE)
 									{
-										rain = 1;
 										addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 									}
 									else if (roleAttributes.REVIVE)
@@ -1535,11 +1533,6 @@ module.exports = {
 			}
 		}
 	}
-}
-if (rain == 1)
-{
-rain = 0;
-addSuggestedMessage('It started to rain.','<All>');
 }
 function addSuggestedMessage(msg,to)
 {
