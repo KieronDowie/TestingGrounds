@@ -1303,6 +1303,10 @@ module.exports = {
 										addSuggestedMessage(results,num);
 										}
 									}
+									else if (roleAttributes.RAINDANCE)
+									{
+										addSuggestedMessage('It seems like its going to rain tonight.');
+									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
 										var t = targets[num][1];
