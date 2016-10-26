@@ -457,7 +457,7 @@ var autoRoles =
 	'orphan': {
 		attributes:  {},
 		grouping:'I',
-		consiggrouping:'Your target is living on the streets. They must be an Orphan.',
+		consiggrouping:'Orphan',
 		alignment:'neutral'
 	},
 };
@@ -1300,7 +1300,7 @@ module.exports = {
 										}
 										else
 										{
-										addSuggestedMessage(group,num);
+										addSuggestedMessage(results,num);
 										}
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
