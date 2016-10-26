@@ -1327,11 +1327,6 @@ module.exports = {
 										rain = 1;
 										addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 									}
-									else if (rain == 1)
-									{
-										rain = 0;
-										addSuggestedMessage('It started to rain.','<All>');
-									}
 									else if (roleAttributes.REVIVE)
 									{
 										var t = targets[num][1];
@@ -1540,6 +1535,11 @@ module.exports = {
 			}
 		}
 	}
+}
+if (rain == 1)
+{
+rain = 0;
+addSuggestedMessage('It started to rain.','<All>');
 }
 function addSuggestedMessage(msg,to)
 {
