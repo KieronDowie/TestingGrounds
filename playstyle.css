@@ -660,12 +660,11 @@ header ul li span
 	color: white;
 	font-size:10px;
 	padding-top:2px;
-	padding-right:6px;
-	padding-left:6px;
+	padding-right:2px;
+	padding-left:2px;
 	padding-bottom:2px;
 	margin-left:5px;
 	cursor:default;
-	background: url(music.png) no-repeat;
 }
 .musicbutton:hover
 {
