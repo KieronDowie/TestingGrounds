@@ -651,15 +651,18 @@ header ul li span
 }
 .musicbutton
 {
-	height:2em;
-	width:2.7em;
+	height:2.38em;
+	width:1.5em;
 	text-align:center;
 	border: 1px solid black;
 	float:right;
 	background: #8B6914;
 	color: white;
 	font-size:10px;
-	padding-top:8px;
+	padding-top:2px;
+	padding-right:6px;
+	padding-left:6px;
+	padding-bottom:2px;
 	margin-left:5px;
 	cursor:default;
 }
