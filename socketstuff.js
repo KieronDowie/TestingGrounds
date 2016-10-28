@@ -15,8 +15,10 @@ var kicked = false;
 var hey = new Audio('ping.wav');
 var mpregame = new Audio('CalmBeforeTheStorm.mp3');
 var whoami = new Audio('WhoAmI.mp3');
+var mmodtime = new Audio('LittleItaly.mp3');
 var musicon = 1;
 mpregame.loop = true;
+mmodtime.loop = true;
 //Enums
 var Type = {
 	PING:0,
@@ -700,6 +702,7 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	if (phase == 0)
 {
 	mpregame.loop = true;
+	mmodtime.loop = true;
 	/*if (musicon == 1)
 	{
 	mpregame.play();
@@ -713,12 +716,24 @@ else
 	if (phase == 1)
 	{
 		mpregame.loop = true;
+		mmodtime.loop = true;
 		whoami.play();
 	}
 	else
 	{
 		whoami.pause();
 		whoami.currentTime = 0;
+	}
+	if (phase == 2)
+	{
+		mpregame.loop = true;
+		mmodtime.loop = true;
+		mmodtime.play();
+	}
+	else
+	{
+		mmodtime.pause();
+		mmodtime.currentTime = 0;
 	}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();

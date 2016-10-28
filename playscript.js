@@ -63,23 +63,30 @@ function openWill()
 
 function mutemusic(phase)
 {
-	mpregame.loop = true;
 	if (musicon == 0)
 	{
 		mpregame.volume = 1;
 		whoami.volume = 1;
+		mmodtime.volume = 1;
 		musicon = 1;
 		if (currentphase == 0)
 		{
 			mpregame.play();
+		}
+		if (currentphase == 2)
+		{
+			mmodtime.play();
 		}
 	}
 	else
 	{
 		mpregame.volume = 0;
 		whoami.volume = 0;
+		mmodtime.volume = 0;
 		mpregame.pause();
 		mpregame.currentTime = 0;
+		mmodtime.pause();
+		mmodtime.currentTime = 0;
 		musicon = 0;
 	}
 }
