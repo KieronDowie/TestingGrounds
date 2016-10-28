@@ -63,13 +63,13 @@ function openWill()
 
 function mutemusic()
 {
-	if (lobby.volume == 0)
+	if (lobby.play)
 	{
-		lobby.volume = 1;
+		lobby.stop;
 	}
 	else
 	{
-		lobby.volume = 0;
+		lobby.play;
 	}
 }
 
