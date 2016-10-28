@@ -39,8 +39,6 @@ $(document).ready(function(){
 		}
 	});
 });
-while (true)
-{
 var phase = $('header ul li').index(this);
 if (phase == 0)
 {
@@ -49,7 +47,6 @@ if (phase == 0)
 else
 {
 	lobby.stop();
-}
 }
 //Check if the window is infocus
 var isActive = true;
