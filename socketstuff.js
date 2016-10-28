@@ -774,7 +774,10 @@ else
 	}
 	if (phase == 0)
 	{
-	lobby.play();
+		if (lobbyon == 1)
+		{
+			lobby.play();
+		}
 	}
 });
 socket.on(Type.WHISPER,function(msg)
