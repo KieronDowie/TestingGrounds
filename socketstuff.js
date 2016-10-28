@@ -14,6 +14,7 @@ var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
 var lobby = new Audio('lobby.wav');
+var lobbyon = 1;
 lobby.loop = true;
 //Enums
 var Type = {
