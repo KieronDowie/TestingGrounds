@@ -698,10 +698,10 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	currentphase = phase;
 	if (phase == 0)
 {
-	if (lobbyon == 1)
+	/*if (lobbyon == 1)
 	{
 	lobby.play();
-	}
+	}*/
 }
 else
 {
