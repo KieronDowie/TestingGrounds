@@ -13,6 +13,9 @@ var connectAttempt = 0;
 var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
+var lobby = new Audio('lobby.wav');
+lobby.loop = true;
+lobby.play();
 //Enums
 var Type = {
 	PING:0,

@@ -630,7 +630,7 @@ header ul li span
 .willbutton
 {
 	height:2em;
-	width:3em;
+	width:2.7em;
 	text-align:center;
 	border: 1px solid black;
 	float:right;
@@ -642,6 +642,25 @@ header ul li span
 	cursor:default;
 }
 .willbutton:hover
+{
+	background:#E1D45B;
+	color:black;
+}
+.musicbutton
+{
+	height:2em;
+	width:2.7em;
+	text-align:center;
+	border: 1px solid black;
+	float:right;
+	background: #8B6914;
+	color: white;
+	font-size:10px;
+	padding-top:8px;
+	margin-left:5px;
+	cursor:default;
+}
+.musicbutton:hover
 {
 	background:#E1D45B;
 	color:black;
