@@ -759,6 +759,10 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 		$('#main').append(verdict);
 		verdict.animate({'left':'60%'},'fast');
 	}
+	if (phase == 0)
+	{
+	lobby.play();
+	}
 });
 socket.on(Type.WHISPER,function(msg)
 {
