@@ -699,6 +699,7 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	currentphase = phase;
 	if (phase == 0)
 {
+	mpregame.loop = true;
 	/*if (musicon == 1)
 	{
 	mpregame.play();
@@ -711,6 +712,7 @@ else
 }
 	if (phase == 1)
 	{
+		mpregame.loop = true;
 		whoami.play();
 	}
 	else
