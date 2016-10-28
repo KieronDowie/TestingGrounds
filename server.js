@@ -549,21 +549,8 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/ping.wav':
-			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
-				if (error){
-					res.writeHead(404);
-					res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
-					res.end();
-				}
-				else{
-					res.writeHead(200, {"Content-Type": "text/wav"});
-					res.write(data, "utf8");
-					res.end();
-				}
-			});
-		break;
 		case '/lobby.wav':
-			fs.readFile(__dirname + '/music/' + path, function(error, data){
+			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
 					res.write("<h1>Oops! This page doesn\'t seem to exist! 404</h1>");
