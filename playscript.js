@@ -65,17 +65,20 @@ function mutemusic(phase)
 {
 	if (musicon == 0)
 	{
-		mpregame.volume = 1;
-		whoami.volume = 1;
-		mmodtime.volume = 1;
 		musicon = 1;
 		if (currentphase == 0)
 		{
-			mpregame.play();
+			mpregame.currentTime = 0;
+			mpregame.volume = 1;
+		}
+		if (currentphase == 1)
+		{
+			whoami.volume = 1;
 		}
 		if (currentphase == 2)
 		{
-			mmodtime.play();
+			mmodtime.currentTime = 0;
+			mmodtime.volume = 1;
 		}
 	}
 	else
@@ -83,10 +86,6 @@ function mutemusic(phase)
 		mpregame.volume = 0;
 		whoami.volume = 0;
 		mmodtime.volume = 0;
-		mpregame.pause();
-		mpregame.currentTime = 0;
-		mmodtime.pause();
-		mmodtime.currentTime = 0;
 		musicon = 0;
 	}
 }

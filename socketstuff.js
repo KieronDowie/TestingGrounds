@@ -15,6 +15,7 @@ var kicked = false;
 var hey = new Audio('ping.wav');
 var mpregame = new Audio('CalmBeforeTheStorm.mp3');
 var whoami = new Audio('WhoAmI.mp3');
+//var mmodtime = new Audio('Searching.mp3');
 var mmodtime = new Audio('LittleItaly.mp3');
 var musicon = 1;
 mpregame.loop = true;
@@ -701,39 +702,33 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	currentphase = phase;
 	if (phase == 0)
 {
-	mpregame.loop = true;
-	mmodtime.loop = true;
-	/*if (musicon == 1)
+	if (musicon == 1)
 	{
-	mpregame.play();
-	}*/
+	mpregame.currentTime = 0;
+	mpregame.volume = 1;
+	}
 }
 else
 {
-	mpregame.pause();
-	mpregame.currentTime = 0;
+	mpregame.volume = 0;
 }
 	if (phase == 1)
 	{
-		mpregame.loop = true;
-		mmodtime.loop = true;
-		whoami.play();
+		whoami.currentTime = 0;
+		whoami.volume = 1;
 	}
 	else
 	{
-		whoami.pause();
-		whoami.currentTime = 0;
+		whoami.volume = 0;
 	}
 	if (phase == 2)
 	{
-		mpregame.loop = true;
-		mmodtime.loop = true;
-		mmodtime.play();
+		mmodtime.currentTime = 0;
+		mmodtime.volume = 1;
 	}
 	else
 	{
-		mmodtime.pause();
-		mmodtime.currentTime = 0;
+		mmodtime.volume = 0;
 	}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
@@ -799,13 +794,12 @@ else
 		$('#main').append(verdict);
 		verdict.animate({'left':'60%'},'fast');
 	}
-	if (phase == 0)
-	{
-		if (musicon == 1)
-		{
+	
+	//Initially start all songs.
 			mpregame.play();
-		}
-	}
+			whoami.play();
+			mmodtime.play();
+	
 });
 socket.on(Type.WHISPER,function(msg)
 {
