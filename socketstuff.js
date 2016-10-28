@@ -709,6 +709,15 @@ else
 	mpregame.pause();
 	mpregame.currentTime = 0;
 }
+	if (phase == 1)
+	{
+		whoami.play();
+	}
+	else
+	{
+		whoami.pause();
+		whoami.currentTime = 0;
+	}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
 	//Remove any remaining verdict interfaces
