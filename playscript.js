@@ -63,7 +63,7 @@ function openWill()
 
 function mutemusic(phase)
 {
-	if (mpregamemon == 0)
+	if (mpregameon == 0)
 	{
 		mpregame.volume = 1;
 		mpregameon = 1;
