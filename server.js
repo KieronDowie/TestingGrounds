@@ -1315,6 +1315,13 @@ function setPhase(p)
 		}
 	}
 	if (p == Phase.PREGAME)
+	{
+		lobby.play();
+	}
+	else
+	{
+		lobby.stop();
+	}
 	for (i in players)
 	{
 		{
