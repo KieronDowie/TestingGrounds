@@ -379,6 +379,7 @@ header ul li span
 .highlight
 {
 	background:#F6FF33;
+	filter:alpha(opacity=50);
 }
 .rolecard
 {
