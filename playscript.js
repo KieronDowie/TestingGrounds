@@ -67,10 +67,16 @@ function mutemusic(phase)
 	{
 		lobby.volume = 1;
 		lobbyon = 1;
+		if (phase == 0)
+		{
+			lobby.play();
+		}
 	}
 	else
 	{
 		lobby.volume = 0;
+		lobby.pause();
+		lobby.currentTime = 0;
 		lobbyon = 0;
 	}
 }
