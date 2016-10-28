@@ -61,6 +61,18 @@ function openWill()
 	}
 }
 
+function mutemusic()
+{
+	if (lobby.volume == 0)
+	{
+		lobby.volume = 1;
+	}
+	else
+	{
+		lobby.volume = 0;
+	}
+}
+
 function closeWill()
 {
 	$('#will').hide();
