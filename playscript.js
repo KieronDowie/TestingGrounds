@@ -67,7 +67,7 @@ function mutemusic(phase)
 	{
 		lobby.volume = 1;
 		lobbyon = 1;
-		if (phase == 0)
+		if (currentphase == 0)
 		{
 			lobby.play();
 		}
