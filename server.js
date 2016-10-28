@@ -1316,16 +1316,11 @@ function setPhase(p)
 	}
 	if (p == Phase.PREGAME)
 	{
-		lobby.volume = 1;
-	}
-	else
-	{
-		lobby.volume = 0;
-	}
 	for (i in players)
 	{
 		{
 			players[i].seance = undefined;
+			players[i].lobby.play();
 		}
 	}
 	if (p == Phase.NIGHT)
@@ -1379,6 +1374,14 @@ function setPhase(p)
 				players[i].canSeance = true;
 			}
 		}	
+	}
+	else
+	{
+		for (i in players)
+		{
+		players[i].lobby.stop();
+		}
+	}
 	}
 	if (p == Phase.VERDICTS)
 	{
