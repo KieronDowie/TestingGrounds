@@ -13,9 +13,9 @@ var connectAttempt = 0;
 var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
-var CalmBeforeTheStorm = new Audio('CalmBeforeTheStorm.mp3');
-var CalmBeforeTheStormon = 1;
-CalmBeforeTheStorm.loop = true;
+var mpregame = new Audio('CalmBeforeTheStorm.mp3');
+var mpregameon = 1;
+mpregame.loop = true;
 //Enums
 var Type = {
 	PING:0,
@@ -698,15 +698,15 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	currentphase = phase;
 	if (phase == 0)
 {
-	/*if (CalmBeforeTheStormon == 1)
+	/*if (mpregameon == 1)
 	{
-	CalmBeforeTheStorm.play();
+	mpregame.play();
 	}*/
 }
 else
 {
-	CalmBeforeTheStorm.pause();
-	CalmBeforeTheStorm.currentTime = 0;
+	mpregame.pause();
+	mpregame.currentTime = 0;
 }
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
@@ -774,9 +774,9 @@ else
 	}
 	if (phase == 0)
 	{
-		if (CalmBeforeTheStormon == 1)
+		if (mpregameon == 1)
 		{
-			CalmBeforeTheStorm.play();
+			mpregame.play();
 		}
 	}
 });
