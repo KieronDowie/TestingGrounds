@@ -61,13 +61,16 @@ function openWill()
 	}
 }
 
-function mutemusic()
+function mutemusic(phase)
 {
 	if (lobbyon == 0)
 	{
 		lobby.volume = 1;
-		lobby.play();
 		lobbyon = 1;
+		if (phase == 0)
+		{
+			lobby.play;
+		}
 	}
 	else
 	{
