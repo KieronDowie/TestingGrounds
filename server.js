@@ -520,7 +520,7 @@ var server = http.createServer(function(req,res)
 		case '/edit.png':
 		case '/accept.png':
 		case '/roll.png':
-		case '/back1.png':
+		case '/back3.png':
 			fs.readFile(__dirname + '/images/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
