@@ -80,12 +80,17 @@ function mutemusic(phase)
 			mmodtime.currentTime = 0;
 			mmodtime.volume = 1;
 		}
+		if (currentphase == 3)
+		{
+			mdaytime.volume = 1;
+		}
 	}
 	else
 	{
 		mpregame.volume = 0;
 		whoami.volume = 0;
 		mmodtime.volume = 0;
+		mdaytime.volume = 0;
 		musicon = 0;
 	}
 }

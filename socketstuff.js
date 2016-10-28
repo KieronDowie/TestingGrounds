@@ -17,6 +17,7 @@ var mpregame = new Audio('CalmBeforeTheStorm.mp3');
 var whoami = new Audio('WhoAmI.mp3');
 //var mmodtime = new Audio('Searching.mp3');
 var mmodtime = new Audio('LittleItaly.mp3');
+var mdaytime = new Audio('Heated.mp3')
 var musicon = 1;
 mpregame.loop = true;
 mmodtime.loop = true;
@@ -730,6 +731,15 @@ else
 	{
 		mmodtime.volume = 0;
 	}
+	if (phase == 3)
+	{
+		mdaytime.currentTime = 0;
+		mdaytime.volume = 1;
+	}
+	else
+	{
+		mdaytime.volume = 0;
+	}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
 	//Remove any remaining verdict interfaces
@@ -799,6 +809,7 @@ else
 			mpregame.play();
 			whoami.play();
 			mmodtime.play();
+			mdaytime.play();
 	
 });
 socket.on(Type.WHISPER,function(msg)
