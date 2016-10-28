@@ -896,7 +896,7 @@ module.exports = {
 											else
 											{
 												//Inform transporter and cancel action.
-												addSuggestedMessage('One of your target was in jail, so you could not transport them!',num);
+												addSuggestedMessage('One of your targets was in jail, so you could not transport them!',num);
 											}
 										}
 										else
