@@ -96,6 +96,10 @@ function mutemusic(phase)
 		{
 			mtrial.volume = 1;
 		}
+		if (currentphase == 7)
+		{
+			mtrial.volume = 1;
+		}
 		if (currentphase == 8)
 		{
 			mnight.volume = 1;

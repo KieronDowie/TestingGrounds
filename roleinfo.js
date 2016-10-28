@@ -551,6 +551,17 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
+			{      
+					rolename:"witch",
+					alignment:"neutral evil",
+					abilities:'Control someone each night.',
+					attributes:['You can only control targetable actions such as detection and killing.',
+								'You can force people to target themselves.',
+								//'You are immune to the first incoming non town attack.',
+								'Your victim will know they are being controlled.'],
+					goal:"Survive to see the Town lose the game.",
+					color:"purple"
+			},
 			{
 				rolename:"necromancer",
 				alignment:"neutral evil",
