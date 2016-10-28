@@ -701,7 +701,8 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 }
 else
 {
-	lobby.stop();
+	lobby.pause();
+	lobby.currentTime = 0;
 }
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
