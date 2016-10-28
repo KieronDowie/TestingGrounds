@@ -521,6 +521,7 @@ var server = http.createServer(function(req,res)
 		case '/accept.png':
 		case '/roll.png':
 		case '/back3.png':
+		case '/lastwillbutton.png':
 			fs.readFile(__dirname + '/images/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
