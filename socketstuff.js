@@ -695,6 +695,14 @@ socket.on(Type.SETDAYNUMBER,function(num){
 socket.on(Type.SETPHASE,function(phase,silent,time)
 {
 	currentphase = phase;
+	if (phase == 0)
+{
+	lobby.play();
+}
+else
+{
+	lobby.stop();
+}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
 	//Remove any remaining verdict interfaces
