@@ -84,6 +84,26 @@ function mutemusic(phase)
 		{
 			mdaytime.volume = 1;
 		}
+		if (currentphase == 4)
+		{
+			mvoting.volume = 1;
+		}
+		if (currentphase == 5)
+		{
+			mtrial.volume = 1;
+		}
+		if (currentphase == 6)
+		{
+			mtrial.volume = 1;
+		}
+		if (currentphase == 8)
+		{
+			mnight.volume = 1;
+		}
+		if (currentphase == 9)
+		{
+			mdaytime.volume = 1;
+		}
 	}
 	else
 	{
@@ -91,6 +111,9 @@ function mutemusic(phase)
 		whoami.volume = 0;
 		mmodtime.volume = 0;
 		mdaytime.volume = 0;
+		mvoting.volume = 0;
+		mtrial.volume = 0;
+		mnight.volume = 0;
 		musicon = 0;
 	}
 }
