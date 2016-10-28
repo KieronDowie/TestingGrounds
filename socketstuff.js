@@ -727,8 +727,11 @@ else
 	}
 	if (phase == 2)
 	{
+		if (musicon == 1)
+	{
 		mmodtime.currentTime = 0;
 		mmodtime.volume = 1;
+	}
 	}
 	else
 	{
