@@ -39,14 +39,6 @@ $(document).ready(function(){
 		}
 	});
 });
-if (phase == 0)
-{
-	lobby.play();
-}
-else
-{
-	lobby.stop();
-}
 //Check if the window is infocus
 var isActive = true;
 window.onfocus = function()
