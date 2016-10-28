@@ -763,7 +763,6 @@ socket.on(Type.SETPHASE,function(phase,silent,time)
 	{
 	lobby.play();
 	}
-	else
 });
 socket.on(Type.WHISPER,function(msg)
 {
