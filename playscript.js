@@ -66,6 +66,7 @@ function mutemusic(phase)
 	if (musicon == 0)
 	{
 		mpregame.volume = 1;
+		whoami.volume = 1;
 		musicon = 1;
 		if (currentphase == 0)
 		{
@@ -75,6 +76,7 @@ function mutemusic(phase)
 	else
 	{
 		mpregame.volume = 0;
+		whoami.volume = 0;
 		mpregame.pause();
 		mpregame.currentTime = 0;
 		musicon = 0;
