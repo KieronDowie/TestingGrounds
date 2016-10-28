@@ -39,7 +39,6 @@ $(document).ready(function(){
 		}
 	});
 });
-var phase = $('header ul li').index(this);
 if (phase == 0)
 {
 	lobby.play();
