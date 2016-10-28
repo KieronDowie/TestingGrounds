@@ -13,7 +13,7 @@ var connectAttempt = 0;
 var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
-var lobby = new Audio('lobby.wav');
+var lobby = new Audio('CalmBeforeTheStorm.mp3');
 var lobbyon = 1;
 lobby.loop = true;
 //Enums
