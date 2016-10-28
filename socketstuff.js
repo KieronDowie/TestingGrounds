@@ -15,7 +15,10 @@ var kicked = false;
 var hey = new Audio('ping.wav');
 var lobby = new Audio('lobby.wav');
 lobby.loop = true;
+if (phase == Phase.PREGAME)
+{
 lobby.play();
+}
 //Enums
 var Type = {
 	PING:0,

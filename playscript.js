@@ -66,12 +66,10 @@ function mutemusic()
 	if (lobby.volume == 0)
 	{
 		lobby.volume = 1;
-		lobby.play;
 	}
 	else
 	{
 		lobby.volume = 0;
-		lobby.stop;
 	}
 }
 
