@@ -14,7 +14,8 @@ var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
 var mpregame = new Audio('CalmBeforeTheStorm.mp3');
-var mpregameon = 1;
+var whoami = new Audio('WhoAmI.mp3');
+var musicon = 1;
 mpregame.loop = true;
 //Enums
 var Type = {
