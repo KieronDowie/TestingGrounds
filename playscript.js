@@ -45,12 +45,12 @@ var phase = $('header ul li').index(this);
 if (phase == Pregame)
 {
 	lobby.play();
-}
+};
 else
 {
-lobby.stop();
-}
-}
+	lobby.stop();
+};
+};
 //Check if the window is infocus
 var isActive = true;
 window.onfocus = function()
