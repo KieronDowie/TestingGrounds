@@ -63,21 +63,21 @@ function openWill()
 
 function mutemusic(phase)
 {
-	if (lobbyon == 0)
+	if (CalmBeforeTheStormon == 0)
 	{
-		lobby.volume = 1;
-		lobbyon = 1;
+		CalmBeforeTheStorm.volume = 1;
+		CalmBeforeTheStormon = 1;
 		if (currentphase == 0)
 		{
-			lobby.play();
+			CalmBeforeTheStorm.play();
 		}
 	}
 	else
 	{
-		lobby.volume = 0;
-		lobby.pause();
-		lobby.currentTime = 0;
-		lobbyon = 0;
+		CalmBeforeTheStorm.volume = 0;
+		CalmBeforeTheStorm.pause();
+		CalmBeforeTheStorm.currentTime = 0;
+		CalmBeforeTheStormon = 0;
 	}
 }
 

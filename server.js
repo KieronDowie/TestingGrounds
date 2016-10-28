@@ -566,6 +566,20 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/CalmBeforeTheStorm.mp3':
+		case '/CareFree.mp3':
+		case '/DarkAlley.mp3':
+		case '/DarkHolidays.mp3':
+		case '/GreenMeadows.mp3':
+		case '/Heated.mp3':
+		case '/Homecoming.mp3':
+		case '/Inevitable.mp3':
+		case '/Innocence.mp3':
+		case '/LittleItaly.mp3':
+		case '/Searching.mp3':
+		case '/ShockAndAwe.mp3':
+		case '/Suspicion.mp3':
+		case '/WhatLurksInTheNight.mp3':
+		case '/WhoAmI.mp3':
 			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
