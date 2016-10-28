@@ -42,15 +42,15 @@ $(document).ready(function(){
 while (true)
 {
 var phase = $('header ul li').index(this);
-if (phase == Pregame)
+if (phase == 0)
 {
 	lobby.play();
-};
+}
 else
 {
 	lobby.stop();
-};
-};
+}
+}
 //Check if the window is infocus
 var isActive = true;
 window.onfocus = function()
