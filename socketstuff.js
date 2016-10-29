@@ -719,7 +719,10 @@ else
 	if (phase == 1)
 	{
 		whoami.currentTime = 0;
+		if (musicon == 1)
+		{
 		whoami.volume = 1;
+		}
 	}
 	else
 	{
@@ -740,7 +743,10 @@ else
 	if (phase == 3 || phase == 9)
 	{
 		mdaytime.currentTime = 0;
+		if (musicon == 1)
+		{
 		mdaytime.volume = 1;
+		}
 	}
 	else
 	{
@@ -749,7 +755,10 @@ else
 	if (phase == 4)
 	{
 		mvoting.currentTime = 0;
+		if (musicon == 1)
+		{
 		mvoting.volume = 1;
+		}
 	}
 	else
 	{
@@ -760,7 +769,10 @@ else
 		if (phase == 5)
 		{
 		mtrial.currentTime = 0;
+		if (musicon == 1)
+		{
 		mtrial.volume = 1;
+		}
 		}
 	}
 	else
@@ -770,7 +782,10 @@ else
 	if (phase == 8)
 	{
 		mnight.currentTime = 0;
+		if (musicon == 1)
+		{
 		mnight.volume = 1;
+		}
 	}
 	else
 	{
