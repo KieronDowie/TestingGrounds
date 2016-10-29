@@ -552,6 +552,7 @@ var server = http.createServer(function(req,res)
 			});
 		break;
 		case '/ping.wav':
+		case '/Giratina.wav':
 			fs.readFile(__dirname + '/sounds/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
