@@ -755,7 +755,7 @@ else
 	{
 		mvoting.volume = 0;
 	}
-	if (phase == 5 || phase == 6)
+	if (phase >= 5 && phase <= 7)
 	{
 		if (phase == 5)
 		{
