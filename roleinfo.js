@@ -788,6 +788,16 @@ function getAttributes(num)
         }
         return str+"</div>";
 }
+function getAbilities(num)
+{
+        var str="<br><div>";
+        var arr=roles[num].abilities;
+        for (var i=0;i<arr.length;i++)
+        {
+                str+="<span id='attribute'>-"+arr[i]+"</span><br>";    
+        }
+        return str+"</div>";
+}
 function format(str)
 {
         var color;
@@ -958,7 +968,7 @@ module.exports = {
                                 return ("Role '"+name+"' not found!");
                         }                                              
                         var al="<span class='aligntext' style='color:"+hilitecolor+"'><u>Alignment</u>: </span>"+module.exports.formatAlignment(roles[num].alignment);
-                        var abi="<div class='abilities' style='color:"+hilitecolor+";'><b>Abilities: </b></div><br><span class='abilities'>-"+roles[num].abilities+"</span>";
+                        var abi="<div class='abilities' style='color:"+hilitecolor+";'><b>Abilities: </b></div>"+getAbilities(num);
                         var att="<div class='abilities' style='color:"+hilitecolor+";'><b>Attributes: </b></div>"+getAttributes(num);
                         var goal="<span class='goal'><div style='color:"+hilitecolor+"'><b>Goal</b>: </div>"+roles[num].goal+"</span>";
                         output="<div class='rolecard'>"+format(name)+al+"<br>"+
