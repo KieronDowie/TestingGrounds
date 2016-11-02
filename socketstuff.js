@@ -8,11 +8,13 @@ var mod = false;
 var paused = false;
 var currentphase = undefined;
 var daynumber = 1;
+var trialperdaynumber = 1;
 //Connect attempts
 var connectAttempt = 0;
 var kicked = false;
 //Notify sound
 var hey = new Audio('ping.wav');
+//Halloween
 //var hey = new Audio('Giratina.wav');
 var mpregame = new Audio('CalmBeforeTheStorm.mp3');
 var whoami = new Audio('WhoAmI.mp3');
@@ -76,7 +78,8 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SETTRIALPERDAYNUMBER:50
 };
 function clearAllInfo()
 {
@@ -692,6 +695,19 @@ socket.on(Type.DENY,function(reason){
 });
 socket.on(Type.SETDAYNUMBER,function(num){
 	daynumber = num;
+	$('#dayli').html('Day '+num);
+	if (num % 2 == 0)
+	{
+		$('#nightli').html('Night '+num+'<div class="moonimg" />');
+	}
+	else
+	{
+		$('#nightli').html('Night '+num);
+	}
+	
+});
+socket.on(Type.SETTRIALPERDAYNUMBER,function(num){
+	trialperdaynumber = num;
 	$('#dayli').html('Day '+num);
 	if (num % 2 == 0)
 	{

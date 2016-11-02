@@ -105,7 +105,7 @@ var Type = {
 	HELP:47,
 	PAUSEPHASE:48,
 	SETDAYNUMBER:49,
-	SETTRIALPERDAYNUMBER:50,
+	SETTRIALPERDAYNUMBER:50
 };
 var autoLevel = 1;
 /*
@@ -671,6 +671,7 @@ io.on('connection', function(socket){
 				}
 				socket.emit(Type.PAUSEPHASE,timer.paused);
 				socket.emit(Type.SETDAYNUMBER,gm.getDay());
+				socket.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -741,6 +742,7 @@ io.on('connection', function(socket){
 			{
 				socket.emit(Type.PAUSEPHASE,timer.paused);
 				socket.emit(Type.SETDAYNUMBER,gm.getDay());
+				socket.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
