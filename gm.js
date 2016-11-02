@@ -378,7 +378,7 @@ var autoRoles =
 	},
 	'stalker': {
 		attributes:  {},
-		grouping:'G',
+		grouping:'F',
 		consiggrouping:'Stalker',
 		alignment:'neutral'
 	},
@@ -438,7 +438,7 @@ var autoRoles =
 	},
 	'mortician': {
 		attributes:  {},
-		grouping:'M',
+		grouping:'H',
 		consiggrouping:'Mortician',
 		alignment:'neutral'
 	},
@@ -490,9 +490,9 @@ var investGrouping = {
 	'I':'Your target has dirty hands.',
 	'J':'Your target lies in darkness.',
 	'K':'Your target works with magic.',
-	'L':'our target talks to oneself.',
+	'L':'Your target talks to oneself.',
 	'M':'Your target smells like gas.',
-	'N':'Your target owns a golden watch',
+	'N':'Your target owns a golden watch.',
 };
 
 var consigResults = {
