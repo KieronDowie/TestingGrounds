@@ -67,7 +67,7 @@ function mutemusic(phase)
 	{
 		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
-		document.getElementById("music").src="music.png";
+		$(buttons[index]).src="music.png";
 		
 		musicon = 1;
 		if (currentphase == 0)
@@ -119,7 +119,7 @@ function mutemusic(phase)
 	{
 		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
-		document.getElementById("music").src="nomusic.png";
+		$(buttons[index]).src="music.png";
 		mpregame.volume = 0;
 		whoami.volume = 0;
 		mmodtime.volume = 0;
