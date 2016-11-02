@@ -104,7 +104,8 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SETTRIALPERDAYNUMBER:50,
 };
 var autoLevel = 1;
 /*
@@ -1029,6 +1030,17 @@ io.on('connection', function(socket){
 		else
 		{
 			socket.emit(Type.SYSTEM,'Only the mod can set the day number.');
+		}
+	});
+	socket.on(Type.SETTRIALPERDAYNUMBER,function(num){
+		if (socket.id == mod)
+		{
+			gm.setDay(num);
+			io.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
+		}
+		else
+		{
+			socket.emit(Type.SYSTEM,'Only the mod can set the trials per day number.');
 		}
 	});
 	socket.on(Type.PAUSEPHASE,function(){
