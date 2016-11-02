@@ -239,9 +239,8 @@ var roles=[
 				alignment:"mafia support",
 				abilities:['Perform any Mafia ability of a mafia role that existed in this game.',
 				'Become a dead mafia role by targetting them'],
-				attributes:['You can kill if the Godfather doesn\'t give you orders.',
-				'If the Godfather dies you will become the next Godfather.',
-				'You can talk with the other Mafia at night.'],
+				attributes:['You can perform that action even if said mafia member is roleblocked or killed.',
+				'You can become a different Mafia member if a mafia member with the role died.'],
 				goal:mafiagoal,
 				color:mafiacolor
 			},
