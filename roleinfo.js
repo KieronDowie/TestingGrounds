@@ -353,7 +353,9 @@ var roles=[
 				rolename:"arsonist",
 				alignment:"neutral killing",
 				abilities:'Douse someone in gasoline or ignite all doused targets.',
-				attributes:['Death from fire can\'t be prevented by healing or night immunities.',
+				attributes:['You cannot be doused.',
+							'Death from fire can\'t be prevented by healing or night immunities.',
+							'A doused target will be framed as Arsonist until they die.',
 							'Select yourself to ignite doused people.'],
 				goal:"Live to see everyone else burn.",
 				color:"orange"
@@ -558,7 +560,8 @@ var roles=[
 					attributes:['You can only control targetable actions such as detection and killing.',
 								'You can force people to target themselves.',
 								//'You are immune to the first incoming non town attack.',
-								'Your victim will know they are being controlled.'],
+								'Your victim will know they are being controlled.',
+								'You will survive the first non-town attack.'],
 					goal:"Survive to see the Town lose the game.",
 					color:"purple"
 			},
