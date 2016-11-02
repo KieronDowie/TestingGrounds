@@ -520,6 +520,8 @@ var server = http.createServer(function(req,res)
 		case '/edit.png':
 		case '/accept.png':
 		case '/roll.png':
+		case '/back1.png':
+		case '/back2.png':
 		case '/back3.png':
 		case '/lastwillbutton.png':
 		case '/music.png':
