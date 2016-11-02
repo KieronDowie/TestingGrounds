@@ -233,6 +233,18 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor
 			},*/
+			//FMMAFIOSO
+			{    
+				rolename:"mafioso",
+				alignment:"mafia support",
+				abilities:['Perform any Mafia ability of a mafia role that existed in this game.',
+				'Become a dead mafia role by targetting them'],
+				attributes:['You can kill if the Godfather doesn\'t give you orders.',
+				'If the Godfather dies you will become the next Godfather.',
+				'You can talk with the other Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor
+			},
 			//ROLEIDEANIGHTMARER
 			{      
 				rolename:"nightmarer",

@@ -189,6 +189,14 @@ var autoRoles =
 		consiggrouping:'Godfather',
 		alignment:'mafia'
 	},
+	'mafioso': {
+		attributes:  {
+			MAFKILL:attributes.MAFKILL,
+			DEADTARGET:attributes.DEADTARGET,},
+		grouping:'F',
+		consiggrouping:'Mafioso',
+		alignment:'mafia'
+	},
 	'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
@@ -395,7 +403,10 @@ var autoRoles =
 		alignment:'neutral'
 	},
 	'distributor': {
-		attributes:  {},
+		attributes:  {
+			MULTI:attributes.MULTI,
+			FORCEDMULTI:attributes.MULTI
+			},
 		grouping:'N',
 		consiggrouping:'Distributor',
 		alignment:'neutral'
