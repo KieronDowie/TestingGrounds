@@ -65,9 +65,9 @@ function mutemusic(phase)
 {
 	if (musicon == 0)
 	{
-		/*var index = users.indexOf(to);
+		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
-		$(buttons[index]).attr('src', 'nomusic.png');*/
+		document.getElementById("music").src="music.png";
 		
 		musicon = 1;
 		if (currentphase == 0)
@@ -117,9 +117,9 @@ function mutemusic(phase)
 	}
 	else
 	{
-		/*var index = users.indexOf(to);
+		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
-		$(buttons[index]).attr('src', 'music.png');*/
+		document.getElementById("music").src="nomusic.png";
 		mpregame.volume = 0;
 		whoami.volume = 0;
 		mmodtime.volume = 0;
