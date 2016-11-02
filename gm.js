@@ -267,7 +267,7 @@ var autoRoles =
 			IMMUNE:attributes.IMMUNE},
 		grouping:'M',
 		consiggrouping:'Arsonist',
-		alignment:'neutral'
+		alignment:'arsonist'
 	},
 	'werewolf': {
 		attributes:  {
@@ -568,6 +568,7 @@ var sheriffResults = {
 	'ww': ['Your target is not suspicious.', 'Your target is a Werewolf!'],
 	'sw':'Your target is a Shadowalker.',
 	'sk':'Your target is a Serial Killer.',
+	'arsonist':'Your target is an Arsonist.',
 	'neutral':'Your target is not suspicious.'
 };
 module.exports = {
