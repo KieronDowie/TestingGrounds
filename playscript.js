@@ -65,6 +65,8 @@ function mutemusic(phase)
 {
 	if (musicon == 0)
 	{
+		var tr = $(this).parent().parent();
+		var to = $($(tr.children()[1]).children()[0]).html();
 		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
 		$(buttons[index]).src="music.png";
@@ -117,6 +119,8 @@ function mutemusic(phase)
 	}
 	else
 	{
+		var tr = $(this).parent().parent();
+		var to = $($(tr.children()[1]).children()[0]).html();
 		var index = users.indexOf(to);
 		var buttons = $('.musicbutton');
 		$(buttons[index]).src="music.png";
