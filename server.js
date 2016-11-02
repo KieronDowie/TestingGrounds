@@ -104,8 +104,7 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49,
-	SETTRIALPERDAYNUMBER:50
+	SETDAYNUMBER:49
 };
 var autoLevel = 1;
 /*
@@ -671,7 +670,6 @@ io.on('connection', function(socket){
 				}
 				socket.emit(Type.PAUSEPHASE,timer.paused);
 				socket.emit(Type.SETDAYNUMBER,gm.getDay());
-				socket.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -742,7 +740,6 @@ io.on('connection', function(socket){
 			{
 				socket.emit(Type.PAUSEPHASE,timer.paused);
 				socket.emit(Type.SETDAYNUMBER,gm.getDay());
-				socket.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
 				if (Object.keys(players).length==0)
 				{
@@ -1032,17 +1029,6 @@ io.on('connection', function(socket){
 		else
 		{
 			socket.emit(Type.SYSTEM,'Only the mod can set the day number.');
-		}
-	});
-	socket.on(Type.SETTRIALPERDAYNUMBER,function(num){
-		if (socket.id == mod)
-		{
-			gm.setDay(num);
-			io.emit(Type.SETTRIALPERDAYNUMBER,gm.getDay());
-		}
-		else
-		{
-			socket.emit(Type.SYSTEM,'Only the mod can set the trials per day number.');
 		}
 	});
 	socket.on(Type.PAUSEPHASE,function(){

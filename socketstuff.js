@@ -8,7 +8,6 @@ var mod = false;
 var paused = false;
 var currentphase = undefined;
 var daynumber = 1;
-var trialperdaynumber = 1;
 //Connect attempts
 var connectAttempt = 0;
 var kicked = false;
@@ -78,8 +77,7 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49,
-	SETTRIALPERDAYNUMBER:50
+	SETDAYNUMBER:49
 };
 function clearAllInfo()
 {
@@ -695,19 +693,6 @@ socket.on(Type.DENY,function(reason){
 });
 socket.on(Type.SETDAYNUMBER,function(num){
 	daynumber = num;
-	$('#dayli').html('Day '+num);
-	if (num % 2 == 0)
-	{
-		$('#nightli').html('Night '+num+'<div class="moonimg" />');
-	}
-	else
-	{
-		$('#nightli').html('Night '+num);
-	}
-	
-});
-socket.on(Type.SETTRIALPERDAYNUMBER,function(num){
-	trialperdaynumber = num;
 	$('#dayli').html('Day '+num);
 	if (num % 2 == 0)
 	{

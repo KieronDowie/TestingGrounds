@@ -871,16 +871,6 @@ function addModControls()
 	$('#modnumbering').empty();
 	$('#modnumbering').append(lbl);
 	$('#modnumbering').append(spn);
-	
-	//Add voting per day interface
-	var spn = $('<input type="number" min="1" max="99" value="'+voteperdaynumber+'"/>');
-	spn.change(function(){
-		socket.emit(Type.SETVOTEPERDAYNUMBER,$(this).val());
-	});
-	var lbl = $('<span>Votes per Day:</span>');
-	$('#modnumbering').empty();
-	$('#modnumbering').append(lbl);
-	$('#modnumbering').append(spn);
 }
 function addPauseButton(phase)
 {
