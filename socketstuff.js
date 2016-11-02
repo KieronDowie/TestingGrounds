@@ -721,6 +721,7 @@ else
 }
 	if (phase == 1)
 	{
+		whoami.play();
 		whoami.currentTime = 0;
 		if (musicon == 1)
 		{
@@ -745,6 +746,7 @@ else
 	}
 	if (phase == 3 || phase == 9)
 	{
+		mdaytime.play();
 		mdaytime.currentTime = 0;
 		if (musicon == 1)
 		{
@@ -757,6 +759,7 @@ else
 	}
 	if (phase == 4)
 	{
+		mvoting.play();
 		mvoting.currentTime = 0;
 		if (musicon == 1)
 		{
@@ -771,6 +774,7 @@ else
 	{
 		if (phase == 5)
 		{
+		mtrial.play();	
 		mtrial.currentTime = 0;
 		if (musicon == 1)
 		{
@@ -784,6 +788,7 @@ else
 	}
 	if (phase == 8)
 	{
+		mnight.play();
 		mnight.currentTime = 0;
 		if (musicon == 1)
 		{
