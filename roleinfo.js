@@ -26,6 +26,15 @@ var roles=[
 				goal:towngoal,
 				color:towncolor
 			},
+			{      
+				rolename:"interviewer",
+				alignment:"town investigative",
+				abilities:['Interview 2 people each night and discover who is the most trustworthy.'],
+				attributes:['You cannot interview a revealed Mayor.'],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
 			//ROLEIDEASCIENTIST
 			{      
 				rolename:"scientist",
@@ -200,6 +209,17 @@ var roles=[
 				color:towncolor
 			},
 			{      
+				rolename:"psychic",
+				alignment:"town power",
+				abilities:['Form a mental link between two players every day.'],
+				attributes:['They will be able to anonymously speak with each other that night.',
+				'You get one self link.',
+				'Roles with a night chat can hear and speak to both the person that they are linked to and whoever they speak to at night.'],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
+			{      
 				rolename:"godfather",
 				alignment:"mafia killing",
 				abilities:['Kill someone each night.'],
@@ -242,7 +262,8 @@ var roles=[
 				attributes:['You can perform that action even if said mafia member is roleblocked or killed.',
 				'You can become a different Mafia member if a mafia member with the role died.'],
 				goal:mafiagoal,
-				color:mafiacolor
+				color:mafiacolor,
+				custom:true
 			},
 			//ROLEIDEANIGHTMARER
 			{      
@@ -324,6 +345,16 @@ var roles=[
 				custom:true
 			},
 			{      
+				rolename:"musician",
+				alignment:"mafia support",
+				abilities:['Remove all night feedback from someone and their visitors.'],
+				attributes:['You may choose to remove the discussion phase from the town the next day.',
+				'You can only serenade the town twice in a game.'],
+				goal:mafiagoal,
+				color:mafiacolor,
+				custom:true
+			},
+			{      
 				rolename:"framer",
 				alignment:"mafia deception",
 				abilities:['Choose someone to frame at night.'],
@@ -359,6 +390,17 @@ var roles=[
 							'You can not be killed at night.'],
 				goal:"Kill everyone who would oppose you.",
 				color:"blue"
+			},
+			{      
+				rolename:"cannibal",
+				alignment:"neutral killing",
+				abilities:['Eat one player every second night and use their ability the next night.'],
+				attributes:['On an odd number night chose a person to eat.',
+							'On even nights you will use your eaten targets ability and gain their results.',
+							'If you don\'t attack at night you will kill on even nights instead (and vice versa).'],
+				goal:"Kill everyone who would oppose you.",
+				color:"#BF8000",
+				custom:true
 			},
 			{      
 				rolename:"arsonist",
@@ -776,7 +818,7 @@ var roles=[
 				custom:true
 			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor","cannibal","musician","psychic"];
  
 function getAttributes(num)
 {
