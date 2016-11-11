@@ -179,17 +179,16 @@ function modInterface()
 		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
 		linked.click(function()
 		{
+			var index = $('.linkbutton, .unlinkbutton').index($(this))
 			socket.emit(Type.TOGGLE,users[index],'linked');
 			if ($(this).hasClass('linkbutton'))
 			{
-				var index = $('.linkbutton, .unlinkbutton').index($(this))
 				$(this).removeClass('linkbutton');
 				$(this).addClass('unlinkbutton');
 				$(this).html('<span>Unlink</span>');
 			}
 			else
 			{
-				var index = $('.linkbutton, .unlinkbutton').index($(this))
 				$(this).removeClass('unlinkbutton');
 				$(this).addClass('linkbutton');
 				$(this).html('<span>Link</span>');
@@ -492,17 +491,16 @@ socket.on(Type.JOIN,function(name, reconnect)
 		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
 		linked.click(function()
 		{
+			var index = $('.linkbutton, .unlinkbutton').index($(this))
 			socket.emit(Type.TOGGLE,users[index],'linked');
 			if ($(this).hasClass('linkbutton'))
 			{
-				var index = $('.linkbutton, .unlinkbutton').index($(this))
 				$(this).removeClass('linkbutton');
 				$(this).addClass('unlinkbutton');
 				$(this).html('<span>Unlink</span>');
 			}
 			else
 			{
-				var index = $('.linkbutton, .unlinkbutton').index($(this))
 				$(this).removeClass('unlinkbutton');
 				$(this).addClass('linkbutton');
 				$(this).html('<span>Link</span>');
