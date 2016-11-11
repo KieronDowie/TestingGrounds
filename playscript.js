@@ -852,6 +852,26 @@ function chooseAutoButton(info, label)
 				}
 			};
 		break;
+		case '<Linked>':
+			func = function(){
+				var tr = $(this).parent().parent();
+				var to = $($(tr.children()[1]).children()[0]).html();
+				var index = users.indexOf(to);
+				var buttons = $('.linkbutton, .unlinkbutton');
+				if ($(buttons[index]).hasClass('linkbutton'))
+				{
+					$(buttons[index]).removeClass('linkbutton');
+					$(buttons[index]).addClass('unlinkbutton');
+					$(buttons[index]).html('<span>Unlink</span>');
+				}
+				else
+				{
+					$(buttons[index]).removeClass('unlinkbutton');
+					$(buttons[index]).addClass('linkbutton');
+					$(buttons[index]).html('<span>Link</span>');
+				}
+			};
+		break;
 		case '<Clean>':
 			func = function(){
 				var tr = $(this).parent().parent();
