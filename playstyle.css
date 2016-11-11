@@ -939,6 +939,31 @@ header ul li span
 {
 	background:#CACACA;
 }
+.linkbutton
+{
+	background: linear-gradient(#55BF0A, #0E7800);
+	width: 20%;
+	float:right;
+	text-align:center;
+	cursor:default;
+}
+.linkbutton:hover
+{
+	background: #55BF0A;
+}
+.unlinkbutton
+{
+	background: linear-gradient(#CACACA, #B5B5B5);
+	width: 20%;
+	float:right;
+	text-align:center;
+	cursor:default;
+	color:black;
+}
+.unlinkbutton:hover
+{
+	background:#CACACA;
+}
 .more
 {
 	width: 5%;

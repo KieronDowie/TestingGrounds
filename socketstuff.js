@@ -176,6 +176,25 @@ function modInterface()
 				$(this).html('<span>Jail</span>');
 			}	
 		});
+		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
+		linked.click(function()
+		{
+			if ($(this).hasClass('linkbutton'))
+			{
+				var index = $('.linkbutton, .unlinkbutton').index($(this))
+				$(this).removeClass('linkbutton');
+				$(this).addClass('unlinkbutton');
+				$(this).html('<span>Unlink</span>');
+			}
+			else
+			{
+				var index = $('.linkbutton, .unlinkbutton').index($(this))
+				$(this).removeClass('unlinkbutton');
+				$(this).addClass('linkbutton');
+				$(this).html('<span>Link</span>');
+			}
+			socket.emit(Type.TOGGLELIVING,users[index]);
+		});
 		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
 		var more = $('<div class="controlbutton more"></div>');
 		var arrow = $('<span class="downarrow"></span>');
