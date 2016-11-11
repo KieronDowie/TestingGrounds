@@ -179,6 +179,7 @@ function modInterface()
 		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
 		linked.click(function()
 		{
+			socket.emit(Type.TOGGLE,users[index],'linked');
 			if ($(this).hasClass('linkbutton'))
 			{
 				var index = $('.linkbutton, .unlinkbutton').index($(this))
@@ -491,6 +492,7 @@ socket.on(Type.JOIN,function(name, reconnect)
 		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
 		linked.click(function()
 		{
+			socket.emit(Type.TOGGLE,users[index],'linked');
 			if ($(this).hasClass('linkbutton'))
 			{
 				var index = $('.linkbutton, .unlinkbutton').index($(this))
