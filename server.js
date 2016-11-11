@@ -1142,6 +1142,11 @@ io.on('connection', function(socket){
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
+							case 'linked':
+							if (!players[socket.id].silenced)
+								{
+									player.s.emit(Type.SYSTEM,'You are now linked.');
+								}
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
 								player.canSeance = true;
@@ -1857,7 +1862,8 @@ function Player(socket,name,ip)
 				mafia:false,
 				jailor:false,
 				jailed:false,
-				medium:false
+				medium:false,
+				linked:false
 			},
 			//Player functions
 			setRole:function(role){
