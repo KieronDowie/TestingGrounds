@@ -929,7 +929,7 @@ header ul li span
 .releasebutton
 {
 	background: linear-gradient(#CACACA, #B5B5B5);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -942,7 +942,7 @@ header ul li span
 .linkbutton
 {
 	background: linear-gradient(#55BF0A, #0E7800);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -954,7 +954,7 @@ header ul li span
 .unlinkbutton
 {
 	background: linear-gradient(#CACACA, #B5B5B5);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
