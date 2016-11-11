@@ -1142,12 +1142,7 @@ io.on('connection', function(socket){
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
-							case 'linked':
-							if (!players[socket.id].silenced)
-								{
-									player.s.emit(Type.SYSTEM,'You are now linked.');
-								}
-							break;
+							case 'linked': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
 								player.canSeance = true;
@@ -1167,6 +1162,7 @@ io.on('connection', function(socket){
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
+							case 'linked': notify = undefined; break; //No message
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
 								player.canSeance = false;
