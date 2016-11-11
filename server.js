@@ -3875,7 +3875,7 @@ function Player(socket,name,ip)
 							{
 								this.seancing.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
 								//Echo the message back to the medium.
-								this.s.emit(Type.MSG,'Medium',msg);
+								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
 								players[mod].s.emit(Type.MSG,('Medium('+this.name+')'),msg);
 							}
 							else
