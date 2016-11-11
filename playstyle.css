@@ -892,7 +892,7 @@ header ul li span
 .killbutton
 {
 	background: linear-gradient(#c40e0e, #d66565);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -904,7 +904,7 @@ header ul li span
 .revivebutton
 {
 	background: linear-gradient(#55BF0A, #0E7800);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -916,7 +916,7 @@ header ul li span
 .jailbutton
 {
 	background: linear-gradient(#021E3E, #424242);
-	width: 20%;
+	width: 13.33%;
 	float:right;
 	text-align:center;
 	cursor:default;
