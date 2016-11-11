@@ -1147,6 +1147,7 @@ io.on('connection', function(socket){
 								{
 									player.s.emit(Type.SYSTEM,'You are now linked.');
 								}
+							break;
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
 								player.canSeance = true;
