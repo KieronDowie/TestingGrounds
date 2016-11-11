@@ -209,9 +209,9 @@ function modInterface()
 		
 		info.append(more);
 		info.append(will);
+		info.append(linked);
 		info.append(jail);
 		info.append(kill);
-		info.append(linked);
 		
 		//Adding bottom row
 		var modcontrols = $('<div class="modcontrols"></div>');
@@ -518,9 +518,9 @@ socket.on(Type.JOIN,function(name, reconnect)
 		});
 		info.append(more);
 		info.append(will);
+		info.append(linked);
 		info.append(jail);
 		info.append(kill);
-		info.append(linked);
 		//Adding bottom row
 		var modcontrols = $('<div class="modcontrols"></div>');
 		var rolechanger = $('<input type="text" class="role"></li>');
