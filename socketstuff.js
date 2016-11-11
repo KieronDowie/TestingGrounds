@@ -193,7 +193,6 @@ function modInterface()
 				$(this).addClass('linkbutton');
 				$(this).html('<span>Link</span>');
 			}
-			socket.emit(Type.TOGGLELIVING,users[index]);
 		});
 		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
 		var more = $('<div class="controlbutton more"></div>');
@@ -487,6 +486,24 @@ socket.on(Type.JOIN,function(name, reconnect)
 				$(this).addClass('jailbutton');
 				$(this).html('<span>Jail</span>');
 			}	
+		});
+		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
+		linked.click(function()
+		{
+			if ($(this).hasClass('linkbutton'))
+			{
+				var index = $('.linkbutton, .unlinkbutton').index($(this))
+				$(this).removeClass('linkbutton');
+				$(this).addClass('unlinkbutton');
+				$(this).html('<span>Unlink</span>');
+			}
+			else
+			{
+				var index = $('.linkbutton, .unlinkbutton').index($(this))
+				$(this).removeClass('unlinkbutton');
+				$(this).addClass('linkbutton');
+				$(this).html('<span>Link</span>');
+			}
 		});
 		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
 		var more = $('<div class="controlbutton more"><span class="downarrow"></span></div>');
@@ -1070,6 +1087,13 @@ socket.on(Type.ROLEUPDATE,function(send){
 		button.addClass('releasebutton');
 		button.html('<span>Release</span>');
 	}
+	if (send.linked)
+	{
+		var button = $($('.linkbutton')[index]);
+		button.removeClass('linkbutton');
+		button.addClass('unlinkbutton');
+		button.html('<span>Unlink</span>');
+	}
 });
 socket.on(Type.MASSROLEUPDATE,function(people){
 	if (mod)
@@ -1105,6 +1129,13 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 				button.addClass('releasebutton');
 				button.removeClass('jailbutton');
 				button.html('<span>Release</span>');
+			}
+			if (send.linked)
+			{
+				var button = $($('.linkbutton')[index]);
+				button.removeClass('linkbutton');
+				button.addClass('unlinkbutton');
+				button.html('<span>Unlink</span>');
 			}
 		}
 	}
