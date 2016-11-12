@@ -176,24 +176,6 @@ function modInterface()
 				$(this).html('<span>Jail</span>');
 			}	
 		});
-		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
-		linked.click(function()
-		{
-			var index = $('.linkbutton, .unlinkbutton').index($(this))
-			socket.emit(Type.TOGGLE,users[index],'linked');
-			if ($(this).hasClass('linkbutton'))
-			{
-				$(this).removeClass('linkbutton');
-				$(this).addClass('unlinkbutton');
-				$(this).html('<span>Unlink</span>');
-			}
-			else
-			{
-				$(this).removeClass('unlinkbutton');
-				$(this).addClass('linkbutton');
-				$(this).html('<span>Link</span>');
-			}
-		});
 		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
 		var more = $('<div class="controlbutton more"></div>');
 		var arrow = $('<span class="downarrow"></span>');
@@ -209,7 +191,6 @@ function modInterface()
 		
 		info.append(more);
 		info.append(will);
-		info.append(linked);
 		info.append(jail);
 		info.append(kill);
 		
@@ -488,24 +469,6 @@ socket.on(Type.JOIN,function(name, reconnect)
 				$(this).html('<span>Jail</span>');
 			}	
 		});
-		var linked = $('<div class="controlbutton linkbutton"><span>Link</span></div>');
-		linked.click(function()
-		{
-			var index = $('.linkbutton, .unlinkbutton').index($(this))
-			socket.emit(Type.TOGGLE,users[index],'linked');
-			if ($(this).hasClass('linkbutton'))
-			{
-				$(this).removeClass('linkbutton');
-				$(this).addClass('unlinkbutton');
-				$(this).html('<span>Unlink</span>');
-			}
-			else
-			{
-				$(this).removeClass('unlinkbutton');
-				$(this).addClass('linkbutton');
-				$(this).html('<span>Link</span>');
-			}
-		});
 		var will = $('<div class="controlbutton modwillbutton"><span>W</span></div>');
 		var more = $('<div class="controlbutton more"><span class="downarrow"></span></div>');
 		more.click(function(e)
@@ -518,7 +481,6 @@ socket.on(Type.JOIN,function(name, reconnect)
 		});
 		info.append(more);
 		info.append(will);
-		info.append(linked);
 		info.append(jail);
 		info.append(kill);
 		//Adding bottom row
@@ -1092,13 +1054,6 @@ socket.on(Type.ROLEUPDATE,function(send){
 		button.addClass('releasebutton');
 		button.html('<span>Release</span>');
 	}
-	if (send.linked)
-	{
-		var button = $($('.linkbutton')[index]);
-		button.removeClass('linkbutton');
-		button.addClass('unlinkbutton');
-		button.html('<span>Unlink</span>');
-	}
 });
 socket.on(Type.MASSROLEUPDATE,function(people){
 	if (mod)
@@ -1134,13 +1089,6 @@ socket.on(Type.MASSROLEUPDATE,function(people){
 				button.addClass('releasebutton');
 				button.removeClass('jailbutton');
 				button.html('<span>Release</span>');
-			}
-			if (send.linked)
-			{
-				var button = $($('.linkbutton')[index]);
-				button.removeClass('linkbutton');
-				button.addClass('unlinkbutton');
-				button.html('<span>Unlink</span>');
 			}
 		}
 	}

@@ -415,6 +415,11 @@ function openModList(targ)
 					var name = $(this.parentNode).attr('name');
 					socket.emit(Type.TOGGLE,name,'blackmail');
 				}
+				'Link':function()
+				{
+					var name = $(this.parentNode).attr('name');
+					socket.emit(Type.TOGGLE,name,'linked');
+				}
 			};
 			var notifications = {
 				'Roleblocked':function()
@@ -857,20 +862,6 @@ function chooseAutoButton(info, label)
 				var tr = $(this).parent().parent();
 				var to = $($(tr.children()[1]).children()[0]).html();
 				socket.emit(Type.TOGGLE,to,'linked');
-				var index = users.indexOf(to);
-				var buttons = $('.linkbutton, .unlinkbutton');
-				if ($(buttons[index]).hasClass('linkbutton'))
-				{
-					$(buttons[index]).removeClass('linkbutton');
-					$(buttons[index]).addClass('unlinkbutton');
-					$(buttons[index]).html('<span>Unlink</span>');
-				}
-				else
-				{
-					$(buttons[index]).removeClass('unlinkbutton');
-					$(buttons[index]).addClass('linkbutton');
-					$(buttons[index]).html('<span>Link</span>');
-				}
 			};
 		break;
 		case '<Clean>':

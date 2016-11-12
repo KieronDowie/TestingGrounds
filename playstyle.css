@@ -892,7 +892,7 @@ header ul li span
 .killbutton
 {
 	background: linear-gradient(#c40e0e, #d66565);
-	width: 13.33%;
+	width: 20%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -904,7 +904,7 @@ header ul li span
 .revivebutton
 {
 	background: linear-gradient(#55BF0A, #0E7800);
-	width: 13.33%;
+	width: 20%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -916,7 +916,7 @@ header ul li span
 .jailbutton
 {
 	background: linear-gradient(#021E3E, #424242);
-	width: 13.33%;
+	width: 20%;
 	float:right;
 	text-align:center;
 	cursor:default;
@@ -929,38 +929,13 @@ header ul li span
 .releasebutton
 {
 	background: linear-gradient(#CACACA, #B5B5B5);
-	width: 13.33%;
+	width: 20%;
 	float:right;
 	text-align:center;
 	cursor:default;
 	color:black;
 }
 .releasebutton:hover
-{
-	background:#CACACA;
-}
-.linkbutton
-{
-	background: linear-gradient(#55BF0A, #0E7800);
-	width: 13.33%;
-	float:right;
-	text-align:center;
-	cursor:default;
-}
-.linkbutton:hover
-{
-	background: #55BF0A;
-}
-.unlinkbutton
-{
-	background: linear-gradient(#CACACA, #B5B5B5);
-	width: 13.33%;
-	float:right;
-	text-align:center;
-	cursor:default;
-	color:black;
-}
-.unlinkbutton:hover
 {
 	background:#CACACA;
 }
