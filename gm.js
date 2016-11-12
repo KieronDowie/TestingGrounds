@@ -510,6 +510,26 @@ var autoRoles =
 		consiggrouping:'Interviewer',
 		alignment:'town'
 	},
+	'musician': {
+		attributes:  {},
+		grouping:'',
+		consiggrouping:'Musician',
+		alignment:'mafia'
+	},
+	'cannibal': {
+		attributes:  {},
+		grouping:'',
+		consiggrouping:'Cannibal',
+		alignment:'neutral'
+	},
+	'spiritualist': {
+		attributes:  {
+			NOVISIT:attributes.NOVISIT
+		},
+		grouping:'',
+		consiggrouping:'Spiritualist',
+		alignment:'town'
+	},
 };
 
 /* Old Invest Results
@@ -600,7 +620,10 @@ var consigResults = {
 	'Stalker':'Your target sends cold shivers down your spine. They must be a Stalker.',
 	'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.',
 	'Psychic':'Your target forms mental links. They must be a Psychic.',
-	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.'
+	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.',
+	'Musician':'Your target plays music for the town. They must be a Musician.',
+	'Cannibal':'Your target loves to eat the flesh of others. They must be a Cannibal.',
+	'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.'
 };
 
 var sheriffResults = {
