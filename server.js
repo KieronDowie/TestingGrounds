@@ -1379,6 +1379,10 @@ function setPhase(p)
 				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!',{styling:'dying'});
 			}
 			//Jailed player
+			if (players[i].chats.linked)
+			{
+				players[i].s.emit(Type.PRENOT,'LINKED');
+			}
 			if (players[i].chats.jailed)
 			{
 				players[i].s.emit(Type.PRENOT,'JAILED');
