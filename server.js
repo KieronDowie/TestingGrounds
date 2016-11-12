@@ -1376,7 +1376,7 @@ function setPhase(p)
 			}
 			if (n % 2 == 0 && players[i].role.toLowerCase() == 'werewolf') //Even number, full moon
 			{
-				players[i].s.emit(Type.MSG,'The light of the full moon has transformed you into a rampaging Werewolf!',{msg:msg,styling:'dying'});
+				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!',{styling:'dying'});
 			}
 			//Jailed player
 			if (players[i].chats.jailed)
