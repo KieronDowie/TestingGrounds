@@ -983,7 +983,7 @@ socket.on(Type.PRENOT,function(notification)
          addMessage({msg:'You hauled your target off to jail!',styling:'jailing'},'prenot');
       break;
 	  case 'LINKED':
-         addMessage({msg:'You have been linked!',styling:'linked'},'prenot');
+         addMessage({msg:'You have been linked!',styling:'reviving'},'prenot');
       break;
       case 'FULLMOON':
          addMessage({msg:'There is a full moon out tonight.',styling:'moon'},'prenot');

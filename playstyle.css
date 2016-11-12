@@ -1228,7 +1228,7 @@ neut
 }
 .linked
 {
-	background:green;
+	color:green;
 }
 .dead, .medium
 {
