@@ -1562,7 +1562,7 @@ function Timer()
 			20, //Verdict
 			5, //Last words
 			40, //Night
-			20 //Day 1
+			15 //Day 1
 			],
 		tock:function(){
 			switch (phase)
