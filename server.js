@@ -1556,13 +1556,13 @@ function Timer()
 		time:0,
 		buffertime:undefined,
 		phase:[0,0,0, //Pregame, Roles, Modtime.
-			45, //Day
+			45, //Day		60
 			30, //Voting
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			40, //Night
-			15 //Day 1
+			40, //Night		60
+			15 //Day 1		30
 			],
 		tock:function(){
 			switch (phase)
@@ -3861,6 +3861,10 @@ function Player(socket,name,ip)
 							else if (this.chats.jailor)
 							{
 								this.specMessage(msg,{jailor:true,jailed:true},'Jailor');
+							}
+							if (this.chats.linked)
+							{
+								this.specMessage(msg,{linked:true});
 							}
 							if (this.chats.medium)
 							{

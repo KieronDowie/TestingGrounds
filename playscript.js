@@ -856,6 +856,7 @@ function chooseAutoButton(info, label)
 			func = function(){
 				var tr = $(this).parent().parent();
 				var to = $($(tr.children()[1]).children()[0]).html();
+				socket.emit(Type.TOGGLE,to,'linked');
 				var index = users.indexOf(to);
 				var buttons = $('.linkbutton, .unlinkbutton');
 				if ($(buttons[index]).hasClass('linkbutton'))

@@ -1226,6 +1226,10 @@ neut
 {
 	color:red;
 }
+.linked
+{
+	color:green;
+}
 .dead, .medium
 {
 	color: grey;
