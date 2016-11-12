@@ -1556,13 +1556,13 @@ function Timer()
 		time:0,
 		buffertime:undefined,
 		phase:[0,0,0, //Pregame, Roles, Modtime.
-			60, //Day
+			45, //Day
 			30, //Voting
 			20, //Trial
 			20, //Verdict
 			5, //Last words
-			60, //Night
-			30 //Day 1
+			40, //Night
+			20 //Day 1
 			],
 		tock:function(){
 			switch (phase)
