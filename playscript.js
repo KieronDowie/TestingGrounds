@@ -414,7 +414,7 @@ function openModList(targ)
 				{
 					var name = $(this.parentNode).attr('name');
 					socket.emit(Type.TOGGLE,name,'blackmail');
-				}
+				},
 				'Link':function()
 				{
 					var name = $(this.parentNode).attr('name');
