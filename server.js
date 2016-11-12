@@ -1142,7 +1142,9 @@ io.on('connection', function(socket){
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
-							case 'linked': notify = undefined; break; //No message
+							case 'linked':
+							players[mod].s.emit(Type.SYSTEM,player.name+' is now linked.');
+							break;
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
 								player.canSeance = true;
@@ -1162,7 +1164,9 @@ io.on('connection', function(socket){
 								}
 							break;
 							case 'jailed': notify = undefined; break; //No message
-							case 'linked': notify = undefined; break; //No message
+							case 'linked':
+							players[mod].s.emit(Type.SYSTEM,player.name+' is no longer linked.');
+							break;
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
 								player.canSeance = false;
