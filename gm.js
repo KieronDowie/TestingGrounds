@@ -117,7 +117,8 @@ var autoRoles =
 	},
 	'lookout': {
 		attributes:  {
-			WATCH:attributes.WATCH},
+			WATCH:attributes.WATCH
+		},
 		grouping:'J',
 		consiggrouping:'Lookout',
 		alignment:'town'
@@ -349,19 +350,27 @@ var autoRoles =
 		alignment:'neutral'
 	},
 	'nightmarer': {
-		attributes:  {},
+		attributes:  {
+			MULTI:attributes.MULTI,
+			FORCEDMULTI:attributes.FORCEDMULTI
+		},
 		grouping:'I',
 		consiggrouping:'Nightmarer',
 		alignment:'mafia'
 	},
 	'coroner': {
-		attributes:  {},
+		attributes:  {
+			DEADTARGET:attributes.DEADTARGET,
+			NOLIVINGTARGET:attributes.NOLIVINGTARGET
+		},
 		grouping:'H',
 		consiggrouping:'Coroner',
 		alignment:'town'
 	},
 	'watcher': {
-		attributes:  {},
+		attributes:  {
+			WATCH:attributes.WATCH
+		},
 		grouping:'J',
 		consiggrouping:'Watcher',
 		alignment:'mafia'
@@ -379,13 +388,18 @@ var autoRoles =
 		alignment:'sw'
 	},
 	'necromancer': {
-		attributes:  {},
+		attributes:  {
+			DEADTARGET:attributes.DEADTARGET,
+			NOLIVINGTARGET:attributes.NOLIVINGTARGET
+		},
 		grouping:'K',
 		consiggrouping:'Necromancer',
 		alignment:'neutral'
 	},
 	'stalker': {
-		attributes:  {},
+		attributes:  {
+			SELF:attributes.SELF
+		},
 		grouping:'F',
 		consiggrouping:'Stalker',
 		alignment:'neutral'
@@ -424,13 +438,18 @@ var autoRoles =
 		alignment:'town'
 	},
 	'tax collector': {
-		attributes:  {},
+		attributes:  {
+			MULTI:attributes.MULTI
+		},
 		grouping:'B',
 		consiggrouping:'Tax Collector',
 		alignment:'neutral'
 	},
 	'ghost': {
-		attributes:  {},
+		attributes:  {
+			RB:attributes.RB,
+			RBIMMUNE:attributes.RBIMMUNE
+		},
 		grouping:'A',
 		consiggrouping:'Ghost',
 		alignment:'town'
@@ -466,10 +485,30 @@ var autoRoles =
 		alignment:'neutral'
 	},
 	'orphan': {
-		attributes:  {},
+		attributes:  {
+			NOVISIT:attributes.NOVISIT
+		},
 		grouping:'G',
 		consiggrouping:'Orphan',
 		alignment:'neutral'
+	},
+	'psychic': {
+		attributes:  {
+			MULTI:attributes.MULTI,
+			FORCEDMULTI:attributes.MULTI,
+			SELF:attributes.SELF
+		},
+		grouping:'',
+		consiggrouping:'Psychic',
+		alignment:'town'
+	},
+	'interviewer': {
+		attributes:  {
+			MULTI:attributes.MULTI
+		},
+		grouping:'',
+		consiggrouping:'Interviewer',
+		alignment:'town'
 	},
 };
 
@@ -559,7 +598,9 @@ var consigResults = {
 	'Paradoxist':'Your target is from another plane of reality. They must be a Paradoxist.',
 	'Mortician':'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
 	'Stalker':'Your target sends cold shivers down your spine. They must be a Stalker.',
-	'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.'
+	'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.',
+	'Psychic':'Your target forms mental links. They must be a Psychic.',
+	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.'
 };
 
 var sheriffResults = {
