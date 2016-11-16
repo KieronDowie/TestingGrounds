@@ -1967,7 +1967,7 @@ function Player(socket,name,ip)
 			if (phase == Phase.PREGAME)
 			{
 				rainnumber = 0;
-			}
+			},
 			vote:function(name, forced){
 				if (phase != Phase.VOTING)
 				{
