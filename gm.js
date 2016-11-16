@@ -839,14 +839,15 @@ module.exports = {
 				}
 				return (p2 > p1);
 			});
-			if (rainnumber == 1)
+			if (rainnumber == 1 && fromphase == 4 || fromphase == 7)
 			{
 				addSuggestedMessage('It started to rain.','<All>');
 				rainnumber = 2;
 			}
-			if (rainnumber == 2)
+			else if (rainnumber == 2)
 			{
 				addSuggestedMessage('Those people got drenched tonight.','<All>');
+				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
 			for (i in orderedTargets)
