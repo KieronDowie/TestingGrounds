@@ -866,8 +866,8 @@ module.exports = {
 					drstring += i;
 				}
 				}
-				/*var drlist = drstring.split("");
-				drenched += drlist.slice(0,possibleRoles.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';*/
+				var drlist = drstring.split("");
+				drenched += drlist.slice(0,drlist.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';
 				addSuggestedMessage('Those people got drenched tonight: '+drstring,'<All>');
 				rainnumber = 0;
 			}
