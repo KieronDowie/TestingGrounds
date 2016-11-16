@@ -3,6 +3,7 @@ var suggestedMessages = [];
 var suggestedActions = [];
 var beingTargetted = {};
 var daynumber = 1;
+var rainnumber = 0;
 var attributes = {
 	 BG:'Protect your target, killing their attacker and yourself.',
 	 HEAL:'Heal your target.',
@@ -517,7 +518,10 @@ var autoRoles =
 		alignment:'mafia'
 	},
 	'cannibal': {
-		attributes:  {},
+		attributes:  {
+			SELF:attributes.SELF,
+			MULTI:attributes.MULTI
+		},
 		grouping:'',
 		consiggrouping:'Cannibal',
 		alignment:'neutral'
@@ -1396,9 +1400,14 @@ module.exports = {
 										addSuggestedMessage('You remembered what you were!',num);
 									}
 									else if (roleAttributes.RAINDANCE)
-									{
-										addSuggestedMessage('It seems like its going to rain tonight.','<All>');
-									}
+										if (rainnumber == 0)
+										{
+											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
+										}
+										elseif (rainnumber == 1)
+										{
+											addSuggestedMessage('It started to rain.','<All>');
+										}
 									else if (roleAttributes.REVIVE)
 									{
 										var t = targets[num][1];
