@@ -850,7 +850,22 @@ module.exports = {
 			}
 			else if (rainnumber == 2)
 			{
-				addSuggestedMessage('Those people got drenched tonight: '+orderedTargets,'<All>');
+				var drenched = '';
+				for (i in orderedTargets)
+				{
+				var autorole = autoRoles[i.role];
+				if (autorole)
+				{
+				if (autorole.attributes.NINJA)
+				{
+				}
+				else
+				{
+					drenched = drenched + i;
+				}
+				}
+				}
+				addSuggestedMessage('Those people got drenched tonight: '+drenched,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
