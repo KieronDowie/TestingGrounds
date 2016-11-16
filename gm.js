@@ -863,7 +863,14 @@ module.exports = {
 				}
 				else
 				{
+					if (drstring == "")
+					{
+					drstring += num;
+					}
+					else
+					{
 					drstring += " "+num;
+					}
 				}
 				}
 				var drlist = drstring.split(" ");
