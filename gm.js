@@ -857,7 +857,7 @@ module.exports = {
 				var role = getRole(targets[num]);
 				var roleInfo = autoRoles[role];
 				var roleAttributes = roleInfo.attributes;
-				if (roleAttributes.NINJA)
+				if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
 				{
 					
 				}
