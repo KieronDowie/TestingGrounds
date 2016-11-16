@@ -677,6 +677,10 @@ module.exports = {
 		var auto = autoRoles[role];
 		if (auto)
 		{
+			if (auto.attributes.RAINDANCE && rainnumber == 2)
+			{
+				return 'You can\'t dance right now because it\'s already raining!';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
