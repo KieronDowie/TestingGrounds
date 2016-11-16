@@ -863,16 +863,10 @@ module.exports = {
 				}
 				else
 				{
-					if (drstring == "")
-					{
-					drstring += num;
-					}
-					else
-					{
 					drstring += " "+num;
-					}
 				}
 				}
+				drstring = drstring.substr(1);
 				var drlist = drstring.split(" ");
 				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
