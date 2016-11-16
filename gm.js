@@ -867,8 +867,8 @@ module.exports = {
 				}
 				}
 				var drlist = drstring.split("");
-				drenched += drlist.slice(0,drlist.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';
-				addSuggestedMessage('Those people got drenched tonight: '+drstring,'<All>');
+				/*drenched += drlist.slice(0,drlist.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';*/
+				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
