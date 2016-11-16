@@ -850,7 +850,7 @@ module.exports = {
 			}
 			else if (rainnumber == 2)
 			{
-				var drenched = '';
+				var drstring = "";
 				for (i in orderedTargets)
 				{
 				var num = orderedTargets[i];
@@ -863,9 +863,11 @@ module.exports = {
 				}
 				else
 				{
-					drenched = drenched + i;
+					drstring += i;
 				}
 				}
+				var drlist = drstring.split("");
+				drenched += drlist.slice(0,possibleRoles.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';
 				addSuggestedMessage('Those people got drenched tonight: '+drenched,'<All>');
 				rainnumber = 0;
 			}
