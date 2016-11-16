@@ -850,7 +850,7 @@ module.exports = {
 			}
 			else if (rainnumber == 2)
 			{
-				addSuggestedMessage('Those people got drenched tonight:'+orderedTargets,'<All>');
+				addSuggestedMessage('Those people got drenched tonight: '+orderedTargets,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
