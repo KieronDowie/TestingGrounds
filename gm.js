@@ -863,10 +863,10 @@ module.exports = {
 				}
 				else
 				{
-					drstring += ""+num;
+					drstring += " "+num;
 				}
 				}
-				var drlist = drstring.split("");
+				var drlist = drstring.split(" ");
 				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
 			}
