@@ -853,16 +853,17 @@ module.exports = {
 				var drenched = '';
 				for (i in orderedTargets)
 				{
-				var autorole = autoRoles[i.role];
-				if (autorole)
+				var num = orderedTargets[i];
+				var role = getRole(targets[num]);
+				var roleInfo = autoRoles[role];
+				var roleAttributes = roleInfo.attributes;
+				if (roleAttributes.NINJA)
 				{
-				if (autorole.attributes.NINJA)
-				{
+					
 				}
 				else
 				{
 					drenched = drenched + i;
-				}
 				}
 				}
 				addSuggestedMessage('Those people got drenched tonight: '+drenched,'<All>');
