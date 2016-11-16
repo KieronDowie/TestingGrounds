@@ -858,7 +858,7 @@ module.exports = {
 				var roleInfo = autoRoles[role];
 				var roleAttributes = roleInfo.attributes;
 				targets[players[i].name] = [players[i].role,undefined, true];
-				if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET || targets[players[i].name][1] != [])
+				if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
 				{
 					
 				}
@@ -869,7 +869,7 @@ module.exports = {
 				}
 				drstring = drstring.substr(1);
 				var drlist = drstring.split(" ");
-				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
+				addSuggestedMessage('Those people got drenched tonight: '+players,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
