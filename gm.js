@@ -1404,7 +1404,7 @@ module.exports = {
 										{
 											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 										}
-										elseif (rainnumber == 1)
+										else if (rainnumber == 1)
 										{
 											addSuggestedMessage('It started to rain.','<All>');
 										}
