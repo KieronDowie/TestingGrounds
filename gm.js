@@ -839,6 +839,15 @@ module.exports = {
 				}
 				return (p2 > p1);
 			});
+			if (rainnumber == 1)
+			{
+				addSuggestedMessage('It started to rain.','<All>');
+				rainnumber = 2;
+			}
+			if (rainnumber == 2)
+			{
+				addSuggestedMessage('Those people got drenched tonight.','<All>');
+			}
 			//Loop through roles in priority order.
 			for (i in orderedTargets)
 			{
@@ -1403,10 +1412,7 @@ module.exports = {
 										if (rainnumber == 0)
 										{
 											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
-										}
-										else if (rainnumber == 1)
-										{
-											addSuggestedMessage('It started to rain.','<All>');
+											rainnumber = 1;
 										}
 									else if (roleAttributes.REVIVE)
 									{
