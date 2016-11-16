@@ -866,9 +866,9 @@ module.exports = {
 					drstring += i;
 				}
 				}
-				var drlist = drstring.split("");
-				drenched += drlist.slice(0,possibleRoles.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';
-				addSuggestedMessage('Those people got drenched tonight: '+drenched,'<All>');
+				/*var drlist = drstring.split("");
+				drenched += drlist.slice(0,possibleRoles.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';*/
+				addSuggestedMessage('Those people got drenched tonight: '+drstring,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
