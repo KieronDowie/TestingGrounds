@@ -863,11 +863,10 @@ module.exports = {
 				}
 				else
 				{
-					drstring += i;
+					drstring += num;
 				}
 				}
 				var drlist = drstring.split("");
-				/*drenched += drlist.slice(0,drlist.length-1).join(', ') + ' or ' + drlist[drlist.length-1]+'.';*/
 				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
 			}
