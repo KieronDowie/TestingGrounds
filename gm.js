@@ -768,6 +768,11 @@ module.exports = {
 		var displayTargets = {};
 		var playersByName = {}; //Quick target array to get back to the players array.
 		//Populate targets array.
+		var drstring = "";
+		var num = orderedTargets[i];
+		var role = getRole(targets[num]);
+		var roleInfo = autoRoles[role];
+		var roleAttributes = roleInfo.attributes;
 		for (i in players)
 		{
 			if (mod != players[i].s.id)
@@ -794,11 +799,6 @@ module.exports = {
 					{
 						if (rainnumber == 2)
 						{
-							var drstring = "";
-							var num = orderedTargets[i];
-							var role = getRole(targets[num]);
-							var roleInfo = autoRoles[role];
-							var roleAttributes = roleInfo.attributes;
 							if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
 							{
 								
