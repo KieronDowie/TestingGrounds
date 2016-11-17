@@ -857,13 +857,10 @@ module.exports = {
 				var role = getRole(targets[num]);
 				var roleInfo = autoRoles[role];
 				var roleAttributes = roleInfo.attributes;
-				playersByName[players[i].name] = players[i];//Quicktarget
-				targets[players[i].name] = [players[i].role,undefined, true];
 				if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
 				{
 					
 				}
-				else if (targets[players[i].name][1] != [])
 				{
 					drstring += " "+num;
 				}
