@@ -766,7 +766,7 @@ module.exports = {
 	evaluate:function(players, playernames, mod, roles, lvl, fromphase){
 		var targets = {};
 		var displayTargets = {};
-		var playersByName = {}; //Quick target array to get back to the players array.
+		var playersByName = {};		//Quick target array to get back to the players array.
 		//Populate targets array.
 		for (i in players)
 		{
@@ -851,7 +851,7 @@ module.exports = {
 			else if (rainnumber == 2)
 			{
 				var drstring = "";
-				for (i in orderedTargets)
+				for (i in players)
 				{
 				var num = orderedTargets[i];
 				var role = getRole(targets[num]);
