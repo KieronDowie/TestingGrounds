@@ -868,7 +868,7 @@ module.exports = {
 				}
 				drstring = drstring.substr(1);
 				var drlist = drstring.split(" ");
-				addSuggestedMessage('Those people got drenched tonight: '+players[i].name,'<All>');
+				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
