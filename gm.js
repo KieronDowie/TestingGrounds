@@ -768,11 +768,6 @@ module.exports = {
 		var displayTargets = {};
 		var playersByName = {}; //Quick target array to get back to the players array.
 		//Populate targets array.
-		var drstring = "";
-		var num = orderedTargets[i];
-		var role = getRole(targets[num]);
-		var roleInfo = autoRoles[role];
-		var roleAttributes = roleInfo.attributes;
 		for (i in players)
 		{
 			if (mod != players[i].s.id)
@@ -795,20 +790,6 @@ module.exports = {
 				//Populate the beingTargetted array for quick access.
 				if (targets[players[i].name][1] != []) //If a player is targetting someone
 				{
-					if (lvl == 2)
-					{
-						if (rainnumber == 2)
-						{
-							if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
-							{
-								
-							}
-							else
-							{
-								drstring += " "+num;
-							}
-						}
-					}
 					for (k in targets[players[i].name][1]) //For all targetted players, add them to the list.
 					{
 						var t = targets[players[i].name][1][k];
@@ -824,13 +805,6 @@ module.exports = {
 				}
 				
 			}
-		}
-		if (rainnumber == 2)
-		{
-		drstring = drstring.substr(1);
-		var drlist = drstring.split(" ");
-		addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
-		rainnumber = 0;
 		}
 		//Only do this bit if suggestions are enabled ie. auto is 2
 		if (lvl == 2)
@@ -873,6 +847,29 @@ module.exports = {
 			{
 				addSuggestedMessage('It started to rain.','<All>');
 				rainnumber = 2;
+			}
+			else if (rainnumber == 2)
+			{
+				var drstring = "";
+				for (i in orderedTargets)
+				{
+				var num = orderedTargets[i];
+				var role = getRole(targets[num]);
+				var roleInfo = autoRoles[role];
+				var roleAttributes = roleInfo.attributes;
+				if (roleAttributes.NINJA || roleAttributes.NOLIVINGTARGET)
+				{
+					
+				}
+				else
+				{
+					drstring += " "+num;
+				}
+				}
+				drstring = drstring.substr(1);
+				var drlist = drstring.split(" ");
+				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
+				rainnumber = 0;
 			}
 			//Loop through roles in priority order.
 			for (i in orderedTargets)
