@@ -851,7 +851,7 @@ module.exports = {
 			else if (rainnumber == 2)
 			{
 				var drstring = "";
-				for (i in players)
+				for (i in orderedTargets)
 				{
 				var num = orderedTargets[i];
 				var role = getRole(targets[num]);
