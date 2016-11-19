@@ -499,7 +499,7 @@ var autoRoles =
 			FORCEDMULTI:attributes.MULTI,
 			SELF:attributes.SELF
 		},
-		grouping:'',
+		grouping:'D',
 		consiggrouping:'Psychic',
 		alignment:'town'
 	},
@@ -507,13 +507,13 @@ var autoRoles =
 		attributes:  {
 			MULTI:attributes.MULTI
 		},
-		grouping:'',
+		grouping:'B',
 		consiggrouping:'Interviewer',
 		alignment:'town'
 	},
 	'musician': {
 		attributes:  {},
-		grouping:'',
+		grouping:'G',
 		consiggrouping:'Musician',
 		alignment:'mafia'
 	},
@@ -522,17 +522,9 @@ var autoRoles =
 			SELF:attributes.SELF,
 			MULTI:attributes.MULTI
 		},
-		grouping:'',
+		grouping:'G',
 		consiggrouping:'Cannibal',
 		alignment:'neutral'
-	},
-	'spiritualist': {
-		attributes:  {
-			NOVISIT:attributes.NOVISIT
-		},
-		grouping:'',
-		consiggrouping:'Spiritualist',
-		alignment:'town'
 	},
 };
 
@@ -559,7 +551,7 @@ var investGrouping = {
 	'D':'Your target works with secrets.',
 	'E':'Your target works with chemicals.',
 	'F':'Your target makes rash choices.',
-	'G':'Your target thinks about violence.',
+	'G':'Your target lures people in.',
 	'H':'Your target works with dead bodies.',
 	'I':'Your target has dirty hands.',
 	'J':'Your target lies in darkness.',
