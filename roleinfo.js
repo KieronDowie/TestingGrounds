@@ -817,6 +817,16 @@ var roles=[
 				 color:mafiacolor,
 				custom:true
 			 }*/
+			 {
+				 rolename:"surgeon",
+				 alignment:"neutral benign",
+				 abilities:['Heal someone at night, saving them if thew are attacked or lynched then next day.'],
+				 attributes:["Only you will be informed if they were attacked.",
+				 "You may not change win conditions two consecutive nights, nor heal the same person twice in a row unless successful.",
+				 "If you save a lynch, the da will lose 8 seconds instead, unless you save a Jester or Executioner's target."],
+				 goal:"Win with the last person you healed.",
+				 color:"#0080FF"
+			},
 ];
 var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor","cannibal","musician","psychic"];
  
