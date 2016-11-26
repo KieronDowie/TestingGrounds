@@ -2,6 +2,9 @@
   "name": "TestingGrounds",
   "start": "node server.js",
   "version": "2.0.0",
+  "engines" : {
+  "node" : "3.4.0"
+  },
   "description": "Web chat client for the TestingGrounds",
   "dependencies": {
     "moment": "^2.10.6",
