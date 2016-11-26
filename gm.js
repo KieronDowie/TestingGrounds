@@ -1431,11 +1431,13 @@ module.exports = {
 										addSuggestedMessage('You remembered what you were!',num);
 									}
 									else if (roleAttributes.RAINDANCE)
+									{
 										if (rainnumber == 0)
 										{
 											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 											rainnumber = 1;
 										}
+									}
 									else if (roleAttributes.REVIVE)
 									{
 										var t = targets[num][1];
