@@ -3,7 +3,7 @@
   "start": "node server.js",
   "version": "2.0.0",
   "engines" : {
-  "node" : "3.3.0"
+  "node" : "4.3.0"
   },
   "description": "Web chat client for the TestingGrounds",
   "dependencies": {
