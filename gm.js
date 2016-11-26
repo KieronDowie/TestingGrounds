@@ -526,6 +526,12 @@ var autoRoles =
 		consiggrouping:'Cannibal',
 		alignment:'neutral'
 	},
+	'surgeon': {
+		attributes:  {},
+		grouping:'E',
+		consiggrouping:'Surgeon',
+		alignment:'neutral'
+	},
 };
 
 /* Old Invest Results
@@ -619,7 +625,8 @@ var consigResults = {
 	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.',
 	'Musician':'Your target plays music for the town. They must be a Musician.',
 	'Cannibal':'Your target loves to eat the flesh of others. They must be a Cannibal.',
-	'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.'
+	'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.',
+	'Surgeon':'Your target has blood-stained scrubs. They must be a Surgeon.'
 };
 
 var sheriffResults = {
