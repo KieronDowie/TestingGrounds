@@ -2145,10 +2145,6 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (players[playernames[c[1]]] == medium.name)
-						{
-							this.s.emit(Type.SYSTEM,'You cannot seance yourself.');
-						}
 						else if (this.chats.medium)
 						{
 							if (this.canSeance)
@@ -2161,7 +2157,11 @@ function Player(socket,name,ip)
 										{
 											var seance = function(medium,target)
 											{
-												if (medium.seancing && medium.seancing == target)
+												if (medium.seancing == medium.name)
+												{
+												this.s.emit(Type.SYSTEM,'You cannot seance yourself.');
+												}
+												else if (medium.seancing && medium.seancing == target)
 												{
 													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
 													medium.seancing.beingSeanced = undefined;
