@@ -1565,7 +1565,7 @@ module.exports = {
 												}
 											}
 										}
-										else
+										else if (daynumber % 2 == 1 && fromphase == 8 /*Night*/)
 										{
 											addSuggestedMessage('Your night action was disregarded because you can only attack on Full Moon.',num);
 										}
