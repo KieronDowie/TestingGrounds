@@ -3885,7 +3885,7 @@ function Player(socket,name,ip)
 							}
 							if (this.chats.medium)
 							{
-								if (this.chats.linked != true)
+								if (this.chats.jailed != true)
 								{
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
