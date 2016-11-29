@@ -3885,9 +3885,12 @@ function Player(socket,name,ip)
 							}
 							if (this.chats.medium)
 							{
+								if (this.chats.linked != true)
+								{
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
+								}
 							}
 							if (this.beingSeanced)
 							{
