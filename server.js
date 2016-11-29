@@ -3059,10 +3059,6 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
-						else if (this.chats.jailor)
-						{
-							this.s.emit(Type.SYSTEM,'Please use /x to execute your prisoner!.');
-						}
 						else if (!this.alive)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this while dead.');
@@ -3879,11 +3875,11 @@ function Player(socket,name,ip)
 							{
 								this.specMessage(msg,{jailor:true,jailed:true},'Jailor');
 							}
-							else if (this.chats.linked)
+							if (this.chats.linked)
 							{
 								this.specMessage(msg,{linked:true});
 							}
-							else if (this.chats.medium)
+							if (this.chats.medium)
 							{
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
