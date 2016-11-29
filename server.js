@@ -3140,7 +3140,6 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'exe': case 'execute': case 'x':
-						var n = gm.getDay();
 						if (!this.chats.jailor)
 						{
 							this.s.emit(Type.SYSTEM,'You need to be the Jailor to use this.');
@@ -3149,7 +3148,7 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You can only use this at night.');
 						}
-						else if (n == 1)
+						else if (getDayNumber == 1)
 						{
 							this.s.emit(Type.SYSTEM,'You can\'t execute your target Night 1!');
 						}
