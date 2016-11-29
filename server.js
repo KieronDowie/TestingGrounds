@@ -2167,7 +2167,17 @@ function Player(socket,name,ip)
 												}
 												else if (mod == target.s.id)
 												{
-													medium.s.emit(Type.SYSTEM,'You cannot seance the MOD.');
+													if (medium.seancing && medium.seancing == target)
+												{
+													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
+													medium.seancing.beingSeanced = undefined;
+													medium.seancing = undefined;
+													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+												}
+												else
+												{
+													medium.s.emit(Type.SYSTEM, 'You are not targetting anyone.');
+												}
 												}
 												else if (medium.seancing && medium.seancing == target)
 												{
