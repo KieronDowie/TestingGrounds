@@ -2145,6 +2145,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
+						else if (playernames[c[1]] == this)
+						{
+							this.s.emit(Type.SYSTEM,'You cannot seance yourself.');
+						}
 						else if (this.chats.medium)
 						{
 							if (this.canSeance)
