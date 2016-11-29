@@ -3879,22 +3879,15 @@ function Player(socket,name,ip)
 							{
 								this.specMessage(msg,{jailor:true,jailed:true},'Jailor');
 							}
-							if (this.chats.linked)
+							else if (this.chats.linked)
 							{
 								this.specMessage(msg,{linked:true});
 							}
-							if (this.chats.medium)
+							else if (this.chats.medium)
 							{
-								if (this.chats.jailed)
-								{
-									
-								}
-								else
-								{
 								this.specMessage(msg,{dead:true},'Medium');
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
-								}
 							}
 							if (this.beingSeanced)
 							{
