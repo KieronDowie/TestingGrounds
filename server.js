@@ -2143,9 +2143,9 @@ function Player(socket,name,ip)
 					case 'seance':
 						if (mod == this.s.id)
 						{
-							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.'+mod);
 						}
-						else if (playernames[c[1]] == this)
+						else if (playernames[c[1]] == this.s.id)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot seance yourself.');
 						}
