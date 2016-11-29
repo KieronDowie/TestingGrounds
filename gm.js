@@ -1577,9 +1577,18 @@ module.exports = {
 									else if (roleAttributes.DISGUISE)
 									{
 										var t = targets[num][1];
+										var role = getRole(targets[t[0]]);
+										var target = players[playernames[t[0]]];
+										if (autoRoles[role].attributes.IMMUNE)
+										{
+											
+										}
+										else
+										{
 										if (isDying(t[0],targets) )
 										{
 											addSuggestedAction('Disguise',num+'/'+t[0]);
+										}
 										}
 									}
 								}
