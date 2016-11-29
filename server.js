@@ -2157,7 +2157,7 @@ function Player(socket,name,ip)
 										{
 											var seance = function(medium,target)
 											{
-												if (target == medium.name)
+												if (target.name == medium.name)
 												{
 													medium.s.emit(Type.SYSTEM,'You cannot seance yourself.');
 												}
@@ -2166,7 +2166,7 @@ function Player(socket,name,ip)
 													medium.s.emit(Type.SYSTEM, 'You cancel your seance.'+medium.name);
 													medium.seancing.beingSeanced = undefined;
 													medium.seancing = undefined;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.'+target);
+													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.'+target.name);
 												}
 												else
 												{
