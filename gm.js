@@ -680,6 +680,10 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}
+			if (auto.attributes.EXECUTE && daynumber == 1)
+			{
+				return 'You can\'t execute your target Night 1!';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
