@@ -1354,11 +1354,13 @@ function setPhase(p)
 		}
 	}
 	if (p == Phase.PREGAME)
+	{
 	for (i in players)
 	{
 		{
 			players[i].seance = undefined;
 		}
+	}
 	}
 	if (p == Phase.NIGHT)
 	{
