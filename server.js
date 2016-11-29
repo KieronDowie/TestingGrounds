@@ -2165,6 +2165,10 @@ function Player(socket,name,ip)
 												{
 													medium.s.emit(Type.SYSTEM,'You cannot seance a dead person.');
 												}
+												else if (mod == target.s.id))
+												{
+													medium.s.emit(Type.SYSTEM,'You cannot seance the MOD.');
+												}
 												else if (medium.seancing && medium.seancing == target)
 												{
 													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
