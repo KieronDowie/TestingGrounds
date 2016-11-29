@@ -1103,7 +1103,6 @@ module.exports = {
 												}
 												//Remove target
 												targets[t[0]][1] = [];
-												addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 												addSuggestedMessage("Someone roleblocked you, so you attacked them!",t[0]);
 												if (isHealed(num,targets))
 												{
@@ -1114,6 +1113,7 @@ module.exports = {
 												else
 												{
 													addSuggestedAction('Kill',num);
+													addSuggestedMessage("You were attacked by the Serial Killer you visited!",num);
 													addSuggestedMessage('They were killed by a [sk]Serial Killer[/sk]','<All>');
 												}
 											}
