@@ -688,6 +688,10 @@ module.exports = {
 			{
 				return 'You cannot shoot Night 1!';
 			}
+			if (auto.attributes.MAUL && daynumber % 2 == 1)
+			{
+				return 'You can only attack on Full Moon!';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
