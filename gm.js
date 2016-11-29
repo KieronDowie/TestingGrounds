@@ -680,9 +680,9 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}
-			if (auto.attributes.EXECUTE && daynumber == 1)
+			if (auto.attributes.EXECUTE
 			{
-				return 'You can\'t execute your target Night 1!';
+				return 'Please use /x to execute your prisoner!';
 			}
 			//Check number of targets
 			if (arr.length > 1)
