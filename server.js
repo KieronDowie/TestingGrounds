@@ -2163,10 +2163,10 @@ function Player(socket,name,ip)
 												}
 												else if (medium.seancing && medium.seancing == target)
 												{
-													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
+													medium.s.emit(Type.SYSTEM, 'You cancel your seance.'+medium.name);
 													medium.seancing.beingSeanced = undefined;
 													medium.seancing = undefined;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
+													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.'+target);
 												}
 												else
 												{
