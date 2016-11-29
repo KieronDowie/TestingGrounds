@@ -2167,7 +2167,7 @@ function Player(socket,name,ip)
 												}
 												else if (mod == target.s.id)
 												{
-													if (medium.seancing && medium.seancing == target)
+													if (medium.seancing)
 												{
 													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
 													medium.seancing.beingSeanced = undefined;
