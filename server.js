@@ -2143,7 +2143,7 @@ function Player(socket,name,ip)
 					case 'seance':
 						if (mod == this.s.id)
 						{
-							this.s.emit(Type.SYSTEM,'The mod cannot use this command.'+medium.name+players[playernames[c[1]]]);
+							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
 						else if (players[playernames[c[1]]] == medium.name)
 						{
