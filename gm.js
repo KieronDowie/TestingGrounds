@@ -1454,7 +1454,7 @@ module.exports = {
 										addSuggestedMessage('You successfully revived your target!',num);
 										addSuggestedMessage('You were revived by a Retributionist!',t[0]);
 									}
-									else if (roleAttributes.EXECUTE && )
+									else if (roleAttributes.EXECUTE)
 									{
 										if (fromphase == 8)
 										{
