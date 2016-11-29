@@ -3059,6 +3059,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
 						}
+						else if (this.chats.jailor)
+						{
+							this.s.emit(Type.SYSTEM,'Please use /x to execute your prisoner!.');
+						}
 						else if (!this.alive)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this while dead.');
