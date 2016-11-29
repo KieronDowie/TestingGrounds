@@ -2161,12 +2161,16 @@ function Player(socket,name,ip)
 												{
 													medium.s.emit(Type.SYSTEM,'You cannot seance yourself.');
 												}
+												else if (!target.alive)
+												{
+													medium.s.emit(Type.SYSTEM,'You cannot seance a dead person.');
+												}
 												else if (medium.seancing && medium.seancing == target)
 												{
-													medium.s.emit(Type.SYSTEM, 'You cancel your seance.'+medium.name);
+													medium.s.emit(Type.SYSTEM, 'You cancel your seance.');
 													medium.seancing.beingSeanced = undefined;
 													medium.seancing = undefined;
-													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.'+target.name);
+													players[mod].s.emit(Type.SYSTEM,medium.name+' cancels their seance.');
 												}
 												else
 												{
