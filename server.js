@@ -1361,6 +1361,7 @@ function setPhase(p)
 			players[i].seance = undefined;
 		}
 	}
+	rainnumber = 0;
 	}
 	if (p == Phase.NIGHT)
 	{
