@@ -293,6 +293,7 @@ var autoRoles =
 	},	
 	'executioner': {
 		attributes:  {
+			IMMUNE:attributes.IMMUNE
 			// TARGET:attributes.TARGET
 		},
 		grouping:'C',
