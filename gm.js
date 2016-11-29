@@ -684,6 +684,10 @@ module.exports = {
 			{
 				return 'Please use /x to execute your prisoner!';
 			}
+			if (auto.attributes.VIGKILL && daynumber == 1)
+			{
+				return 'You decided to not shoot Night 1!';
+			}
 			//Check number of targets
 			if (arr.length > 1)
 			{
