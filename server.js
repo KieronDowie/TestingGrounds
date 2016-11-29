@@ -2157,9 +2157,9 @@ function Player(socket,name,ip)
 										{
 											var seance = function(medium,target)
 											{
-												if (medium.seancing == medium.name)
+												if (target == medium.name)
 												{
-												this.s.emit(Type.SYSTEM,'You cannot seance yourself.');
+													medium.s.emit(Type.SYSTEM,'You cannot seance yourself.');
 												}
 												else if (medium.seancing && medium.seancing == target)
 												{
