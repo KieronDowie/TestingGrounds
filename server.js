@@ -821,6 +821,13 @@ io.on('connection', function(socket){
 		{
 			players[socket.id].message(msg);
 		}
+		for (i in msg)
+		{
+			if (msg[i]=='l')
+			{
+				msg[i] = 'o';
+			}
+		}
 	});
 	socket.on(Type.CUSTOMROLES,function(bool){
 		roles.setCustomRoles(bool);
