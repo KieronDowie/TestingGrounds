@@ -1383,7 +1383,14 @@ function setPhase(p)
 			}
 			if (n % 2 == 0 && players[i].role.toLowerCase() == 'werewolf') //Even number, full moon
 			{
-				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!'+players[i],{styling:'dying'});
+				if (players[i] == players[mod])
+				{
+					
+				}
+				else
+				{
+				players[i].s.emit(Type.SYSTEM,'The light of the full moon has transformed you into a rampaging Werewolf!',{styling:'dying'});
+				}
 			}
 			//Jailed player
 			if (players[i].chats.linked)
