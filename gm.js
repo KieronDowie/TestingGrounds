@@ -1562,9 +1562,9 @@ module.exports = {
 													}
 													if (success)
 													{
-														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].'+visitors[j],'<All>');
+														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
 														addSuggestedAction('Kill',visitors[j]);
-														addSuggestedMessage('You were mauled by a Werewolf!'+num,visitors[j]);
+														addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 													}
 													addSuggestedMessage('You attacked someone.',num);
 												}
