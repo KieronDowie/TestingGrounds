@@ -1562,7 +1562,7 @@ module.exports = {
 													}
 													if (success)
 													{
-														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
+														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].'+num,'<All>');
 														addSuggestedAction('Kill',visitors[j]);
 														addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
 													}
@@ -1582,7 +1582,7 @@ module.exports = {
 										var target = players[playernames[t[0]]];
 										if (autoRoles[role].attributes.IMMUNE)
 										{
-											var mld = false;
+											/*var mld = false;        //If mauled by a werewolf disguise nevertheless
 											for (v in visitors)
 											{
 												var r = getRole(targets[visitors[v]]);
@@ -1601,7 +1601,7 @@ module.exports = {
 												{
 													addSuggestedAction('Disguise',num+'/'+t[0]);
 												}
-											}
+											}*/
 										}
 										else
 										{
