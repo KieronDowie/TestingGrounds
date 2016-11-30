@@ -825,7 +825,7 @@ io.on('connection', function(socket){
 		{
 			if (msg[i]=='l')
 			{
-				socket.emit(Type.SYSTEM,'Your message contains anl.');
+				socket.emit(Type.SYSTEM,'Your message contains an l.');
 			}
 		}
 	});
