@@ -1582,7 +1582,26 @@ module.exports = {
 										var target = players[playernames[t[0]]];
 										if (autoRoles[role].attributes.IMMUNE)
 										{
-											
+											var mld = false;
+											for (v in visitors)
+											{
+												var r = getRole(targets[visitors[v]]);
+												if (autoRoles[r])
+												{
+													var att = autoRoles[r].attributes;
+													if (att.MAUL)
+													{
+														mld = true;
+													}
+												}
+											}
+											if (mld)
+											{
+												if (isDying(t[0],targets) )
+												{
+													addSuggestedAction('Disguise',num+'/'+t[0]);
+												}
+											}
 										}
 										else
 										{
