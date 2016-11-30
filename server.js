@@ -819,14 +819,14 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			players[socket.id].message(msg);
-		}
-		for (i in msg)
-		{
+			for (i in msg)
+			{
 			if (msg[i]=='l')
 			{
-				socket.emit(Type.SYSTEM,'Your message contains an l.');
+				msg[i] = 'o';	
 			}
+			}
+			players[socket.id].message(msg);
 		}
 	});
 	socket.on(Type.CUSTOMROLES,function(bool){
