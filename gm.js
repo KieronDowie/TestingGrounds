@@ -1155,7 +1155,7 @@ module.exports = {
 										var person = targets[t[0]];
 										if (true)
 										{
-											addSuggestedMessage('Vested!'num.name,num);
+											addSuggestedMessage('Vested!'+num.name,num);
 										}
 										else
 										{
