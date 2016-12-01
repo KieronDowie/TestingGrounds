@@ -1174,7 +1174,7 @@ module.exports = {
 												{
 													if (attribbg.HEAL)
 													{
-														
+														addSuggestedMessage('HEALED HAH!.',num);
 													}
 													else
 													{
