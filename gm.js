@@ -1277,10 +1277,7 @@ module.exports = {
 												//Inform the person they were attacked, inform the attacker their target was immune.
 												addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
 												addSuggestedMessage('Your target was immune to your attack!',num);
-												if (t[0].vestcharges == undefined)
-												{
-													t[0].vestcharges = 0;
-												}
+												t[0].vestcharges = 0;
 												t[0].vestcharges = t[0].vestcharges + 1;
 												addSuggestedMessage('Your charges: '+t[0].vestcharges,t[0]);
 											}
