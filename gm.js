@@ -167,6 +167,7 @@ var autoRoles =
 	},
 	'bodyguard': {
 		attributes:  {
+			VEST:attributes.VEST,
 			BG:attributes.BG,
 			SELF:attributes.SELF},
 		grouping:'I',
@@ -1155,7 +1156,7 @@ module.exports = {
 										var person = targets[t[0]];
 										if (t == num)
 										{
-											addSuggestedMessage('Vested!',num);
+										
 										}
 										else
 										{
