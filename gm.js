@@ -1167,8 +1167,8 @@ module.exports = {
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
-													/*var successfulheal = false;
-													for (r in visitorsofbg)
+													var successfulheal = false;
+													/*for (r in visitorsofbg)
 													{
 													var rolebg = getRole(targets[visitorsofbg[r]]);
 													var roleofbgtarget = autoRoles[rolebg];
