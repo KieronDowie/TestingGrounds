@@ -1167,7 +1167,7 @@ module.exports = {
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
-													var successfulheal = false;
+													/*var successfulheal = false;
 													for (r in visitorsofbg)
 													{
 													var rolebg = getRole(targets[visitorsofbg[r]]);
@@ -1180,7 +1180,7 @@ module.exports = {
 													successfulheal = true;
 													}
 													}
-													/*if (successfulheal)
+													if (successfulheal)
 													{
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													addSuggestedAction('Kill', num);
