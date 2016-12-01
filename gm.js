@@ -1172,12 +1172,14 @@ module.exports = {
 													var rolebg = getRole(targets[visitorsofbg[r]]);
 													var roleofbgtarget = autoRoles[rolebg];
 													var attribbg = roleofbgtarget.attributes;
+													var successfulheal = false;
 													if (attribbg.HEAL)
 													{
 													addSuggestedMessage('You successfully protected your target and someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
 													addSuggestedMessage('Your target was attacked last night.',[visitorsofbg[r]);
+													successfulheal = true;
 													}
-													else
+													if (!successfulheal)
 													{
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													addSuggestedAction('Kill', num);
