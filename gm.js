@@ -1274,8 +1274,8 @@ module.exports = {
 												//Immune or a survivor that sent in an action.
 												attackSuccess = false;
 												//Inform the person they were attacked, inform the attacker their target was immune.
-												addSuggestedMessage('You were attacked, but you are immune at night!'+targets[t[0]],t[0]);
-												addSuggestedMessage('Your target was immune to your attack!',num)
+												addSuggestedMessage('You were attacked, but you are immune at night!'+target,t[0]);
+												addSuggestedMessage('Your target was immune to your attack!'+t[0],num)
 											}
 										}
 										else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
