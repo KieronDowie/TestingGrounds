@@ -1175,9 +1175,10 @@ module.exports = {
 													var attribbg = roleofbgtarget.attributes;
 													if (attribbg.HEAL)
 													{
-													addSuggestedMessage('You successfully protected your target and someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
+													addSuggestedMessage('You were attacked but someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
 													addSuggestedMessage('Your target was attacked last night.',[visitorsofbg[r]]);
 													successfulheal = true;
+													break;
 													}
 													}
 													if (!successfulheal)
