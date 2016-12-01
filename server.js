@@ -819,13 +819,6 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			for (i in msg)
-			{
-			if (msg[i]=='l')
-			{
-				msg[i] = 'o';	
-			}
-			}
 			players[socket.id].message(msg);
 		}
 	});
