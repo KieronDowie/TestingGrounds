@@ -1179,7 +1179,6 @@ module.exports = {
 													//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
 													targets[num].bgKill = visitors[j];
 													break; //break, bg can only stop one attacker.
-													}
 												}
 											}
 										}
