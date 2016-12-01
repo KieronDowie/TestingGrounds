@@ -1264,7 +1264,7 @@ module.exports = {
 										var target = players[playernames[t[0]]];
 										var targetsinfo = targets[t[0]];
 										
-										if (autoRoles[role] && (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && Object.keys(targets[t[0]][1]).length != 0) ) )
+										if (autoRoles[role] && (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && targetsinfo[1] == t[0]) ) )
 										{
 											if (attrib && person.bgKill == num && attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
 											{
@@ -1275,8 +1275,8 @@ module.exports = {
 												//Immune or a survivor that sent in an action.
 												attackSuccess = false;
 												//Inform the person they were attacked, inform the attacker their target was immune.
-												addSuggestedMessage('You were attacked, but you are immune at night!'+targetsinfo[1],t[0]);
-												addSuggestedMessage('Your target was immune to your attack!'+t[0],num)
+												addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
+												addSuggestedMessage('Your target was immune to your attack!',num)
 											}
 										}
 										else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
