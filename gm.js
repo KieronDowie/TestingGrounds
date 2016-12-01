@@ -1162,13 +1162,14 @@ module.exports = {
 											var name = visitors[j];
 											var role = getRole(targets[name]);
 											var autorole = autoRoles[role];
+											var roleofbgtarget = autoRoles[visitorsofbg];
 											if (autorole !== undefined)
 											{
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
 													addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
-													addSuggestedMessage('You were killed by a bodyguard.'+visitorsofbg,visitors[j]); //Tell attacker they were killed by a bg
+													addSuggestedMessage('You were killed by a bodyguard.'+roleofbgtarget,visitors[j]); //Tell attacker they were killed by a bg
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													//Suggested actions: Kill both the bg and attacker
 													addSuggestedAction('Kill', num);
