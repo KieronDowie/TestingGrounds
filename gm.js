@@ -1167,6 +1167,16 @@ module.exports = {
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
+													for (r in visitorsofbg)
+													{
+													var rolebg = getRole(targets[visitorsofbg[r]]);
+													var roleofbgtarget = autoRoles[rolebg];
+													var attribbg = roleofbgtarget.attributes;
+													if (attribg.HEAL)
+													{
+													addSuggestedMessage('You successfully protected your target but someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
+													}
+													}
 													addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
 													addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
