@@ -1153,6 +1153,12 @@ module.exports = {
 									{
 										var t = targets[num][1];
 										var person = targets[t[0]];
+										if (person == num)
+										{
+											addSuggestedMessage('Vested!.',num);
+										}
+										else
+										{
 										//Check if a person with KILL or DOUSE is targetting this person.
 										var visitors = getPeopleTargetting(t[0]);
 										var visitorsofbg = getPeopleTargetting(num);
@@ -1198,6 +1204,7 @@ module.exports = {
 													break; //break, bg can only stop one attacker.
 												}
 											}
+										}
 										}
 									}
 									else if (roleAttributes.HEAL) //Heal.
