@@ -1174,17 +1174,21 @@ module.exports = {
 													var attribbg = roleofbgtarget.attributes;
 													if (attribbg.HEAL)
 													{
-													addSuggestedMessage('You successfully protected your target but someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
+													addSuggestedMessage('You successfully protected your target and someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
+													addSuggestedMessage('Your target was attacked last night.',[visitorsofbg[r]);
+													}
+													else
+													{
+													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
+													addSuggestedAction('Kill', num);
+													addSuggestedMessage('They died guarding someone.','<All>');
 													}
 													}
 													addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
 													addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
-													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													//Suggested actions: Kill both the bg and attacker
-													addSuggestedAction('Kill', num);
 													addSuggestedAction('Kill', visitors[j]);
 													//Death announcements
-													addSuggestedMessage('They died guarding someone.','<All>');
 													addSuggestedMessage('They were killed by a [town]Bodyguard[/town].','<All>');
 													//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
 													targets[num].bgKill = visitors[j];
