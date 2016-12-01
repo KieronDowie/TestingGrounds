@@ -1153,7 +1153,7 @@ module.exports = {
 									{
 										var t = targets[num][1];
 										var person = targets[t[0]];
-										if (person == num)
+										if (player.target == player.name)
 										{
 											addSuggestedMessage('Vested!.',num);
 										}
