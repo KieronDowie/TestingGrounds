@@ -1155,6 +1155,7 @@ module.exports = {
 										var person = targets[t[0]];
 										//Check if a person with KILL or DOUSE is targetting this person.
 										var visitors = getPeopleTargetting(t[0]);
+										var visitorsofbg = getPeopleTargetting(num);
 										for (j in visitors)
 										{
 											//Kill or douse
@@ -1166,14 +1167,8 @@ module.exports = {
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
-													if (attrib.HEAL)
-													{
-														
-													}
-													else
-													{
 													addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
-													addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
+													addSuggestedMessage('You were killed by a bodyguard.'+visitorsofbg,visitors[j]); //Tell attacker they were killed by a bg
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													//Suggested actions: Kill both the bg and attacker
 													addSuggestedAction('Kill', num);
@@ -1184,7 +1179,6 @@ module.exports = {
 													//Make a note of which attacker the bg killed, for use when calculating whether or not their target dies anyway.
 													targets[num].bgKill = visitors[j];
 													break; //break, bg can only stop one attacker.
-													}
 												}
 											}
 										}
