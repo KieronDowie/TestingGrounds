@@ -1875,7 +1875,6 @@ function Player(socket,name,ip)
 			confirm:false,
 			executing:false,
 			votes:0,
-			charges:0,
 			verdict:0, //0 for abstain, -1 for guilty, 1 for inno
 			chats:{
 				dead:false,

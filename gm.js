@@ -1277,8 +1277,6 @@ module.exports = {
 												//Inform the person they were attacked, inform the attacker their target was immune.
 												addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
 												addSuggestedMessage('Your target was immune to your attack!',num);
-												t[0].charges += 1;
-												addSuggestedMessage('Your charges: '+t[0].charges,t[0]);
 											}
 										}
 										else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
