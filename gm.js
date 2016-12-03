@@ -678,10 +678,10 @@ module.exports = {
 		var auto = autoRoles[role];
 		if (auto)
 		{
-			if (auto.attributes.RAINDANCE && rainnumber == 2)
+			/*if (auto.attributes.RAINDANCE && rainnumber == 2)
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
-			}
+			}*/
 			if (auto.attributes.EXECUTE)
 			{
 				return 'Please use /x to execute your prisoner!';
@@ -856,7 +856,7 @@ module.exports = {
 				}
 				return (p2 > p1);
 			});
-			if (rainnumber == 1 && fromphase == 4 || fromphase == 7)
+			/*if (rainnumber == 1 && fromphase == 4 || fromphase == 7)
 			{
 				addSuggestedMessage('It started to rain.','<All>');
 				rainnumber = 2;
@@ -883,7 +883,7 @@ module.exports = {
 				var drlist = drstring.split(" ");
 				addSuggestedMessage('Those people got drenched tonight: '+drlist,'<All>');
 				rainnumber = 0;
-			}
+			}*/
 			//Loop through roles in priority order.
 			for (i in orderedTargets)
 			{
@@ -1470,14 +1470,14 @@ module.exports = {
 										addSuggestedMessage('An Amnesiac has remembered that they were '+a+' '+p.role+".",'<All>');
 										addSuggestedMessage('You remembered what you were!',num);
 									}
-									else if (roleAttributes.RAINDANCE)
+									/*else if (roleAttributes.RAINDANCE)
 									{
 										if (rainnumber == 0)
 										{
 											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
 											rainnumber = 1;
 										}
-									}
+									}*/
 									else if (roleAttributes.REVIVE)
 									{
 										var t = targets[num][1];
