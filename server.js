@@ -3415,7 +3415,7 @@ function Player(socket,name,ip)
 							{
 								this.s.emit(Type.SYSTEM,'The syntax of this command is \'/setspectate player\' or \'/ss player\'.');
 							}
-							else
+							else if (playernames[c[1]])
 							{
 								if (!players[playernames[c[1]]].spectate)
 								{
@@ -3430,6 +3430,28 @@ function Player(socket,name,ip)
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
 									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
+								}
+							}
+							else if (!isNaN(c[1])) //It's a number.
+							{
+								//Get the numbered player.
+								var target = getPlayerByNumber(c[1]);
+								if (target != -1)
+								{
+								if (!players[playernames[c[1]]].spectate)
+								{
+									players[playernames[c[1]]].spectate = true;
+									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
+								}	
+								else
+								{
+									players[playernames[c[1]]].spectate = false;
+									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
+								}
 								}
 							}
 						}
