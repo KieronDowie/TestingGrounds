@@ -682,13 +682,13 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}*/
-			if (auto.attributes.EXECUTE && phase == Phase.NIGHT)
+			if (auto.attributes.EXECUTE &&)
 			{
 				return 'Please use /x to execute your prisoner!';
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
-				return 'You cannot shoot Night 1!';
+				return 'You cannot shoot Night 1!'+currentphase;
 			}
 			if (auto.attributes.MAUL && daynumber % 2 == 1)
 			{
