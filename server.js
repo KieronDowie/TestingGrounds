@@ -3440,8 +3440,8 @@ function Player(socket,name,ip)
 									if (!mod == this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
-									players[playernames[c[1]]].setRole("NoRole");
 									}
+									players[playernames[c[1]]].setRole("NoRole");
 								}
 							}
 							else if (!isNaN(c[1])) //It's a number.
@@ -3455,23 +3455,23 @@ function Player(socket,name,ip)
 								{
 									target.spectate = true;
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
-									target.setRole("Spectator");
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' has been set to spectate by '+this.name);
 									}
+									target.setRole("Spectator");
 								}	
 								else
 								{
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
-									target.setRole("NoRole");
 									target.s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
 									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
 									}
+									target.setRole("NoRole");
 								}
 								}
 							}
