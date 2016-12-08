@@ -3438,18 +3438,18 @@ function Player(socket,name,ip)
 								var target = getPlayerByNumber(c[1]);
 								if (target != -1)
 								{
-								if (!players[playernames[c[1]]].spectate)
+								if (!target.spectate)
 								{
-									players[playernames[c[1]]].spectate = true;
-									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
-									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
-									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
+									target.spectate = true;
+									this.s.emit(Type.SYSTEM,/*c[1]+*/' has been set to spectate.');
+									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[mod].s.emit(Type.SYSTEM,/*c[1]+*/' has been set to spectate by '+this.name);
 								}	
 								else
 								{
-									players[playernames[c[1]]].spectate = false;
+									target.spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
-									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
 								}
 								}
