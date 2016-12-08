@@ -77,8 +77,7 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49,
-	LOLZ:50
+	SETDAYNUMBER:49
 };
 function clearAllInfo()
 {
@@ -836,7 +835,7 @@ else
 				{
 					var index = $('#userlist li').index(this.parentNode.parentNode.parentNode);
 					var name = users[index];
-					socket.emit(Type.LOLZ,name);	
+					socket.emit(Type.TARGET,name);	
 				});
 				var nightinterface = $('<div class="nightinterface"></div>');
 				nightinterface.append(button);
@@ -975,34 +974,6 @@ socket.on(Type.PRENOT,function(notification)
          addMessage({msg:'There is a full moon out tonight.',styling:'moon'},'prenot');
       break;
    }
-});
-socket.on(Type.LOLZ,function(name,role,target)	
-{
-	if (!mod)
-	{
-		if (prev)
-		{
-			var index = users.indexOf(prev);
-			var li =$('#userlist li')[index]; 
-			if (li.childNodes[0].childNodes[2])
-			{
-				var count = li.childNodes[0].childNodes[2].childNodes[1];
-				var num = parseInt(count.innerHTML);
-				num--;
-				count.innerHTML=num;
-			}
-		}
-		if (voted!='')
-		{
-			var index = users.indexOf(voted);
-			var li =$('#userlist li')[index]; 
-			var count = li.childNodes[0].childNodes[2].childNodes[1];
-			var num = parseInt(count.innerHTML);
-			num++;
-			count.innerHTML=num;
-		}
-	}
-	addMessage({voter:voter,msg:msg,voted:voted},'vote');
 });
 socket.on(Type.TARGET,function(name,role,target)	
 {
