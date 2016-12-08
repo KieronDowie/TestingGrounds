@@ -104,7 +104,8 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SPECTATOR:50
 };
 var autoLevel = 1;
 /*
@@ -127,6 +128,7 @@ var Phase = {
 //Game variables
 var phase = Phase.PREGAME;
 var mod = undefined;
+var spectator = undefined;
 var ontrial = undefined;
 var apass;
 loadPassword();

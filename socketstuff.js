@@ -77,7 +77,8 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SPECTATOR:50
 };
 function clearAllInfo()
 {
@@ -427,7 +428,7 @@ socket.on(Type.JOIN,function(name, reconnect)
 	info.append(num);
 	info.append(name);
 	//Bottom row
-	if (mod)
+	if (mod || spectator)
 	{		
 		$('#inputarea').append(rlbutton);
 		$('#inputarea').append(ambutton);
