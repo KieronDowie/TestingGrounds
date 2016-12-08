@@ -745,10 +745,10 @@ io.on('connection', function(socket){
 				socket.emit(Type.PAUSEPHASE,timer.paused);
 				socket.emit(Type.SETDAYNUMBER,gm.getDay());
 				//If the player is first, set them as the mod.
-				/*if (Object.keys(players).length==0)
+				if (Object.keys(players).length==0)
 				{
 					mod = socket.id;
-				}*/
+				}
 				//Send the list of names in the game to the new arrival
 				var namelist = [];
 				//Send the roles of any dead players
