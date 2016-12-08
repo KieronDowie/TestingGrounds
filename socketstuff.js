@@ -835,7 +835,7 @@ else
 				{
 					var index = $('#userlist li').index(this.parentNode.parentNode.parentNode);
 					var name = users[index];
-					socket.emit(Type.HUG,name);	
+					socket.emit(Type.TARGET,name);	
 				});
 				var nightinterface = $('<div class="nightinterface"></div>');
 				nightinterface.append(button);
