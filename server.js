@@ -3431,7 +3431,7 @@ function Player(socket,name,ip)
 								{
 									players[playernames[c[1]]].spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
-									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
 									if (!mod == this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
@@ -3459,7 +3459,7 @@ function Player(socket,name,ip)
 								{
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
-									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									target.s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
 									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
