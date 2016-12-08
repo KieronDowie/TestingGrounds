@@ -3409,7 +3409,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'setspectate': case 'ss':
-						if (this.dev)
+						if (this.dev || this.mod)
 						{
 							if (c.length < 2)
 							{
