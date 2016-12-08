@@ -471,7 +471,27 @@ header ul li span
     height: 100%;
     width: 100px;
 }
+.nightinterface
+{
+    float: right;
+    height: 100%;
+    width: 100px;
+}
 .votebutton
+{
+	width:70%;
+	height:100%;
+	float:left;
+	background: linear-gradient(#A39827, #FCE400);
+	border-radius:8px;
+	font-family: 'Slabo 27px', serif;
+	cursor:default;
+	color:#383300;
+	text-align:center;
+	border:1px solid black;
+	margin:-1px;
+}
+.nightbutton
 {
 	width:70%;
 	height:100%;
@@ -499,6 +519,10 @@ header ul li span
 	text-align:center;
 }
 .votebutton:hover
+{
+	background:#A39827;
+}
+.nightbutton:hover
 {
 	background:#A39827;
 }

@@ -820,6 +820,27 @@ else
 			addPauseButton(phase);
 		}
 	}
+	if (phase == 8 && !mod) //Night
+	{
+		//Add the night buttons
+		for (i = 1; i < users.length; i++)
+		{
+			if (!$($('#userlist li')[i]).hasClass('deadplayer'))
+			{
+				var li = $('#userlist').children()[i];
+				var button = $('<div class="nightbutton">TARGET</div>');
+				button.click(function()
+				{
+					var index = $('#userlist li').index(this.parentNode.parentNode.parentNode);
+					var name = users[index];
+					socket.emit(Type.TARGET,name);	
+				});
+				var votinginterface = $('<div class="nightinterface"></div>');
+				votinginterface.append(button);
+				$($(li).children()[0]).append(nightinterface);
+			}
+		}
+	}
 	if (phase == 4 && !mod) //Voting
 	{
 		//Add the voting interface
