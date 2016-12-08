@@ -674,7 +674,7 @@ module.exports = {
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},
-	validTarget:function(arr, role, players, playernames, playernums, self, fromphase, phase){
+	validTarget:function(arr, role, players, playernames, playernums, self){
 		var auto = autoRoles[role];
 		if (auto)
 		{
@@ -682,17 +682,17 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}*/
-			if (auto.attributes.EXECUTE && fromphase == 8)
+			if (auto.attributes.EXECUTE && phase == Phase.NIGHT)
 			{
 				return 'Please use /x to execute your prisoner!';
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
-				return 'You cannot shoot Night 1!'+fromphase;
+				return 'You cannot shoot Night 1!';
 			}
 			if (auto.attributes.MAUL && daynumber % 2 == 1)
 			{
-				return 'You can only attack on Full Moon!'+phase;
+				return 'You can only attack on Full Moon!';
 			}
 			//Check number of targets
 			if (arr.length > 1)
