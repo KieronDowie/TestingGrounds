@@ -291,11 +291,11 @@ function addMessage(msg, type)
 					var str = msg.name+'('+msg.role+') cancels their targetting.';
 				}
 				else
-				{*/
+				{
 					var str = 'You cancel your targetting.';
-				/*}
+				}
 			}*/
-			$('#main').append('<li><span class="mod">'+str+'</span></li>');
+			$('#main').append('<li><span class="mod">TADA</span></li>');
 		break;
 		case 'custom':	
 			$('#main').append('<li><span class="'+msg.styling+'">'+msg.name+': '+msg.msg+'</span></li>');
