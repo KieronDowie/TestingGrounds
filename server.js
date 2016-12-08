@@ -3392,6 +3392,8 @@ function Player(socket,name,ip)
 							io.emit(Type.SETSPEC,this.name);
 							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
+							var p = getPlayerByName(this.name)
+							p.setRole("Spectator");
 						}
 						else if (this.spectate)
 						{
@@ -3401,6 +3403,8 @@ function Player(socket,name,ip)
 								io.emit(Type.REMSPEC,this.name);
 								players[mod].s.emit(Type.SYSTEM,this.name+' is no longer spectating.'); 
 								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
+								var p = getPlayerByName(this.name)
+								p.setRole("NoRole");
 							}
 							else
 							{
@@ -3426,6 +3430,7 @@ function Player(socket,name,ip)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
 									}
+									players[playernames[c[1]]].setRole("Spectator");
 								}	
 								else
 								{
@@ -3435,6 +3440,7 @@ function Player(socket,name,ip)
 									if (!mod == this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
+									players[playernames[c[1]]].setRole("NoRole");
 									}
 								}
 							}
@@ -3449,6 +3455,7 @@ function Player(socket,name,ip)
 								{
 									target.spectate = true;
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
+									target.setRole("Spectator");
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									if (mod != this.s.id)
 									{
@@ -3459,6 +3466,7 @@ function Player(socket,name,ip)
 								{
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
+									target.setRole("NoRole");
 									target.s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
 									if (mod != this.s.id)
 									{
