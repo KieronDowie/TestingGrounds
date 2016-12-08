@@ -682,7 +682,7 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}*/
-			if (auto.attributes.EXECUTE)
+			if (auto.attributes.EXECUTE && fromphase == 8)
 			{
 				return 'Please use /x to execute your prisoner!';
 			}
