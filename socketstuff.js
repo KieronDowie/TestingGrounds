@@ -77,8 +77,7 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49,
-	SPECTATOR:50,
+	SETDAYNUMBER:49
 };
 function clearAllInfo()
 {

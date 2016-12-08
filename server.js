@@ -104,8 +104,7 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49,
-	SPECTATOR:50
+	SETDAYNUMBER:49
 };
 var autoLevel = 1;
 /*
@@ -128,7 +127,6 @@ var Phase = {
 //Game variables
 var phase = Phase.PREGAME;
 var mod = undefined;
-var spectator = undefined;
 var ontrial = undefined;
 var apass;
 loadPassword();
@@ -3388,6 +3386,7 @@ function Player(socket,name,ip)
 						else if (this.spectate === undefined)
 						{
 							this.spectate = true;
+							io.emit(Type.SETDEV,this.name);
 							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
 						}
