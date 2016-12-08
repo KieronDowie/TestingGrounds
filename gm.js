@@ -684,7 +684,7 @@ module.exports = {
 			}*/
 			if (auto.attributes.EXECUTE && fromphase == 8)
 			{
-				return 'Please use /x to execute your prisoner!';
+				return 'Please use /x to execute your prisoner!'+fromphase;
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
