@@ -3436,21 +3436,22 @@ function Player(socket,name,ip)
 							{
 								//Get the numbered player.
 								var target = getPlayerByNumber(c[1]);
+								var name = target.name;
 								if (target != -1)
 								{
 								if (!target.spectate)
 								{
 									target.spectate = true;
-									this.s.emit(Type.SYSTEM,/*c[1]+*/' has been set to spectate.');
+									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
-									players[mod].s.emit(Type.SYSTEM,/*c[1]+*/' has been set to spectate by '+this.name);
+									players[mod].s.emit(Type.SYSTEM,name+' has been set to spectate by '+this.name);
 								}	
 								else
 								{
 									target.spectate = false;
-									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
+									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
-									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
+									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
 								}
 								}
 							}
