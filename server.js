@@ -3450,7 +3450,7 @@ function Player(socket,name,ip)
 									target.spectate = true;
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
-									if (!mod == this.s.id)
+									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' has been set to spectate by '+this.name);
 									}
@@ -3460,7 +3460,7 @@ function Player(socket,name,ip)
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
-									if (!mod == this.s.id)
+									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
 									}
