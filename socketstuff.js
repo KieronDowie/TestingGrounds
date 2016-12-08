@@ -427,7 +427,7 @@ socket.on(Type.JOIN,function(name, reconnect)
 	info.append(num);
 	info.append(name);
 	//Bottom row
-	if (mod || spectator)
+	if (mod)
 	{		
 		$('#inputarea').append(rlbutton);
 		$('#inputarea').append(ambutton);
