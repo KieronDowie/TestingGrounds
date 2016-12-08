@@ -104,7 +104,9 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SETSPEC:50,
+	REMSPEC:51
 };
 var autoLevel = 1;
 /*
@@ -1453,17 +1455,31 @@ function setPhase(p)
 		mafmembers = "Your partners in crime are:"
 		for (i in players)
 		{
+			if (players[i].spectate)
+			{
+			
+			}
+			else
+			{
 			if (players[i].chats.mafia)
 			{
 				mafmembers = mafmembers + " " + players[i].name + " (" + players[i].role + ")";
-			}			
+			}	
+			}
 		}
 		for (i in players)
 		{
+			if (players[i].spectate)
+			{
+			
+			}
+			else
+			{
 			if (players[i].chats.mafia)
 			{
 				players[i].s.emit(Type.SYSTEM, mafmembers);
-			}			
+			}
+			}
 		}
 	}
 	if (p == Phase.ROLES)
@@ -1866,7 +1882,7 @@ function Player(socket,name,ip)
 			votelock:false,
 			mayor:undefined,
 			jailorcom:false,
-			spectate:undefined,
+			spectate:false,
 			afk:undefined,
 			seance:undefined,
 			blackmailed:false,
@@ -1882,7 +1898,8 @@ function Player(socket,name,ip)
 				jailor:false,
 				jailed:false,
 				medium:false,
-				linked:false
+				linked:false,
+				spectator:false
 			},
 			//Player functions
 			setRole:function(role){
@@ -3383,10 +3400,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
-						else if (this.spectate === undefined)
+						else if (this.spectate === false)
 						{
 							this.spectate = true;
-							io.emit(Type.SETDEV,this.name);
+							io.emit(Type.SETSPEC,this.name);
 							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
 							this.s.emit(Type.SYSTEM,'You are now spectating.');
 						}
@@ -3394,7 +3411,8 @@ function Player(socket,name,ip)
 						{
 							if (phase == Phase.PREGAME)
 							{					
-								this.spectate = undefined;
+								this.spectate = false;
+								io.emit(Type.REMSPEC,this.name);
 								players[mod].s.emit(Type.SYSTEM,this.name+' is no longer spectating.'); 
 								this.s.emit(Type.SYSTEM,'You are no longer spectating.');
 							}
@@ -3415,7 +3433,7 @@ function Player(socket,name,ip)
 							{
 								if (players[playernames[c[1]]].spectate)
 								{
-									players[playernames[c[1]]].spectate = undefined;
+									players[playernames[c[1]]].spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
 									players[playernames[one]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);

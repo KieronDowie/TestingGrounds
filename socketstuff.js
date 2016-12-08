@@ -77,7 +77,9 @@ var Type = {
 	CUSTOMROLES:46,
 	HELP:47,
 	PAUSEPHASE:48,
-	SETDAYNUMBER:49
+	SETDAYNUMBER:49,
+	SETSPEC:50,
+	REMSPEC:51
 };
 function clearAllInfo()
 {
