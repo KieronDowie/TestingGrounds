@@ -975,9 +975,9 @@ socket.on(Type.PRENOT,function(notification)
       break;
    }
 });
-socket.on(Type.TARGET,function(name,role,target)	
+socket.on(Type.TARGET,function(name,target)	
 {
-	addMessage({name:name,role:role,target:target},'target');
+	addMessage({name:name,target:target},'target');
 });
 socket.on(Type.HUG,function(name,target)	
 {
