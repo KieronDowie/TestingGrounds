@@ -3409,7 +3409,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'setspectate': case 'ss':
-						if (this.dev)
+						if (this.dev || mod == this.s.id)
 						{
 							if (c.length < 2)
 							{
@@ -3422,14 +3422,20 @@ function Player(socket,name,ip)
 									players[playernames[c[1]]].spectate = true;
 									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
 									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									if (!mod == this.s.id)
+									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
+									}
 								}	
 								else
 								{
 									players[playernames[c[1]]].spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
 									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									if (!mod == this.s.id)
+									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
+									}
 								}
 							}
 							else if (!isNaN(c[1])) //It's a number.
@@ -3444,14 +3450,20 @@ function Player(socket,name,ip)
 									target.spectate = true;
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									if (!mod == this.s.id)
+									{
 									players[mod].s.emit(Type.SYSTEM,name+' has been set to spectate by '+this.name);
+									}
 								}	
 								else
 								{
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									if (!mod == this.s.id)
+									{
 									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
+									}
 								}
 								}
 							}
