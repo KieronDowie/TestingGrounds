@@ -682,7 +682,7 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}*/
-			if (auto.attributes.EXECUTE && fromphase == 8)
+			if (auto.attributes.EXECUTE)
 			{
 				return 'Please use /x to execute your prisoner!';
 			}
@@ -1049,7 +1049,7 @@ module.exports = {
 											else
 											{
 												//Inform the person being controlled
-												addSuggestedMessage('You felt a mysterious power dominating you. You were controlled by a Witch!',t[0]);
+												addSuggestedMessage('You felt a mysterious power dominating you. You were controlled by a Witch!'+phase,t[0]);
 												//Remove the previous target.
 												var prevTarget = targets[t[0]][1];
 												if (prevTarget.length > 0) //If the player was originally targetting someone.
