@@ -801,6 +801,8 @@ else
 	}
 	//Remove any remaining voting interfaces
 	$('.votinginterface').remove();
+	//Remove any remaining night interfaces
+	$('.nightinterface').remove();
 	//Remove any remaining verdict interfaces
 	$('.verdictinterface').remove();
 	$('header ul li').removeClass('current');
@@ -835,8 +837,8 @@ else
 					var name = users[index];
 					socket.emit(Type.TARGET,name);	
 				});
-				var votinginterface = $('<div class="nightinterface"></div>');
-				votinginterface.append(button);
+				var nightinterface = $('<div class="nightinterface"></div>');
+				nightinterface.append(button);
 				$($(li).children()[0]).append(nightinterface);
 			}
 		}
