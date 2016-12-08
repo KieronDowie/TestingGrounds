@@ -3409,7 +3409,7 @@ function Player(socket,name,ip)
 						}
 					break;
 					case 'setspectate': case 'ss':
-						if (this.dev || this.mod)
+						if (this.dev)
 						{
 							if (c.length < 2)
 							{
@@ -3417,18 +3417,18 @@ function Player(socket,name,ip)
 							}
 							else
 							{
-								if (players[playernames[c[1]]].spectate)
+								if (!players[playernames[c[1]]].spectate)
 								{
-									players[playernames[c[1]]].spectate = false;
+									players[playernames[c[1]]].spectate = true;
 									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
-									players[playernames[one]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
 								}	
 								else
 								{
-									players[playernames[c[1]]].spectate = true;
+									players[playernames[c[1]]].spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
-									players[playernames[one]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
 								}
 							}
