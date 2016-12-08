@@ -272,7 +272,7 @@ function addMessage(msg, type)
 			}
 		break;
 		case 'target':
-			/*if (msg.target != '')
+			if (msg.target != '')
 			{
 				if (msg.role)
 				{
@@ -294,8 +294,8 @@ function addMessage(msg, type)
 				{
 					var str = 'You cancel your targetting.';
 				}
-			}*/
-			$('#main').append('<li><span class="mod">TADA</span></li>');
+			}
+			$('#main').append('<li><span class="mod">'+str+'</span></li>');
 		break;
 		case 'custom':	
 			$('#main').append('<li><span class="'+msg.styling+'">'+msg.name+': '+msg.msg+'</span></li>');
