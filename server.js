@@ -1455,31 +1455,17 @@ function setPhase(p)
 		mafmembers = "Your partners in crime are:"
 		for (i in players)
 		{
-			if (players[i].spectate)
-			{
-			
-			}
-			else
-			{
-			if (players[i].chats.mafia)
+			if (players[i].chats.mafia && !players[i].spectate)
 			{
 				mafmembers = mafmembers + " " + players[i].name + " (" + players[i].role + ")";
-			}	
-			}
+			}			
 		}
 		for (i in players)
 		{
-			if (players[i].spectate)
-			{
-			
-			}
-			else
-			{
-			if (players[i].chats.mafia)
+			if (players[i].chats.mafia && !players[i].spectate)
 			{
 				players[i].s.emit(Type.SYSTEM, mafmembers);
-			}
-			}
+			}			
 		}
 	}
 	if (p == Phase.ROLES)
