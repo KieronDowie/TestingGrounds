@@ -3454,7 +3454,7 @@ function Player(socket,name,ip)
 								if (!players[playernames[c[1]]].spectate)
 								{
 								    players[playernames[c[1]]].spectate = true;
-								    io.emit(Type.SETSPEC, this.name);
+								    io.emit(Type.SETSPEC, players[playernames[c[1]]].name);
 									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
 									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You are now spectating.');
 									if (!mod == this.s.id)
@@ -3466,7 +3466,7 @@ function Player(socket,name,ip)
 								else
 								{
 								    players[playernames[c[1]]].spectate = false;
-								    io.emit(Type.REMSPEC, this.name);
+								    io.emit(Type.REMSPEC, players[playernames[c[1]]].name);
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
 									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You are no longer spectating.');
 									if (!mod == this.s.id)
@@ -3485,7 +3485,8 @@ function Player(socket,name,ip)
 								{
 								if (!target.spectate)
 								{
-									target.spectate = true;
+								    target.spectate = true;
+								    io.emit(Type.SETSPEC, target.name);
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You are now spectating.');
 									if (mod != this.s.id)
@@ -3496,7 +3497,8 @@ function Player(socket,name,ip)
 								}	
 								else
 								{
-									target.spectate = false;
+								    target.spectate = false;
+								    io.emit(Type.REMSPEC, target.name);
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
 									target.s.emit(Type.SYSTEM, 'You are no longer spectating.');
 									if (mod != this.s.id)
