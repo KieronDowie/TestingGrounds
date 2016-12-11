@@ -3819,7 +3819,7 @@ function Player(socket,name,ip)
 				{
 					for (i in players)
 					{
-						if (players[i].chats.mafia || players[i].s.id == mod)
+						if (players[i].chats.mafia || players[i].s.id == mod || players[i].spectate)
 						{
 							players[i].s.emit(Type.TARGET,this.name,this.role,gm.grammarList(targets));
 						}
