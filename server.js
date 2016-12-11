@@ -775,7 +775,7 @@ io.on('connection', function(socket){
 				        if (name == players[i].name)
 				        {
 				            players[i].spectate = true;
-				            name.setRole("Spectator");
+				            players[i].setRole("Spectator");
 				        }
 				    }
 				    io.emit(Type.SETSPEC, name);
