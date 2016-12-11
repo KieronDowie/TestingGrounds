@@ -1514,7 +1514,7 @@ function numLivingPlayers()
 	var c = 0;
 	for (i in players)
 	{
-		if (players[i].alive && i!=mod && !players[i].spectate)
+		if (players[i].alive && i!=mod)
 		{
 			c++;
 		}
