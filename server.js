@@ -3944,7 +3944,7 @@ function Player(socket,name,ip)
 						{
 							this.silencedError();
 						}
-						else if (this.alive || this.spectate)
+						else if (this.alive && !this.spectate)
 						{
 							if (mod==this.s.id)
 							{
@@ -3979,6 +3979,10 @@ function Player(socket,name,ip)
 								this.s.emit(Type.MSG,this.name,msg);
 								players[mod].s.emit(Type.MSG,this.name,msg);
 							}
+						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg,{spectate: true});
 						}
 						else //Deadchat
 						{
