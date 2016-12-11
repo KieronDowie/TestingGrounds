@@ -768,7 +768,7 @@ io.on('connection', function(socket){
 				players[socket.id]= Player(socket,name,ip);
 				//Inform everyone of the new arrival.
 				io.emit(Type.JOIN, name);
-				if (!phase.PREGAME)
+				if (currentphase != 0)
 				{
 				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame');
 				}
