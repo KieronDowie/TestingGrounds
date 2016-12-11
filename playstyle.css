@@ -1234,6 +1234,10 @@ neut
 	color: grey;
     text-shadow: 0px 0px 10px #6FADB1;
 }
+.spectate
+{
+    color:#0099FF;
+}
 .jailor, .jailed
 {
 	color:#643E33;

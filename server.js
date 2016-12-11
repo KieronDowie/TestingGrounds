@@ -1887,7 +1887,7 @@ function Player(socket,name,ip)
 				jailed:false,
 				medium:false,
 				linked:false,
-				spectator:false
+				spectate:false
 			},
 			//Player functions
 			setRole:function(role){
