@@ -4068,7 +4068,7 @@ function Player(socket,name,ip)
 			{
 				for (i in players)
 				{
-					if (i == mod) //Mod can view all chats.
+					if (i == mod || players[i].spectate) //Mod can view all chats.
 					{
 						players[i].s.emit(Type.MSG,(specname?specname+'('+this.name+')':this.name),{styling:Object.keys(types)[0],msg:msg});
 					}
