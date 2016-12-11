@@ -1085,7 +1085,7 @@ io.on('connection', function(socket){
 				{
 					if (!players[socket.id].silenced)
 					{
-						io.emit(Type.HIGHLIGHT,name+' has been revived!');
+						io.emit(Type.HIGHLIGHT,name+' has been reviveeeed!');
 						player.s.emit(Type.PRENOT,'REVIVE');
 					}
 					io.emit(Type.TOGGLELIVING,{name:name});
@@ -3425,7 +3425,7 @@ function Player(socket,name,ip)
 								{
 									players[playernames[c[1]]].spectate = true;
 									this.s.emit(Type.SYSTEM,c[1]+' has been set to spectate.');
-									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You are now spectating.');
 									if (!mod == this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' has been set to spectate by '+this.name);
@@ -3436,7 +3436,7 @@ function Player(socket,name,ip)
 								{
 									players[playernames[c[1]]].spectate = false;
 									this.s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate.');
-									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
+									players[playernames[c[1]]].s.emit(Type.SYSTEM, 'You are no longer spectating.');
 									if (!mod == this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,c[1]+' is no longer set to spectate by '+this.name);
@@ -3455,7 +3455,7 @@ function Player(socket,name,ip)
 								{
 									target.spectate = true;
 									this.s.emit(Type.SYSTEM,name+' has been set to spectate.');
-									target.s.emit(Type.SYSTEM, 'You have been set to spectate.');
+									target.s.emit(Type.SYSTEM, 'You are now spectating.');
 									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' has been set to spectate by '+this.name);
@@ -3466,7 +3466,7 @@ function Player(socket,name,ip)
 								{
 									target.spectate = false;
 									this.s.emit(Type.SYSTEM,name+' is no longer set to spectate.');
-									target.s.emit(Type.SYSTEM, 'You have are no longer on spectate.');
+									target.s.emit(Type.SYSTEM, 'You are no longer spectating.');
 									if (mod != this.s.id)
 									{
 									players[mod].s.emit(Type.SYSTEM,name+' is no longer set to spectate by '+this.name);
