@@ -3812,7 +3812,7 @@ function Player(socket,name,ip)
 				}
 			},
 			target:function(targets){
-				//Show who the player is targetting to the other mafia, if they are mafia.
+			    //Show who the player is targetting to the other mafia, if they are mafia.
 				if (this.chats.mafia)
 				{
 					for (i in players)
@@ -3825,7 +3825,14 @@ function Player(socket,name,ip)
 				}
 				else
 				{
-					players[mod].s.emit(Type.TARGET,this.name,this.role,gm.grammarList(targets));
+				    players[mod].s.emit(Type.TARGET, this.name, this.role, gm.grammarList(targets));
+				    for (i in players)
+				    {
+				        if (players[i].spectate)
+				        {
+				            players[i].s.emit(Type.TARGET, this.name, this.role, gm.grammarList(targets));
+				        }
+				    }
 					this.s.emit(Type.TARGET,'You',undefined,gm.grammarList(targets));
 				}
 				//Log the night action for review at the end of the night.
