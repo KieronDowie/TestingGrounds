@@ -769,8 +769,14 @@ io.on('connection', function(socket){
 				//Inform everyone of the new arrival.
 				io.emit(Type.JOIN, name);
 				if (phase != 0)
-                {
-				    socket.spectate = true;
+				{
+				    for (i in players)
+				    {
+				        if (name == players[i].name)
+				        {
+				            players[i].spectate = true;
+				        }
+				    }
 				    io.emit(Type.SETSPEC, name);
 				}
 				if (alts.length > 0) //Inform everyone of the alt.
