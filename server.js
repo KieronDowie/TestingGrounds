@@ -1993,6 +1993,18 @@ function Player(socket,name,ip)
 					var player = getPlayerByName(name);
 					if (player)
 					{
+					    var isspec = false;
+					    for (i in players)
+					    {
+					        if (players[i].spectate && players[i].name == name)
+					        {
+					            isspec = true;
+					        }
+					    }
+					    if (isspec)
+					    {
+					        this.s.emit(Type.SYSTEM, 'You cannot vote a Spectator');
+					    }
 						if (this.votelock && !forced)
 						{
 							this.s.emit(Type.SYSTEM,'Your vote has been locked by the mod. You cannot vote or cancel your vote until it is unlocked.');
@@ -2008,6 +2020,10 @@ function Player(socket,name,ip)
 						else if (this.s.id == mod)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot vote.');
+						}
+						else if (this.spectate)
+						{
+						    this.s.emit(Type.SYSTEM, 'You are already omniscient, what do you want more?');
 						}
 						else if (this.votingFor == player.s.id) //Same person, cancel vote.
 						{
@@ -2096,6 +2112,10 @@ function Player(socket,name,ip)
 						if (this.silenced)
 						{
 							this.silencedError();
+						}
+						else if (this.spectate)
+						{
+						    this.s.emit(Type.SYSTEM, 'As a Spectator you cannot whisper');
 						}
 						else if ((phase >= Phase.DAY && phase <= Phase.LASTWORDS) || phase == Phase.PREGAME || phase == Phase.FIRSTDAY)
 						{
