@@ -1930,6 +1930,10 @@ function Player(socket,name,ip)
 				{
 					this.s.emit(Type.SYSTEM,'You cannot vote on your own trial.');
 				}
+				else if (this.spectate)
+				{
+				    this.s.emit(Type.SYSTEM, 'You are already omniscient, what do you want more?');
+				}
 				else if (!this.alive)
 				{
 					this.s.emit(Type.SYSTEM,'You need to be alive to vote.');
@@ -2005,7 +2009,7 @@ function Player(socket,name,ip)
 					    {
 					        this.s.emit(Type.SYSTEM, 'You cannot vote a Spectator');
 					    }
-						if (this.votelock && !forced)
+						else if (this.votelock && !forced)
 						{
 							this.s.emit(Type.SYSTEM,'Your vote has been locked by the mod. You cannot vote or cancel your vote until it is unlocked.');
 						}
