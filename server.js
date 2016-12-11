@@ -768,8 +768,8 @@ io.on('connection', function(socket){
 				players[socket.id]= Player(socket,name,ip);
 				//Inform everyone of the new arrival.
 				io.emit(Type.JOIN, name);
-				if (phase != 0
-				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame'+phase);
+				if (phase != 0)
+				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame');
 				}
 				if (alts.length > 0) //Inform everyone of the alt.
 				{
