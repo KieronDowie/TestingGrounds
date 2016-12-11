@@ -777,6 +777,10 @@ io.on('connection', function(socket){
 				//Inform the new arrival of any devs present.
 				for (i in players)
 				{
+				    if (players[i].spectate)
+				    {
+				        socket.emit(Type.SETSPEC, players[i].name);
+				    }
 					if (players[i].dev)
 					{
 						socket.emit(Type.SETDEV,players[i].name);
