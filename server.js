@@ -1085,7 +1085,7 @@ io.on('connection', function(socket){
 				{
 					if (!players[socket.id].silenced)
 					{
-						io.emit(Type.HIGHLIGHT,name+' has been reviveeeed!');
+						io.emit(Type.HIGHLIGHT,name+' has been revived!');
 						player.s.emit(Type.PRENOT,'REVIVE');
 					}
 					io.emit(Type.TOGGLELIVING,{name:name});
