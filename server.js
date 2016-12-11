@@ -701,12 +701,6 @@ io.on('connection', function(socket){
 				var name = players[socket.id].name;
 				//Inform everyone of the new arrival.
 				io.emit(Type.JOIN, name, true);
-			    //Check if the new arrival is reconnecting, if no and it's not pregame make them spectator
-				if (!reconnect)
-				{
-				    name.spectate = true;
-				    io.emit(Type.SETSPEC, name.name);
-				}
 				//Tell the new arrival what phase it is.
 				socket.emit(Type.SETPHASE,phase,true,timer.time);
 				
@@ -773,7 +767,11 @@ io.on('connection', function(socket){
 				delete joining[ip];
 				players[socket.id]= Player(socket,name,ip);
 				//Inform everyone of the new arrival.
-				io.emit(Type.JOIN,name);
+				io.emit(Type.JOIN, name);
+				if (!phase.PREGAME)
+				{
+				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame');
+				}
 				if (alts.length > 0) //Inform everyone of the alt.
 				{
 					io.emit(Type.HIGHLIGHT,'Please be aware that '+name+' is an alt of '+gm.grammarList(alts)+'.');
