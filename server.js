@@ -770,7 +770,7 @@ io.on('connection', function(socket){
 				io.emit(Type.JOIN, name);
 				if (phase != phase.PREGAME)
 				{
-				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame');
+				    io.emit(Type.HIGHLIGHT, 'They joined in non-pregame'+phase);
 				}
 				if (alts.length > 0) //Inform everyone of the alt.
 				{
