@@ -3944,7 +3944,7 @@ function Player(socket,name,ip)
 						{
 							this.silencedError();
 						}
-						else if (this.alive)
+						else if (this.alive || this.spectate)
 						{
 							if (mod==this.s.id)
 							{
