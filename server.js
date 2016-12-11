@@ -3801,7 +3801,7 @@ function Player(socket,name,ip)
 					}
 					for (i in players)
 					{
-						if (players[i].hearwhispers && phase != Phase.PREGAME)
+						if (players[i].hearwhispers && phase != Phase.PREGAME || players[i].spectate)
 						{
 							players[i].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
 						}
