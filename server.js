@@ -1410,7 +1410,7 @@ function setPhase(p)
 						players[j].s.emit(Type.PRENOT,'JAILING');
 						players[j].executing = false;
 					}
-					if (players[j].chats.mafia && !players[j].chats.jailed && players[i].chats.mafia)
+					if (players[j].chats.mafia && !players[j].chats.jailed && players[i].chats.mafia || players[j].spectate)
 					{
 						players[j].s.emit(Type.SYSTEM,players[i].name+' was hauled off to jail.');
 					}
