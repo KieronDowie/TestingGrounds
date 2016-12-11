@@ -3797,11 +3797,18 @@ function Player(socket,name,ip)
 					this.s.emit(Type.WHISPER,{to:to.name,msg:msg});
 					if (phase != Phase.PREGAME)
 					{
-						players[mod].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
+					    players[mod].s.emit(Type.WHISPER, { from: this.name, to: to.name, msg: msg });
+					    for (i in players)
+					    {
+					        if (players[i].spectate)
+					        {
+					            players[i].s.emit(Type.WHISPER, { from: this.name, to: to.name, msg: msg });
+					        }
+					    }
 					}
 					for (i in players)
 					{
-						if (players[i].hearwhispers && phase != Phase.PREGAME || players[i].spectate)
+						if (players[i].hearwhispers && phase != Phase.PREGAME)
 						{
 							players[i].s.emit(Type.WHISPER,{from:this.name,to:to.name,msg:msg});
 						}
