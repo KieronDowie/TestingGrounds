@@ -3874,6 +3874,10 @@ function Player(socket,name,ip)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg, { spectate: true });
+						}
 						else
 						{
 							this.s.emit(Type.SYSTEM,'Please do not talk while the mod is giving out roles.');
@@ -3890,6 +3894,10 @@ function Player(socket,name,ip)
 						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
+						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg, { spectate: true });
 						}
 						else if (this.alive)
 						{
@@ -3915,6 +3923,10 @@ function Player(socket,name,ip)
 						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
+						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg, { spectate: true });
 						}
 						else if (this.alive)
 						{							
@@ -4008,6 +4020,10 @@ function Player(socket,name,ip)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
 						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg,{spectate: true});
+						}
 						else
 						{
 							this.s.emit(Type.SYSTEM,'Please do not talk during mod time.');
@@ -4021,6 +4037,10 @@ function Player(socket,name,ip)
 						else if (mod==this.s.id)
 						{
 							io.emit(Type.HIGHLIGHT,msg);
+						}
+						else if (this.spectate)
+						{
+						    this.specMessage(msg, { spectate: true });
 						}
 						else if (!this.alive)
 						{							
