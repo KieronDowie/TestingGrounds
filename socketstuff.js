@@ -850,7 +850,7 @@ else
 		//Add the voting interface
 		for (i = 1; i < users.length; i++)
 		{
-		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist span')[i]).hasClass('name spec'))
+		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist li div span')[i]).hasClass('name spec'))
 			{
 				var li = $('#userlist').children()[i];
 				var button = $('<div class="votebutton">VOTE</div>');
