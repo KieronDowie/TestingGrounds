@@ -3422,12 +3422,19 @@ function Player(socket,name,ip)
 						}
 						else if (this.spectate === false)
 						{
-							this.spectate = true;
-							io.emit(Type.SETSPEC,this.name);
-							players[mod].s.emit(Type.SYSTEM,this.name+' is now spectating.'); 							
-							this.s.emit(Type.SYSTEM,'You are now spectating.');
-							var p = getPlayerByName(this.name)
-							p.setRole("Spectator");
+						    if (phase == Phase.PREGAME)
+						    {
+						        this.spectate = true;
+						        io.emit(Type.SETSPEC, this.name);
+						        players[mod].s.emit(Type.SYSTEM, this.name + ' is now spectating.');
+						        this.s.emit(Type.SYSTEM, 'You are now spectating.');
+						        var p = getPlayerByName(this.name)
+						        p.setRole("Spectator");
+						    }
+						    else
+						    {
+						        this.s.emit(Type.SYSTEM, 'You can only become a spectator in pregame.');
+						    }
 						}
 						else if (this.spectate)
 						{
@@ -4034,7 +4041,14 @@ function Player(socket,name,ip)
 								this.beingSeanced.s.emit(Type.MSG,this.name,msg);
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,this.name,msg);
-								players[mod].s.emit(Type.MSG,this.name,msg);
+								players[mod].s.emit(Type.MSG, this.name, msg);
+								for (i in players)
+								{
+								    if (players[i].spectate)
+								    {
+								        players[i].s.emit(Type.MSG, this.name, msg);
+								    }
+								}
 							}
 						}
 						else if (this.spectate)
@@ -4049,6 +4063,13 @@ function Player(socket,name,ip)
 								//Echo the message back to the medium.
 								this.s.emit(Type.MSG,'Medium',{msg:msg,styling:'dead'});
 								players[mod].s.emit(Type.MSG,('Medium('+this.name+')'),{msg:msg,styling:'dead'});
+								for (i in players)
+								{
+								    if (players[i].spectate)
+								    {
+								        players[i].s.emit(Type.MSG, ('Medium(' + this.name + ')'), { msg: msg, styling: 'dead' });
+								    }
+								}
 							}
 							else
 							{
