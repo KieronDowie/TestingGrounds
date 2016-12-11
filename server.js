@@ -770,7 +770,7 @@ io.on('connection', function(socket){
 				io.emit(Type.JOIN, name);
 				if (phase != 0)
                 {
-				    name.spectate = true;
+				    socket.spectate = true;
 				    io.emit(Type.SETSPEC, name);
 				}
 				if (alts.length > 0) //Inform everyone of the alt.
@@ -779,7 +779,7 @@ io.on('connection', function(socket){
 				}
 				//Tell the new arrival what phase it is.
 				socket.emit(Type.SETPHASE,phase, true, timer.time);
-				//Inform the new arrival of any devs present.
+				//Inform the new arrival of any devs and spectators present.
 				for (i in players)
 				{
 				    if (players[i].spectate)
