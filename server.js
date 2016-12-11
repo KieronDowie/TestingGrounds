@@ -700,7 +700,13 @@ io.on('connection', function(socket){
 				socket.emit(Type.SYSTEM,'You have reconnected.');
 				var name = players[socket.id].name;
 				//Inform everyone of the new arrival.
-				io.emit(Type.JOIN,name,true);
+				io.emit(Type.JOIN, name, true);
+			    //Check if the new arrival is reconnecting, if no and it's not pregame make them spectator
+				if (!reconnect)
+				{
+				    name.spectate = true;
+				    io.emit(Type.SETSPEC, name.name);
+				}
 				//Tell the new arrival what phase it is.
 				socket.emit(Type.SETPHASE,phase,true,timer.time);
 				
