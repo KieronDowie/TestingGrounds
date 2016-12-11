@@ -3837,7 +3837,17 @@ function Player(socket,name,ip)
 			},
 			whisper:function(msg,to)
 			{
-				if (to.s.id == mod)
+			    var isspec = false;
+			    for (i in players) {
+			        if (players[i].spectate && players[i].name == name) {
+			            isspec = true;
+			        }
+			    }
+			    if (isspec)
+			    {
+			        this.s.emit(Type.SYSTEM,'You cannot whisper a Spectator.');
+			    }
+				else if (to.s.id == mod)
 				{
 					this.s.emit(Type.SYSTEM,'Please do not whisper to the mod. Use the /mod commmand instead.');
 				}
