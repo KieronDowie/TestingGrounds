@@ -1042,6 +1042,14 @@ socket.on(Type.SETDEV,function(name)
 	$($('.name')[index]).addClass('dev');
 	devs.push(name);
 });
+socket.on(Type.SETSPEC, function (name) {
+    var index = users.indexOf(name);
+    $($('.name')[index]).addClass('spec');
+});
+socket.on(Type.REMSPEC, function (name) {
+    var index = users.indexOf(name);
+    $($('.name')[index]).removeClass('spec');
+});
 socket.on(Type.ROLECARD,function(card)
 {
 	addMessage(card,'rolecard');
