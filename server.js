@@ -3092,6 +3092,10 @@ function Player(socket,name,ip)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot use this command.');
 						}
+						else if (this.spectate)
+						{
+						    this.s.emit(Type.SYSTEM, 'You are not allowed to take influence in the game.');
+						}
 						else if (this.chats.jailed)
 						{
 							this.s.emit(Type.SYSTEM,'You cannot use this command while jailed.');
