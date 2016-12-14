@@ -528,6 +528,7 @@ var server = http.createServer(function(req,res)
 		case '/lastwillbutton.png':
 		case '/music.png':
 		case '/nomusic.png':
+		case '/Snowback1.png':
 			fs.readFile(__dirname + '/images/' + path, function(error, data){
 				if (error){
 					res.writeHead(404);
