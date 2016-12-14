@@ -379,7 +379,8 @@ header ul li span
 }
 .highlight
 {
-	background:#F6FF33;
+	/*background:#F6FF33;*/
+	background:#D42426;
 	/*background-color: rgba(207,47,0,0.7);*/
 }
 .rolecard

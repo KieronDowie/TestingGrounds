@@ -474,6 +474,7 @@ var server = http.createServer(function(req,res)
 		case '/MCP/passscript.js':
 		case '/jquery-2.1.4.min.js':
 		case '/glDatePicker.min.js':
+		case '/snowstorm.js':
 			fs.readFile(__dirname + path, function(error, data){
 				if (error){
 					res.writeHead(404);
