@@ -17,7 +17,22 @@ var current_rolelist = [
 	"Neutral Killing",
 	"Town Power",
 	"Neutral Benign",
-	"Any"
+	"Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any"
 ];
 var autorolelists = {
 	3:["Citizen","Citizen","Godfather"],
@@ -699,7 +714,21 @@ function formatAlignment(str)
 	str=str.replace(/[Ee]vil/,"<span style='color:"+randcolor+"'>Evil</span>");
 	str=str.replace(/[Bb]enign/,"<span style='color:"+randcolor+"'>Benign</span>");
 	str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");
-	str=str.replace(/[Aa]ny/,"<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
 	return str;      
 }
 function createTable(cls)
