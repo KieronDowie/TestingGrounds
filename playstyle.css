@@ -89,7 +89,7 @@ header .moonimg
 {
 	overflow:auto;
 }
-#rolelist, #automodsettings
+#automodsettings
 {
 	position:absolute;
 	top:5%;
@@ -99,6 +99,19 @@ header .moonimg
 	margin:0;
 	padding:0;
 	list-style:none;
+    overflow:auto;
+}
+#rolelist
+{
+	position:absolute;
+	top:5%;
+	right:21%;
+	left:50%;
+	bottom:5%;
+	margin:0;
+	padding:0;
+	list-style:none;
+    overflow:auto;
 }
 #automodsettings
 {
