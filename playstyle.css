@@ -464,6 +464,24 @@ header ul li span
 {
 	border-bottom:2px solid black;
 }
+.num
+{
+	float:left;
+	font-weight:bold;
+	max-width:15%;
+	padding-left:5px;
+	color: white;
+}
+.name
+{
+	float:left;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	padding-left: 5px;
+    margin-right: -5px;
+	color: white;
+}
 .dev
 {
 	font-weight:bold;
@@ -1031,24 +1049,6 @@ header ul li span
 {
 	background:#E1D45B;
 	color:black;
-}
-.num
-{
-	float:left;
-	font-weight:bold;
-	max-width:15%;
-	padding-left:5px;
-	color: white;
-}
-.name
-{
-	float:left;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
-	padding-left: 5px;
-    margin-right: -5px;
-	color: white;
 }
 .shorten
 {
