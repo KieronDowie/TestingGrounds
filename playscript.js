@@ -508,7 +508,8 @@ function autoModSettings()
 		var levels = {
 			'Manual': 'Turn automod off.',
 			'Targetting': 'Automod will listen for night actions sent in using /target and present you with a table at the end of the night.',
-			'Targetting + Suggestions':'AutoMod will listen for night actions sent in using /target and present you with a table at the end of the night, as well as suggested actions.'
+			'Targetting + Suggestions': 'AutoMod will listen for night actions sent in using /target and present you with a table at the end of the night, as well as suggested actions.',
+            'Full Automod': 'AutoMod will perform all actions by himself. No interaction required.'
 		};
 		for (i in levels)
 		{
