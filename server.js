@@ -363,7 +363,7 @@ var server = http.createServer(function(req,res)
 				});
 				
 				req.on('end', function() {	
-					if(Object.keys(players).length <= 30)
+					if(Object.keys(players).length <= 36)
 					{
 						//Check if the name is taken before serving the page.
 						if (!nameTaken(playername))

@@ -312,6 +312,7 @@ table tbody
 	width:30%;
 	height:22px;
 	line-height:22px;
+    color:white;
 }
 .messagetable tr td:first-child
 {

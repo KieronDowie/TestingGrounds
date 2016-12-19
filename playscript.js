@@ -32,6 +32,12 @@ var current_rolelist = [
     "Any",
     "Any",
     "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
+    "Any",
     "Any"
 ];
 var autorolelists = {
@@ -714,6 +720,12 @@ function formatAlignment(str)
 	str=str.replace(/[Ee]vil/,"<span style='color:"+randcolor+"'>Evil</span>");
 	str=str.replace(/[Bb]enign/,"<span style='color:"+randcolor+"'>Benign</span>");
 	str=str.replace(/[Nn]eutral/,"<span style='color:"+neutcolor+"'>Neutral</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
+	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
 	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
 	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
 	str = str.replace(/[Aa]ny/, "<span style='color:white'>Any</span>");
