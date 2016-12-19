@@ -314,6 +314,10 @@ table tbody
 	line-height:22px;
     color:white;
 }
+.automodcontainer h2
+{
+    color:white;
+}
 .messagetable tr td:first-child
 {
 	width: 15%;
@@ -321,6 +325,7 @@ table tbody
 .messagetable tr td
 {
 	width:70%;
+    color:white;
 }
 .messagetable tr
 {
