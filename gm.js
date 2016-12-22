@@ -674,7 +674,7 @@ module.exports = {
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},
-	validTarget:function(arr, role, players, playernames, playernums, self, phase){
+	validTarget:function(arr, role, players, playernames, playernums, self, fromphase){
 		var auto = autoRoles[role];
 		if (auto)
 		{
@@ -684,7 +684,10 @@ module.exports = {
 			}*/
 			if (auto.attributes.EXECUTE)
 			{
-				return 'Please use /x to execute your prisoner!'+phase;
+			    return {
+			        'Please use /x to execute your prisoner!' + fromphase,
+			        phase: fromphase
+			    }
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
@@ -820,7 +823,7 @@ module.exports = {
 			}
 		}
 		//Only do this bit if suggestions are enabled ie. auto is 2
-		if (lvl == 2)
+		if (lvl >= 2)
 		{
 			//Sort targets array by priority
 			var orderedTargets = Object.keys(targets);
