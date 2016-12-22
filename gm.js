@@ -685,9 +685,9 @@ module.exports = {
 			if (auto.attributes.EXECUTE)
 			{
 			    return {
-			        'Please use /x to execute your prisoner!' + fromphase,
+			        'Please use /x to execute your prisoner!',
 			        phase: fromphase
-			    }
+			    };
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
