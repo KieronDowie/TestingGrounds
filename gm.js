@@ -674,7 +674,7 @@ module.exports = {
 	getInvestGroupings:function(group){
 		return getInvestGroupings(group);
 	},
-	validTarget:function(arr, role, players, playernames, playernums, self, fromphase){
+	validTarget:function(arr, role, players, playernames, playernums, self, phase){
 		var auto = autoRoles[role];
 		if (auto)
 		{
@@ -684,10 +684,7 @@ module.exports = {
 			}*/
 			if (auto.attributes.EXECUTE)
 			{
-			    return {
-			        'Please use /x to execute your prisoner!',
-			        phase: fromphase
-			    }
+				return 'Please use /x to execute your prisoner!'+phase;
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
