@@ -682,9 +682,9 @@ module.exports = {
 			{
 				return 'You can\'t dance right now because it\'s already raining!';
 			}*/
-			if (auto.attributes.EXECUTE)
+			if (auto.attributes.EXECUTE && phase == 8)
 			{
-				return 'Please use /x to execute your prisoner!'+phase;
+				return 'Please use /x to execute your prisoner!';
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
