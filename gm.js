@@ -688,7 +688,7 @@ module.exports = {
 			}
 			if (auto.attributes.VIGKILL && daynumber == 1)
 			{
-				return 'You cannot shoot Night 1!';
+				return 'You cannot shoot Night 1!'+phase;
 			}
 			if (auto.attributes.MAUL && daynumber % 2 == 1)
 			{
