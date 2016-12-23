@@ -702,7 +702,7 @@ io.on('connection', function(socket){
 				socket.emit(Type.SYSTEM,'You have reconnected.');
 				var name = players[socket.id].name;
 				//Inform everyone of the new arrival.
-				io.emit(Type.JOIN, name, true, false);
+				io.emit(Type.JOIN, name, true);
 				//Tell the new arrival what phase it is.
 				socket.emit(Type.SETPHASE,phase,true,timer.time);
 				
@@ -769,9 +769,9 @@ io.on('connection', function(socket){
 				delete joining[ip];
 				players[socket.id]= Player(socket,name,ip);
 				//Inform everyone of the new arrival.
+				io.emit(Type.JOIN, name);
 				if (phase != 0)
 				{
-				    io.emit(Type.JOIN, name, true);
 				    for (i in players)
 				    {
 				        if (name == players[i].name)
@@ -781,10 +781,6 @@ io.on('connection', function(socket){
 				        }
 				    }
 				    io.emit(Type.SETSPEC, name);
-				}
-				else
-				{
-				    io.emit(Type.JOIN, name, false);
 				}
 				if (alts.length > 0) //Inform everyone of the alt.
 				{
