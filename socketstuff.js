@@ -119,7 +119,8 @@ function modInterface()
 		}
 		var info = $('<div class="info"><span class="num">'+num+'</span>'+name+'</div>');
 		$('#userlist li')[x].innerHTML='';
-		$('#userlist li')[x].className='';
+		$('#spectatorlist li')[x].innerHTML = '';
+		$('#spectatorlist li')[x].className = '';
 		//Add in a rolelist button if it is does not already exist
 		if ($('#rolelistbutton').length == 0)
 		{
@@ -238,6 +239,8 @@ function modInterface()
 		}
 		$($('#userlist li')[x]).append(info);
 		$($('#userlist li')[x]).append(modcontrols);
+		$($('#spectatorlist li')[x]).append(info);
+		$($('#spectatorlist li')[x]).append(modcontrols);
 	}
 	$('.name').addClass('shorten');
 }
@@ -390,7 +393,7 @@ socket.on(Type.PING,function()
 socket.on(Type.HEY,function(){
 	hey.play();
 });
-socket.on(Type.JOIN,function(name, reconnect)
+socket.on(Type.JOIN,function(name, reconnect, spec)
 {
 	users.push(name);
 	if (reconnect)
@@ -401,7 +404,12 @@ socket.on(Type.JOIN,function(name, reconnect)
 	{
 		addMessage(name+' has joined.','system');
 	}
-	var num = $('#userlist').children().length;
+	if (spec) {
+	    var num = $('#spectatorlist').children().length;
+	}
+	else {
+	    var num = $('#userlist').children().length;
+	}
 	if (num==0)
 	{
 		num='MOD';
@@ -543,7 +551,12 @@ socket.on(Type.JOIN,function(name, reconnect)
 	if (mod) {
 		li.append(modcontrols);
 	}
-	$('#userlist').append(li);
+	if (spec) {
+	    $('#spectatorlist').append(li);
+	}
+	else {
+	    $('#userlist').append(li);
+	}
 	if (mod)
 	{
 		$('.name').addClass('shorten');
@@ -553,7 +566,8 @@ socket.on(Type.LEAVE,function(name)
 {
 	addMessage(name +' has left.','system');
 	var index = users.indexOf(name);
-	$($('#userlist').children()[index]).remove();
+	$($('#userlist').children()[index]).remove
+	$($('#spectatorlist').children()[index]).remove();
 	//Recalculate the numbering.
 	var nums = $('.num');
 	for (var i = index; i < nums.length; i++ )

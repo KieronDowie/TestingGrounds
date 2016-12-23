@@ -460,7 +460,25 @@ header ul li span
 	margin-left:-2px;
 	overflow:auto;
 }
+#spectatorlist
+{
+	list-style:none;
+	display:block;
+	background-image: url('Snowback1.png');
+	background-size: 500% 100%;
+	height:25%;
+	padding:0;
+	margin:0;
+	margin-left:-2px;
+	overflow:auto;
+}
 #userlist>li
+{
+	height:2.5em;
+	width:100%;
+	border-bottom:1px solid black;
+}
+#spectatorlist>li
 {
 	height:2.5em;
 	width:100%;
