@@ -3179,7 +3179,7 @@ function Player(socket,name,ip)
 							else
 							{
 								//Check if the targetting is valid
-								var vt = gm.validTarget(args, this.role.toLowerCase(), players, playernames, playernums, this);
+								var vt = gm.validTarget(args, this.role.toLowerCase(), players, playernames, playernums, this, phase);
 								if (vt == 'notfound' || vt == 'ok' || free)
 								{
 									for (i in args)
