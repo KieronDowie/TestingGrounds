@@ -1350,9 +1350,10 @@ function setPhase(p)
 			//Evaluate night actions.
 		    var results = gm.evaluate(players, playernames, mod, roles, autoLevel, phase);
 		    if (autoLevel == 3) {
-		        for (i in results)
+		        for (i in results.targets)
 		        {
-		            players[mod].s.emit(Type.SYSTEM, "LOLZ");
+		            var button = chooseAutoButton(results.messages[i], 'Send');
+		            data.push(button);
 		        }
 		    }
 		    else {
