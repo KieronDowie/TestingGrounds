@@ -1627,7 +1627,7 @@ function Timer()
 					var votes = {};
 					for (i in players)
 					{
-						if (players[i].alive && players[i].s.id != mod && players[i].s.id != ontrial)
+						if (players[i].alive && players[i].s.id != mod && players[i].s.id != ontrial && !players[i].spectate)
 						{
 							result+=players[i].verdict;
 							votes[players[i].name]=players[i].verdict;
@@ -2010,6 +2010,9 @@ function Player(socket,name,ip)
 				{
 					socket.emit(Type.SYSTEM,'You need to be alive to vote.');
 				}
+				else if (this.spectate) {
+				    this.s.emit(Type.SYSTEM, 'You are already omniscient, what do you want more?');
+				}
 				else
 				{
 					var player = getPlayerByName(name);
@@ -2042,10 +2045,6 @@ function Player(socket,name,ip)
 						else if (this.s.id == mod)
 						{
 							this.s.emit(Type.SYSTEM,'The mod cannot vote.');
-						}
-						else if (this.spectate)
-						{
-						    this.s.emit(Type.SYSTEM, 'You are already omniscient, what do you want more?');
 						}
 						else if (this.votingFor == player.s.id) //Same person, cancel vote.
 						{
