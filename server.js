@@ -1358,7 +1358,7 @@ function setPhase(p)
 		        }
 		        for (i in results.actions)
 		        {
-		            players[mod].s.emit(Type.SYSTEM, "ResultAction: "+i);
+		            players[mod].s.emit(Type.SYSTEM, "ResultAction: " + results.actions[i]);
 		        }
 		    }
 		    else {
