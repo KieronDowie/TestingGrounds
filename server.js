@@ -1358,7 +1358,12 @@ function setPhase(p)
 		        }
 		        for (i in results.actions)
 		        {
-		            players[mod].s.emit(Type.SYSTEM, "ResultAction: " + results.actions[i]);
+		            var type = results.actions[i][0];
+		            if (type[0] == '<') {
+		                type = type.substring(1, type.length - 1);
+		            }
+		            var label = results.actions[i][0].substring(1, results.actions[i][0].length - 1);
+		            players[mod].s.emit(Type.SYSTEM, "ResultAction: " + results.actions[i] + "Label: "+label);
 		        }
 		    }
 		    else {
