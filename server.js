@@ -1352,8 +1352,7 @@ function setPhase(p)
 		    if (autoLevel == 3) {
 		        for (i in results.targets)
 		        {
-		            var button = chooseAutoButton(results.messages[i], 'Send');
-		            data.push(button);
+		            players[mod].s.emit(Type.SYSTEM, results.targets[i]);
 		        }
 		    }
 		    else {
