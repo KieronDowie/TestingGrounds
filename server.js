@@ -1355,6 +1355,12 @@ function setPhase(p)
 		            if (results.targets[i][1]) {
 		                players[mod].s.emit(Type.SYSTEM, "Resultname: " + i + " Targets: " + results.targets[i] + " Target: " + results.targets[i][1] + " Actions: " + results.actions + " Messages: " + results.messages);
 		            }
+		            if (results.actions[1] == <Kill> || results.actions[1] == 'Kill') {
+                        players[mod].s.emit(Type.SYSTEM, "It's a kill!");
+		            }
+		            else {
+		                players[mod].s.emit(Type.SYSTEM, "It's not :c");
+		            }
 		        }
 		    }
 		    else {
