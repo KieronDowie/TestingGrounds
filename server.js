@@ -1352,18 +1352,14 @@ function setPhase(p)
 		    if (autoLevel == 3) {
 		        for (i in results.targets)
 		        {
-		            if (results.targets[i][1]) {
-		                players[mod].s.emit(Type.SYSTEM, "Resultname: " + i + " Targets: " + results.targets[i] + " Target: " + results.targets[i][1] + " Actions: " + results.actions + " Messages: " + results.messages);
-		            }
-		        }
-		        for (i in results.actions)
-		        {
 		            var type = results.actions[i][0];
 		            if (type[0] == '<') {
 		                type = type.substring(1, type.length - 1);
 		            }
 		            var label = results.actions[i][0].substring(1, results.actions[i][0].length - 1);
-		            players[mod].s.emit(Type.SYSTEM, "ResultAction: " + results.actions[i] + "Label: "+label);
+		            if (results.targets[i][1]) {
+		                players[mod].s.emit(Type.SYSTEM, "Resultname: " + i + " Targets: " + results.targets[i] + " Target: " + results.targets[i][1] + " Actions: " + results.actions + " Messages: " + results.messages + "Label: " + label);
+		            }
 		        }
 		    }
 		    else {
