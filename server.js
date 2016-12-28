@@ -1352,10 +1352,10 @@ function setPhase(p)
 		    if (autoLevel == 3) {
 		        for (i in results.targets)
 		        {
-		            if (results.targets[i][0]) {
+		            if (results.targets[i][1]) {
 		                players[mod].s.emit(Type.SYSTEM, "Resultname: " + i + " Targets: " + results.targets[i] + " Target: " + results.targets[i][1] + " Actions: " + results.actions + " Messages: " + results.messages);
 		            }
-		            if (results.actions[1] == '<Kill>' || results.actions[1] == 'Kill') {
+		            if (results.actions[0] == '<Kill>' || results.actions[1] == 'Kill') {
                         players[mod].s.emit(Type.SYSTEM, "It's a kill!");
 		            }
 		            else {
