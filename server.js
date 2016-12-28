@@ -1352,7 +1352,7 @@ function setPhase(p)
 		    if (autoLevel == 3) {
 		        for (i in results.targets)
 		        {
-		            players[mod].s.emit(Type.SYSTEM, "Result: "+results+" Targets: "+results.targets[i]+" Actions: "+results.actions+" Messages: "+results.messages+" Phase: "+results.phase);
+		            players[mod].s.emit(Type.SYSTEM, "Resultname: "+i+" Targets: "+results.targets[i]+" Actions: "+results.actions+" Messages: "+results.messages+" Phase: "+results.phase);
 		        }
 		    }
 		    else {
