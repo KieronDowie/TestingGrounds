@@ -312,7 +312,7 @@ table tbody
 	width:30%;
 	height:22px;
 	line-height:22px;
-    color:white;
+    /*color:white;*/
 }
 .automodcontainer h2
 {
@@ -325,7 +325,7 @@ table tbody
 .messagetable tr td
 {
 	width:70%;
-    color:white;
+    /*color:white;*/
 }
 .messagetable tr
 {
@@ -476,7 +476,7 @@ header ul li span
 	font-weight:bold;
 	max-width:15%;
 	padding-left:5px;
-	color: white;
+	/*color: white;*/
 }
 .name
 {
@@ -486,7 +486,7 @@ header ul li span
 	white-space: nowrap;
 	padding-left: 5px;
     margin-right: -5px;
-	color: white;
+	/*color: white;*/
 }
 .dev
 {
