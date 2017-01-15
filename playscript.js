@@ -563,12 +563,12 @@ function openRolelist()
 		roll.click(function()
 		{
 			var custom = $('#customRolesChk').is(':checked');
-			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-2), custom);
+			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1), custom);
 		});
 		var showList = $('<div class="showlist">Show List</div>');
 		showList.click(function()
 		{
-			socket.emit(Type.SHOWLIST,current_rolelist.slice(0,users.length-2));
+			socket.emit(Type.SHOWLIST,current_rolelist.slice(0,users.length-1));
 		});
 		var showRoles = $('<div class="showroles">Show Roles</div>');
 		showRoles.click(function()
@@ -598,7 +598,7 @@ function openRolelist()
 		for (var i = 1; i< users.length; i++)
 		{
 			var top = $('<div class="top"></div>');
-			top.append($('<span class="rolealignment">'+formatAlignment(current_rolelist[i-2])+'</span>'));
+			top.append($('<span class="rolealignment">'+formatAlignment(current_rolelist[i-1])+'</span>'));
 			var edit = $('<div class="editbutton"></div>');
 			edit.click(function()
 			{
@@ -606,7 +606,7 @@ function openRolelist()
 				var index = $('#rolelist li').index(li);
 				var p = this.parentNode;
 				var align = $($(p).children('.rolealignment')[0]);
-				var val = current_rolelist[index-2];
+				var val = current_rolelist[index-1];
 				
 				var editing = $('<input class="rolealignmentedit" type="text" value="'+val+'"></input>');
 				align.html(editing);
@@ -617,7 +617,7 @@ function openRolelist()
 					{
 						var li = this.parentNode.parentNode.parentNode;
 						var index = $('#rolelist li').index(li);
-						current_rolelist[index-2] = this.value;
+						current_rolelist[index-1] = this.value;
 						var newrole = formatAlignment(this.value);
 						$(this.parentNode).html(newrole);
 					}
