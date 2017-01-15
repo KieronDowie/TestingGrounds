@@ -904,7 +904,7 @@ io.on('connection', function(socket){
 			createdList = rolelist
 			var names = Object.keys(playernames);
 			names.splice(names.indexOf(players[mod].name), 1); //Get rid of the mod.
-			for [i in players] {
+			for (i in players) {
                 if (players[i].spectate) {
                 names.splice(names.indexOf(players[i].name),1);
 			}
