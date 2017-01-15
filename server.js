@@ -903,7 +903,12 @@ io.on('connection', function(socket){
 			var result = roles.sortRoles(rolelist, custom, exceptions);
 			createdList = rolelist
 			var names = Object.keys(playernames);
-			names.splice(names.indexOf(players[mod].name),1); //Get rid of the mod.
+			names.splice(names.indexOf(players[mod].name), 1); //Get rid of the mod.
+			for [i in players] {
+                if (players[i].spectate) {
+                names.splice(names.indexOf(players[i].name),1);
+			}
+			}
 			shuffleArray(names);
 			//Format the roles
 			for (i in result)
