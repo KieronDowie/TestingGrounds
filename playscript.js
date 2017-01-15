@@ -563,7 +563,7 @@ function openRolelist()
 		roll.click(function()
 		{
 			var custom = $('#customRolesChk').is(':checked');
-			socket.emit(Type.ROLL,current_rolelist.slice(0,users.length-1), custom);
+			socket.emit(Type.ROLL,current_rolelist.slice(0), custom);
 		});
 		var showList = $('<div class="showlist">Show List</div>');
 		showList.click(function()
