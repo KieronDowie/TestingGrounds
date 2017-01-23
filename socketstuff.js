@@ -685,6 +685,19 @@ socket.on(Type.TOGGLELIVING,function(p)
 		}
 	}	
 });
+socket.on(Type.TOGGLEDOUSED, function (p) {
+    if (!mod) {
+        var index = users.indexOf(p.name);
+        var li = $('#userlist').children()[index];
+        index = index == 0 ? 'MOD' : index;
+        if (p.role) {
+            li.outerHTML = '<li class="deadplayer"><div><span class="num">' + index + '</span><span class="name">' + p.name + '</span></div><div><span>' + p.role + '</span></div></li>';
+        }
+        else {
+            li.outerHTML = '<li><div class="info"><span class="num">' + index + '</span><span class="name">' + p.name + '</span></div></li>';
+        }
+    }
+});
 socket.on(Type.KICK,function()
 {
 	kicked = true;
@@ -1044,12 +1057,10 @@ socket.on(Type.SETDEV,function(name)
 });
 socket.on(Type.SETSPEC, function (name) {
     var index = users.indexOf(name);
-    $($('#userlist li')[i]).addClass('spectator');
     $($('.name')[index]).addClass('spec');
 });
 socket.on(Type.REMSPEC, function (name) {
     var index = users.indexOf(name);
-    $($('#userlist li')[i]).removeClass('deadplayer');
     $($('.name')[index]).removeClass('spec');
 });
 socket.on(Type.ROLECARD,function(card)

@@ -837,7 +837,14 @@ function chooseAutoButton(info, label)
 				}
 			};
 		break;
-		case '<Set Role>':
+	    case '<Douse>':
+	        func = function () {
+	            var tr = $(this).parent().parent();
+	            var to = $($(tr.children()[1]).children()[0]).html();
+	            socket.emit(Type.TOGGLEDOUSED, to);
+	        };
+	    break;
+	    case '<Set Role>':
 			func = function(){
 				var tr = $(this).parent().parent();
 				var to = $($(tr.children()[1]).children()[0]).html();
