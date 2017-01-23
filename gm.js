@@ -1236,8 +1236,8 @@ module.exports = {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    if (t[0] == num) { //Selftarget aka Ignite
-									        for (i in orderedTargets) {
-									            addSuggestedMessage(orderedTargets[i].doused, t[0]);
+									        for (i in players) {
+									            addSuggestedMessage(players[i], t[0]);
 									        }
 									    }
 									    else { //No selftarget aka Douse
