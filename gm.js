@@ -1255,7 +1255,7 @@ module.exports = {
 									    }
 									    if (attackSuccess) {
 									        addSuggestedAction('Douse', t[0]);
-									        addSuggestedMessage(targets[players[i].name][1], t[0])
+									        addSuggestedMessage(targets[players[t[0]].name][1], t[0]);
 									    }
 									}
 									else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL) {
