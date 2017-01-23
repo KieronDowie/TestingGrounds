@@ -1421,6 +1421,7 @@ module.exports = {
 									{
 									    //Fetch the person's investigative results.
 									    var t = targets[num][1];
+									    var name = t[0];
 									    var role = getRole(targets[t[0]]);
 									    role = autoRoles[role];
 									    if (role) {
