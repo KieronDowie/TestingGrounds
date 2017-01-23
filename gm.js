@@ -1234,7 +1234,12 @@ module.exports = {
 										}
 									}
 									else if (roleAttributes.DOUSE) {
-									    var t = targets[num][1];
+									    if (targets[num][1].length > 0) {
+									        var t = targets[num][1];
+									    }
+									    else {
+									        var t = [];
+									    }
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    var attackSuccess = true;
 									    for (j in peopleTargetting) //Loop through and check for heals
@@ -1251,7 +1256,7 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (targets[num][1].length <= 0) {//Not targeting
+									    if (t == []) {//Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
 									                players[i].doused = false;
