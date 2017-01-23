@@ -1236,17 +1236,11 @@ module.exports = {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    if (t[0] == num) { //Selftarget aka Ignite
-									        if (num.doused) {
-									            addSuggestedMessage('Yep!', t[0]);
-									        }
-									        else if (!num.doused) {
-									            addSuggestedMessage('Nope!', t[0]);
-									        }
-									        else {
-									            addSuggestedMessage('Sigh!', t[0]);
+									        for (i in orderedTargets) {
+									            addSuggestedMessage(orderedTargets[i], t[0]);
 									        }
 									    }
-									    else { //No selftarget aka douse
+									    else { //No selftarget aka Douse
 									        var attackSuccess = true;
 									        if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
 									        {
