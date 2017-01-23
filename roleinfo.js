@@ -212,7 +212,7 @@ var roles=[
 				rolename:"psychic",
 				alignment:"town power",
 				abilities:['Form a mental link between two players every day.'],
-				attributes:['They will be able to anonymously speak with each other that night.',
+				attributes:['They will be able to speak with each other that night.',
 				'You get one self link.',
 				'Roles with a night chat can hear and speak to both the person that they are linked to and whoever they speak to at night.'],
 				goal:towngoal,

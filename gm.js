@@ -898,7 +898,7 @@ module.exports = {
 					{
 						if( Object.keys(targets[num][1]).length != 0 || roleInfo.attributes.MUSTVISIT || (roleInfo.attributes.MUSTVISITEVEN && daynumber % 2 == 0)) //If they sent in a night action or have to visit anyway
 						{
-							if (Object.keys(targets[num][1]).length == 0) //If they were forced they must now target themselves.
+							if (Object.keys(targets[num][1]).length == 0 && !roleInfo.attributes.DOUSE) //If they were forced they must now target themselves.
 							{
 								targets[num][1].push(num);
 							}
