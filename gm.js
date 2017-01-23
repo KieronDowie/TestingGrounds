@@ -267,7 +267,8 @@ var autoRoles =
 		attributes:  {
 			DOUSE:attributes.DOUSE,
 			IGNITE:attributes.IGNITE,
-			SELF:attributes.SELF,
+			SELF: attributes.SELF,
+			MUSTVISIT: attributes.MUSTVISIT,
 			IMMUNE:attributes.IMMUNE},
 		grouping:'M',
 		consiggrouping:'Arsonist',
@@ -1251,7 +1252,7 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (Object.keys(targets[num][1]).length != 0) {//Not targeting
+									    if (Object.keys(targets[num][1]).length == 0) {//Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
 									                players[i].doused = false;
