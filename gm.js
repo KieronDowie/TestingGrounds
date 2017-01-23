@@ -564,7 +564,7 @@ var autoRoles =
 	},
 	'interviewer': {
 	    attributes: {
-            INTERVIEW:attrivutes.INTERVIEW,
+            INTERVIEW:attributes.INTERVIEW,
             MULTI: attributes.MULTI,
             SELF: attributes.SELF
 		},
