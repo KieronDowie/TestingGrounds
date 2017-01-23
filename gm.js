@@ -1251,7 +1251,7 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (targets[num][1].length > 0) { //Not targeting
+									    if (t.length < 0) { //Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
 									                players[i].doused = false;
