@@ -1239,6 +1239,7 @@ module.exports = {
 									    }
 									    else {
 									        var t = [];
+									        addSuggestedMessage('Blegh', num);
 									    }
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    var attackSuccess = true;
