@@ -685,19 +685,6 @@ socket.on(Type.TOGGLELIVING,function(p)
 		}
 	}	
 });
-socket.on(Type.TOGGLEDOUSED, function (p) {
-    if (!mod) {
-        var index = users.indexOf(p.name);
-        var li = $('#userlist').children()[index];
-        index = index == 0 ? 'MOD' : index;
-        if (p.role) {
-            li.outerHTML = '<li class="deadplayer"><div><span class="num">' + index + '</span><span class="name">' + p.name + '</span></div><div><span>' + p.role + '</span></div></li>';
-        }
-        else {
-            li.outerHTML = '<li><div class="info"><span class="num">' + index + '</span><span class="name">' + p.name + '</span></div></li>';
-        }
-    }
-});
 socket.on(Type.KICK,function()
 {
 	kicked = true;
@@ -863,7 +850,7 @@ else
 		//Add the voting interface
 		for (i = 1; i < users.length; i++)
 		{
-		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist li')[i]).hasClass('spectator'))
+		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist li div span')[i]).hasClass('name spec'))
 			{
 				var li = $('#userlist').children()[i];
 				var button = $('<div class="votebutton">VOTE</div>');

@@ -1140,41 +1140,6 @@ io.on('connection', function(socket){
 			socket.emit(Type.SYSTEM,'Only the mod can do that.');
 		}
 	});
-	socket.on(Type.TOGGLEDOUSED, function (name) {
-	    if (socket.id == mod) {
-	        var player = getPlayerByName(name);
-	        if (player) {
-	            player.alive = !player.alive;
-	            player.chats.dead = !player.chats.dead;
-	            if (player.alive) {
-	                if (!players[socket.id].silenced) {
-	                    io.emit(Type.HIGHLIGHT, name + ' has been revived!');
-	                    player.s.emit(Type.PRENOT, 'REVIVE');
-	                }
-	                io.emit(Type.TOGGLEDOUSED, { name: name });
-	            }
-	            else {
-	                if (!players[socket.id].silenced) {
-	                    io.emit(Type.HIGHLIGHT, name + ' has died!');
-	                    io.emit(Type.HIGHLIGHT, 'Their role was ' + player.role);
-	                    var show = sanitize(player.will);
-	                    show = show.replace(/(\n)/g, '<br />');
-	                    if (!player.cleaned) {
-	                        io.emit(Type.WILL, show);
-	                    }
-	                    else {
-	                        io.emit(Type.HIGHLIGHT, 'We could not find a last will.');
-	                    }
-	                    player.s.emit(Type.PRENOT, "DEAD");
-	                }
-	                io.emit(Type.TOGGLEDOUSED, { name: name, role: player.role });
-	            }
-	        }
-	    }
-	    else {
-	        socket.emit(Type.SYSTEM, 'Only the mod can do that.');
-	    }
-	});
 	socket.on(Type.VOTE,function(name)
 	{
 		players[socket.id].vote(name);
