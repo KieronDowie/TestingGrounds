@@ -1427,6 +1427,11 @@ module.exports = {
 									        var group = role.grouping;
 									        //If they have been framed, they automatically get the invest group of the framer.
 									        var visitors = getPeopleTargetting(t[0]);
+									        for (i in players) {
+									            if (players[i].doused && players[i].name == name) {
+									                group = 'M';
+									            }
+									        }
 									        for (j in visitors) {
 									            var name = visitors[j];
 									            var vrole = getRole(targets[name]);
