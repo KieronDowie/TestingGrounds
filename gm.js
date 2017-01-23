@@ -1364,15 +1364,20 @@ module.exports = {
 									        if (autoRoles[role].attributes.DETECTIONIMMUNE) {
 									            alignment = 'town';
 									        }
-									        //If the person is framed, return a mafia result
+									        //If the person is framed or doused return a arsonist result
 									        var visitors = getPeopleTargetting(t[0]);
+									        for (i in players) {
+									            if (players[i].doused && players[i].name == name) {
+									                alignment = 'arsonist';
+									            }
+									        }
 									        for (j in visitors) {
 									            var name = visitors[j];
 									            var person = targets[name];
 									            var role = getRole(person);
 									            var attrib = autoRoles[role].attributes;
 									            if (attrib.FRAME) {
-									                alignment = 'mafia';
+									                alignment = 'arsonist';
 									            }
 									        }
 									        //Send this player's alignment
