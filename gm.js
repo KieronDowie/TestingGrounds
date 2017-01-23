@@ -1239,7 +1239,7 @@ module.exports = {
 									    if (t[0] == num) { //Selftarget aka Ignite
 									        for (i in players) {
 									            if (players[i].doused) {
-									                addSuggestedMessage('You were ignited by an Arsonist!', players[i]);
+									                addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
 									            }
 									        }
 									    }
