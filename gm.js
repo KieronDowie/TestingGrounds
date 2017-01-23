@@ -1241,6 +1241,9 @@ module.exports = {
 									    {
 									        var person = targets[peopleTargetting[j]];
 									        var role = getRole(person);
+									        if (autoRoles[role]) {
+									            var attrib = autoRoles[role].attributes;
+									        }
 									        if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
 									            //More complicated, attack only fails if this is the person the bg killed.
 									            if (person.bgKill == num) {
