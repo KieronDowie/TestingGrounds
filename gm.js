@@ -1236,6 +1236,15 @@ module.exports = {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    var attackSuccess = true;
+									    var selfVisiting = false;
+									    for (i in arr) {
+									        if (!isNaN(arr[i])) {
+									            arr[i] = players[playernums[arr[i]]].name;
+									        }
+									        if (arr[i] == self.name) {
+									            selfVisiting = true;
+									        }
+									    }
 									    if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
 									    {
 									        if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
@@ -1246,6 +1255,7 @@ module.exports = {
 									    }
 									    if (attackSuccess) {
 									        addSuggestedAction('Douse', t[0]);
+									        addSuggestedMessage(targets[players[i].name][1], t[0])
 									    }
 									}
 									else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL) {
