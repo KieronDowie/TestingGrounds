@@ -1234,13 +1234,7 @@ module.exports = {
 										}
 									}
 									else if (roleAttributes.DOUSE) {
-									    if (targets[num][1].length > 0) {
-									        var t = targets[num][1];
-									    }
-									    else {
-									        var t = [];
-									        addSuggestedMessage('Blegh', num);
-									    }
+									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    var attackSuccess = true;
 									    for (j in peopleTargetting) //Loop through and check for heals
@@ -1257,7 +1251,7 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (t == []) {//Not targeting
+									    if (Object.keys(targets[num][1]).length != 0) {//Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
 									                players[i].doused = false;
