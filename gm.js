@@ -1232,8 +1232,7 @@ module.exports = {
 											}
 										}
 									}
-									else if (roleAttributes.DOUSE)
-									{
+									else if (roleAttributes.DOUSE) {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    var attackSuccess = true;
@@ -1245,390 +1244,325 @@ module.exports = {
 									            addSuggestedMessage('Someone tried to kill you, but you cannot be killed while on alert!', t[0]);
 									        }
 									    }
-									    if (attackSuccess)
-									    {
-									        addSuggestedAction('Douse',t[0]);
+									    if (attackSuccess) {
+									        addSuggestedAction('Douse', t[0]);
 									    }
-                                    }
 									}
-									else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL)
-									{
-										var t = targets[num][1];
-										var peopleTargetting = getPeopleTargetting(t[0]);
-										var attackSuccess = true;
-										for (j in peopleTargetting) //Loop through and check for heals
-										{
-											var person = targets[peopleTargetting[j]];
-											var role = getRole(person);
-											if (autoRoles[role])
-											{
-												var attrib = autoRoles[role].attributes;
-											}
-											if (attrib && attrib.HEAL && isLegalTarget(peopleTargetting[j],attrib,targets))
-											{
-												//Person was healed, attack fails silently.
-												attackSuccess = false;
-											}
-											else if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
-											{
-												//More complicated, attack only fails if this is the person the bg killed.
-												if (person.bgKill == num)
-												{
-													attackSuccess = false;
-												}
-											}
-										}
-										//Check for night immunity or vet alerting.
-										var role = getRole(targets[t[0]]);
-										var target = players[playernames[t[0]]];
-										var targetsinfo = targets[t[0]];
-										
-										if (autoRoles[role] && (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && targetsinfo[1] == t[0]) ) )
-										{
-											if (attrib && person.bgKill == num && attrib.BG && isLegalTarget(peopleTargetting[j],attrib,targets))
-											{
-												//Attack failed
-											}
-											else
-											{
-												//Immune or a survivor that sent in an action.
-												attackSuccess = false;
-												//Inform the person they were attacked, inform the attacker their target was immune.
-												addSuggestedMessage('You were attacked, but you are immune at night!',t[0]);
-												addSuggestedMessage('Your target was immune to your attack!',num);
-											}
-										}
-										else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
-										{
-											if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
-											{
-												attackSuccess = false;
-												addSuggestedMessage('Someone tried to kill you, but you cannot be killed while on alert!',t[0]);
-											}
-										}
-										if (attackSuccess)
-										{
-											var msg = '';
-											var announce = '';
-											//Attack successful!
-											if (roleAttributes.MAFKILL)
-											{
-												msg =  'You were attacked by a member of the Mafia!';
-												announce = 'They were killed by a member of the [maf]Mafia[/maf].';
-											}
-											else if (roleAttributes.SKKILL)
-											{
-												msg =  'You were attacked by a Serial Killer!';
-												announce = 'They were killed by a [sk]Serial Killer[/sk].';
-											}
-											else if (roleAttributes.VIGKILL)
-											{
-												msg =  'You were shot by a Vigilante!';
-												announce = 'They were shot by a [town]Vigilante[/town].';
-											}
-											addSuggestedMessage(msg,t[0]);
-											addSuggestedMessage(announce,'<All>');
-											addSuggestedAction('Kill',t[0]);
-										}
+									else if (roleAttributes.MAFKILL || roleAttributes.SKKILL || roleAttributes.VIGKILL) {
+									    var t = targets[num][1];
+									    var peopleTargetting = getPeopleTargetting(t[0]);
+									    var attackSuccess = true;
+									    for (j in peopleTargetting) //Loop through and check for heals
+									    {
+									        var person = targets[peopleTargetting[j]];
+									        var role = getRole(person);
+									        if (autoRoles[role]) {
+									            var attrib = autoRoles[role].attributes;
+									        }
+									        if (attrib && attrib.HEAL && isLegalTarget(peopleTargetting[j], attrib, targets)) {
+									            //Person was healed, attack fails silently.
+									            attackSuccess = false;
+									        }
+									        else if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
+									            //More complicated, attack only fails if this is the person the bg killed.
+									            if (person.bgKill == num) {
+									                attackSuccess = false;
+									            }
+									        }
+									    }
+									    //Check for night immunity or vet alerting.
+									    var role = getRole(targets[t[0]]);
+									    var target = players[playernames[t[0]]];
+									    var targetsinfo = targets[t[0]];
+
+									    if (autoRoles[role] && (autoRoles[role].attributes.IMMUNE || (autoRoles[role].attributes.VEST && targetsinfo[1] == t[0]))) {
+									        if (attrib && person.bgKill == num && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
+									            //Attack failed
+									        }
+									        else {
+									            //Immune or a survivor that sent in an action.
+									            attackSuccess = false;
+									            //Inform the person they were attacked, inform the attacker their target was immune.
+									            addSuggestedMessage('You were attacked, but you are immune at night!', t[0]);
+									            addSuggestedMessage('Your target was immune to your attack!', num);
+									        }
+									    }
+									    else if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
+									    {
+									        if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
+									        {
+									            attackSuccess = false;
+									            addSuggestedMessage('Someone tried to kill you, but you cannot be killed while on alert!', t[0]);
+									        }
+									    }
+									    if (attackSuccess) {
+									        var msg = '';
+									        var announce = '';
+									        //Attack successful!
+									        if (roleAttributes.MAFKILL) {
+									            msg = 'You were attacked by a member of the Mafia!';
+									            announce = 'They were killed by a member of the [maf]Mafia[/maf].';
+									        }
+									        else if (roleAttributes.SKKILL) {
+									            msg = 'You were attacked by a Serial Killer!';
+									            announce = 'They were killed by a [sk]Serial Killer[/sk].';
+									        }
+									        else if (roleAttributes.VIGKILL) {
+									            msg = 'You were shot by a Vigilante!';
+									            announce = 'They were shot by a [town]Vigilante[/town].';
+									        }
+									        addSuggestedMessage(msg, t[0]);
+									        addSuggestedMessage(announce, '<All>');
+									        addSuggestedAction('Kill', t[0]);
+									    }
 									}
-									else if (roleAttributes.CHECK)
-									{
-										var t = targets[num][1];
-										var name = t[0];
-										var role = getRole(targets[name]);
-										if (autoRoles[role])
-										{
-											var alignment = autoRoles[role].alignment;
-											if (autoRoles[role].attributes.DETECTIONIMMUNE)
-											{
-												alignment = 'town';
-											}
-											//If the person is framed, return a mafia result
-											var visitors = getPeopleTargetting(t[0]);
-											for (j in visitors)
-											{
-												var name = visitors[j];
-												var person = targets[name];
-												var role = getRole(person);
-												var attrib = autoRoles[role].attributes;
-												if (attrib.FRAME)
-												{
-													alignment = 'mafia';
-												}
-											}
-											//Send this player's alignment
-											var msg = sheriffResults[alignment];
-											//Werewolf check
-											role = getRole(targets[t[0]]);
-											if (autoRoles[role].attributes.FULLMOONSHERIFFRESULT)
-											{
-												var number = 1 - (daynumber % 2); //Minus to make it so that odd is first.
-												msg = sheriffResults[alignment][number];
-											}
-											addSuggestedMessage(msg,num);
-										}
-										else
-										{
-											displayTargets[num][2] = {auto:false,reason:'Player is checking a player with a role that is not automated.'}; //Set the role to not automated.
-										}
+									else if (roleAttributes.CHECK) {
+									    var t = targets[num][1];
+									    var name = t[0];
+									    var role = getRole(targets[name]);
+									    if (autoRoles[role]) {
+									        var alignment = autoRoles[role].alignment;
+									        if (autoRoles[role].attributes.DETECTIONIMMUNE) {
+									            alignment = 'town';
+									        }
+									        //If the person is framed, return a mafia result
+									        var visitors = getPeopleTargetting(t[0]);
+									        for (j in visitors) {
+									            var name = visitors[j];
+									            var person = targets[name];
+									            var role = getRole(person);
+									            var attrib = autoRoles[role].attributes;
+									            if (attrib.FRAME) {
+									                alignment = 'mafia';
+									            }
+									        }
+									        //Send this player's alignment
+									        var msg = sheriffResults[alignment];
+									        //Werewolf check
+									        role = getRole(targets[t[0]]);
+									        if (autoRoles[role].attributes.FULLMOONSHERIFFRESULT) {
+									            var number = 1 - (daynumber % 2); //Minus to make it so that odd is first.
+									            msg = sheriffResults[alignment][number];
+									        }
+									        addSuggestedMessage(msg, num);
+									    }
+									    else {
+									        displayTargets[num][2] = { auto: false, reason: 'Player is checking a player with a role that is not automated.' }; //Set the role to not automated.
+									    }
 									}
 									else if (roleAttributes.WATCH) //Lookout type roles
 									{
-										//Just list the people that visited your target.
-										var t = targets[num][1];
-										var name = t[0];
-										var visitors = getPeopleTargetting(name);
-										visitors.splice(visitors.indexOf(num),1); //Remove the person watching from the list.
-										//Remove ninja roles
-										for (p in visitors)
-										{
-											var player = players[playernames[visitors[p]]];
-											var autorole = autoRoles[player.role];
-											if (autorole)
-											{
-												if (autorole.attributes.NINJA)
-												{
-													visitors.splice(p,1);
-												}
-											}
-										}
-										//Grammar
-										var str = this.grammarList(visitors);
-										if (str != '')
-										{
-											addSuggestedMessage(str+' visited your target last night!',num);
-										}
+									    //Just list the people that visited your target.
+									    var t = targets[num][1];
+									    var name = t[0];
+									    var visitors = getPeopleTargetting(name);
+									    visitors.splice(visitors.indexOf(num), 1); //Remove the person watching from the list.
+									    //Remove ninja roles
+									    for (p in visitors) {
+									        var player = players[playernames[visitors[p]]];
+									        var autorole = autoRoles[player.role];
+									        if (autorole) {
+									            if (autorole.attributes.NINJA) {
+									                visitors.splice(p, 1);
+									            }
+									        }
+									    }
+									    //Grammar
+									    var str = this.grammarList(visitors);
+									    if (str != '') {
+									        addSuggestedMessage(str + ' visited your target last night!', num);
+									    }
 									}
 									else if (roleAttributes.INVESTIGATE) //Investigatives
 									{
-										//Fetch the person's investigative results.
-										var t = targets[num][1];
-										var role = getRole(targets[t[0]]);
-										role = autoRoles[role];
-										if (role)
-										{
-											var group = role.grouping;
-											//If they have been framed, they automatically get the invest group of the framer.
-											var visitors = getPeopleTargetting(t[0]);
-											for (j in visitors)
-											{
-												var name = visitors[j];
-												var vrole = getRole(targets[name]);
-												var attrib = autoRoles[vrole].attributes;
-												if (attrib.FRAME)
-												{
-													//Target was framed, they get the same group as the framer.
-													group = autoRoles[vrole].grouping;
-												}
-											}
-											var results = investGrouping[group];
-											var possibleRoles = getInvestGroupings(group);
-											//Grammar
-											var str = results+' ';
-											if (possibleRoles.length == 1)
-											{
-												str += 'They must be a ' + possibleRoles[0]+'.';
-											}
-											else
-											{
-												str += 'They could be a ';
-												str += possibleRoles.slice(0,possibleRoles.length-1).join(', ') + ' or ' + possibleRoles[possibleRoles.length-1]+'.';
-											}
-											addSuggestedMessage(str,num);
-										}
-										else
-										{
-											displayTargets[num][2] = {auto:false,reason:'Player is investigating a role that is not automated.'}; //Set the role to not automated.
-										}
+									    //Fetch the person's investigative results.
+									    var t = targets[num][1];
+									    var role = getRole(targets[t[0]]);
+									    role = autoRoles[role];
+									    if (role) {
+									        var group = role.grouping;
+									        //If they have been framed, they automatically get the invest group of the framer.
+									        var visitors = getPeopleTargetting(t[0]);
+									        for (j in visitors) {
+									            var name = visitors[j];
+									            var vrole = getRole(targets[name]);
+									            var attrib = autoRoles[vrole].attributes;
+									            if (attrib.FRAME) {
+									                //Target was framed, they get the same group as the framer.
+									                group = autoRoles[vrole].grouping;
+									            }
+									        }
+									        var results = investGrouping[group];
+									        var possibleRoles = getInvestGroupings(group);
+									        //Grammar
+									        var str = results + ' ';
+									        if (possibleRoles.length == 1) {
+									            str += 'They must be a ' + possibleRoles[0] + '.';
+									        }
+									        else {
+									            str += 'They could be a ';
+									            str += possibleRoles.slice(0, possibleRoles.length - 1).join(', ') + ' or ' + possibleRoles[possibleRoles.length - 1] + '.';
+									        }
+									        addSuggestedMessage(str, num);
+									    }
+									    else {
+									        displayTargets[num][2] = { auto: false, reason: 'Player is investigating a role that is not automated.' }; //Set the role to not automated.
+									    }
 									}
-									else if (roleAttributes.BLACKMAIL)
-									{
-										var t = targets[num][1];
-										var player = players[playernames[t[0]]];
-										//If the player was not jailed.
-										if (!player.chats.jailed)
-										{
-											addSuggestedAction('Blackmail',t[0]);
-										}
-										else
-										{
-											addSuggestedMessage('Someone tried to blackmail you, but you were in jail.',t[0]);
-										}
+									else if (roleAttributes.BLACKMAIL) {
+									    var t = targets[num][1];
+									    var player = players[playernames[t[0]]];
+									    //If the player was not jailed.
+									    if (!player.chats.jailed) {
+									        addSuggestedAction('Blackmail', t[0]);
+									    }
+									    else {
+									        addSuggestedMessage('Someone tried to blackmail you, but you were in jail.', t[0]);
+									    }
 									}
 									else if (roleAttributes.CONSIG) //Absolute check
 									{
-										var t = targets[num][1];
-										var role = getRole(targets[t[0]]);
-										role = autoRoles[role];
-										var group = role.consiggrouping;
-										var results = consigResults[group];
-										if (false)
-										{
-										addSuggestedMessage("Your target is a "+capitalize(role)+'.',num);
-										}
-										else
-										{
-										addSuggestedMessage(results,num);
-										}
+									    var t = targets[num][1];
+									    var role = getRole(targets[t[0]]);
+									    role = autoRoles[role];
+									    var group = role.consiggrouping;
+									    var results = consigResults[group];
+									    if (false) {
+									        addSuggestedMessage("Your target is a " + capitalize(role) + '.', num);
+									    }
+									    else {
+									        addSuggestedMessage(results, num);
+									    }
 									}
 									else if (roleAttributes.CLEAN) //Role cleaning
 									{
-										var t = targets[num][1];
-										if (isDying(t[0],targets))
-										{
-											addSuggestedAction('Clean',t[0]);
-											addSuggestedAction('Set Role',t[0]+"/cleaned");
-										}
+									    var t = targets[num][1];
+									    if (isDying(t[0], targets)) {
+									        addSuggestedAction('Clean', t[0]);
+									        addSuggestedAction('Set Role', t[0] + "/cleaned");
+									    }
 									}
 									else if (roleAttributes.REMEMBER) //Remembering a role
 									{
-										var t = targets[num][1];
-										var p = playersByName[t[0]];
-										addSuggestedAction('Set Role',num+"/"+p.role);
-										var a = AorAn(p.role);
-										addSuggestedMessage('An Amnesiac has remembered that they were '+a+' '+p.role+".",'<All>');
-										addSuggestedMessage('You remembered what you were!',num);
+									    var t = targets[num][1];
+									    var p = playersByName[t[0]];
+									    addSuggestedAction('Set Role', num + "/" + p.role);
+									    var a = AorAn(p.role);
+									    addSuggestedMessage('An Amnesiac has remembered that they were ' + a + ' ' + p.role + ".", '<All>');
+									    addSuggestedMessage('You remembered what you were!', num);
 									}
-									/*else if (roleAttributes.RAINDANCE)
-									{
-										if (rainnumber == 0)
-										{
-											addSuggestedMessage('It seems like its going to rain tonight.','<All>');
-											rainnumber = 1;
-										}
-									}*/
-									else if (roleAttributes.REVIVE)
-									{
-										var t = targets[num][1];
-										addSuggestedAction('Revive',t[0]);
-										addSuggestedMessage('They were revived by a [town]Retributionist[/town].','<All>');
-										addSuggestedMessage('You successfully revived your target!',num);
-										addSuggestedMessage('You were revived by a Retributionist!',t[0]);
+									    /*else if (roleAttributes.RAINDANCE)
+                                        {
+                                            if (rainnumber == 0)
+                                            {
+                                                addSuggestedMessage('It seems like its going to rain tonight.','<All>');
+                                                rainnumber = 1;
+                                            }
+                                        }*/
+									else if (roleAttributes.REVIVE) {
+									    var t = targets[num][1];
+									    addSuggestedAction('Revive', t[0]);
+									    addSuggestedMessage('They were revived by a [town]Retributionist[/town].', '<All>');
+									    addSuggestedMessage('You successfully revived your target!', num);
+									    addSuggestedMessage('You were revived by a Retributionist!', t[0]);
 									}
-									else if (roleAttributes.EXECUTE)
-									{
-										if (fromphase == 8)
-										{
-											var t = targets[num][1];
-											addSuggestedMessage('They were executed by the [town]Jailor[/town].','<All>');
-											addSuggestedAction('Kill',t[0]);
-										}
-										else
-										{
-											var t = targets[num][1];
-											addSuggestedAction('Jail',t[0]);
-										}
+									else if (roleAttributes.EXECUTE) {
+									    if (fromphase == 8) {
+									        var t = targets[num][1];
+									        addSuggestedMessage('They were executed by the [town]Jailor[/town].', '<All>');
+									        addSuggestedAction('Kill', t[0]);
+									    }
+									    else {
+									        var t = targets[num][1];
+									        addSuggestedAction('Jail', t[0]);
+									    }
 									}
-									else if (roleAttributes.ALERT)
-									{
-										var visitors = getPeopleTargetting(num);
-										for (j in visitors)
-										{
-											if (visitors[j] != num)
-											{
-												var success = true;
-												var vVisitors = getPeopleTargetting(visitors[i]);
-												for (k in vVisitors) //Check for a doc heal
-												{
-													var role = getRole(targets[vVisitors[k]]);
-													if (autoRoles[role])
-													{
-														var attribs = autoRoles[role].attributes;
-														if (attribs.HEAL)
-														{
-															success = false;
-															//Successful heal!
-															addSuggestedMessage('You were attacked but someone nursed you back to health!',visitors[j]);
-															addSuggestedMessage('Your target was attacked last night.',vVisitors[k]);
-														}
-													}
-												}
-												if (success)
-												{
-													addSuggestedMessage('They were shot by a [town]Veteran[/town].','<All>');
-													addSuggestedAction('Kill',visitors[j]);
-												}
-												addSuggestedMessage('You shot someone that visited you.',num);
-												addSuggestedMessage('You were shot by the veteran you visited.',visitors[j]);
-											}
-										}
+									else if (roleAttributes.ALERT) {
+									    var visitors = getPeopleTargetting(num);
+									    for (j in visitors) {
+									        if (visitors[j] != num) {
+									            var success = true;
+									            var vVisitors = getPeopleTargetting(visitors[i]);
+									            for (k in vVisitors) //Check for a doc heal
+									            {
+									                var role = getRole(targets[vVisitors[k]]);
+									                if (autoRoles[role]) {
+									                    var attribs = autoRoles[role].attributes;
+									                    if (attribs.HEAL) {
+									                        success = false;
+									                        //Successful heal!
+									                        addSuggestedMessage('You were attacked but someone nursed you back to health!', visitors[j]);
+									                        addSuggestedMessage('Your target was attacked last night.', vVisitors[k]);
+									                    }
+									                }
+									            }
+									            if (success) {
+									                addSuggestedMessage('They were shot by a [town]Veteran[/town].', '<All>');
+									                addSuggestedAction('Kill', visitors[j]);
+									            }
+									            addSuggestedMessage('You shot someone that visited you.', num);
+									            addSuggestedMessage('You were shot by the veteran you visited.', visitors[j]);
+									        }
+									    }
 									}
-									else if (roleAttributes.MAUL)
-									{
-										if (daynumber % 2 == 0 && fromphase == 8 /*Night*/)
-										{
-											if (targets[num][1].length > 0)
-											{
-												var t = targets[num][1];
-											}
-											else
-											{
-												var t = [num];
-											}
-											var visitors = getPeopleTargetting(t[0]);
-											var bgd= false;
-											var rbd = false;
-											for (v in visitors)
-											{
-												var r = getRole(targets[visitors[v]]);
-												if (autoRoles[r])
-												{
-													var att = autoRoles[r].attributes;
-													if (att.BG)
-													{
-														bgd = true;
-													}
-												}
-											}
-											var jailed = players[playernames[t[0]]].chats.jailed;
-											if (t[0] != num && !jailed && !bgd)
-											{
-												visitors.push(t[0]); //Person that ww is targetting gets mauled as well
-											}
-											else if (jailed)
-											{
-												for (w in players)
-												{
-													if (players[w].chats.jailor)
-													{
-														visitors.push(players[w].name);
-													}
-												}
-											}
-											for (j in visitors)
-											{
-												if (visitors[j] != num)
-												{
-													var success = true;
-													//Check for doc heal
-													if (isHealed(visitors[j],targets))
-													{
-														//Successful heal!
-														success = false;
-													}
-													if (success)
-													{
-														addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].','<All>');
-														addSuggestedAction('Kill',visitors[j]);
-														addSuggestedMessage('You were mauled by a Werewolf!',visitors[j]);
-													}
-													addSuggestedMessage('You attacked someone.',num);
-												}
-											}
-										}
-										else if (daynumber % 2 == 1 && fromphase == 8 /*Night*/)
-										{
-											addSuggestedMessage('Your night action was disregarded because you can only attack on Full Moon.',num);
-										}
+									else if (roleAttributes.MAUL) {
+									    if (daynumber % 2 == 0 && fromphase == 8 /*Night*/) {
+									        if (targets[num][1].length > 0) {
+									            var t = targets[num][1];
+									        }
+									        else {
+									            var t = [num];
+									        }
+									        var visitors = getPeopleTargetting(t[0]);
+									        var bgd = false;
+									        var rbd = false;
+									        for (v in visitors) {
+									            var r = getRole(targets[visitors[v]]);
+									            if (autoRoles[r]) {
+									                var att = autoRoles[r].attributes;
+									                if (att.BG) {
+									                    bgd = true;
+									                }
+									            }
+									        }
+									        var jailed = players[playernames[t[0]]].chats.jailed;
+									        if (t[0] != num && !jailed && !bgd) {
+									            visitors.push(t[0]); //Person that ww is targetting gets mauled as well
+									        }
+									        else if (jailed) {
+									            for (w in players) {
+									                if (players[w].chats.jailor) {
+									                    visitors.push(players[w].name);
+									                }
+									            }
+									        }
+									        for (j in visitors) {
+									            if (visitors[j] != num) {
+									                var success = true;
+									                //Check for doc heal
+									                if (isHealed(visitors[j], targets)) {
+									                    //Successful heal!
+									                    success = false;
+									                }
+									                if (success) {
+									                    addSuggestedMessage('They were mauled by a [ww]Werewolf[/ww].', '<All>');
+									                    addSuggestedAction('Kill', visitors[j]);
+									                    addSuggestedMessage('You were mauled by a Werewolf!', visitors[j]);
+									                }
+									                addSuggestedMessage('You attacked someone.', num);
+									            }
+									        }
+									    }
+									    else if (daynumber % 2 == 1 && fromphase == 8 /*Night*/) {
+									        addSuggestedMessage('Your night action was disregarded because you can only attack on Full Moon.', num);
+									    }
 									}
-									else if (roleAttributes.DISGUISE)
-									{
-										var t = targets[num][1];
-										var role = getRole(targets[t[0]]);
-										var target = players[playernames[t[0]]];
-										if (autoRoles[role].attributes.IMMUNE)
-										{
-											/*var mld = false;        //If mauled by a werewolf disguise nevertheless
+									else if (roleAttributes.DISGUISE) {
+									    var t = targets[num][1];
+									    var role = getRole(targets[t[0]]);
+									    var target = players[playernames[t[0]]];
+									    if (autoRoles[role].attributes.IMMUNE) {
+									        /*var mld = false;        //If mauled by a werewolf disguise nevertheless
 											for (v in visitors)
 											{
 												var r = getRole(targets[visitors[v]]);
@@ -1648,14 +1582,12 @@ module.exports = {
 													addSuggestedAction('Disguise',num+'/'+t[0]);
 												}
 											}*/
-										}
-										else
-										{
-										if (isDying(t[0],targets) )
-										{
-											addSuggestedAction('Disguise',num+'/'+t[0]);
-										}
-										}
+									    }
+									    else {
+									        if (isDying(t[0], targets)) {
+									            addSuggestedAction('Disguise', num + '/' + t[0]);
+									        }
+									    }
 									}
 								}
 								else
