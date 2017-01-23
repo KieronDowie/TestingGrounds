@@ -1236,26 +1236,31 @@ module.exports = {
 									else if (roleAttributes.DOUSE) {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
-									    var person = targets[peopleTargetting[j]];
-									    var role = getRole(person);
-                                        if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
-                                        //More complicated, attack only fails if this is the person the bg killed.
-									        if (person.bgKill == num) {
-									            attackSuccess = false;
+									    var attackSuccess = true;
+									    for (j in peopleTargetting) //Loop through and check for heals
+									    {
+									        var person = targets[peopleTargetting[j]];
+									        var role = getRole(person);
+									        if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
+									            //More complicated, attack only fails if this is the person the bg killed.
+									            if (person.bgKill == num) {
+									                attackSuccess = false;
+									            }
 									        }
 									    }
-									    else if (t[0] == num) { //Selftarget aka Ignite
-									        for (i in players) {
-									            if (players[i].doused) {
-									                addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
-									                addSuggestedAction('Kill', players[i].name);
-									                addSuggestedMessage('They were ignited by an [arso]Arsonist[/arso].', '<All>');
+									    if (t[0] == num) { //Selftarget aka Ignite
+									        if (attackSuccess) {
+									            for (i in players) {
+									                if (players[i].doused) {
+									                    addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
+									                    addSuggestedAction('Kill', players[i].name);
+									                    addSuggestedMessage('They were ignited by an [arso]Arsonist[/arso].', '<All>');
 
+									                }
 									            }
 									        }
 									    }
 									    else { //No selftarget aka Douse
-									        var attackSuccess = true;
 									        if (autoRoles[role] && autoRoles[role].attributes.ALERT) //Vet alert.
 									        {
 									            if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
