@@ -440,6 +440,10 @@ function openModList(targ)
 				{
 					var name = $(this.parentNode).attr('name');
 					socket.emit(Type.TOGGLE,name,'linked');
+				},
+				'Douse': function () {
+				    var name = $(this.parentNode).attr('name');
+				    socket.emit(Type.TOGGLE, name, 'douse');
 				}
 			};
 			var notifications = {
@@ -841,7 +845,7 @@ function chooseAutoButton(info, label)
 	        func = function () {
 	            var tr = $(this).parent().parent();
 	            var to = $($(tr.children()[1]).children()[0]).html();
-	            socket.emit(Type.TOGGLEDOUSED, to);
+	            socket.emit(Type.TOGGLE, to, 'douse');
 	        };
 	    break;
 	    case '<Set Role>':
