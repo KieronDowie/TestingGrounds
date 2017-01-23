@@ -1236,7 +1236,13 @@ module.exports = {
 									else if (roleAttributes.DOUSE) {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
-									    if (t[0] == num) { //Selftarget aka Ignite
+                                        if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
+                                        //More complicated, attack only fails if this is the person the bg killed.
+									        if (person.bgKill == num) {
+									            attackSuccess = false;
+									        }
+									    }
+									    else if (t[0] == num) { //Selftarget aka Ignite
 									        for (i in players) {
 									            if (players[i].doused) {
 									                addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
