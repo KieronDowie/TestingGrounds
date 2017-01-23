@@ -1236,6 +1236,8 @@ module.exports = {
 									else if (roleAttributes.DOUSE) {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
+									    var person = targets[peopleTargetting[j]];
+									    var role = getRole(person);
                                         if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
                                         //More complicated, attack only fails if this is the person the bg killed.
 									        if (person.bgKill == num) {
