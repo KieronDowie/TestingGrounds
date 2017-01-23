@@ -850,7 +850,7 @@ else
 		//Add the voting interface
 		for (i = 1; i < users.length; i++)
 		{
-		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist li div span')[i]).hasClass('name spec'))
+		    if (!$($('#userlist li')[i]).hasClass('deadplayer') && !$($('#userlist li')[i]).hasClass('spectator'))
 			{
 				var li = $('#userlist').children()[i];
 				var button = $('<div class="votebutton">VOTE</div>');
@@ -1044,11 +1044,17 @@ socket.on(Type.SETDEV,function(name)
 });
 socket.on(Type.SETSPEC, function (name) {
     var index = users.indexOf(name);
-    $($('.name')[index]).addClass('spec');
+    var li = $('#userlist').children()[index];
+    index = index == 0 ? 'MOD' : index;
+    li.outerHTML = '<li class="spectator"><div><span class="num">' + index + '</span><span class="name spec">' + p.name + '</span></div><div><span>' + p.role + '</span></div></li>';
+    //$($('.name')[index]).addClass('spec');
 });
 socket.on(Type.REMSPEC, function (name) {
     var index = users.indexOf(name);
-    $($('.name')[index]).removeClass('spec');
+    var li = $('#userlist').children()[index];
+    index = index == 0 ? 'MOD' : index;
+    li.outerHTML = '<li><div class="info"><span class="num">' + index + '</span><span class="name">' + p.name + '</span></div></li>';
+    //$($('.name')[index]).removeClass('spec');
 });
 socket.on(Type.ROLECARD,function(card)
 {
