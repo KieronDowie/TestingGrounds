@@ -1240,6 +1240,9 @@ module.exports = {
 									        for (i in players) {
 									            if (players[i].doused) {
 									                addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
+									                addSuggestedAction('Kill', players[i].name);
+									                addSuggestedMessage('They were ignited by an [arso]Arsonist[/arso].', '<All>');
+
 									            }
 									        }
 									    }
