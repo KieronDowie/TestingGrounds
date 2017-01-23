@@ -1258,9 +1258,9 @@ io.on('connection', function(socket){
 							}
 						break;
 					    case 'douse':
-					        player.blackmailed = !player.blackmailed;
+					        player.doused = !player.doused;
 					        if (!players[socket.id].silenced) {
-					            if (player.blackmailed) {
+					            if (player.doused) {
 					                players[mod].s.emit(Type.SYSTEM, player.name + ' is now doused.');
 					            }
 					            else {
@@ -1931,7 +1931,8 @@ function Player(socket,name,ip)
 			spectate:false,
 			afk:undefined,
 			seance:undefined,
-			blackmailed:false,
+			blackmailed: false,
+            doused: false,
 			hearwhispers:false,
 			votingFor:undefined,
 			confirm:false,
