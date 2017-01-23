@@ -1251,13 +1251,22 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (t[0] == num) { //Selftarget aka Ignite
+									    if (targets[num][1].length > 0) { //Not targeting
+									        for (i in players) {
+									            if (players[i].name == num) {
+									                players[i].doused = false;
+									                addSuggestedMessage('You successfully cleaned off any gasoline on you!', players[i].name);
+									            }
+									        }
+									    }
+									    else if (t[0] == num) { //Selftarget aka Ignite
 									        if (attackSuccess) {
 									            for (i in players) {
 									                if (players[i].doused) {
 									                    addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
 									                    addSuggestedAction('Kill', players[i].name);
 									                    addSuggestedMessage('They were ignited by an [arso]Arsonist[/arso].', '<All>');
+									                    players[i].doused = false;
 
 									                }
 									            }
