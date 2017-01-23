@@ -1,6 +1,7 @@
 var loggedActions = {};
 var suggestedMessages = [];
 var suggestedActions = [];
+var dousedlist = [];
 var beingTargetted = {};
 var daynumber = 1;
 var rainnumber = 0;
@@ -783,42 +784,40 @@ module.exports = {
 		//Populate targets array.
 		for (i in players)
 		{
-		    if (mod != players[i].s.id)
-		    {
-		        playersByName[players[i].name] = players[i];//Quicktarget
-		        targets[players[i].name] = [players[i].role,undefined, true];
-		        if (players[i].alive)
-		        {
-		            displayTargets[players[i].name] = [players[i].role,undefined, true, []];
-		            if (loggedActions[players[i].name])
-		            {
-		                targets[players[i].name][1] = loggedActions[players[i].name].slice(); //Add the target.
-		                displayTargets[players[i].name][1] = loggedActions[players[i].name].slice();
-		            }
-		            else
-		            {
-		                targets[players[i].name][1] = [];
-		            }
-		        }
-		        //Populate the beingTargetted array for quick access.
-		        if (targets[players[i].name][1] != []) //If a player is targetting someone
-		        {
-		            for (k in targets[players[i].name][1]) //For all targetted players, add them to the list.
-		            {
-		                var t = targets[players[i].name][1][k];
-		                if (beingTargetted[t])
-		                {
-		                    beingTargetted[t].push(players[i].name);
-		                }
-		                else
-		                {
-		                    beingTargetted[t] = [players[i].name];
-		                }
-		            }
-		        }
-		        if (players[i].doused) {
-		            var dousedlist =+ players[i];
-		    }
+			if (mod != players[i].s.id)
+			{
+				playersByName[players[i].name] = players[i];//Quicktarget
+				targets[players[i].name] = [players[i].role,undefined, true];
+				if (players[i].alive)
+				{
+					displayTargets[players[i].name] = [players[i].role,undefined, true, []];
+					if (loggedActions[players[i].name])
+					{
+						targets[players[i].name][1] = loggedActions[players[i].name].slice(); //Add the target.
+						displayTargets[players[i].name][1] = loggedActions[players[i].name].slice();
+					}
+					else
+					{
+						targets[players[i].name][1] = [];
+					}
+				}
+				//Populate the beingTargetted array for quick access.
+				if (targets[players[i].name][1] != []) //If a player is targetting someone
+				{
+					for (k in targets[players[i].name][1]) //For all targetted players, add them to the list.
+					{
+						var t = targets[players[i].name][1][k];
+						if (beingTargetted[t])
+						{
+							beingTargetted[t].push(players[i].name);
+						}
+						else
+						{
+							beingTargetted[t] = [players[i].name];
+						}
+					}
+				}
+				
 			}
 		}
 		//Only do this bit if suggestions are enabled ie. auto is 2
@@ -1238,7 +1237,7 @@ module.exports = {
 									    var t = targets[num][1];
 									    var peopleTargetting = getPeopleTargetting(t[0]);
 									    if (t[0] == num) { //Selftarget aka Ignite
-									        addSuggestedMessage(dousedlist, t[0]);
+									        addSuggestedMessage(orderedTargets, t[0]);
 									    }
 									    else { //No selftarget aka Douse
 									        var attackSuccess = true;
