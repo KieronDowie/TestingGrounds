@@ -1170,9 +1170,6 @@ io.on('connection', function(socket){
 							case 'linked':
 							players[mod].s.emit(Type.SYSTEM,player.name+' is now linked.');
 							break;
-						    case 'douse':
-						    players[mod].s.emit(Type.SYSTEM, player.name + ' is now doused.');
-						    break;
 							case 'medium': 
 								notify = 'You can now hear the dead at night.'; 
 								player.canSeance = true;
@@ -1195,9 +1192,6 @@ io.on('connection', function(socket){
 							case 'linked':
 							players[mod].s.emit(Type.SYSTEM,player.name+' is no longer linked.');
 							break;
-						    case 'linked':
-						    players[mod].s.emit(Type.SYSTEM, player.name + ' is no longer doused.');
-						    break;
 							case 'medium': 
 								notify = 'You can no longer hear the dead at night.'; 
 								player.canSeance = false;
@@ -1262,7 +1256,18 @@ io.on('connection', function(socket){
 									players[mod].s.emit(Type.SYSTEM,player.name+' is no longer blackmailed.');
 								}
 							}
-						break;				
+						break;
+					    case 'douse':
+					        player.blackmailed = !player.blackmailed;
+					        if (!players[socket.id].silenced) {
+					            if (player.blackmailed) {
+					                players[mod].s.emit(Type.SYSTEM, player.name + ' is now doused.');
+					            }
+					            else {
+					                players[mod].s.emit(Type.SYSTEM, player.name + ' is no longer doused.');
+					            }
+					        }
+					    break;
 						default: 
 							socket.emit(Type.SYSTEM,'Invalid chat selection. Did you break something?');
 						break;	
