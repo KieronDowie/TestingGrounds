@@ -1418,7 +1418,10 @@ function setPhase(p)
 	for (i in players)
 	{
 		{
-			players[i].seance = undefined;
+		    players[i].seance = undefined;
+		    players[i].doused = false;
+		    players[i].blackmailed = false;
+		    players[i].chats.linked = false;
 		}
 	}
 	rainnumber = 0;
