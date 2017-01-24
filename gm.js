@@ -1316,8 +1316,10 @@ module.exports = {
 									    if (Object.keys(targets[num][1]).length == 0) {//Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
-									                addSuggestedAction('Douse', players[i].name);
-									                addSuggestedMessage('You successfully cleaned off any gasoline on you!', players[i].name);
+									                if (players[i].doused) {
+									                    addSuggestedAction('Douse', players[i].name);
+									                    addSuggestedMessage('You successfully cleaned off any gasoline on you!', players[i].name);
+									                }
 									            }
 									        }
 									    }
