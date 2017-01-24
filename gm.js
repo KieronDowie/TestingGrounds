@@ -1316,7 +1316,7 @@ module.exports = {
 									    if (Object.keys(targets[num][1]).length == 0) {//Not targeting
 									        for (i in players) {
 									            if (players[i].name == num) {
-									                players[i].doused = false;
+									                addSuggestedAction('Douse', players[i].name);
 									                addSuggestedMessage('You successfully cleaned off any gasoline on you!', players[i].name);
 									            }
 									        }
@@ -1328,7 +1328,7 @@ module.exports = {
 									                    addSuggestedMessage('You were ignited by an Arsonist!', players[i].name);
 									                    addSuggestedAction('Kill', players[i].name);
 									                    addSuggestedMessage('They were ignited by an [arso]Arsonist[/arso].', '<All>');
-									                    players[i].doused = false;
+									                    addSuggestedAction('Douse', players[i].name);
 
 									                }
 									            }
