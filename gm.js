@@ -1524,28 +1524,21 @@ module.exports = {
 									}
 									else if (roleAttributes.INTERVIEW) //Interviewers
 									{
-									    //Fetch the person's interview results.
-									    var t1 = targets[num][1];
-									    var t2 = targets[num][2];
-									    var role1 = getRole(targets[t1[0]]);
-									    var role2 = getRole(targets[t2[0]]);
-									    role1 = autoRoles[role1];
-									    role2 = autoRoles[role2];
-									    addSuggestedMessage(targets[num][1] + targets[num][2], num);
-									    /*if (role1 && role2) {
-									        var intgroup1 = role1.intgrouping;
-									        var intgroup2 = role2.intgrouping;
-									        var below = 0;
-									        //Grammar
-									        var str = results + ' ';
-									        if (below == 0) {
-									            str += 'Both targets can be equally trusted.';
-									        }
-									        addSuggestedMessage(str, num);
+									    //Remove the 
+									    var t = targets[num][1].slice(); //Duplicate the array
+									    //Ensure two targets were used.
+									    if (t.length == 2) {
+									        //Remove the second target, witch doesn't 'visit' it.
+									        targets[num][1].splice(1);
+									        var index = beingTargetted[t[1]].indexOf(num);
+									        beingTargetted[t[1]].splice(index, 1);
+									        var person = targets[t[0]];
+									        var personRole = getRole(person);
+									        addSuggestedMessage(personRole + person + t[0] + t[1], num);
 									    }
 									    else {
 									        displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
-									    }*/
+									    }
 									}
 									else if (roleAttributes.BLACKMAIL) {
 									    var t = targets[num][1];
