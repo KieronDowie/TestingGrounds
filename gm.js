@@ -1537,8 +1537,8 @@ module.exports = {
 									        var group1int = group1.charCodeAt(0);
 									        var group2int = group2.charCodeAt(0);
 									        var lower = [group1int, group2int];
-									        var between = group2int - group1int;
-									        between = abs(between);
+									        var between = group1int - group2int;
+									        /*between = abs(between);
 									        lower.sort(function (a, b) { return a - b });
 									        if (lower[0] == group1int) {
 									            if (between == 00) {
@@ -1555,7 +1555,7 @@ module.exports = {
 									            else {
 									                addSuggestedMessage(t[1] + " can be trusted. " + t[2] + " is " + between + 1 + " groups below them.", num);
 									            }
-									        }
+									        }*/
 									    }
 									    else {
 									        addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
