@@ -1545,7 +1545,7 @@ module.exports = {
 									            }
 									            else {
 									                addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + 1 + " groups below them.", num);
-									            }*/
+									            }
 									        }
 									        else if (lower[0] == group2int) {
 									            var between = group1int - group2int;
@@ -1554,7 +1554,7 @@ module.exports = {
 									            }
 									            else {
 									                addSuggestedMessage(t[1] + " can be trusted. " + t[2] + " is " + between + 1 + " groups below them.", num);
-									            }*/
+									            }
 									        }
 									    }
 									    else {
