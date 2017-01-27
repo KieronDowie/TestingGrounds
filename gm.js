@@ -1531,7 +1531,7 @@ module.exports = {
 									    var role2 = getRole(targets[t2[0]]);
 									    role1 = autoRoles[role1];
 									    role2 = autoRoles[role2];
-									    addSuggestedMessage(role1 + role2, num);
+									    addSuggestedMessage(targets[num][1] + targets[num][2], num);
 									    /*if (role1 && role2) {
 									        var intgroup1 = role1.intgrouping;
 									        var intgroup2 = role2.intgrouping;
