@@ -1534,9 +1534,28 @@ module.exports = {
 									    var group2 = role2.intgrouping;
 									    var group1int = group1.charCodeAt(0);
 									    var group2int = group2.charCodeAt(0);
+									    var lower = [group1int, group2int]
+									    lower.sort(function (a, b) { return a - b });
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
-									        addSuggestedMessage(group1 + group2 + group1int + group2int, num);
+									        if (lower[0] = group1int) {
+									            var between = group2int - group1int
+									            if (between = 0) {
+									                addSuggestedMessage(t[0] + " and " t[1] + " can be equally trusted.", num);
+									            }
+									            else {
+									                addSuggestedMessage(t[0] + " can be trusted. " t[1] + " is " + between + 1 " groups below them.", num);
+									            }
+									        }
+									        else if (lower[0] = group2int) {
+									            var between = group1int - group2int
+									            if (between = 0) {
+									                addSuggestedMessage(t[0] + " and " t[1] + " can be equally trusted.", num);
+									            }
+									            else {
+									                addSuggestedMessage(t[1] + " can be trusted. " t[2] + " is " + between + 1 " groups below them.", num);
+									            }
+									        }
 									    }
 									    else {
 									        addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
