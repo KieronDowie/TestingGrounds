@@ -1154,6 +1154,10 @@ module.exports = {
 											//Inform the person of the failure.
 											addSuggestedMessage('Someone tried to roleblock you, but you are immune.',t[0]);
 										}
+										else if (autoRoles[personRole] && autoRoles[personRole].attributes.INTERVIEW) {
+										    //Inform the person of the failure.
+										    addSuggestedMessage("Someone occupied your night, you were roleblocked!", t[0]);
+										}
 										else
 										{
 											if (autoRoles[personRole] && autoRoles[personRole].attributes.RBATTACK)
@@ -1208,7 +1212,6 @@ module.exports = {
 												}
 												//Cancel the target.
 												targets[t[0]][1] = [];
-												targets[num].roleblock = t[0];
 												//Inform the player they were roleblocked.
 												addSuggestedMessage("Someone occupied your night, you were roleblocked!",t[0]);
 											}
@@ -1526,52 +1529,35 @@ module.exports = {
 									else if (roleAttributes.INTERVIEW) //Interviewers
 									{
 									    //Remove the 
-									    var interviewSuccess = true;
 									    var t = targets[num][1].slice(); //Duplicate the array
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
-									        for (j in peopleTargetting) //Loop through and check for heals
-									        {
-									            var person = targets[peopleTargetting[j]];
-									            var role = getRole(person);
-									            if (autoRoles[role]) {
-									                var attrib = autoRoles[role].attributes;
+									        var role1 = getRole(targets[t[0]]);
+									        var role2 = getRole(targets[t[1]]);
+									        role1 = autoRoles[role1];
+									        role2 = autoRoles[role2];
+									        var group1 = role1.intgrouping;
+									        var group2 = role2.intgrouping;
+									        var group1int = group1.charCodeAt(0) - 64;
+									        var group2int = group2.charCodeAt(0) - 64;
+									        var lower = [group1int, group2int];
+									        lower.sort(function (a, b) { return a - b });
+									        if (lower[0] == group1int) {
+									            var between = group2int - group1int;
+									            if (between == 0) {
+									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
-									            if (attrib && attrib.BG && isLegalTarget(peopleTargetting[j], attrib, targets)) {
-									                //More complicated, attack only fails if this is the person the bg killed.
-									                if (person.roleblock == num) {
-									                    interviewSuccess = false;
-									                }
+									            else {
+									                addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + " groups below them.", num);
 									            }
 									        }
-									        if (interviewSuccess) {
-									            var role1 = getRole(targets[t[0]]);
-									            var role2 = getRole(targets[t[1]]);
-									            role1 = autoRoles[role1];
-									            role2 = autoRoles[role2];
-									            var group1 = role1.intgrouping;
-									            var group2 = role2.intgrouping;
-									            var group1int = group1.charCodeAt(0) - 64;
-									            var group2int = group2.charCodeAt(0) - 64;
-									            var lower = [group1int, group2int];
-									            lower.sort(function (a, b) { return a - b });
-									            if (lower[0] == group1int) {
-									                var between = group2int - group1int;
-									                if (between == 0) {
-									                    addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
-									                }
-									                else {
-									                    addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + " groups below them.", num);
-									                }
+									        else if (lower[0] == group2int) {
+									            var between = group1int - group2int;
+									            if (between == 0) {
+									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
-									            else if (lower[0] == group2int) {
-									                var between = group1int - group2int;
-									                if (between == 0) {
-									                    addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
-									                }
-									                else {
-									                    addSuggestedMessage(t[1] + " can be trusted. " + t[0] + " is " + between + " groups below them.", num);
-									                }
+									            else {
+									                addSuggestedMessage(t[1] + " can be trusted. " + t[0] + " is " + between + " groups below them.", num);
 									            }
 									        }
 									    }
