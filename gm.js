@@ -566,7 +566,7 @@ var autoRoles =
 	    attributes: {
             INTERVIEW:attributes.INTERVIEW,
             MULTI: attributes.MULTI,
-            SELF: attributes.SELF
+            FORCEDMULTI: attributes.MULTI
 		},
 		grouping: 'B',
 		intgrouping: 'B',
