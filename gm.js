@@ -1526,23 +1526,22 @@ module.exports = {
 									{
 									    //Remove the 
 									    var t = targets[num][1].slice(); //Duplicate the array
-									    var role1 = getRole(targets[t[0]]);
-									    var role2 = getRole(targets[t[1]]);
-									    role1 = autoRoles[role1];
-									    role2 = autoRoles[role2];
-									    var group1 = role1.intgrouping;
-									    var group2 = role2.intgrouping;
-									    var group1int = group1.charCodeAt(0);
-									    var group2int = group2.charCodeAt(0);
-									    var lower = [group1int, group2int];
-									    lower.sort(function (a, b) { return a - b });
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
+									        var role1 = getRole(targets[t[0]]);
+									        var role2 = getRole(targets[t[1]]);
+									        role1 = autoRoles[role1];
+									        role2 = autoRoles[role2];
+									        var group1 = role1.intgrouping;
+									        var group2 = role2.intgrouping;
+									        var group1int = group1.charCodeAt(0);
+									        var group2int = group2.charCodeAt(0);
+									        var lower = [group1int, group2int];
+									        lower.sort(function (a, b) { return a - b });
 									        if (lower[0] = group1int) {
 									            var between = group2int - group1int;
-									            addSuggestedMessage(between + lower[0] + lower[1], num);
 									            if (between = 00) {
-									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
+									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
 									            else {
 									                addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + 1 + " groups below them.", num);
@@ -1550,9 +1549,8 @@ module.exports = {
 									        }
 									        else if (lower[0] = group2int) {
 									            var between = group1int - group2int;
-									            addSuggestedMessage(between + lower[0] + lower[1], num);
 									            if (between = 00) {
-									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
+									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
 									            else {
 									                addSuggestedMessage(t[1] + " can be trusted. " + t[2] + " is " + between + 1 + " groups below them.", num);
