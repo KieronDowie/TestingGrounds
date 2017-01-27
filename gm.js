@@ -1532,9 +1532,11 @@ module.exports = {
 									    role2 = autoRoles[role2];
 									    var group1 = role1.intgrouping;
 									    var group2 = role2.intgrouping;
+									    var group1int = group1.charCodeAt(0);
+									    var group2int = group2.charCodeAt(0);
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
-									        addSuggestedMessage(group1 + group2, num);
+									        addSuggestedMessage(group1 + group2 + group1int + group2int, num);
 									    }
 									    else {
 									        addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
