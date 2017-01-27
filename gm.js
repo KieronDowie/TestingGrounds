@@ -1541,7 +1541,7 @@ module.exports = {
 									        if (lower[0] = group1int) {
 									            var between = group2int - group1int
 									            if (between = 0) {
-									                addSuggestedMessage(t[0] + " and " t[1] + " can be equally trusted.", num);
+									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
 									                addSuggestedMessage(t[0] + " can be trusted. " t[1] + " is " + between + 1 " groups below them.", num);
@@ -1550,7 +1550,7 @@ module.exports = {
 									        else if (lower[0] = group2int) {
 									            var between = group1int - group2int
 									            if (between = 0) {
-									                addSuggestedMessage(t[0] + " and " t[1] + " can be equally trusted.", num);
+									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
 									                addSuggestedMessage(t[1] + " can be trusted. " t[2] + " is " + between + 1 " groups below them.", num);
