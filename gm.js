@@ -1526,18 +1526,17 @@ module.exports = {
 									{
 									    //Remove the 
 									    var t = targets[num][1].slice(); //Duplicate the array
+									    var role1 = getRole(targets[t[0]]);
+									    var role2 = getRole(targets[t[1]]);
+									    role1 = autoRoles[role1];
+									    role2 = autoRoles[role2];
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
-									        //Remove the second target, witch doesn't 'visit' it.
-									        targets[num][1].splice(1);
-									        var index = beingTargetted[t[1]].indexOf(num);
-									        beingTargetted[t[1]].splice(index, 1);
-									        var person = targets[t[0]];
-									        var personRole = getRole(person);
-									        addSuggestedMessage(personRole + person + t[0] + t[1], num);
+									        addSuggestedMessage(role1 + role2, num);
 									    }
 									    else {
-									        displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
+									        addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
+									        //displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
 									    }
 									}
 									else if (roleAttributes.BLACKMAIL) {
