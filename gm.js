@@ -1534,13 +1534,13 @@ module.exports = {
 									    var group2 = role2.intgrouping;
 									    var group1int = group1.charCodeAt(0);
 									    var group2int = group2.charCodeAt(0);
-									    var lower = [group1int, group2int]
+									    var lower = [group1int, group2int];
 									    lower.sort(function (a, b) { return a - b });
 									    //Ensure two targets were used.
 									    if (t.length == 2) {
 									        if (lower[0] = group1int) {
 									            var between = group2int - group1int
-									            if (between = 0) {
+									            if (between = 00) {
 									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
@@ -1549,7 +1549,7 @@ module.exports = {
 									        }
 									        else if (lower[0] = group2int) {
 									            var between = group1int - group2int
-									            if (between = 0) {
+									            if (between = 00) {
 									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
