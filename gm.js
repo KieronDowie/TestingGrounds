@@ -1531,7 +1531,8 @@ module.exports = {
 									    var role2 = getRole(targets[t2[0]]);
 									    role1 = autoRoles[role1];
 									    role2 = autoRoles[role2];
-									    if (role1 && role2) {
+									    addSuggestedMessage(role1 + role2, num);
+									    /*if (role1 && role2) {
 									        var intgroup1 = role1.intgrouping;
 									        var intgroup2 = role2.intgrouping;
 									        var below = 0;
@@ -1544,7 +1545,7 @@ module.exports = {
 									    }
 									    else {
 									        displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
-									    }
+									    }*/
 									}
 									else if (roleAttributes.BLACKMAIL) {
 									    var t = targets[num][1];
