@@ -1544,7 +1544,7 @@ module.exports = {
 									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
-									                addSuggestedMessage(t[0] + " can be trusted. " t[1] + " is " + between + 1 " groups below them.", num);
+									                addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + 1 + " groups below them.", num);
 									            }
 									        }
 									        else if (lower[0] = group2int) {
@@ -1553,7 +1553,7 @@ module.exports = {
 									                addSuggestedMessage(t[0] + " and " +  t[1] + " can be equally trusted.", num);
 									            }
 									            else {
-									                addSuggestedMessage(t[1] + " can be trusted. " t[2] + " is " + between + 1 " groups below them.", num);
+									                addSuggestedMessage(t[1] + " can be trusted. " + t[2] + " is " + between + 1 + " groups below them.", num);
 									            }
 									        }
 									    }
