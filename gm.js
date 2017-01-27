@@ -1537,19 +1537,19 @@ module.exports = {
 									        var group1int = group1.charCodeAt(0);
 									        var group2int = group2.charCodeAt(0);
 									        var lower = [group1int, group2int];
+									        var between = group2int - group1int;
+									        between = abs(between);
 									        lower.sort(function (a, b) { return a - b });
-									        if (lower[0] = group1int) {
-									            var between = group2int - group1int;
-									            if (between = 00) {
+									        if (lower[0] == group1int) {
+									            if (between == 00) {
 									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
 									            else {
 									                addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + 1 + " groups below them.", num);
 									            }
 									        }
-									        else if (lower[0] = group2int) {
-									            var between = group1int - group2int;
-									            if (between = 00) {
+									        else if (lower[0] == group2int) {
+									            if (between == 00) {
 									                addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
 									            }
 									            else {
