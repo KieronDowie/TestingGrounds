@@ -1545,42 +1545,42 @@ module.exports = {
 									            }
 									        }
 									    }
-                                        if (rbSuccess = false) {
-									    //Ensure two targets were used.
-                                            if (t.length == 2) {
-                                                var role1 = getRole(targets[t[0]]);
-                                                var role2 = getRole(targets[t[1]]);
-                                                role1 = autoRoles[role1];
-                                                role2 = autoRoles[role2];
-                                                var group1 = role1.intgrouping;
-                                                var group2 = role2.intgrouping;
-                                                var group1int = group1.charCodeAt(0) - 64;
-                                                var group2int = group2.charCodeAt(0) - 64;
-                                                var lower = [group1int, group2int];
-                                                lower.sort(function (a, b) { return a - b });
-                                                if (lower[0] == group1int) {
-                                                    var between = group2int - group1int;
-                                                    if (between == 0) {
-                                                        addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
-                                                    }
-                                                    else {
-                                                        addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + " groups below them.", num);
-                                                    }
-                                                }
-                                                else if (lower[0] == group2int) {
-                                                    var between = group1int - group2int;
-                                                    if (between == 0) {
-                                                        addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
-                                                    }
-                                                    else {
-                                                        addSuggestedMessage(t[1] + " can be trusted. " + t[0] + " is " + between + " groups below them.", num);
-                                                    }
-                                                }
-                                            }
-									    }
-									    else {
-									        addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
-									        //displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
+									    if (rbSuccess = false) {
+									        //Ensure two targets were used.
+									        if (t.length == 2) {
+									            var role1 = getRole(targets[t[0]]);
+									            var role2 = getRole(targets[t[1]]);
+									            role1 = autoRoles[role1];
+									            role2 = autoRoles[role2];
+									            var group1 = role1.intgrouping;
+									            var group2 = role2.intgrouping;
+									            var group1int = group1.charCodeAt(0) - 64;
+									            var group2int = group2.charCodeAt(0) - 64;
+									            var lower = [group1int, group2int];
+									            lower.sort(function (a, b) { return a - b });
+									            if (lower[0] == group1int) {
+									                var between = group2int - group1int;
+									                if (between == 0) {
+									                    addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
+									                }
+									                else {
+									                    addSuggestedMessage(t[0] + " can be trusted. " + t[1] + " is " + between + " groups below them.", num);
+									                }
+									            }
+									            else if (lower[0] == group2int) {
+									                var between = group1int - group2int;
+									                if (between == 0) {
+									                    addSuggestedMessage(t[0] + " and " + t[1] + " can be equally trusted.", num);
+									                }
+									                else {
+									                    addSuggestedMessage(t[1] + " can be trusted. " + t[0] + " is " + between + " groups below them.", num);
+									                }
+									            }
+									        }
+									        else {
+									            addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
+									            //displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
+									        }
 									    }
 									}
 									else if (roleAttributes.BLACKMAIL) {
