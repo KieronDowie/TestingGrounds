@@ -1547,7 +1547,7 @@ module.exports = {
 									            }
 									        }
 									    }
-									    if (rbSuccess = false) {
+									    if (rbSuccess == false) {
 									        //Ensure two targets were used.
 									        if (t.length == 2) {
 									            var role1 = getRole(targets[t[0]]);
