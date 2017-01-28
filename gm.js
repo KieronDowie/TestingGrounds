@@ -1532,7 +1532,7 @@ module.exports = {
 									else if (roleAttributes.INTERVIEW) //Interviewers
 									{
 									    //Remove the 
-									    var rbSuccess = false;
+									    var rbSuccess = true;
 									    var t = targets[num][1].slice(); //Duplicate the array
 									    for (j in peopleTargetting) //Loop through and check for heals
 									    {
@@ -1543,11 +1543,11 @@ module.exports = {
 									        }
 									        if (attrib && attrib.RB && isLegalTarget(peopleTargetting[j], attrib, targets)) {
 									            if (person.roleBlock == num) {
-									                rbSuccess = true;
+									                rbSuccess = false;
 									            }
 									        }
 									    }
-									    if (rbSuccess == false) {
+									    if (rbSuccess) {
 									        //Ensure two targets were used.
 									        if (t.length == 2) {
 									            var role1 = getRole(targets[t[0]]);
