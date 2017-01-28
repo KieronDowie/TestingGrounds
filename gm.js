@@ -574,7 +574,9 @@ var autoRoles =
 		alignment:'town'
 	},
 	'musician': {
-		attributes:  {},
+	    attributes: {
+	        SELF: attributes.SELF
+	    },
 		grouping: 'G',
 		intgrouping: 'J',
 		consiggrouping:'Musician',
@@ -1576,10 +1578,12 @@ module.exports = {
 									                    addSuggestedMessage(t[1] + " can be trusted. " + t[0] + " is " + between + " groups below them.", num);
 									                }
 									            }
+									            else {
+									                displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
+									            }
 									        }
 									        else {
 									            addSuggestedMessage('Your nightaction was disregarded because you have to target two players per night.', num);
-									            //displayTargets[num][2] = { auto: false, reason: 'Player is interviewing a role that is not automated.' }; //Set the role to not automated.
 									        }
 									    }
 									}
