@@ -162,8 +162,7 @@ var autoRoles =
 		attributes:  {
 			REVIVE:attributes.REVIVE,
 			DEADTARGET:attributes.DEADTARGET,
-			NOLIVINGTARGET:attributes.NOLIVINGTARGET
-		},
+			NOLIVINGTARGET:attributes.NOLIVINGTARGET},
 		grouping: 'K',
 		intgrouping: 'F',
 		consiggrouping:'Retributionist',
@@ -202,17 +201,16 @@ var autoRoles =
 	'godfather': {
 		attributes:  {
 			MAFKILL:attributes.MAFKILL,
-			IMMUNE:attributes.IMMUNE,
-			DETECTIONIMMUNE:attributes.DETECTIONIMMUNE},
+			IMMUNE:attributes.IMMUNE},
 		grouping: 'C',
 		intgrouping: 'B',
 		consiggrouping:'Godfather',
-		alignment:'mafia'
+		alignment:'gf'
 	},
 	'mafioso': {
 		attributes:  {
 			MAFKILL:attributes.MAFKILL,
-			DEADTARGET:attributes.DEADTARGET,},
+			DEADTARGET:attributes.DEADTARGET},
 		grouping: 'F',
 		intgrouping: 'K',
 		consiggrouping:'Mafioso',
@@ -699,7 +697,8 @@ var consigResults = {
 var sheriffResults = {
 	'town':'Your target is not suspicious.',
 	'mafia':'Your target is a member of the Mafia!',
-	'ww': ['Your target is not suspicious.', 'Your target is a Werewolf!'],
+	'gf':'Your target is not suspicious.',
+	'ww': 'Your target is a Werewolf!',
 	'sw':'Your target is a Shadowalker.',
 	'sk':'Your target is a Serial Killer.',
 	'arsonist':'Your target is an Arsonist.',
@@ -1431,10 +1430,19 @@ module.exports = {
 									    var role = getRole(targets[name]);
 									    if (autoRoles[role]) {
 									        var alignment = autoRoles[role].alignment;
-									        if (autoRoles[role].attributes.DETECTIONIMMUNE) {
-									            alignment = 'town';
-									        }
-									        //If the person is framed or doused return a arsonist result
+										
+										//Werewolf check
+									        role = getRole(targets[t[0]]);
+									        if (autoRoles[role].attributes.FULLMOONSHERIFFRESULT) {
+									            var number = 1 - (daynumber % 2); //Minus to make it so that odd is first.
+									            if (number == 0) {
+											    alignment = 'town';
+										    }
+										    else {
+											    alignment = 'ww';
+										    }
+									        }    
+									        //If the person is framed or doused return a mafia/arsonist result
 									        var visitors = getPeopleTargetting(t[0]);
 									        for (i in players) {
 									            if (players[i].doused && players[i].name == name) {
@@ -1452,12 +1460,6 @@ module.exports = {
 									        }
 									        //Send this player's alignment
 									        var msg = sheriffResults[alignment];
-									        //Werewolf check
-									        role = getRole(targets[t[0]]);
-									        if (autoRoles[role].attributes.FULLMOONSHERIFFRESULT) {
-									            var number = 1 - (daynumber % 2); //Minus to make it so that odd is first.
-									            msg = sheriffResults[alignment][number];
-									        }
 									        addSuggestedMessage(msg, num);
 									    }
 									    else {
