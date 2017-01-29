@@ -1144,9 +1144,9 @@ io.on('connection', function(socket){
 	{
 		players[socket.id].vote(name);
 	});
-	/*socket.on(Type.TARGET, function (name) {
-	    players[socket.id].target(name);
-	});*/
+	socket.on(Type.TARGET, function (name) {
+	    players[socket.id].command('target ' + name);
+	});
 	socket.on(Type.TOGGLE,function(name,chat)
 	{
 		if (socket.id == mod)
