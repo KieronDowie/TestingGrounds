@@ -3179,7 +3179,8 @@ function Player(socket,name,ip)
 					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
 						var free = false;
-						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
+						var args = c.slice(1,c.length);
+						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget'|| targets[0] == getPlayerByName(args[0]) || targets[0] == (parseInt(args[0])))
 						{
 							free = true;
 						}
@@ -3205,7 +3206,6 @@ function Player(socket,name,ip)
 						}
 						else
 						{	
-							var args = c.slice(1,c.length);
 							var targets = [];
 							var error = false;
 							if (args.length == 0 || args[0] == '0')
