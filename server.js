@@ -3271,7 +3271,12 @@ function Player(socket,name,ip)
 							}
 							if (!error)
 							{
-								this.target(targets);
+							    if (this.target != "") {
+							        this.target(targets);
+							    }
+							    else {
+							        this.target = "";
+                                }
 							}
 						}
 					break;
