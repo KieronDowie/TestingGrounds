@@ -3272,7 +3272,7 @@ function Player(socket,name,ip)
 							if (!error)
 							{
 							    if (this.target != "") {
-							        this.target = "";
+							        this.target("");
 							    }
 							    else {
 							        this.target(targets);
