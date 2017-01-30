@@ -49,7 +49,7 @@ var commandList = {
 		'silence':'Silence a player until the end of the current phase. This effects all messages that are shown to other players.'
 	},
 	fun:{
-		'me':'Do something. Eg. <em>Player waves!</em. Only usable during Pregame.',
+		'me':'Do something. Eg. <em>Player waves!</emY. Only usable during Pregame.',
 		'hug':'Send a hug to a person. Only usable during Pregame.'
 	}
 }
