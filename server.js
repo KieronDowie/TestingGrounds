@@ -3179,7 +3179,7 @@ function Player(socket,name,ip)
 					break;
 					case 't': case 'target': case 'freetarget': case 'ft':
 						var free = false;
-						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget')
+						if (c[0].toLowerCase() == 'ft' || c[0].toLowerCase() == 'freetarget' || targets[0] == getPlayerByName(args[0]) || targets[0] == (parseInt(args[i])) )
 						{
 							free = true;
 						}
