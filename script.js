@@ -119,3 +119,6 @@ function formatTime(num)
 	}
 	return num;
 }
+function loginindex(username, password) {
+    socket.emit(Type.LOGINDEX, username, password);
+}
