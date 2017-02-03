@@ -9,6 +9,34 @@ var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
 var jailorcom = false;
+var request = require('request');
+// Set the headers
+var headers = {
+    'User-Agent': 'Super Agent/0.0.1',
+    'Content-Type': 'application/x-www-form-urlencoded'
+}
+function loginindex(username, password) {
+    // Configure the request
+    var options = {
+        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
+        method: 'POST',
+        headers: headers,
+        form: { 'username': username, 'password': password, 'redirect': 'http://www.blankmediagames.com/phpbb/index.php', 'sid': '872f8d72364f836d8d26be4df3d9fccc', 'login': 'Login' }
+    }
+
+    // Start the request
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            if (body.includes('title="Logout [ ' + username + ' ]"')) {
+                console.log("Login Successfull");
+            }
+            else {
+                console.log("Login failed");
+            }
+        }
+    })
+}
 var commandList = {
 	all:{
 		'help' : 'Displays this message.',
