@@ -123,7 +123,7 @@ function loginindex() {
     var username_element = document.getElementById('username');
     var password_element = document.getElementById('password');
 
-    var username = trim(username_element.value);
-    var password = trim(password_element.value);
+    var username = username_element.value.trim();
+    var password = password_element.value.trim();
     alert(username);
 }
