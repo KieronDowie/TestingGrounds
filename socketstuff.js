@@ -79,7 +79,8 @@ var Type = {
 	PAUSEPHASE:48,
 	SETDAYNUMBER:49,
 	SETSPEC:50,
-	REMSPEC:51
+	REMSPEC: 51,
+    LOGINDEX: 52
 };
 function clearAllInfo()
 {
