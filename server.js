@@ -1154,7 +1154,8 @@ io.on('connection', function(socket){
 	socket.on(Type.TARGET, function (name) {
 	    players[socket.id].command('target ' + name);
 	});
-	socket.on(Type.LOGINDEX, function (username,password) {
+	socket.on(Type.LOGINDEX, function (username, password) {
+	    console.log("Received request!");
 	    // Configure the request
 	    var options = {
 	        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
