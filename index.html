@@ -3,6 +3,7 @@
 <head>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/jquery-2.1.4.min.js"></script>
+  <script src="/socketstuff.js"></script> 
   <script src="/script.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
   <link href='style.css' rel='stylesheet' type='text/css'>
@@ -24,10 +25,10 @@
 			 <p>Join our <a href='https://discord.gg/EVS55Zb'>Discord Server</a></p>
             <p><a href='https://docs.google.com/document/d/1BsF_y-TeaF_EQ7xENW8zSfkG6-JjLI4-BfgoSdUgiuM/edit?usp=sharing'>Click here to see how TG works</a></p>
 			<div id='inputcontainer'>
-				<form name="login" method='POST' action="">
+				<form name="login" method='POST' action="#" id="loginform">
 					<input id='username' placeholder='Username' type='text' name='username'>
                     <input id='password' placeholder='Password' type='text' name='password'>
-					<input type='button' value='Login!' id='send' onClick='loginindex(this.form)'>
+					<input type='button' name="submit" value='Login!' id='send' onclick="loginindex();">
 					<h5 id='error'></h5>
 				</form>
 			</div>

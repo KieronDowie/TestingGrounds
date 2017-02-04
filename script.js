@@ -119,6 +119,11 @@ function formatTime(num)
 	}
 	return num;
 }
-function loginindex(username, password) {
+function loginindex() {
+    var username_element = document.getElementById('username');
+    var password_element = document.getElementById('password');
+
+    var username = trim(username_element.value);
+    var password = trim(password_element.value);
     socket.emit(Type.LOGINDEX, username, password);
 }
