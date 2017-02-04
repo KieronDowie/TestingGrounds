@@ -1,5 +1,6 @@
 var time = 0;
-var units = ['day','hour','min','sec'];
+var units = ['day', 'hour', 'min', 'sec'];
+var socket = io.connect({ 'pingInterval': 45000 });
 
 $(document).ready(function()
 {
