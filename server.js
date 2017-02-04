@@ -9,7 +9,7 @@ var verified = []; //List of ips that are verified to use the MCP.
 var createdList = [];
 var gm = require('./gm.js');
 var jailorcom = false;
-var request = require('/request');
+var request = require('request');
 // Set the headers
 var headers = {
     'User-Agent': 'Super Agent/0.0.1',
