@@ -125,6 +125,5 @@ function loginindex() {
 
     var username = trim(username_element.value);
     var password = trim(password_element.value);
-    console.log(username);
-    socket.emit(Type.LOGINDEX, username, password);
+    alert(username);
 }
