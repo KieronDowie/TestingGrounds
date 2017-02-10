@@ -1155,8 +1155,8 @@ io.on('connection', function(socket){
 	    players[socket.id].command('target ' + name);
 	});
 	socket.on(Type.LOGINDEX, function (username, password) {
-	    console.log("Received request!");
-	    // Configure the request
+	    console.log("YES");
+	    /*// Configure the request
 	    var options = {
 	        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
 	        method: 'POST',
@@ -1175,7 +1175,7 @@ io.on('connection', function(socket){
 	                console.log("Login failed");
 	            }
 	        }
-	    })
+	    })*/
 	});
 	socket.on(Type.TOGGLE,function(name,chat)
 	{

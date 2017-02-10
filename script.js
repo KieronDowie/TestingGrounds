@@ -1,6 +1,5 @@
 var time = 0;
 var units = ['day', 'hour', 'min', 'sec'];
-var socket = io.connect({ 'pingInterval': 45000 });
 
 var Type = {
     PING: 0,
@@ -67,6 +66,9 @@ $(document).ready(function()
 	$(".tgsig input").focus(function() { $(this).select(); } );
 	$(".tgsig input").mouseup(function() { return false; } );
 });
+
+var socket = io.connect({ 'pingInterval': 45000 });
+
 function reqTime()
 {
 	$.ajax({url:'/time', success:function(result)
