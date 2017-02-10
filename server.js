@@ -810,6 +810,7 @@ io.on('connection', function(socket){
 			}
 			else
 			{
+                console.log"It's error #1"
 				socket.disconnect();
 			}
 		}

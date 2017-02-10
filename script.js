@@ -186,38 +186,3 @@ function loginindex() {
 
     socket.emit(Type.LOGINDEX, username, password);
 }
-socket.on('disconnect', function () {
-    if (!kicked) {
-        if (connectAttempt < 10) {
-            if ($('.blocker').length == 0) {
-                var blocker = $('<div class="blocker"></div>');
-                var kitteh = $('<img src="http://media.giphy.com/media/zwmeWxShpVVyU/giphy.gif">');
-                kitteh.on('error', function () {
-                    //Problem with the giphy gif, load from server.
-                    this.src = 'dancingkitteh.gif';
-                });
-                var notify = $('<div class="alert"></div>');
-                notify.append($('<h3>You have disconnected!</h3>'));
-                notify.append(kitteh);
-                notify.append($('<p id="try">Please wait while this dancing kitty reconnects you... <p id="count"></p></p>'));
-                blocker.append(notify);
-                $('body').append(blocker);
-            }
-            if (connectAttempt == 0) {
-                socket.connect();
-                connectAttempt++;
-                $('#count').html(connectAttempt + '/10');
-            }
-            else if (connectAttempt < 10) {
-                setTimeout(function () {
-                    socket.connect();
-                    connectAttempt++;
-                    $('#count').html(connectAttempt + '/10');
-                }, 1000);
-            }
-        }
-        else {
-            $('#try').html('<p>Our dancing kitty has failed to reconnect you. No milk for him tonight. Please rejoin.</p>');
-        }
-    }
-});
