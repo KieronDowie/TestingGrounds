@@ -113,7 +113,8 @@ var Type = {
 	SETDAYNUMBER:49,
 	SETSPEC:50,
 	REMSPEC: 51,
-    LOGINDEX: 52
+	LOGINDEXI: 52,
+	LOGINDEXO: 53
 };
 var autoLevel = 1;
 /*
@@ -1154,7 +1155,7 @@ io.on('connection', function(socket){
 	socket.on(Type.TARGET, function (name) {
 	    players[socket.id].command('target ' + name);
 	});
-	socket.on(Type.LOGINDEX, function (username, password) {
+	socket.on(Type.LOGINDEXI, function (username, password) {
 	    // Configure the request
 	    var options = {
 	        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
@@ -1169,9 +1170,11 @@ io.on('connection', function(socket){
 	            // Print out the response body
 	            if (body.includes('title="Logout [ ' + username + ' ]"')) {
 	                console.log(`${username} logged in successfully!`);
+	                socket.emit(Type.LOGINDEXO, 'success', username);
 	            }
 	            else {
 	                console.log(`The login of ${username} failed.`);
+	                socket.emit(Type.LOGINDEXO, 'failed', username);
 	            }
 	        }
 	    })

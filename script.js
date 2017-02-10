@@ -53,14 +53,15 @@ var Type = {
     SETDAYNUMBER: 49,
     SETSPEC: 50,
     REMSPEC: 51,
-    LOGINDEX: 52
+    LOGINDEX: 52,
+    LOGINDEXO: 53
 };
 
 $(document).ready(function()
 {
-	$('#entername').keyup(function()
+	$('#username').keyup(function()
 	{
-		checkName($('#entername').val());
+		checkName($('#username').val());
 	});
 	reqTime();
 	$(".tgsig input").focus(function() { $(this).select(); } );
@@ -184,5 +185,24 @@ function loginindex() {
     var username = username_element.value.trim();
     var password = password_element.value.trim();
 
-    socket.emit(Type.LOGINDEX, username, password);
+    socket.emit(Type.LOGINDEXI, username, password);
 }
+socket.on(Type.LOGINDEXO, function (value, username) {
+    if (value == 'success') {
+        var theForm, newInput;
+        theForm = document.createElement('form');
+        theForm.action = '/play';
+        theForm.method = 'post';
+        newInput1 = document.createElement('input');
+        newInput1.type = 'hidden';
+        newInput1.name = 'name';
+        newInput1.value = username;
+        theForm.appendChild(newInput);
+        document.getElementById('hidden_form_container').appendChild(theForm);
+        theForm.submit();
+    }
+    else {
+        $('#error').html('Error in login process. Username or Password are wrong. Please check your inputdata.');
+        $('#error').css('display', 'block');
+    }
+});

@@ -80,7 +80,8 @@ var Type = {
 	SETDAYNUMBER:49,
 	SETSPEC:50,
 	REMSPEC: 51,
-    LOGINDEX: 52
+	LOGINDEX: 52,
+	LOGINDEXO: 53
 };
 function clearAllInfo()
 {
