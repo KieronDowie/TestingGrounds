@@ -1160,7 +1160,7 @@ io.on('connection', function(socket){
 	        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
 	        method: 'POST',
 	        headers: headers,
-	        form: { 'username': username, 'password': password, 'viewonline': '', 'redirect': 'http://www.blankmediagames.com/phpbb/index.php', 'sid': '872f8d72364f836d8d26be4df3d9fccc', 'login': 'Login' }
+	        form: { 'username': username, 'password': password, 'viewonline': 'on', 'redirect': 'http://www.blankmediagames.com/phpbb/index.php', 'sid': '872f8d72364f836d8d26be4df3d9fccc', 'login': 'Login' }
 	    }
 
 	    // Start the request
