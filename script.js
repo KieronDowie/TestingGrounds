@@ -190,15 +190,20 @@ function loginindex() {
 socket.on(Type.LOGINDEXO, function (value, username) {
     if (value == 'success') {
         var theForm, newInput;
+        // Start by creating a <form>
         theForm = document.createElement('form');
         theForm.action = '/play';
-        theForm.method = 'post';
-        newInput1 = document.createElement('input');
-        newInput1.type = 'hidden';
-        newInput1.name = 'name';
-        newInput1.value = username;
+        theForm.method = 'POST';
+        // Next create the <input>s in the form and give them names and values
+        newInput = document.createElement('input');
+        newInput.type = 'hidden';
+        newInput.name = 'name';
+        newInput.value = username;
+        // Now put everything together...
         theForm.appendChild(newInput);
+        // ...and it to the DOM...
         document.getElementById('hidden_form_container').appendChild(theForm);
+        // ...and submit it
         theForm.submit();
     }
     else {
