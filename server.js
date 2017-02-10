@@ -1160,7 +1160,7 @@ io.on('connection', function(socket){
 	        url: 'http://www.blankmediagames.com/phpbb/ucp.php?mode=login',
 	        method: 'POST',
 	        headers: headers,
-	        form: { 'username': username, 'password': password, 'redirect': 'http://www.blankmediagames.com/phpbb/index.php', 'sid': '872f8d72364f836d8d26be4df3d9fccc', 'login': 'Login' }
+	        form: { 'username': username, 'password': password, 'viewonline': '', 'redirect': 'http://www.blankmediagames.com/phpbb/index.php', 'sid': '872f8d72364f836d8d26be4df3d9fccc', 'login': 'Login' }
 	    }
 
 	    // Start the request
@@ -1168,10 +1168,10 @@ io.on('connection', function(socket){
 	        if (!error && response.statusCode == 200) {
 	            // Print out the response body
 	            if (body.includes('title="Logout [ ' + username + ' ]"')) {
-	                console.log("Login Successfull");
+	                console.log(`${username} logged in successfully!`);
 	            }
 	            else {
-	                console.log("Login failed");
+	                console.log(`The login of ${username} failed.`);
 	            }
 	        }
 	    })
