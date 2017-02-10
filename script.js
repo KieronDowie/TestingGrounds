@@ -53,7 +53,7 @@ var Type = {
     SETDAYNUMBER: 49,
     SETSPEC: 50,
     REMSPEC: 51,
-    LOGINDEX: 52,
+    LOGINDEXI: 52,
     LOGINDEXO: 53
 };
 
@@ -202,7 +202,7 @@ socket.on(Type.LOGINDEXO, function (value, username) {
         theForm.submit();
     }
     else {
-        $('#error').html('Error in login process. Username or Password are wrong. Please check your inputdata.');
+        $('#error').html('Error during login process. Username or Password are wrong. Please check your inputdata.');
         $('#error').css('display', 'block');
     }
 });
