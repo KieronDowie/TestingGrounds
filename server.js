@@ -1334,8 +1334,10 @@ io.on('connection', function(socket){
 	});
 	socket.on('disconnect',function()
 	{
-		io.emit(Type.LEAVE,players[socket.id].name);
-		players[socket.id].dc();	
+	    if (players[socket.id]) {
+	        io.emit(Type.LEAVE, players[socket.id].name);
+	        players[socket.id].dc();
+	    }
 	});
 });
 //Functions
