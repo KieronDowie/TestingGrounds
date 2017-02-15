@@ -585,7 +585,7 @@ var roles=[
 				rolename:"auditor",
 				alignment:"neutral evil",
 				abilities:['Choose one target to audit.'],
-				attributes:['You have 3 audits'
+				attributes:['You have 3 audits',
 					'You have a one-use scum auto-vest.',
 					'Conversion & Audit immune.',
 					'Audited targets are role blocked, and their ability charges are reduced to 0.',
