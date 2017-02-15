@@ -133,7 +133,7 @@ var autoRoles =
 		consiggrouping:'Lookout',
 		alignment:'town'
 	},
-	/*'spy': {
+	'spy': {
 		attributes:  {
 			MAFVISIT:attributes.MAFVISIT,
 			PASSIVE: attributes.PASSIVE
@@ -142,7 +142,7 @@ var autoRoles =
 		intgrouping: 'B',
 		consiggrouping:'Spy',
 		alignment:'town'
-	},*/
+	},
 	'mayor': {
 		attributes:  {
 			NOHEAL:attributes.NOHEAL},
@@ -644,7 +644,7 @@ var consigResults = {
 	'Transporter':'Your target has an expensive, high-tech carriage. They must be a Transporter.',
 	'Retributionist':'Your target owns several magical tomes. They must be the Retributionist.',
 	'Sheriff':'Your target has hidden away a golden star badge. They must be a Sheriff.',
-	//'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
+	'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
 	'Veteran':'Your target carries a shotgun with them everywhere they go. They must be a Veteran.',
 	'Vigilante':'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
 	'Blackmailer':'Your target has a list of others\' secrets. They muse be a Blackmailer.',
