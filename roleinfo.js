@@ -93,7 +93,7 @@ var roles=[
 				color:'#BF40BF',
 				custom:true
 			},
-			{      
+			/*{      
 				rolename:"spy",
 				alignment:"town investigative",
 				abilities:['See who the Mafia visit at night.'],
@@ -101,7 +101,7 @@ var roles=[
 				'You will know who the Mafia visit at night.'],
 				goal:towngoal,
 				color:towncolor
-			},
+			},*/
 			{      
 				rolename:"mayor",
 				alignment:"town power",
