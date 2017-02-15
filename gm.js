@@ -96,7 +96,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 			},
 		grouping: 'G',
-		intgrouping: 'B',
+		intgrouping: 'I',
 		consiggrouping:'Veteran',
 		alignment:'town'
 	},
@@ -139,7 +139,7 @@ var autoRoles =
 			PASSIVE: attributes.PASSIVE
 		},
 		grouping: 'D',
-		intgrouping: 'I',
+		intgrouping: 'B',
 		consiggrouping:'Spy',
 		alignment:'town'
 	},
@@ -545,7 +545,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 		},
 		grouping: 'G',
-		intgrouping: 'I',
+		intgrouping: 'H',
 		consiggrouping:'Orphan',
 		alignment:'neutral'
 	},
