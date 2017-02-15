@@ -731,16 +731,6 @@ var roles=[
 				custom:true
 			},
 			{
-				rolename:"Exce",
-				alignment:"neutral casual",
-				abilities:['Find bug in code every day'],
-				attributes:['You can chose one bug to fix every night',
-					   'You will produce three new ones while doing so'],
-				goal:"Remove all the bugs!",
-				color:"#007c57",
-				custom:true
-			},
-			{
 				rolename:"afk",
 				alignment:"neutral trueEvil",
 				abilities:['Die before the game has started.'],
