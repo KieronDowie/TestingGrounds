@@ -368,7 +368,7 @@ var roles=[
 				attributes:['It only rains during the night.',
 					'Everyone will be noticed, about a rain.',
 					'Everyone that goes outside during a rain will be drenched the next morning.',
-					'At the beginning of the day a list of drenched people will be shown.',
+					'Next day a list of drenched people will be shown to everyone.',
 					'You can execute only 2 rain dances.',
 					'It cannot rain 2 days in a row.'],
 				goal:towngoal,
@@ -728,16 +728,6 @@ var roles=[
 				attributes:['You are the fastest ever to live!'],
 				goal:"Make TG a happy place.",
 				color:"#0000FF",
-				custom:true
-			},
-			{
-				rolename:"Exce",
-				alignment:"neutral casual",
-				abilities:['Find a bug in code each day.'],
-				attributes:['You might chose to remove one bug each night',
-					    'If you do so, you will produce 3 new bugs'],
-				goal:"Remove all bugs from TG code!",
-				color:"#46af00",
 				custom:true
 			},
 			{
