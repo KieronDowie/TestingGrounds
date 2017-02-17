@@ -1173,11 +1173,29 @@ io.on('connection', function(socket){
 	                socket.emit(Type.LOGINDEXO, 'success', username);
 	            }
 	            else {
-	                console.log(`The login of ${username} failed.`);
-	                socket.emit(Type.LOGINDEXO, 'failed', username);
+	                var captcha = body.substring(body.lastIndexOf("Spell this word backwards: ") + 27, body.lastIndexOf(":</label><br /><span>This"));
+	                var captcharev = captcha.split("").reverse().join("");
+	                var captchaconfirm = body.substring(body.lastIndexOf('id="qa_confirm_id" value="') + 26, body.lastIndexOf('id="qa_confirm_id" value="') + 58);
+	                var sid = body.substring(body.lastIndexOf('name="sid" value="') + 18, body.lastIndexOf('name="sid" value="') + 50);
+	                options.form.qa_answer = captcharev;
+	                options.form.qa_confirm_id = captchaconfirm;
+	                options.form.sid = sid;
+	                request(options, function (error2, response2, body2) {
+	                    if (!error2 && response2.statusCode == 200) {
+	                        // Print out the response body
+	                        if (body2.includes('title="Logout [ ' + username + ' ]"')) {
+	                            console.log(`${username} logged in successfully!`);
+	                            socket.emit(Type.LOGINDEXO, 'success', username);
+	                        }
+	                        else {
+	                            console.log(`${username} inserted a wrong username or password!`);
+	                            socket.emit(Type.LOGINDEXO, 'failed', username);
+	                        }
+	                    }
+	                });
 	            }
 	        }
-	    })
+	    });
 	});
 	socket.on(Type.TOGGLE,function(name,chat)
 	{
