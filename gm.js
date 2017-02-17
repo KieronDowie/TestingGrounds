@@ -1347,8 +1347,7 @@ module.exports = {
 									        {
 									            if (Object.keys(targets[t[0]][1]).length != 0) //If alerting
 									            {
-									                attackSuccess = false;
-									                addSuggestedMessage('Someone tried to kill you, but you cannot be killed while on alert!', t[0]);
+									                addSuggestedMessage('Someone tried to douse you while on alert!', t[0]);
 									            }
 									        }
 									        if (attackSuccess) {
