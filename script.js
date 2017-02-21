@@ -61,11 +61,37 @@ $(document).ready(function()
 {
 	$('#username').keyup(function()
 	{
+	    $('#send').attr('disabled', false);
+	    $('#error').css('display', 'none');
 		checkName($('#username').val());
 	});
 	reqTime();
 	$(".tgsig input").focus(function() { $(this).select(); } );
-	$(".tgsig input").mouseup(function() { return false; } );
+	$(".tgsig input").mouseup(function () { return false; });
+	$('#password').keyup(function () {
+	    $('#send').attr('disabled', false);
+	    $('#error').css('display', 'none');
+	});
+	$('#username').keydown(function (e) {
+	    if (e.keyCode == 13) {
+	        if (!$('#send').attr('disabled')) {
+	            loginindex();
+	        }
+	        else {
+	            $('#send').attr('disabled', 'disabled');
+	        }
+	    }
+	});
+	$('#password').keydown(function (e) {
+	    if (e.keyCode == 13) {
+	        if (!$('#send').attr('disabled')) {
+	            loginindex();
+	        }
+	        else {
+	            $('#send').attr('disabled', 'disabled');
+	        }
+	    }
+	});
 });
 
 var socket = io.connect({ 'pingInterval': 45000 });
