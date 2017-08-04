@@ -65,7 +65,7 @@ var autoRoles =
 		attributes: {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
-		grouping: 'A',
+		grouping: 'D',
 		intgrouping: 'D',
 		consiggrouping:'Escort',
 		alignment:'town',
@@ -80,8 +80,8 @@ var autoRoles =
 			CONTROLIMMUNE:attributes.CONTROLIMMUNE,
 			PRIO1:attributes.PRIO1, 
 			SELF:attributes.SELF},
-		grouping: 'N',
-		intgrouping: 'H',
+		grouping: 'I',
+		intgrouping: 'B',
 		consiggrouping:'Transporter',
 		alignment:'town',
 		priority: 4
@@ -95,16 +95,16 @@ var autoRoles =
 			NINJA:attributes.NINJA,
 			NOVISIT:attributes.NOVISIT
 			},
-		grouping: 'G',
-		intgrouping: 'I',
+		grouping: 'L',
+		intgrouping: 'E',
 		consiggrouping:'Veteran',
 		alignment:'town'
 	},
 	'vigilante': {
 		attributes: {
 			VIGKILL:attributes.VIGKILL},
-		grouping: 'F',
-		intgrouping: 'D',
+		grouping: 'G',
+		intgrouping: 'C',
 		consiggrouping:'Vigilante',
 		alignment:'town'
 	},
@@ -119,7 +119,7 @@ var autoRoles =
 	'investigator': {
 		attributes:  {
 			INVESTIGATE:attributes.INVESTIGATE},
-		grouping: 'B',
+		grouping: 'H',
 		intgrouping: 'B',
 		consiggrouping:'Investigator',
 		alignment:'town'
@@ -128,7 +128,7 @@ var autoRoles =
 		attributes:  {
 			WATCH:attributes.WATCH
 		},
-		grouping: 'J',
+		grouping: 'F',
 		intgrouping: 'C',
 		consiggrouping:'Lookout',
 		alignment:'town'
@@ -146,15 +146,15 @@ var autoRoles =
 	'mayor': {
 		attributes:  {
 			NOHEAL:attributes.NOHEAL},
-		grouping: 'I',
+		grouping: 'H',
 		intgrouping: 'A',
 		consiggrouping:'Mayor',
 		alignment:'town'
 	},
 	'medium': {
 		attributes:  {},
-		grouping: 'L',
-		intgrouping: 'E',
+		grouping: 'J',
+		intgrouping: 'F',
 		consiggrouping:'Medium',
 		alignment:'town'
 	},
@@ -163,7 +163,7 @@ var autoRoles =
 			REVIVE:attributes.REVIVE,
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET},
-		grouping: 'K',
+		grouping: 'M',
 		intgrouping: 'F',
 		consiggrouping:'Retributionist',
 		alignment:'town'
@@ -172,7 +172,7 @@ var autoRoles =
 		attributes:  {
 			HEAL:attributes.HEAL,
 			SELF:attributes.SELF},
-		grouping: 'E',
+		grouping: 'A',
 		intgrouping: 'A',
 		consiggrouping:'Doctor',
 		alignment:'town',
@@ -183,8 +183,8 @@ var autoRoles =
 			VEST:attributes.VEST,
 			BG:attributes.BG,
 			SELF:attributes.SELF},
-		grouping: 'I',
-		intgrouping: 'C',
+		grouping: 'E',
+		intgrouping: 'D',
 		consiggrouping:'Bodyguard',
 		alignment:'town',
 		priority: 1
@@ -211,24 +211,24 @@ var autoRoles =
 		attributes:  {
 			MAFKILL:attributes.MAFKILL,
 			DEADTARGET:attributes.DEADTARGET},
-		grouping: 'F',
+		grouping: 'G',
 		intgrouping: 'K',
 		consiggrouping:'Mafioso',
 		alignment:'mafia'
 	},
-	'blackmailer': {
+	/*'blackmailer': {
 		attributes:  {
 			BLACKMAIL:attributes.BLACKMAIL},
 		grouping: 'D',
 		intgrouping: 'J',
 		consiggrouping:'Blackmailer',
 		alignment:'mafia'
-	},
+	},*/
 	'consigliere': {
 		attributes:  {
 			CONSIG:attributes.CONSIG},
-		grouping: 'B',
-		intgrouping: 'H',
+		grouping: 'H',
+		intgrouping: 'I',
 		consiggrouping:'Consigliere',
 		alignment:'mafia'
 	},
@@ -236,8 +236,8 @@ var autoRoles =
 		attributes:  {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE},
-		grouping: 'A',
-		intgrouping: 'F',
+		grouping: 'D',
+		intgrouping: 'H',
 		consiggrouping:'Consort',
 		alignment:'mafia',
 		priority:2
@@ -247,7 +247,7 @@ var autoRoles =
 			DISGUISE:attributes.DISGUISE,
 			SWAPWILL:attributes.SWAPWILL
 			},
-		grouping: 'G',
+		grouping: 'J',
 		intgrouping: 'K',
 		consiggrouping:'Disguiser',
 		alignment:'mafia'
@@ -255,7 +255,7 @@ var autoRoles =
 	'framer': {
 		attributes:  {
 			FRAME:attributes.FRAME},
-		grouping: 'M',
+		grouping: 'N',
 		intgrouping: 'K',
 		consiggrouping:'Framer',
 		alignment:'mafia'
@@ -263,16 +263,16 @@ var autoRoles =
 	'janitor': {
 		attributes:  {
 			CLEAN:attributes.CLEAN},
-		grouping: 'H',
-		intgrouping: 'F',
+		grouping: 'E',
+		intgrouping: 'E',
 		consiggrouping:'Janitor',
 		alignment:'mafia'
 	},
 	'forger': {
 		attributes:  {
 			FORGE:attributes.FORGE},
-		grouping: 'L',
-		intgrouping: 'D',
+		grouping: 'K',
+		intgrouping: 'I',
 		consiggrouping:'Forger',
 		alignment:'mafia'
 	},
@@ -374,29 +374,29 @@ var autoRoles =
 			NINJA:attributes.NINJA,
 			NOVISIT:attributes.NOVISIT
 		},
-		grouping: 'K',
-		intgrouping: 'E',
+		grouping: 'M',
+		intgrouping: 'G',
 		consiggrouping:'Rain Dancer',
 		alignment:'town'
 	},
-	'auditor': {
+	/*'auditor': {
 		attributes:  {},
 		grouping: 'A',
 		intgrouping: 'H',
 		consiggrouping:'Auditor',
 		alignment:'neutral'
-	},
+	},*/
 	'nightmarer': {
 		attributes:  {
 			MULTI:attributes.MULTI,
 			FORCEDMULTI:attributes.FORCEDMULTI
 		},
-		grouping: 'I',
-		intgrouping: 'E',
+		grouping: 'B',
+		intgrouping: 'J',
 		consiggrouping:'Nightmarer',
 		alignment:'mafia'
 	},
-	'coroner': {
+	/*'coroner': {
 		attributes:  {
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
@@ -405,31 +405,31 @@ var autoRoles =
 		intgrouping: 'D',
 		consiggrouping:'Coroner',
 		alignment:'town'
-	},
+	},*/
 	'watcher': {
 		attributes:  {
 			WATCH:attributes.WATCH
 		},
-		grouping: 'J',
-		intgrouping: 'I',
+		grouping: 'F',
+		intgrouping: 'F',
 		consiggrouping:'Watcher',
 		alignment:'mafia'
 	},
 	'electrician': {
 		attributes:  {},
-		grouping: 'L',
+		grouping: 'E',
 		intgrouping: 'G',
 		consiggrouping:'Electrician',
-		alignment:'neutral'
+		alignment:'elec'
 	},
 	'shadowalker': {
 		attributes:  {},
-		grouping: 'J',
+		grouping: 'B',
 		intgrouping: 'I',
 		consiggrouping:'Shadowalker',
 		alignment:'sw'
 	},
-	'necromancer': {
+	/*'necromancer': {
 		attributes:  {
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
@@ -438,31 +438,31 @@ var autoRoles =
 		intgrouping: 'K',
 		consiggrouping:'Necromancer',
 		alignment:'neutral'
-	},
+	},*/
 	'stalker': {
 		attributes:  {
 			SELF:attributes.SELF
 		},
 		grouping: 'F',
-		intgrouping: 'G',
+		intgrouping: 'H',
 		consiggrouping:'Stalker',
 		alignment:'neutral'
 	},
 	'drug dealer': {
 		attributes:  {},
-		grouping: 'E',
-		intgrouping: 'I',
+		grouping: 'A',
+		intgrouping: 'J',
 		consiggrouping:'Drug Dealer',
 		alignment:'mafia'
 	},
 	'lost spirit': {
 		attributes:  {},
-		grouping: 'K',
-		intgrouping: 'F',
+		grouping: 'B',
+		intgrouping: 'E',
 		consiggrouping:'Lost Spirit',
 		alignment:'neutral'
 	},
-	'distributor': {
+	/*'distributor': {
 		attributes:  {
 			MULTI:attributes.MULTI,
 			FORCEDMULTI:attributes.MULTI
@@ -471,22 +471,22 @@ var autoRoles =
 		intgrouping: 'I',
 		consiggrouping:'Distributor',
 		alignment:'neutral'
-	},
+	},*/
 	'scientist': {
 		attributes:  {},
-		grouping: 'B',
+		grouping: 'E',
 		intgrouping: 'C',
 		consiggrouping:'Scientist',
 		alignment:'town'
 	},
 	'tracker': {
 		attributes:  {},
-		grouping: 'D',
-		intgrouping: 'B',
+		grouping: 'B',
+		intgrouping: 'C',
 		consiggrouping:'Tracker',
 		alignment:'town'
 	},
-	'tax collector': {
+	/*'tax collector': {
 		attributes:  {
 			MULTI:attributes.MULTI
 		},
@@ -494,25 +494,25 @@ var autoRoles =
 		intgrouping: 'C',
 		consiggrouping:'Tax Collector',
 		alignment:'neutral'
-	},
+	},*/
 	'ghost': {
 		attributes:  {
 			RB:attributes.RB,
 			RBIMMUNE:attributes.RBIMMUNE
 		},
-		grouping: 'A',
-		intgrouping: 'G',
+		grouping: 'D',
+		intgrouping: 'H',
 		consiggrouping:'Ghost',
 		alignment:'town'
 	},
 	'paradoxist': {
 		attributes:  {},
-		grouping: 'N',
+		grouping: 'M',
 		intgrouping: 'K',
 		consiggrouping:'Paradoxist',
 		alignment:'neutral'
 	},
-	'mystic': {
+	/*'mystic': {
 		attributes:  {},
 		grouping: 'H',
 		intgrouping: 'H',
@@ -532,15 +532,15 @@ var autoRoles =
 		intgrouping: 'J',
 		consiggrouping:'Politician',
 		alignment:'neutral'
-	},
+	},*/
 	'undertaker': {
 		attributes:  {},
-		grouping: 'L',
-		intgrouping: 'H',
-		consiggrouping:'Undetaker',
+		grouping: 'J',
+		intgrouping: 'G',
+		consiggrouping:'Undertaker',
 		alignment:'neutral'
 	},
-	'orphan': {
+	/*'orphan': {
 		attributes:  {
 			NOVISIT:attributes.NOVISIT
 		},
@@ -548,14 +548,14 @@ var autoRoles =
 		intgrouping: 'H',
 		consiggrouping:'Orphan',
 		alignment:'neutral'
-	},
+	},*/
 	'psychic': {
 		attributes:  {
 			MULTI:attributes.MULTI,
 			FORCEDMULTI:attributes.MULTI,
 			SELF:attributes.SELF
 		},
-		grouping: 'D',
+		grouping: 'E',
 		intgrouping: 'J',
 		consiggrouping:'Psychic',
 		alignment:'town'
@@ -566,7 +566,7 @@ var autoRoles =
             MULTI: attributes.MULTI,
             FORCEDMULTI: attributes.MULTI
 		},
-		grouping: 'B',
+		grouping: 'G',
 		intgrouping: 'B',
 		consiggrouping:'Interviewer',
 		alignment:'town'
@@ -575,12 +575,12 @@ var autoRoles =
 	    attributes: {
 	        SELF: attributes.SELF
 	    },
-		grouping: 'G',
-		intgrouping: 'J',
+		grouping: 'L',
+		intgrouping: 'G',
 		consiggrouping:'Musician',
 		alignment:'mafia'
 	},
-	'cannibal': {
+	/*'cannibal': {
 		attributes:  {
 			SELF:attributes.SELF,
 			MULTI:attributes.MULTI
@@ -596,40 +596,24 @@ var autoRoles =
 		intgrouping: 'E',
 		consiggrouping:'Surgeon',
 		alignment:'neutral'
-	},
+	},*/
 };
 
-/* Old Invest Results
 var investGrouping = {
-	'A':'Your target is a manipulative beauty.',
-	'B':'Your target avoids others.',
-	'C':'Your target owns a gun.',
-	'D':'Your target wants to gain others trust.',
-	'E':'Your target gathers information.',
-	'F':'Your target is very stealthy.',
-	'G':'Your target is a part of the government.',
-	'H':'Your target talks to themselves.',
-	'I':'Your target is a loner.',
-	'J':'Your target spends a lot of time sitting in an office.',
-	'K':'Your target may not be what they seem.',
-	'L':'Your target is not even trying to hide their evil deeds.',
-};
-*/
-var investGrouping = {
-	'A':'Your target is distracting.',
-	'B':'Your target is curious.',
-	'C':'Your target seeks justice.',
-	'D':'Your target works with secrets.',
-	'E':'Your target works with chemicals.',
-	'F':'Your target makes rash choices.',
-	'G':'Your target lures people in.',
-	'H':'Your target works with dead bodies.',
-	'I':'Your target has dirty hands.',
-	'J':'Your target lies in darkness.',
-	'K':'Your target works with magic.',
-	'L':'Your target talks to oneself.',
-	'M':'Your target smells like gas.',
-	'N':'Your target owns a golden watch.',
+	'A':'Your target reeks of chemicals and death.',
+	'B':'Your target shadows people inquisitively.',
+	'C':'Your target seeks justice in every conflict.',
+	'D':'Your target frequents the shady districts.',
+	'E':'Your target cleanses the streets with electrifying means.',
+	'F':'Your target eyes in the shadows for visitations.',
+	'G':'Your target searches for untrustworthy civilians.',
+	'H':'Your target possesses sensitive information to reveal.',
+	'I':'Your target interferes with conventional schemes.',
+	'J':'Your target isolates themselves for sanity.',
+	'K':'Your target awaits an instance to gamble.',
+	'L':'Your target lures people inside their home.',
+	'M':'Your target meddles with laws of nature.',
+	'N':'Your target burns for mischief.',
 };
 
 var consigResults = {
@@ -644,10 +628,8 @@ var consigResults = {
 	'Transporter':'Your target has an expensive, high-tech carriage. They must be a Transporter.',
 	'Retributionist':'Your target owns several magical tomes. They must be the Retributionist.',
 	'Sheriff':'Your target has hidden away a golden star badge. They must be a Sheriff.',
-	//'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
 	'Veteran':'Your target carries a shotgun with them everywhere they go. They must be a Veteran.',
 	'Vigilante':'Your target has hidden away a pistol in their bedroom. They must be a Vigilante.',
-	'Blackmailer':'Your target has a list of others\' secrets. They muse be a Blackmailer.',
 	'Consigliere':'Your target compiles detailed records of other citizen\'s possessions. They must be a Consigliere.',
 	'Consort':'Your target owns very expensive jewelry. They must be a Consort.',
 	'Disguiser':'Your target owns an elaborate make-up kit. They must be a Disguiser.',
@@ -670,28 +652,30 @@ var consigResults = {
 	'Electrician':'Your target owns protective vests against high voltage. They must be a Electrician.',
 	'Shadowalker':'Your target lurks in the shadows of others, They must be a Shadowalker.',
 	'Drug Dealer':'Your target drugs people in the night. They must be a Drug Dealer.',
-	'Necromancer':'Your target creates minions. They must be a Necromancer.',
-	'Politician':'Your target wants to become the mayor, they must be a Politician.',
 	'Nightmarer':'Your target messes with peoples dreams. They must be a Nightmarer.',
-	'Undetaker':'Your target buries the dead. They must be a Undertaker.',
+	'Undertaker':'Your target buries the dead. They must be a Undertaker.',
 	'Lost Spirit':'Your target has long been forgotten. They must be a Lost Spirit.',
-	'Orphan':'Your target is living on the streets. They must be a Orphan.',
 	'Ghost':'Death did not stop your target from living. They must be a Ghost.',
 	'Rain Dancer':'Your target is dancing in the rain. They must be a Rain Dancer.',
-	'Auditor':'Your target has immense wealth. They must an Auditor.',
-	'Mystic':'Your target has the power to take others\' bodies. They must be a Mystic.',
-	'Tax Collector':'Your target collects money from others. They must be a Tax Collector.',
-	'Coroner':'Your target gets leads from the dead people. They must be a Coroner.',
 	'Paradoxist':'Your target is from another plane of reality. They must be a Paradoxist.',
-	'Mortician':'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
 	'Stalker':'Your target sends cold shivers down your spine. They must be a Stalker.',
-	'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.',
 	'Psychic':'Your target forms mental links. They must be a Psychic.',
 	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.',
 	'Musician':'Your target plays music for the town. They must be a Musician.',
-	'Cannibal':'Your target loves to eat the flesh of others. They must be a Cannibal.',
-	'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.',
-	'Surgeon':'Your target has blood-stained scrubs. They must be a Surgeon.'
+	//'Auditor':'Your target has immense wealth. They must an Auditor.',
+	//'Mystic':'Your target has the power to take others\' bodies. They must be a Mystic.',
+	//'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.',
+	//'Mortician':'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
+	//'Surgeon':'Your target has blood-stained scrubs. They must be a Surgeon.'
+	//'Coroner':'Your target gets leads from the dead people. They must be a Coroner.',
+	//'Cannibal':'Your target loves to eat the flesh of others. They must be a Cannibal.',
+	//'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
+	//'Necromancer':'Your target creates minions. They must be a Necromancer.',
+	//'Blackmailer':'Your target has a list of others\' secrets. They muse be a Blackmailer.',
+	//'Orphan':'Your target is living on the streets. They must be a Orphan.',
+	//'Politician':'Your target wants to become the mayor, they must be a Politician.',
+	//'Tax Collector':'Your target collects money from others. They must be a Tax Collector.',
+	//'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.',
 };
 
 var sheriffResults = {
@@ -702,6 +686,7 @@ var sheriffResults = {
 	'sw':'Your target is a Shadowalker.',
 	'sk':'Your target is a Serial Killer.',
 	'arsonist':'Your target is an Arsonist.',
+	'elec':'Your target is an Electrician.',
 	'neutral':'Your target is not suspicious.'
 };
 module.exports = {
