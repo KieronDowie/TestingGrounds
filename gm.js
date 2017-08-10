@@ -57,7 +57,7 @@ var attributes = {
 	 DEADTARGET:'Able to target players that are dead.',
 	 NOLIVINGTARGET:'Unable to target living players.',
 	 RAINDANCE: 'Let it rain next night',
-     INTERVIEW: 'Interview two people each night and compare them'
+     	INTERVIEW: 'Interview two people each night and compare them'
 };
 var autoRoles = 
 	{
@@ -416,14 +416,18 @@ var autoRoles =
 		alignment:'mafia'
 	},
 	'electrician': {
-		attributes:  {},
+		attributes:  {
+		IMMUNE:attributes.IMMUNE
+		},
 		grouping: 'E',
 		intgrouping: 'G',
 		consiggrouping:'Electrician',
 		alignment:'elec'
 	},
 	'shadowalker': {
-		attributes:  {},
+		attributes:  {
+		IMMUNE:attributes.IMMUNE
+		},
 		grouping: 'B',
 		intgrouping: 'I',
 		consiggrouping:'Shadowalker',
@@ -506,7 +510,9 @@ var autoRoles =
 		alignment:'town'
 	},
 	'paradoxist': {
-		attributes:  {},
+		attributes:  {
+			RBIMMUNE:attributes.RBIMMUNE
+		},
 		grouping: 'M',
 		intgrouping: 'K',
 		consiggrouping:'Paradoxist',
@@ -562,9 +568,9 @@ var autoRoles =
 	},
 	'interviewer': {
 	    attributes: {
-            INTERVIEW:attributes.INTERVIEW,
-            MULTI: attributes.MULTI,
-            FORCEDMULTI: attributes.MULTI
+		    INTERVIEW:attributes.INTERVIEW,
+		    MULTI: attributes.MULTI,
+		    FORCEDMULTI: attributes.MULTI
 		},
 		grouping: 'G',
 		intgrouping: 'B',
@@ -573,13 +579,87 @@ var autoRoles =
 	},
 	'musician': {
 	    attributes: {
-	        SELF: attributes.SELF
+	      		SELF:attributes.SELF
 	    },
 		grouping: 'L',
 		intgrouping: 'G',
 		consiggrouping:'Musician',
 		alignment:'mafia'
 	},
+	'milkman': {
+	    attributes: {},
+		grouping: 'I',
+		intgrouping: 'E',
+		consiggrouping:'Milkman',
+		alignment:'town'
+	},
+	'slaughterer': {
+		attributes: {
+			IMMUNE:attributes.IMMUNE,
+			RBIMMUNE:attributes.RBIMMUNE
+		},
+		grouping: 'D',
+		intgrouping: 'F',
+		consiggrouping:'Slaughterer',
+		alignment:'slaug',
+	}, 
+	'warlock': {
+	   	attributes: {
+		    MULTI: attributes.MULTI,
+		    FORCEDMULTI: attributes.MULTI
+		},
+		grouping: 'G',
+		intgrouping: 'H',
+		consiggrouping:'Warlock',
+		alignment:'neutral'
+	},
+	'fisherman': {
+	   	attributes: {},
+		grouping: 'L',
+		intgrouping: 'I',
+		consiggrouping:'Fisherman',
+		alignment:'town'
+	},
+	'clerk': {
+	    attributes: {
+	      		SELF: attributes.SELF,
+		    	NINJA:attributes.NINJA,
+			NOVISIT:attributes.NOVISIT
+	    },
+		grouping: 'I',
+		intgrouping: 'D',
+		consiggrouping:'Clerk',
+		alignment:'mafia'
+	},
+	'butcher': {
+	    attributes: {
+			IMMUNE:attributes.IMMUNE
+	    },
+		grouping: 'K',
+		intgrouping: 'H',
+		consiggrouping:'Butcher',
+		alignment:'butcher'
+	},
+	'necromorph': {
+	    attributes: {
+		    DEADTARGET:attributes.DEADTARGET,
+	    },
+		grouping: 'M',
+		intgrouping: 'J',
+		consiggrouping:'Necromorph',
+		alignment:'neutral'
+	},
+	'incarcerator': {
+	    attributes: {
+	    },
+		grouping: 'K',
+		intgrouping: 'D',
+		consiggrouping:'Incarcerator',
+		alignment:'town'
+	},
+		
+	
+
 	/*'cannibal': {
 		attributes:  {
 			SELF:attributes.SELF,
@@ -662,6 +742,14 @@ var consigResults = {
 	'Psychic':'Your target forms mental links. They must be a Psychic.',
 	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.',
 	'Musician':'Your target plays music for the town. They must be a Musician.',
+	'Incarcerator':'Your target stows away a considerable amount of handcuffs. They must be an Incarcerator.',
+	'Necromorph':'Your target owns a spell book to enhance their mysticism. They must be a Necromorph.',
+	'Butcher':'Your target is equipped with a meat cleaver dripping blood. They must be a Butcher.',
+	'Clerk':'Your target possesses files of peoples handwritten documents. They must be a Clerk.',
+	'Fisherman':'Your target carries a pail of bait for fishing in the local pond. They must be a Fisherman.',
+	'Warlock':'Your target has the ability to conjure up devastating curses. They must be a Warlock.',
+	'Slaughterer':'Your target is too op and should be nerfed. They must be a Slaughterer.',
+	'Milkman':'Your target carries chilly glasses of milk for the civilians. They must be a Milkman.',
 	//'Auditor':'Your target has immense wealth. They must an Auditor.',
 	//'Mystic':'Your target has the power to take others\' bodies. They must be a Mystic.',
 	//'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.',
@@ -687,8 +775,11 @@ var sheriffResults = {
 	'sk':'Your target is a Serial Killer.',
 	'arsonist':'Your target is an Arsonist.',
 	'elec':'Your target is an Electrician.',
-	'neutral':'Your target is not suspicious.'
+	'neutral':'Your target is not suspicious.',
+	'butcher':'Your target is a Butcher.',
+	'slaug':'Your target is a Slaughterer.'
 };
+
 module.exports = {
 	log:function(name,targets){
 		loggedActions[name] = targets;
