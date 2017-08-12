@@ -529,6 +529,16 @@ var roles=[
 				color:"#000080",
 				custom:true
 			},
+			{      
+				rolename:"warlock",
+				alignment:"neutral evil",
+				abilities:['Curse two targets each night, tying the secondary target to the same fate as the first.'],
+				attributes:['Anyone targeting the primary target will also target the secondary target.',
+					'While cursed, your secondary target will gain a Powerful defence against non-town attacks.',
+					'You own one auto-vest.'],
+				goal:"Survive to see the Town lose the game.",
+				color:"#430E62"
+			},
 			{
 				rolename:"necromorph",
 				alignment:"neutral evil",
@@ -555,6 +565,20 @@ var roles=[
 					"If you target a Bodyguard, they will not be able to guard your attacks."],
 				goal:"Kill anyone that would oppose you.",
 				color:'#BF40BF',
+				custom:true
+			},
+			{      
+				rolename:"slaughterer",
+				alignment:"neutral killing",
+				abilities:['Slaughter someone each night',
+					  'Wear a new mask in the day'],
+				attributes:["You roleblock instead of attack players that have visited you before.",
+					"You do not die to the Bodyguard.",
+					"You can kill Jailed targets",
+					"Alerting Veterans survive the attack, but cannot kill the Slaughterer",
+					"You can gain a new \"identity\" at day (adds a charge every 3 days), nulliying the visits made to you."],
+				goal:"Kill anyone that would oppose you.",
+				color:'#1D1025',
 				custom:true
 			},
 			{      
