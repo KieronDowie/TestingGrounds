@@ -281,7 +281,7 @@ var autoRoles =
 			SKKILL:attributes.SKKILL,
 			RBATTACK:attributes.RBATTACK,
 			IMMUNE:attributes.IMMUNE},
-		grouping: 'E',
+		grouping: 'A',
 		intgrouping: 'J',
 		consiggrouping:'Serial Killer',
 		alignment:'sk'
@@ -293,7 +293,7 @@ var autoRoles =
 			SELF: attributes.SELF,
 			MUSTVISIT: attributes.MUSTVISIT,
 			IMMUNE:attributes.IMMUNE},
-		grouping: 'M',
+		grouping: 'N',
 		intgrouping: 'D',
 		consiggrouping:'Arsonist',
 		alignment:'arsonist'
@@ -306,7 +306,7 @@ var autoRoles =
 			FULLMOONSHERIFFRESULT:attributes.FULLMOONSHERIFFRESULT,
 			MUSTVISITEVEN:attributes.MUSTVISITEVEN,
 			RBHOME:attributes.RBHOME},
-		grouping: 'I',
+		grouping: 'L',
 		intgrouping: 'E',
 		consiggrouping:'Werewolf',
 		alignment:'ww'
@@ -315,7 +315,7 @@ var autoRoles =
 		attributes:  {
 			HAUNT:attributes.HAUNT
 		},
-		grouping: 'E',
+		grouping: 'J',
 		intgrouping: 'G',
 		consiggrouping:'Jester',
 		alignment:'neutral'
@@ -337,7 +337,7 @@ var autoRoles =
 			MULTI:attributes.MULTI,
 			FORCEDMULTI:attributes.MULTI
 		},
-		grouping: 'J',
+		grouping: 'I',
 		intgrouping: 'G',
 		consiggrouping:'Witch',
 		alignment:'neutral',
@@ -350,7 +350,7 @@ var autoRoles =
 			NINJA:attributes.NINJA,
 			NOVISIT:attributes.NOVISIT
 		},
-		grouping: 'I',
+		grouping: 'K',
 		intgrouping: 'G',
 		consiggrouping:'Survivor',
 		alignment:'neutral'
@@ -361,7 +361,7 @@ var autoRoles =
 			DEADTARGET:attributes.DEADTARGET,
 			NOLIVINGTARGET:attributes.NOLIVINGTARGET
 		},
-		grouping: 'F',
+		grouping: 'A',
 		intgrouping: 'C',
 		consiggrouping:'Amnesiac',
 		alignment:'neutral'
@@ -561,7 +561,7 @@ var autoRoles =
 			FORCEDMULTI:attributes.MULTI,
 			SELF:attributes.SELF
 		},
-		grouping: 'E',
+		grouping: 'F',
 		intgrouping: 'J',
 		consiggrouping:'Psychic',
 		alignment:'town'
