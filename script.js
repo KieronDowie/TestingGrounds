@@ -1,101 +1,16 @@
 var time = 0;
-var units = ['day', 'hour', 'min', 'sec'];
-
-var Type = {
-    PING: 0,
-    PONG: 1,
-    MSG: 2,
-    ROOMLIST: 3,
-    TOGGLE: 4,
-    JOINROOM: 5,
-    JOIN: 6,
-    LEAVE: 7,
-    SYSTEM: 9,
-    SETROLE: 10,
-    HIGHLIGHT: 11,
-    SETPHASE: 12,
-    WHISPER: 13,
-    MOD: 14,
-    TOGGLELIVING: 15,
-    PRENOT: 16,
-    VOTE: 17,
-    CLEARVOTES: 18,
-    VERDICT: 19,
-    TICK: 20,
-    JUDGEMENT: 21,
-    SETDEV: 22,
-    WILL: 23,
-    SETMOD: 24,
-    SWITCH: 25,
-    ACCEPT: 26,
-    ROLEUPDATE: 27,
-    DENY: 28,
-    KICK: 29,
-    ROLECARD: 30,
-    ROLL: 31,
-    SETROLESBYLIST: 32,
-    MASSROLEUPDATE: 33,
-    SHOWLIST: 34,
-    SHOWALLROLES: 35,
-    LATENCIES: 36,
-    GETWILL: 37,
-    HEY: 38,
-    TARGET: 39,
-    HUG: 40,
-    ME: 41,
-    ROLELIST: 42,
-    AUTOLEVEL: 43,
-    SUGGESTIONS: 44,
-    SYSSENT: 45,
-    CUSTOMROLES: 46,
-    HELP: 47,
-    PAUSEPHASE: 48,
-    SETDAYNUMBER: 49,
-    SETSPEC: 50,
-    REMSPEC: 51,
-    LOGINDEXI: 52,
-    LOGINDEXO: 53
-};
+var units = ['day','hour','min','sec'];
 
 $(document).ready(function()
 {
-	$('#username').keyup(function()
+	$('#entername').keyup(function()
 	{
-	    $('#send').attr('disabled', false);
-	    $('#error').css('display', 'none');
-		checkName($('#username').val());
+		checkName($('#entername').val());
 	});
 	reqTime();
 	$(".tgsig input").focus(function() { $(this).select(); } );
-	$(".tgsig input").mouseup(function () { return false; });
-	$('#password').keyup(function () {
-	    $('#send').attr('disabled', false);
-	    $('#error').css('display', 'none');
-	});
-	$('#username').keydown(function (e) {
-	    if (e.keyCode == 13) {
-	        if (!$('#send').attr('disabled')) {
-	            loginindex();
-	        }
-	        else {
-	            $('#send').attr('disabled', 'disabled');
-	        }
-	    }
-	});
-	$('#password').keydown(function (e) {
-	    if (e.keyCode == 13) {
-	        if (!$('#send').attr('disabled')) {
-	            loginindex();
-	        }
-	        else {
-	            $('#send').attr('disabled', 'disabled');
-	        }
-	    }
-	});
+	$(".tgsig input").mouseup(function() { return false; } );
 });
-
-var socket = io.connect({ 'pingInterval': 45000 });
-
 function reqTime()
 {
 	$.ajax({url:'/time', success:function(result)
@@ -204,36 +119,3 @@ function formatTime(num)
 	}
 	return num;
 }
-function loginindex() {
-    var username_element = document.getElementById('username');
-    var password_element = document.getElementById('password');
-
-    var username = username_element.value.trim();
-    var password = password_element.value.trim();
-
-    socket.emit(Type.LOGINDEXI, username, password);
-}
-socket.on(Type.LOGINDEXO, function (value, username) {
-    if (value == 'success') {
-        var theForm, newInput;
-        // Start by creating a <form>
-        theForm = document.createElement('form');
-        theForm.action = '/play';
-        theForm.method = 'POST';
-        // Next create the <input>s in the form and give them names and values
-        newInput = document.createElement('input');
-        newInput.type = 'hidden';
-        newInput.name = 'name';
-        newInput.value = username;
-        // Now put everything together...
-        theForm.appendChild(newInput);
-        // ...and it to the DOM...
-        document.getElementById('hidden_form_container').appendChild(theForm);
-        // ...and submit it
-        theForm.submit();
-    }
-    else {
-        $('#error').html('Error during login process. Username or Password are wrong. Please check your inputdata.');
-        $('#error').css('display', 'block');
-    }
-});
