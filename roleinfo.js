@@ -537,7 +537,7 @@ var roles=[
 					'While cursed, your secondary target will gain a Powerful defence against non-town attacks.',
 					'You own one auto-vest.'],
 				goal:"Survive to see the Town lose the game.",
-				color:"#430E62"
+				color:"#800040"
 			},
 			{
 				rolename:"necromorph",
@@ -548,7 +548,7 @@ var roles=[
 					'All evildoers will be notified a there is a Necromorph.',
 					'You own one auto-vest.'],
 				goal:"Aid selected evildoer win a game.",
-				color:"#6416B7",
+				color:"#BF4080",
 				custom:true
 			},
 
@@ -578,7 +578,7 @@ var roles=[
 					"Alerting Veterans survive the attack, but cannot kill the Slaughterer",
 					"You can gain a new \"identity\" at day (adds a charge every 3 days), nulliying the visits made to you."],
 				goal:"Kill anyone that would oppose you.",
-				color:'#1D1025',
+				color:'#5F0060',
 				custom:true
 			},
 			{      
@@ -591,20 +591,7 @@ var roles=[
 					'Killing a single player, you will clean them, but not be informed their information.',
 					'You cannot kill the night following a clean kill.'],
 				goal:"Kill everyone who would oppose you.",
-				color:"#523634",
-				custom:true
-			},
-			{      
-				rolename:"serial mayor",
-				alignment:"neutral killing",
-				abilities:['Reveal yourself as Mayor of the town.',
-					  'Kill someone each night.'],
-				attributes:['You cannot be killed at night.',
-					'Once you have revealed as Mayor, your vote will count as 3.',
-					'You may not be healed once you have revealed yourself, not that you needed it.',
-					'If you are roleblocked, you will blackmail your roleblocker and attack your orginal target.'],
-				goal:"Kill everyone who would oppose you.",
-				color:"#3A0DE5",
+				color:"#804040",
 				custom:true
 			},
 			{
