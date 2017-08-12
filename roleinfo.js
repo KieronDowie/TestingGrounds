@@ -350,16 +350,7 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
-			{      
-				rolename:"coroner",
-				alignment:"town investigative",
-				abilities:['Choose a dead person at night and know how many people of their alignment voted "Guilty" at the last lynch'],
-				attributes:['None'],
-				goal:towngoal,
-				color:towncolor,
-				custom:true
-			},
-	
+
 			// TOWN SUPPORT CUSTOM:
 			{
 				rolename:"rain dancer",
@@ -375,7 +366,26 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
-	
+			{
+				rolename:"milkman",
+				alignment:"town support",
+				abilities:['Deliver milk to a player each night, keeping them awake.'],
+				attributes:['Your target will instead perform their night ability on their attacker, or role blocker.'],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
+			{
+				rolename:"incarcerator",
+				alignment:"town support",
+				abilities:['Patrol out someone’s house each night.'],
+				attributes:['You will send all visiting players to prison.',
+					   'Detained targets will be role blocked the night following their imprisonment.',
+					   'Detainment will bypass role block immunities.'],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
 			// TOWN POWER CUSTOM:
 			{      
 				rolename:"psychic",
@@ -406,7 +416,18 @@ var roles=[
 			},
 	
 			// TOWN KILLING CUSTOM
-	
+			{      
+				rolename:"fisherman",
+				alignment:"Town Killing",
+				abilities:['Cast your line into someone’s house each night.'],
+				attributes:['If someone visits your target, they will be “hooked”.',
+					'You will know you hooked someone, and they will know they were hooked. ',
+					'You may decide to ‘release’, or ‘kill’ your hooked player the night following a successful hook.'
+				],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
 			// MAFIA CUSTOM
 			{      
 				rolename:"nightmarer",
@@ -440,6 +461,17 @@ var roles=[
 				alignment:"mafia support",
 				abilities:['Watch someone at night to see who visits them.'],
 				attributes:['You can talk to the Mafia at night.'],
+				goal:mafiagoal,
+				color:mafiacolor,
+				custom:true
+			},
+			{      
+				rolename:"clerk",
+				alignment:"mafia support",
+				abilities:['Redirect last wills to the mafia. '],
+				attributes:['Select yourself to activate your ability, you may do so twice.',
+					   'All last wills will only be announced to the Mafia.',
+					   'You can talk to Mafia at night.'],
 				goal:mafiagoal,
 				color:mafiacolor,
 				custom:true
@@ -483,52 +515,6 @@ var roles=[
 				color:"#739292",
 				custom:true
 			},
-			{
-				 rolename:"orphan",
-				 alignment:"neutral benign",
-				 abilities:['Become the role of the person who attacked you first.'],
-				 attributes:["You are immune the first time you are attacked",
-					 "You will become the role that attacked you.",
-					 "If saved, you become the role of your savior.",
-					 "When taken in, it will be announced that the Orphan was taken in."],
-				 goal:"Get taken in, and help your team win.",
-				 color:"turquoise"
-			},
-	 		{
-				 rolename:"surgeon",
-				 alignment:"neutral benign",
-				 abilities:['Heal someone at night, saving them if thew are attacked or lynched then next day.'],
-				 attributes:["Only you will be informed if they were attacked.",
-					 "You may not change win conditions two consecutive nights, nor heal the same person twice in a row unless successful.",
-					 "If you save a lynch, the da will lose 8 seconds instead, unless you save a Jester or Executioner's target."],
-				 goal:"Win with the last person you healed.",
-				 color:"#0080FF"
-			},
-			{
-				rolename:"mystic",
-				alignment:"neutral benign",
-				abilities:['Enchant a player at night.'],
-				attributes:['If you are not surviving the day after you enchanted someone, you will disguise as them an clean their body.',
-					'You have access to cleaned person will',
-					'You receive your targets night results.',
-					'A Janitor sees your will displayed.',							
-					'You can enchant three times.',
-					'You are immune to roleblocks.',
-					'You are immune to Witches.'],
-				goal:"Possess someone's body and fulfill their win condition.",
-				color:"#BFBF00",
-				custom:true
-			},
-			{
-				rolename:"tax collector",
-				alignment:"neutral benign",
-				abilities:['Force 1-2 people to pay their taxes to you each night.'],
-				attributes:['You will leave town once your goal is completed.',
-					'You cannot be killed at night.'],
-				goal:"Collect tax from every living player.",
-				color:"#4080FF",
-				custom:true
-			},
 	
 			// NEUTRAL EVIL CUSTOM 
 			{      
@@ -544,73 +530,29 @@ var roles=[
 				custom:true
 			},
 			{      
-				rolename:"mortician",
+				rolename:"warlock",
 				alignment:"neutral evil",
-				abilities:['Bury someone on trial.'],
-				attributes:['If a player is put on trial you may decide to bury them.',
-					'You start with 2 buries.',
-					'At night you may target a player. If he dies, you get an additional bury.',
-					'If you are lynched, you will bury yourself.',
-					'You will still lose a bury if you attempt to bury someone who get innoed.',
-					'You have one autovest protecting from non-town attack.'],
+				abilities:['Curse two targets each night, tying the secondary target to the same fate as the first.'],
+				attributes:['Anyone targeting the primary target will also target the secondary target.',
+					'While cursed, your secondary target will gain a Powerful defence against non-town attacks.',
+					'You own one auto-vest.'],
 				goal:"Survive to see the Town lose the game.",
-				color:"#CEA9AC",
-				custom:true
-			},
-			{      
-				rolename:"distributor",
-				alignment:"neutral evil",
-				abilities:['Distribute night actions.'],
-				attributes:['You may target two people.',
-					'Everything that happens to one target will also happen to the other.',
-					'You can choose yourself.',
-					'You can not choose the same target twice in a row',
-					'You are immune to witches'],
-				goal:"Survive to see the Town lose the game.",
-				color:"#BF80FF",
-				custom:true
+				color:"#430E62"
 			},
 			{
-				rolename:"necromancer",
+				rolename:"necromorph",
 				alignment:"neutral evil",
-				abilities:['You may resurrect a dead evildoer in the disguise of a Townmember once at night.'],
-				attributes:['You have a magical shield that protects against one attack from non town roles.',
-					'Your target will know who has revived them.',
-					'If you are killed, you will take your puppet with you.'],
-				goal:"Survive to see the town lose the game.",
-				color:"#BBC2A5",
+				abilities:['Select one dead evildoer, and allow them to preform their night abilities through your body.'],
+				attributes:['You may chat with the evildoer you are working with at night.',
+					'Your attack and defense will conform to the evildoer you are using.',
+					'All evildoers will be notified a there is a Necromorph.',
+					'You own one auto-vest.'],
+				goal:"Aid selected evildoer win a game.",
+				color:"#6416B7",
 				custom:true
 			},
-			{
-				rolename:"auditor",
-				alignment:"neutral evil",
-				abilities:['Choose one target to audit.'],
-				attributes:['You have 3 audits',
-					'You have a one-use scum auto-vest.',
-					'Conversion & Audit immune.',
-					'Audited targets are role blocked, and their ability charges are reduced to 0.',
-					'If an audit fails, you wont lose a charge.', 
-					'If you run out of audits, you may still role block',
-					'Mayor will lose his extra votes upon audit.' ],
-				goal:"Survive to see the town lose the game.",
-				color:"#BF0080",
-				custom:true
-			},
-			{
-				rolename:"politician",
-				alignment:"neutral evil",
-				abilities:['Bribe one player each night to commandeer their vote during the day.'],
-				attributes:['You choose how to use your targets vote',
-					'The person you bribed will be notified that you bribed them.',
-					'You can control them to vote guilty, innocent or abstain',
-					'You can not bribe a revealed Mayor.',
-					'You have a one-use scum auto-vest',
-					'You are able to read whispers.'],
-				goal:"Survive to see the Town lose the game.",
-				color:"#49A9D0",
-				custom:true
-			},
-	
+
+
 			// NEUTRAL KILLING CUSTOM	
 			{      
 				rolename:"shadowalker",
@@ -626,14 +568,43 @@ var roles=[
 				custom:true
 			},
 			{      
-				rolename:"cannibal",
+				rolename:"slaughterer",
 				alignment:"neutral killing",
-				abilities:['Eat one player every second night and use their ability the next night.'],
-				attributes:['On an odd number night chose a person to eat.',
-					'On even nights you will use your eaten targets ability and gain their results.',
-					'If you don\'t attack at night you will kill on even nights instead (and vice versa).'],
+				abilities:['Slaughter someone each night',
+					  'Wear a new mask in the day'],
+				attributes:["You roleblock instead of attack players that have visited you before.",
+					"You do not die to the Bodyguard.",
+					"You can kill Jailed targets",
+					"Alerting Veterans survive the attack, but cannot kill the Slaughterer",
+					"You can gain a new \"identity\" at day (adds a charge every 3 days), nulliying the visits made to you."],
+				goal:"Kill anyone that would oppose you.",
+				color:'#1D1025',
+				custom:true
+			},
+			{      
+				rolename:"butcher",
+				alignment:"neutral killing",
+				abilities:['Kill player(s) each night.',
+					  'Start with two kills, and gain two more every 3rd night.'],
+				attributes:['You cannot be killed at night.',
+					'Killing multiple players, you are role block immune.',
+					'Killing a single player, you will clean them, but not be informed their information.',
+					'You cannot kill the night following a clean kill.'],
 				goal:"Kill everyone who would oppose you.",
-				color:"#BF8000",
+				color:"#523634",
+				custom:true
+			},
+			{      
+				rolename:"serial mayor",
+				alignment:"neutral killing",
+				abilities:['Reveal yourself as Mayor of the town.',
+					  'Kill someone each night.'],
+				attributes:['You cannot be killed at night.',
+					'Once you have revealed as Mayor, your vote will count as 3.',
+					'You may not be healed once you have revealed yourself, not that you needed it.',
+					'If you are roleblocked, you will blackmail your roleblocker and attack your orginal target.'],
+				goal:"Kill everyone who would oppose you.",
+				color:"#3A0DE5",
 				custom:true
 			},
 			{
@@ -652,18 +623,6 @@ var roles=[
 			},
 	
 			// NEUTRAL CHAOS CUSTOM
-			{
-				rolename:"banshee",
-				alignment:"neutral chaos",
-				abilities:['Select 1/4 of the living population to be marked for death.'],
-				attributes:['If someone dies without getting marked, you must wait a night before marking again.',
-					'Once you mark everyone, the public will be notified of your existence and will have one day to kill you before you take the win for yourself.',
-					'Targets are not notified of being marked.',
-					'You are night immune.'],
-				goal:"Live to see everyone die from your fate.",
-				color:"#008080",
-				custom:true
-			},
 			{     
                			rolename:"paradoxist",
                			alignment:"Neutral Chaos",
@@ -689,7 +648,7 @@ var roles=[
 				alignment:"town casual",
 				abilities:['Your only ability is your vote.'],
 				attributes:['Upon your lynch, you will be able to kill any player in the game.',
-							'If another Hunter is lynched first, you will miss the hunt, put away your rifle, and become a Citizen.'],
+					    'If another Hunter is lynched first, you will miss the hunt, put away your rifle, and become a Citizen.'],
 				goal:towngoal,
 				color:towncolor,
 				custom:true
@@ -701,24 +660,6 @@ var roles=[
 				attributes:['You can talk with the Mafia at night.', 'Cannot receive the Caporegime modifier.'],
 				goal:mafiagoal,
 				color:mafiacolor,
-				custom:true
-			},
-			{
-				rolename:"game engine",
-				alignment:"neutral casual",
-				abilities:['Process the game.'],
-				attributes:['You cannot be voted.', 'You know every role.', 'Transporters are your bane.', 'The game is in your hand!'],
-				goal:"See a faction win the game.",
-				color:"#000000",
-				custom:true
-			},
-			{
-				rolename:"kitteh",
-				alignment:"neutral casual",
-				abilities:['Do what you want.'],
-				attributes:['Whatever you wish for'],
-				goal:"See the TG without bugs.",
-				color:"#F0FF0F",
 				custom:true
 			},
 			{
@@ -758,91 +699,8 @@ var roles=[
 				custom:true
 			},
 	
-			// REMOVED ROLES
-			/*{      
-				rolename:"spy",
-				alignment:"town investigative",
-				abilities:['See who the Mafia visit at night.'],
-				attributes:['You can hear private messages.',
-				'You will know who the Mafia visit at night.'],
-				goal:towngoal,
-				color:towncolor
-			},*/
-
-			/*{      
-				rolename:"underboss",
-				alignment:"mafia killing",
-				abilities:['Kill someone each night.'],
-				attributes:['You can\'t be killed at night.',
-				'If you are role-blocked, your Caporegime member will automatically kill for you.',
-				'If you are jailed, your Caporegime member can choose to kill instead of their normal night action.',
-				'You can talk with the other Mafia at night.'],
-				goal:mafiagoal,
-				color:mafiacolor
-			},*/
-			/*{    
-				rolename:"mafioso",
-				alignment:"mafia killing",
-				abilities:['Carry out the Godfather\'s order.'],
-				attributes:['You can kill if the Godfather doesn\'t give you orders.',
-				'If the Godfather dies you will become the next Godfather.',
-				'You can talk with the other Mafia at night.'],
-				goal:mafiagoal,
-				color:mafiacolor
-			},*/
-			/*ROLEIDEAAVENGER
-			{      
-				rolename:"avenger",
-				alignment:"neutral benign",
-				abilities:['You will clean the first non-chaotic Neutral death OR the latest Town or Mafia death when half of them die and become their role.'],
-				attributes:['Your new alignment will be announced to the town.',
-				'This ability also applies to lynches but you CANNOT become a lynched Jester.',
-				'Only you will see the cleaned target\'s role and last will.'],
-				goal:"Take vengeance for someone and complete their objective.",
-				color:"#408080",
-				custom:true
-			},*/
-			/*ROLEIDEABURGLAR*/
-			/*{      
-				rolename:"thief",
-				alignment:"neutral evil",
-				abilities:['Choose a person and steal their will at night.'],
-				attributes:['You may only steal 3 wills.',
-				'Can only steal wills from Town roles.',
-				'Evil targets will know someone tried to steal their will.',
-				'If you steal someone\'s will the night they die, their will will not show.'],
-				goal:"Manipulate the town into losing.",
-				color:"#292929",
-				custom:true
-			},*/
-			/*{      
-				rolename:"burglar",
-				alignment:"mafia support",
-				abilities:['Choose a person and steal their will at night.'],
-				attributes:['You may only steal 3 wills.',
-				'Can only steal wills from Town roles.',
-				'Evil targets will know someone tried to steal their will.',
-				'If you steal someone\'s will the night they die, their will will not show.'],
-				goal:mafiagoal,
-				color:mafiacolor,
-				custom:true
-			},*/		
-			/*
-			{
-				 rolename:"sniper",
-				 alignment:"mafia killing",
-				 abilities:['Shoot someone on a non-full moon nights.'],
-				 attributes:["Godfather or Mafioso can't attack when you shoot.",
-				 "If both Mafioso and Godfather are in game, you become a Random mafia role.",
-				 "You are immune to a Bodyguard, Veteran and Lookout.",
-				 "You can charge your gun and pierce night immunity one night.",
-				 "You make Dota happy."],
-				 goal:mafiagoal,
-				 color:mafiacolor,
-				custom:true
-			 }*/
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "banshee", "ghost", "rain dancer", "banshee", "necromancer", "auditor","cannibal","musician","psychic"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "ghost", "warlock", "rain dancer", "necromorph", "musician", "psychic"];
  
 function getAttributes(num)
 {
