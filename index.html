@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="/socket.io/socket.io.js"></script>
   <script src="/jquery-2.1.4.min.js"></script>
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
   <link href='style.css' rel='stylesheet' type='text/css'>
   <title>Choose your name!</title>
@@ -24,10 +23,9 @@
 			 <p>Join our <a href='https://discord.gg/EVS55Zb'>Discord Server</a></p>
             <p><a href='https://docs.google.com/document/d/1BsF_y-TeaF_EQ7xENW8zSfkG6-JjLI4-BfgoSdUgiuM/edit?usp=sharing'>Click here to see how TG works</a></p>
 			<div id='inputcontainer'>
-				<form name="login" method='POST' action="#" id="loginform">
-					<input id='username' placeholder='Username' type='text' name='username'>
-                    <input id='password' placeholder='Password' type='password' name='password'>
-					<input type='button' name="submit" value='Login!' id='send' onclick="loginindex();">
+				<form method='POST' action="/play">
+					<input id='entername' placeholder='Name' type='text' name='name' >
+					<input type='submit' value='Join the chat!' id='send'>
 					<h5 id='error'></h5>
 				</form>
 			</div>
@@ -40,6 +38,5 @@
 		<p>Support the Testing Grounds by putting this image in your signature!</p><img src='http://i61.tinypic.com/208aemu.png' />
 		<div class="tgsig"><p>BBCode:</p><input type='text' value="[url=http://www.blankmediagames.com/phpbb/viewforum.php?f=50][img]http://i61.tinypic.com/208aemu.png[/img][/url]" /></div>	
 	</footer>
-    <div id="hidden_form_container" style="display:none;"></div>
 </body>
 </html>
