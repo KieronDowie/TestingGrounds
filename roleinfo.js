@@ -166,16 +166,6 @@ var roles=[
 				custom:true
 			},
 			{      
-				rolename:"blackmailer",
-				alignment:"mafia support",
-				abilities:['Choose one person each night to blackmail.'],
-				attributes:['Blackmailed targets can not talk during the day.',
-					'If there are no kill capable Mafia roles left you will become a Mafioso.',
-					'You can talk with the other Mafia at night.'],
-				goal:mafiagoal,
-				color:mafiacolor
-			},
-			{      
 				rolename:"consigliere",
 				alignment:"mafia support",
 				abilities:['Check one person for their exact role each night.'],
