@@ -5,7 +5,7 @@ var dousedlist = [];
 var beingTargetted = {};
 var daynumber = 1;
 var rainnumber = 0;
-var attributes = {
+var attributes = { 
 	 BG:'Protect your target, killing their attacker and yourself.',
 	 HEAL:'Heal your target.',
 	 NOHEAL:'Cannot be healed after revealing.',
