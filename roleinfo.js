@@ -146,11 +146,10 @@ var roles=[
 				alignment:"mafia killing",
 				abilities:['Kill someone each night.'],
 				attributes:['You can\'t be killed at night.',
-					//'If there is a Mafioso he will attack the target instead of you.',
-					'You can choose to command your Caporegime member to kill for you instead.',
+					'You can choose to command other member to kill for you instead.',
 					'You will appear to be not suspicious to the Sheriff.',
-					//'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
-					'You can talk with the other Mafia at night.'],
+					'You will receive all night results of your fellow Mafiosi'
+					'You will receive silent messages which your fellow Mafiosi aren\'t given'],
 				goal:mafiagoal,
 				color:mafiacolor
 			},
@@ -347,9 +346,9 @@ var roles=[
 				alignment:"town support",
 				abilities:['Decide if you want to make it rain next night.'],
 				attributes:['It only rains during the night.',
-					'Everyone will be noticed, about a rain.',
+					'Only scum will be noticed, about a rain.',
 					'Everyone that goes outside during a rain will be drenched the next morning.',
-					'At the beginning of the day a list of drenched people will be show to everyone.',
+					'At the beginning of the day a list of drenched people will be show to you.',
 					'You can execute only 2 rain dances.',
 					'It cannot rain 2 days in a row.'],
 				goal:towngoal,
@@ -456,17 +455,6 @@ var roles=[
 				custom:true
 			},
 			{      
-				rolename:"clerk",
-				alignment:"mafia support",
-				abilities:['Redirect last wills to the mafia. '],
-				attributes:['Select yourself to activate your ability, you may do so twice.',
-					   'All last wills will only be announced to the Mafia.',
-					   'You can talk to Mafia at night.'],
-				goal:mafiagoal,
-				color:mafiacolor,
-				custom:true
-			},
-			{      
 				rolename:"musician",
 				alignment:"mafia support",
 				abilities:['Remove all night feedback from someone and their visitors.'],
@@ -528,18 +516,6 @@ var roles=[
 					'You own one auto-vest.'],
 				goal:"Survive to see the Town lose the game.",
 				color:"#800040"
-			},
-			{
-				rolename:"necromorph",
-				alignment:"neutral evil",
-				abilities:['Select one dead evildoer, and allow them to preform their night abilities through your body.'],
-				attributes:['You may chat with the evildoer you are working with at night.',
-					'Your attack and defense will conform to the evildoer you are using.',
-					'All evildoers will be notified a there is a Necromorph.',
-					'You own one auto-vest.'],
-				goal:"Aid selected evildoer win a game.",
-				color:"#BF4080",
-				custom:true
 			},
 
 
@@ -677,7 +653,7 @@ var roles=[
 			},
 	
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "ghost", "warlock", "rain dancer", "necromorph", "musician", "psychic"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "ghost", "warlock", "rain dancer", "musician", "psychic"];
  
 function getAttributes(num)
 {
