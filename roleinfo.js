@@ -287,7 +287,7 @@ var roles=[
 				rolename:"arsonist",
 				alignment:"neutral killing",
 				abilities:['Douse someone in gasoline or ignite all doused targets.'],
-				attributes:['You cannot be doused.',
+				attributes:['You will douse your roleblocker.',
 					'Death from fire can\'t be prevented by healing or night immunities.',
 					'A doused target will be framed as Arsonist until they die.',
 					'Select yourself to ignite doused people.',
@@ -417,6 +417,18 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
+			{      
+				rolename:"firebrand",
+				alignment:"Town Killing",
+				abilities:['Each night douse a player in gasoline.'
+					'Once per game ignite all doused targets.'],
+				attributes:['Your kills ignore night immunity and appear identical to the Arsonists.',
+					'The Arsonist cannot ignite your targets, nor can you ignite theirs',
+				],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
 			// MAFIA CUSTOM
 			{      
 				rolename:"nightmarer",
@@ -464,6 +476,18 @@ var roles=[
 				color:mafiacolor,
 				custom:true
 			},
+			{      
+				rolename:"malpractitioner",
+				alignment:"mafia support",
+				abilities:['Torture someone at night, blocking all abilities.'],
+				attributes:['You can block day and night abilities.',
+				'When blocked, actions wont be performed and become stored.',
+				'When you stop blocking, the most recent action is released with all the rest getting roleblocked.',
+				'You must switch target if you torture someone for 2 consecutive nights.'],
+				goal:mafiagoal,
+				color:mafiacolor,
+				custom:true
+			}
 	
 			// NEUTRAL BENIGN CUSTOM
 			{
@@ -516,6 +540,16 @@ var roles=[
 					'You own one auto-vest.'],
 				goal:"Survive to see the Town lose the game.",
 				color:"#800040"
+			},
+			{      
+				rolename:"gossiper",
+				alignment:"neutral evil",
+				abilities:['Select two targets. Your second target will find out role, visitors, and target of your first one.'],
+				attributes:['You cannot target yourself.',
+					'Your ability fails if you give information to a townperson, and you will NOT be notified of this.',
+					'You own one auto-vest.'],
+				goal:"Survive to see the Town lose the game.",
+				color:"#808000"
 			},
 
 
