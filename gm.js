@@ -433,16 +433,6 @@ var autoRoles =
 		consiggrouping:'Shadowalker',
 		alignment:'sw'
 	},
-	/*'necromancer': {
-		attributes:  {
-			DEADTARGET:attributes.DEADTARGET,
-			NOLIVINGTARGET:attributes.NOLIVINGTARGET
-		},
-		grouping: 'K',
-		intgrouping: 'K',
-		consiggrouping:'Necromancer',
-		alignment:'neutral'
-	},*/
 	'stalker': {
 		attributes:  {
 			SELF:attributes.SELF
@@ -466,16 +456,6 @@ var autoRoles =
 		consiggrouping:'Lost Spirit',
 		alignment:'neutral'
 	},
-	/*'distributor': {
-		attributes:  {
-			MULTI:attributes.MULTI,
-			FORCEDMULTI:attributes.MULTI
-			},
-		grouping: 'N',
-		intgrouping: 'I',
-		consiggrouping:'Distributor',
-		alignment:'neutral'
-	},*/
 	'scientist': {
 		attributes:  {},
 		grouping: 'E',
@@ -490,15 +470,6 @@ var autoRoles =
 		consiggrouping:'Tracker',
 		alignment:'town'
 	},
-	/*'tax collector': {
-		attributes:  {
-			MULTI:attributes.MULTI
-		},
-		grouping: 'B',
-		intgrouping: 'C',
-		consiggrouping:'Tax Collector',
-		alignment:'neutral'
-	},*/
 	'ghost': {
 		attributes:  {
 			RB:attributes.RB,
@@ -518,27 +489,6 @@ var autoRoles =
 		consiggrouping:'Paradoxist',
 		alignment:'neutral'
 	},
-	/*'mystic': {
-		attributes:  {},
-		grouping: 'H',
-		intgrouping: 'H',
-		consiggrouping:'Mystic',
-		alignment:'neutral'
-	},
-	'mortician': {
-		attributes:  {},
-		grouping: 'H',
-		intgrouping: 'J',
-		consiggrouping:'Mortician',
-		alignment:'neutral'
-	},
-	'politician': {
-		attributes:  {},
-		grouping: 'D',
-		intgrouping: 'J',
-		consiggrouping:'Politician',
-		alignment:'neutral'
-	},*/
 	'undertaker': {
 		attributes:  {},
 		grouping: 'J',
@@ -546,15 +496,6 @@ var autoRoles =
 		consiggrouping:'Undertaker',
 		alignment:'neutral'
 	},
-	/*'orphan': {
-		attributes:  {
-			NOVISIT:attributes.NOVISIT
-		},
-		grouping: 'G',
-		intgrouping: 'H',
-		consiggrouping:'Orphan',
-		alignment:'neutral'
-	},*/
 	'psychic': {
 		attributes:  {
 			MULTI:attributes.MULTI,
@@ -620,17 +561,6 @@ var autoRoles =
 		consiggrouping:'Fisherman',
 		alignment:'town'
 	},
-	'clerk': {
-	    attributes: {
-	      		SELF: attributes.SELF,
-		    	NINJA:attributes.NINJA,
-			NOVISIT:attributes.NOVISIT
-	    },
-		grouping: 'I',
-		intgrouping: 'D',
-		consiggrouping:'Clerk',
-		alignment:'mafia'
-	},
 	'butcher': {
 	    attributes: {
 			IMMUNE:attributes.IMMUNE
@@ -640,15 +570,6 @@ var autoRoles =
 		consiggrouping:'Butcher',
 		alignment:'butcher'
 	},
-	'necromorph': {
-	    attributes: {
-		    DEADTARGET:attributes.DEADTARGET,
-	    },
-		grouping: 'M',
-		intgrouping: 'J',
-		consiggrouping:'Necromorph',
-		alignment:'neutral'
-	},
 	'incarcerator': {
 	    attributes: {
 	    },
@@ -657,26 +578,6 @@ var autoRoles =
 		consiggrouping:'Incarcerator',
 		alignment:'town'
 	},
-		
-	
-
-	/*'cannibal': {
-		attributes:  {
-			SELF:attributes.SELF,
-			MULTI:attributes.MULTI
-		},
-		grouping: 'G',
-		intgrouping: 'F',
-		consiggrouping:'Cannibal',
-		alignment:'neutral'
-	},
-	'surgeon': {
-		attributes:  {},
-		grouping: 'E',
-		intgrouping: 'E',
-		consiggrouping:'Surgeon',
-		alignment:'neutral'
-	},*/
 };
 
 var investGrouping = {
@@ -743,27 +644,11 @@ var consigResults = {
 	'Interviewer':'Your target has lots of notes scrunched into his pocket. They must be an Interviewer.',
 	'Musician':'Your target plays music for the town. They must be a Musician.',
 	'Incarcerator':'Your target stows away a considerable amount of handcuffs. They must be an Incarcerator.',
-	'Necromorph':'Your target owns a spell book to enhance their mysticism. They must be a Necromorph.',
 	'Butcher':'Your target is equipped with a meat cleaver dripping blood. They must be a Butcher.',
-	'Clerk':'Your target possesses files of peoples handwritten documents. They must be a Clerk.',
 	'Fisherman':'Your target carries a pail of bait for fishing in the local pond. They must be a Fisherman.',
 	'Warlock':'Your target has the ability to conjure up devastating curses. They must be a Warlock.',
 	'Slaughterer':'Your target is too op and should be nerfed. They must be a Slaughterer.',
 	'Milkman':'Your target carries chilly glasses of milk for the civilians. They must be a Milkman.',
-	//'Auditor':'Your target has immense wealth. They must an Auditor.',
-	//'Mystic':'Your target has the power to take others\' bodies. They must be a Mystic.',
-	//'Spiritualist':'You target owns a crystal ball which allows her to read minds. They must be the Spiritualist.',
-	//'Mortician':'Your target is equipped with a shovel and has experience with gravedigging. They must be a Mortician.',
-	//'Surgeon':'Your target has blood-stained scrubs. They must be a Surgeon.'
-	//'Coroner':'Your target gets leads from the dead people. They must be a Coroner.',
-	//'Cannibal':'Your target loves to eat the flesh of others. They must be a Cannibal.',
-	//'Spy':'Your target has advanced listening and tracking devices. They must be a Spy.',
-	//'Necromancer':'Your target creates minions. They must be a Necromancer.',
-	//'Blackmailer':'Your target has a list of others\' secrets. They muse be a Blackmailer.',
-	//'Orphan':'Your target is living on the streets. They must be a Orphan.',
-	//'Politician':'Your target wants to become the mayor, they must be a Politician.',
-	//'Tax Collector':'Your target collects money from others. They must be a Tax Collector.',
-	//'Distributor':'Your target makes sure everyone is equal. They must be a Distributor.',
 };
 
 var sheriffResults = {
@@ -1319,26 +1204,10 @@ module.exports = {
 												var attrib = autorole.attributes;
 												if (attrib.MAFKILL || attrib.VIGKILL || attrib.DOUSE || attrib.MAUL || attrib.SKKILL)
 												{
-													var successfulheal = false;
-													for (r in visitorsofbg)
-													{
-													var rolebg = getRole(targets[visitorsofbg[r]]);
-													var roleofbgtarget = autoRoles[rolebg];
-													var attribbg = roleofbgtarget.attributes;
-													if (attribbg.HEAL)
-													{
-													addSuggestedMessage('You were attacked but someone nursed you back to health!',num); //Tell bg that they succeeded but got healed
-													addSuggestedMessage('Your target was attacked last night.',[visitorsofbg[r]]);
-													successfulheal = true;
-													break;
-													}
-													}
-													if (!successfulheal)
-													{
+													
 													addSuggestedMessage('You died protecting your target.',num); //Tell bg that they succeeded
 													addSuggestedAction('Kill', num);
 													addSuggestedMessage('They died guarding someone.','<All>');
-													}
 													addSuggestedMessage("Someone tried to attack you, but someone fought off your attacker." ,t[0]); //Tell target they were guarded.
 													addSuggestedMessage('You were killed by a bodyguard.',visitors[j]); //Tell attacker they were killed by a bg
 													//Suggested actions: Kill both the bg and attacker
