@@ -96,7 +96,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 			},
 		grouping: 'M',
-		intgrouping: 'D',
+		intgrouping: 'E',
 		consiggrouping:'Veteran',
 		alignment:'town'
 	},
@@ -357,7 +357,7 @@ var autoRoles =
 			NOVISIT:attributes.NOVISIT
 		},
 		grouping: 'M',
-		intgrouping: 'H',
+		intgrouping: 'G',
 		consiggrouping:'Rain Dancer',
 		alignment:'town'
 	},
@@ -403,7 +403,7 @@ var autoRoles =
 			SELF:attributes.SELF
 		},
 		grouping: 'D',
-		intgrouping: 'E',
+		intgrouping: 'F',
 		consiggrouping:'Stalker',
 		alignment:'neutral'
 	},
@@ -441,7 +441,7 @@ var autoRoles =
 			RBIMMUNE:attributes.RBIMMUNE
 		},
 		grouping: 'D',
-		intgrouping: 'G',
+		intgrouping: 'H',
 		consiggrouping:'Ghost',
 		alignment:'town'
 	},
@@ -457,7 +457,7 @@ var autoRoles =
 	'undertaker': {
 		attributes:  {},
 		grouping: 'G',
-		intgrouping: 'F',
+		intgrouping: 'E',
 		consiggrouping:'Undertaker',
 		alignment:'neutral'
 	},
@@ -550,7 +550,7 @@ var autoRoles =
 			SELF:attributes.SELF,
 	},
 		grouping: 'F',
-		intgrouping: 'E',
+		intgrouping: 'D',
 		consiggrouping:'Firebrand',
 		alignment:'town'
 	},
