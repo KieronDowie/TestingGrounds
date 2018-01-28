@@ -146,11 +146,10 @@ var roles=[
 				alignment:"mafia killing",
 				abilities:['Kill someone each night.'],
 				attributes:['You can\'t be killed at night.',
-					//'If there is a Mafioso he will attack the target instead of you.',
-					'You can choose to command your Caporegime member to kill for you instead.',
+					'You can choose to command other member to kill for you instead.',
 					'You will appear to be not suspicious to the Sheriff.',
-					//'If there is more than 12 people in-game, you cannot be seen by a Lookout or Spy',
-					'You can talk with the other Mafia at night.'],
+					'You will receive all night results of your fellow Mafiosi'
+					'You will receive silent messages which your fellow Mafiosi aren\'t given'],
 				goal:mafiagoal,
 				color:mafiacolor
 			},
@@ -288,7 +287,7 @@ var roles=[
 				rolename:"arsonist",
 				alignment:"neutral killing",
 				abilities:['Douse someone in gasoline or ignite all doused targets.'],
-				attributes:['You cannot be doused.',
+				attributes:['You will douse your roleblocker.',
 					'Death from fire can\'t be prevented by healing or night immunities.',
 					'A doused target will be framed as Arsonist until they die.',
 					'Select yourself to ignite doused people.',
@@ -347,9 +346,9 @@ var roles=[
 				alignment:"town support",
 				abilities:['Decide if you want to make it rain next night.'],
 				attributes:['It only rains during the night.',
-					'Everyone will be noticed, about a rain.',
+					'Only scum will be noticed, about a rain.',
 					'Everyone that goes outside during a rain will be drenched the next morning.',
-					'At the beginning of the day a list of drenched people will be show to everyone.',
+					'At the beginning of the day a list of drenched people will be show to you.',
 					'You can execute only 2 rain dances.',
 					'It cannot rain 2 days in a row.'],
 				goal:towngoal,
@@ -418,6 +417,18 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
+			{      
+				rolename:"firebrand",
+				alignment:"Town Killing",
+				abilities:['Each night douse a player in gasoline.'
+					'Once per game ignite all doused targets.'],
+				attributes:['Your kills ignore night immunity and appear identical to the Arsonists.',
+					'The Arsonist cannot ignite your targets, nor can you ignite theirs',
+				],
+				goal:towngoal,
+				color:towncolor,
+				custom:true
+			},
 			// MAFIA CUSTOM
 			{      
 				rolename:"nightmarer",
@@ -456,17 +467,6 @@ var roles=[
 				custom:true
 			},
 			{      
-				rolename:"clerk",
-				alignment:"mafia support",
-				abilities:['Redirect last wills to the mafia. '],
-				attributes:['Select yourself to activate your ability, you may do so twice.',
-					   'All last wills will only be announced to the Mafia.',
-					   'You can talk to Mafia at night.'],
-				goal:mafiagoal,
-				color:mafiacolor,
-				custom:true
-			},
-			{      
 				rolename:"musician",
 				alignment:"mafia support",
 				abilities:['Remove all night feedback from someone and their visitors.'],
@@ -476,6 +476,18 @@ var roles=[
 				color:mafiacolor,
 				custom:true
 			},
+			{      
+				rolename:"malpractitioner",
+				alignment:"mafia support",
+				abilities:['Torture someone at night, blocking all abilities.'],
+				attributes:['You can block day and night abilities.',
+				'When blocked, actions wont be performed and become stored.',
+				'When you stop blocking, the most recent action is released with all the rest getting roleblocked.',
+				'You must switch target if you torture someone for 2 consecutive nights.'],
+				goal:mafiagoal,
+				color:mafiacolor,
+				custom:true
+			}
 	
 			// NEUTRAL BENIGN CUSTOM
 			{
@@ -529,17 +541,15 @@ var roles=[
 				goal:"Survive to see the Town lose the game.",
 				color:"#800040"
 			},
-			{
-				rolename:"necromorph",
+			{      
+				rolename:"gossiper",
 				alignment:"neutral evil",
-				abilities:['Select one dead evildoer, and allow them to preform their night abilities through your body.'],
-				attributes:['You may chat with the evildoer you are working with at night.',
-					'Your attack and defense will conform to the evildoer you are using.',
-					'All evildoers will be notified a there is a Necromorph.',
+				abilities:['Select two targets. Your second target will find out role, visitors, and target of your first one.'],
+				attributes:['You cannot target yourself.',
+					'Your ability fails if you give information to a townperson, and you will NOT be notified of this.',
 					'You own one auto-vest.'],
-				goal:"Aid selected evildoer win a game.",
-				color:"#BF4080",
-				custom:true
+				goal:"Survive to see the Town lose the game.",
+				color:"#808000"
 			},
 
 
@@ -677,7 +687,7 @@ var roles=[
 			},
 	
 ];
-var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "ghost", "warlock", "rain dancer", "necromorph", "musician", "psychic"];
+var unique = ["jailor", "mayor", "retributionist", "veteran", "godfather", "mafioso", "werewolf", "ghost", "warlock", "rain dancer", "musician", "psychic"];
  
 function getAttributes(num)
 {
