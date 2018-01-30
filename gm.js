@@ -528,6 +528,7 @@ var autoRoles =
 	},
 	'butcher': {
 	    attributes: {
+		   	MULTI:attributes.MULTI,
 			IMMUNE:attributes.IMMUNE
 	    },
 		grouping: 'K',
