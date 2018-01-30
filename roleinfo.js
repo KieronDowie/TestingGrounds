@@ -420,7 +420,7 @@ var roles=[
 			{      
 				rolename:"firebrand",
 				alignment:"Town Killing",
-				abilities:['Each night douse a player in gasoline.'
+				abilities:['Each night douse a player in gasoline.',
 					'Once per game ignite all doused targets.'],
 				attributes:['Your kills ignore night immunity and appear identical to the Arsonists.',
 					'The Arsonist cannot ignite your targets, nor can you ignite theirs',
