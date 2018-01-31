@@ -548,7 +548,7 @@ var autoRoles =
 		attributes:  {
 			DOUSE:attributes.DOUSE,
 			IGNITE:attributes.IGNITE,
-			SELF:attributes.SELF,
+			SELF:attributes.SELF
 	},
 		grouping: 'F',
 		intgrouping: 'D',
