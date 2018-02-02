@@ -146,9 +146,9 @@ var roles=[
 				alignment:"mafia killing",
 				abilities:['Kill someone each night.'],
 				attributes:['You can\'t be killed at night.',
-					'You can choose to command other member to kill for you instead.',
+					'You can choose to command other member to kill for you.',
 					'You will appear to be not suspicious to the Sheriff.',
-					'You will receive all night results of your fellow Mafiosi'
+					'You will receive all night results of your fellow Mafiosi',
 					'You will receive silent messages which your fellow Mafiosi aren\'t given'],
 				goal:mafiagoal,
 				color:mafiacolor
@@ -423,7 +423,7 @@ var roles=[
 				abilities:['Each night douse a player in gasoline.',
 					'Once per game ignite all doused targets.'],
 				attributes:['Your kills ignore night immunity and appear identical to the Arsonists.',
-					'The Arsonist cannot ignite your targets, nor can you ignite theirs',
+					'The Arsonist cannot ignite your targets, nor can you ignite theirs'
 				],
 				goal:towngoal,
 				color:towncolor,
