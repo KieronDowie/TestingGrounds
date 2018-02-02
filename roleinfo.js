@@ -487,7 +487,7 @@ var roles=[
 				goal:mafiagoal,
 				color:mafiacolor,
 				custom:true
-			}
+			},
 	
 			// NEUTRAL BENIGN CUSTOM
 			{
