@@ -57,7 +57,8 @@ var attributes = {
 	 DEADTARGET:'Able to target players that are dead.',
 	 NOLIVINGTARGET:'Unable to target living players.',
 	 RAINDANCE: 'Let it rain next night',
-     	INTERVIEW: 'Interview two people each night and compare them'
+     	 INTERVIEW: 'Interview two people each night and compare them'
+	 KILLBUTCHERRESULT: 'Shows as a Butcher to the Sheriff while killing.'
 };
 var autoRoles = 
 	{
@@ -529,7 +530,9 @@ var autoRoles =
 	'butcher': {
 	    attributes: {
 		   	MULTI:attributes.MULTI,
-			IMMUNE:attributes.IMMUNE
+			IMMUNE:attributes.IMMUNE,
+			KILLBUTCHERRESULT:attributes.KILLBUTCHERRESULT
+		    	
 	    },
 		grouping: 'K',
 		intgrouping: 'J',
@@ -1384,6 +1387,15 @@ module.exports = {
 											    alignment = 'ww';
 										    }
 									        }    
+										role = getRole(targets[t[0]]);									        role = getRole(targets[t[0]]);
+									        if (autoRoles[role].attributes.KILLBUTCHERRESULT) { 
+									            if (attackSuccess = false) {
+											    alignment = 'town';
+										    }
+										    else {
+											    alignment = 'slaug';
+										    }
+									        }
 									        //If the person is framed or doused return a mafia/arsonist result
 									        var visitors = getPeopleTargetting(t[0]);
 									        for (i in players) {
