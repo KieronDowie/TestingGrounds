@@ -1393,7 +1393,7 @@ module.exports = {
 											    alignment = 'town';
 										    }
 										    else {
-											    alignment = 'slaug';
+											    alignment = 'butcher';
 										    }
 									        }
 									        //If the person is framed or doused return a mafia/arsonist result
@@ -1487,8 +1487,7 @@ module.exports = {
 									}
 									else if (roleAttributes.INTERVIEW) //Interviewers
 									{
-									    //Remove the 
-									    var rbSuccess = true;
+
 									    var t = targets[num][1].slice(); //Duplicate the array
 									    for (j in peopleTargetting) //Loop through and check for heals
 									    {
