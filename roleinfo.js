@@ -356,15 +356,6 @@ var roles=[
 				custom:true
 			},
 			{
-				rolename:"milkman",
-				alignment:"town support",
-				abilities:['Deliver milk to a player each night, keeping them awake.'],
-				attributes:['Your target will instead perform their night ability on their attacker, or role blocker.'],
-				goal:towngoal,
-				color:towncolor,
-				custom:true
-			},
-			{
 				rolename:"incarcerator",
 				alignment:"town support",
 				abilities:['Patrol out someone’s house each night.'],
@@ -375,19 +366,24 @@ var roles=[
 				color:towncolor,
 				custom:true
 			},
-			// TOWN POWER CUSTOM:
-			{      
-				rolename:"psychic",
-				alignment:"town power",
-				abilities:['Form a mental link between two players every day.'],
-				attributes:['They will be able to speak with each other that night.',
-					'You get one self link.',
-					'Roles with a night chat can hear and speak to both the person that they are linked to and whoever they speak to at night.'],
+			{
+				rolename:"oracle",
+				alignment:"town support",
+				abilities:['Scry about a player at night.',
+					   'When you’re dead, protect your scried target at night.],
+				attributes:['If you die, the role of the last target you scried will be announced to everyone.',
+					   'If you are killed by a Town member or lynched, your target’s role will not be announced.',
+					   'You may scry about a player 2 times and your scry will still be present until you change your target.',
+					   'Your protection will delay the death of your scried target by one night.',
+					   'You may protect your target once.'],
 				goal:towngoal,
 				color:towncolor,
 				custom:true
-			},
-	
+			},		   
+					   
+
+			// TOWN POWER CUSTOM:
+
 			// TOWN PROTECTIVE CUSTOM:
 			{    
 				rolename:"ghost",
@@ -405,18 +401,7 @@ var roles=[
 			},
 	
 			// TOWN KILLING CUSTOM
-			{      
-				rolename:"fisherman",
-				alignment:"Town Killing",
-				abilities:['Cast your line into someone’s house each night.'],
-				attributes:['If someone visits your target, they will be “hooked”.',
-					'You will know you hooked someone, and they will know they were hooked. ',
-					'You may decide to ‘release’, or ‘kill’ your hooked player the night following a successful hook.'
-				],
-				goal:towngoal,
-				color:towncolor,
-				custom:true
-			},
+
 			{      
 				rolename:"firebrand",
 				alignment:"Town Killing",
@@ -488,35 +473,17 @@ var roles=[
 				color:mafiacolor,
 				custom:true
 			},
-	
+			{
+				rolename:"hustler",
+				alignment:"mafia support",
+				abilities:['Each night visit a player, repeating all actions that happened to them last night again.'],
+				attributes:['If you repeat an investigative action, instead you will get the results.'],
+				goal:mafiagoal,
+				color:mafiacolor,
+				custom:true
+			},
 			// NEUTRAL BENIGN CUSTOM
-			{
-				rolename:"lost spirit",
-				alignment:"neutral benign",
-				abilities:['Look for death each night.'],
-				attributes:['Killing roles (except Arsonist) can lift your curse, but Town(Killing) roles have to use their ability.',
-					'Immune to ignition.', 
-					'Witches roleblock you.',
-					'Your last will is cleaned upon success.',
-					'You cannot be protected or healed.',
-					'You will grant your killer unpierceable nightimmunity until the following night.'],
-				goal:"Find a way to lift your curse!",
-				color:"#8080FF",
-				custom:true
-			},
-			{
-				rolename:"undertaker",
-				alignment:"neutral benign",
-				abilities:['Select someone each night to try to bury them.'],
-				attributes:['If the person you selected dies the same night or the next day via lynching, they will be "buried".',
-					//'Buried players have their wills removed',
-					'You will have access to a buried players will and role',
-					'You will join the deathchat, after your goal is fulfilled',
-					'You cannot be killed at night'],
-				goal:"Bury 1-3 people",
-				color:"#739292",
-				custom:true
-			},
+
 	
 			// NEUTRAL EVIL CUSTOM 
 			{      
@@ -531,16 +498,7 @@ var roles=[
 				color:"#000080",
 				custom:true
 			},
-			{      
-				rolename:"warlock",
-				alignment:"neutral evil",
-				abilities:['Curse two targets each night, tying the secondary target to the same fate as the first.'],
-				attributes:['Anyone targeting the primary target will also target the secondary target.',
-					'While cursed, your secondary target will gain a Powerful defence against non-town attacks.',
-					'You own one auto-vest.'],
-				goal:"Survive to see the Town lose the game.",
-				color:"#800040"
-			},
+
 			{      
 				rolename:"gossiper",
 				alignment:"neutral evil",
@@ -554,19 +512,6 @@ var roles=[
 
 
 			// NEUTRAL KILLING CUSTOM	
-			{      
-				rolename:"shadowalker",
-				alignment:"neutral killing",
-				abilities:['Choose to walk in someone\'s shadow each night'],
-				attributes:["When walking in someone's shadow, You will kill whoever they visited.",
-					"Lookouts will only see your target visiting someone and not you.",
-					"If your target stays home or is a non visiting role, they will be attacked directly.",
-					"Lookout will only see you if you do a direct attack on your target.",
-					"If you target a Bodyguard, they will not be able to guard your attacks."],
-				goal:"Kill anyone that would oppose you.",
-				color:'#BF40BF',
-				custom:true
-			},
 			{      
 				rolename:"slaughterer",
 				alignment:"neutral killing",
@@ -912,7 +857,7 @@ module.exports = {
                         str="<span style='color:"+roles[num].color+"'>"+capitalize(roles[num].rolename)+"</span>";
                 }
                 else
-                {
+                { //
                         str=str.replace(/[Tt]own/,"<span style='color:"+towncolor+"'>Town</span>");
                         str=str.replace(/[Ii]nvestigative/,"<span style='color:"+randcolor+"'>Investigative</span>");
                         str=str.replace(/[Ss]upport/,"<span style='color:"+randcolor+"'>Support</span>");
